@@ -1,0 +1,116 @@
+body {
+	
+	font-family: 'Open Sans', sans-serif;
+}
+
+
+div.display-mode-full {
+	
+	background-color: #fff;
+	z-index: 9999;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+}
+
+div.display-mode-full > div {
+	
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+div.display-mode-full > div:nth-child(2) {
+	
+	display: table;
+	table-layout: fixed;
+	width: 100%;
+}
+
+div.display-mode-full > div:nth-child(2) > div {
+	
+	display: table-row;
+}
+
+div.display-mode-full > div:nth-child(2) > div > div {
+	
+	display: table-cell;
+	position: relative;
+	width: 50%;
+}
+
+div.display-mode-full > div:nth-child(2) > div > div > textarea,
+div.display-mode-inline > div:nth-child(2) > div > div > textarea {
+	
+	font-family: Consolas, 'Courier New';
+}
+
+div.display-mode-full > div:nth-child(2) > div > div > textarea {
+
+	position: absolute;
+	top: 0;
+	width: 100%;
+	overflow: auto;
+	font-family: Consolas, 'Courier New';
+	resize: none;
+}
+
+div.display-mode-inline > div:nth-child(2) > div > div > textarea {
+	
+	padding-top: 0;
+	padding-bottom: 0;
+	height: 300px;
+	width: 100%;
+}
+
+	
+div.display-mode-full > div:nth-child(2) > div > div > div {
+
+	position: absolute;
+	top: 0;
+	padding: 10px;
+	width: 100%;
+	overflow-y: scroll;
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+}
+
+
+
+span.md-editor-controls {
+	
+	display: block;
+}
+
+div.display-mode-full .md-editor-controls {
+	
+	padding-top: 10px;
+}
+
+span.md-editor-controls a {
+	
+	display: inline-block;
+	color: #666;
+	margin-bottom: 10px;
+	margin-right: 5px;
+	background-color: #efefef;
+	padding: 5px 10px;
+	min-width: 36px;
+	text-align: center;
+}
+
+span.md-editor-controls a.serif {
+	
+	font-family: Georgia, serif;
+}
+
+span.md-editor-controls a.right {
+	
+	float: right;
+	margin-right: 0;
+	margin-left: 5px;
+}

@@ -1,0 +1,79 @@
+﻿.widget {
+    background: rgba(255, 255, 255, 0.1);
+    margin-bottom: 2rem;
+    font-size: .875rem;
+    color: rgba(255, 255, 255, 0.60);
+
+    a {
+        color: rgba(255, 255, 255, 0.60);
+        border-bottom: 1px dotted rgba(255, 255, 255, 0.60);
+
+        &:hover {
+            border-color: #fff;
+            color: #fff;
+        }
+    }
+
+    .widget-header {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+        padding-bottom: 1.5rem;
+        margin: 0;
+        color: #fff;
+        font-weight: $font-weight-normal;
+        text-transform: uppercase;
+        letter-spacing: .125rem;
+        font-size: 1rem;
+        line-height: 3.75rem;
+        padding: 0 1.5rem;
+    }
+
+    .widget-content {
+        padding: 1.5rem !important;
+        font-size: .875rem;
+        color: rgba(255, 255, 255, 0.60);
+
+        label {
+            font-weight: $font-weight-normal !important;
+        }
+
+        strong, b {
+            font-weight: $font-weight-normal;
+        }
+
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: $font-family-base;
+            font-size: .875rem;
+        }
+
+        .form-control {
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        > li {
+            margin-bottom: .5rem;
+
+            a {
+                border-bottom: none;
+            }
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        ul li {
+            border: none;
+        }
+    }
+
+    @media screen and (max-width: 64rem) {
+        margin-bottom: 1rem;
+    }
+}
