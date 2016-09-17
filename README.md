@@ -1,6 +1,9 @@
 
 ## OneBlog
-构建于Asp.net MVC框架的博客平台
+构建于Asp.net MVC框架的博客平台。
+ * 编辑器支持MarkdownDeep、TinyMce，默认使用MarkdownDeep，如果你不习惯可以更换自定义编辑器
+ * 支持多种常用数据库，默认使用Sqlite。
+ * 支持自定义主题
 
 ## Environment
   * Visual Studio 2015 +
