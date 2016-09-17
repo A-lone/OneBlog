@@ -9,11 +9,11 @@
     {
         Security.RedirectForUnauthorizedRequest();
     }
-    string loginUrl = Href(CoreUtils.RelativeWebRoot + "Account/login");
+    string loginUrl = Href(WebUtils.RelativeWebRoot + "Account/login");
     var userRights = string.Join("','", Security.CurrentUserRights().Select(r => r.Flag).ToArray());
     var id = Request["id"];
     var returnUrl = Request["return"];
-    if (string.IsNullOrEmpty(returnUrl)) { returnUrl = CoreUtils.RelativeWebRoot + "admin/#/content"; }
+    if (string.IsNullOrEmpty(returnUrl)) { returnUrl = WebUtils.RelativeWebRoot + "admin/#/content"; }
     var imgHandler = "res/image?picture=";
     if (string.IsNullOrEmpty(Blog.CurrentInstance.StorageContainerName))
     {

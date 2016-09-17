@@ -37,7 +37,7 @@
                                 @foreach (var cat in dic.Values)
                                 {
                                     <li>
-                                        <a title="Category: @cat.Title" href="@Url.Action("Category","Home",new { Category = CoreUtils.RemoveIllegalCharacters(cat.Title) })" >
+                                        <a title="Category: @cat.Title" href="@Url.Action("Category","Home",new { Category = WebUtils.RemoveIllegalCharacters(cat.Title) })" >
                                             @cat.Title
                                         </a>
                                     </li>

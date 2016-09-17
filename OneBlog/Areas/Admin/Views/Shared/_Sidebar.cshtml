@@ -1,7 +1,7 @@
 ﻿@using OneBlog.Core
 @{
     var name = Security.CurrentUser.Identity.Name;
-    var src = CoreUtils.ApplicationRelativeWebRoot + "Content/images/blog/noavatar.jpg";
+    var src = WebUtils.ApplicationRelativeWebRoot + "Content/images/blog/noavatar.jpg";
     var displayName = "Anonymous";
 
     var profile = AuthorProfile.GetProfile(name);
@@ -9,7 +9,7 @@
     {
         if (!string.IsNullOrEmpty(profile.PhotoUrl))
         {
-            src = CoreUtils.ApplicationRelativeWebRoot + "res/image?picture=/avatars/" + profile.PhotoUrl;
+            src = WebUtils.ApplicationRelativeWebRoot + "res/image?picture=/avatars/" + profile.PhotoUrl;
         }
         displayName = profile.DisplayName;
     }

@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\SQLite.Native.3.12.2\build\net45\SQLite.Native.props" Condition="Exists('..\packages\SQLite.Native.3.12.2\build\net45\SQLite.Native.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -104,10 +105,6 @@
       <HintPath>..\packages\System.Data.SQLite.Core.1.0.103\lib\net451\System.Data.SQLite.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Data.SQLite.EF6, Version=1.0.103.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Data.SQLite.EF6.1.0.103\lib\net451\System.Data.SQLite.EF6.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.Data.SQLite.Linq, Version=1.0.103.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Data.SQLite.Linq.1.0.103\lib\net451\System.Data.SQLite.Linq.dll</HintPath>
       <Private>True</Private>
@@ -186,20 +183,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Owin">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
-      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Owin">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
@@ -439,7 +427,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LogsController.cs" />
     <Compile Include="Controllers\LookupsController.cs" />
-    <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\NewsFeedController.cs" />
     <Compile Include="Controllers\PackageExtraController.cs" />
     <Compile Include="Controllers\PackagesController.cs" />
@@ -661,6 +648,295 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bower_components\app.css" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\.gitignore" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\foundation-icons.css" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\foundation-icons.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\index.html" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-address-book.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-alert.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-align-center.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-align-justify.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-align-left.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-align-right.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-anchor.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-annotate.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-archive.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-arrow-down.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-arrow-left.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-arrow-right.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-arrow-up.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-arrows-compress.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-arrows-expand.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-arrows-in.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-arrows-out.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-asl.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-asterisk.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-at-sign.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-background-color.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-battery-empty.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-battery-full.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-battery-half.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-bitcoin-circle.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-bitcoin.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-blind.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-bluetooth.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-bold.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-book-bookmark.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-book.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-bookmark.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-braille.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-burst-new.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-burst-sale.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-burst.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-calendar.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-camera.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-check.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-checkbox.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-clipboard-notes.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-clipboard-pencil.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-clipboard.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-clock.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-closed-caption.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-cloud.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-comment-minus.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-comment-quotes.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-comment-video.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-comment.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-comments.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-compass.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-contrast.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-credit-card.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-crop.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-crown.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-css3.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-database.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-die-five.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-die-four.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-die-one.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-die-six.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-die-three.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-die-two.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-dislike.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-dollar-bill.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-dollar.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-download.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-eject.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-elevator.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-euro.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-eye.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-fast-forward.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-female-symbol.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-female.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-filter.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-first-aid.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-flag.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-folder-add.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-folder-lock.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-folder.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-foot.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-foundation.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-graph-bar.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-graph-horizontal.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-graph-pie.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-graph-trend.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-guide-dog.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-hearing-aid.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-heart.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-home.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-html5.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-indent-less.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-indent-more.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-info.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-italic.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-key.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-laptop.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-layout.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-lightbulb.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-like.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-link.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-list-bullet.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-list-number.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-list-thumbnails.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-list.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-lock.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-loop.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-magnifying-glass.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-mail.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-male-female.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-male-symbol.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-male.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-map.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-marker.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-megaphone.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-microphone.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-minus-circle.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-minus.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-mobile-signal.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-mobile.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-monitor.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-mountains.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-music.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-next.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-no-dogs.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-no-smoking.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-page-add.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-page-copy.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-page-csv.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-page-delete.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-page-doc.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-page-edit.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-page-export-csv.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-page-export-doc.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-page-export-pdf.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-page-export.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-page-filled.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-page-multiple.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-page-pdf.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-page-remove.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-page-search.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-page.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-paint-bucket.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-paperclip.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-pause.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-paw.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-paypal.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-pencil.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-photo.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-play-circle.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-play-video.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-play.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-plus.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-pound.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-power.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-previous.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-price-tag.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-pricetag-multiple.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-print.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-prohibited.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-projection-screen.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-puzzle.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-quote.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-record.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-refresh.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-results-demographics.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-results.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-rewind-ten.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-rewind.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-rss.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-safety-cone.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-save.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-share.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-sheriff-badge.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-shield.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-shopping-bag.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-shopping-cart.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-shuffle.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-skull.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-500px.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-adobe.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-amazon.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-android.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-apple.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-behance.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-bing.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-blogger.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-delicious.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-designer-news.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-deviant-art.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-digg.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-dribbble.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-drive.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-dropbox.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-evernote.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-facebook.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-flickr.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-forrst.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-foursquare.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-game-center.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-github.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-google-plus.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-hacker-news.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-hi5.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-instagram.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-joomla.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-lastfm.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-linkedin.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-medium.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-myspace.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-orkut.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-path.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-picasa.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-pinterest.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-rdio.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-reddit.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-skillshare.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-skype.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-smashing-mag.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-snapchat.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-spotify.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-squidoo.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-stack-overflow.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-steam.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-stumbleupon.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-treehouse.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-tumblr.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-twitter.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-vimeo.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-windows.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-xbox.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-yahoo.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-yelp.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-youtube.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-zerply.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-social-zurb.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-sound.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-star.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-stop.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-strikethrough.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-subscript.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-superscript.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-tablet-landscape.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-tablet-portrait.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-target-two.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-target.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-telephone-accessible.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-telephone.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-text-color.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-thumbnails.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-ticket.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-torso-business.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-torso-female.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-torso.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-torsos-all-female.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-torsos-all.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-torsos-female-male.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-torsos-male-female.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-torsos.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-trash.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-trees.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-trophy.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-underline.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-universal-access.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-unlink.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-unlock.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-upload-cloud.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-upload.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-usb.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-video.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-volume-none.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-volume-strike.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-volume.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-web.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-wheelchair.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-widget.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-wrench.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-x-circle.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-x.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-yen.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-zoom-in.svg" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\svgs\fi-zoom-out.svg" />
+    <Content Include="Content\bower_components\github-markdown-css\github-markdown.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\images\blog\actions\action-delete-small-lt.png" />
@@ -1217,6 +1493,19 @@
     <Content Include="Content\Standard\scss\widgets\_textbox.scss" />
     <Content Include="Custom\Themes\Standard\Views\Shared\_Post.cshtml" />
     <Content Include="Custom\Themes\Standard\Views\Shared\_Menu.cshtml" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\.bower.json" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\.fontcustom-data" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\bower.json" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\foundation-icons.eot" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\foundation-icons.ttf" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\foundation-icons.woff" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\README.md" />
+    <Content Include="Content\bower_components\foundation-icon-fonts\_foundation-icons.scss" />
+    <Content Include="Content\bower_components\github-markdown-css\.bower.json" />
+    <Content Include="Content\bower_components\github-markdown-css\bower.json" />
+    <Content Include="Content\bower_components\github-markdown-css\license" />
+    <Content Include="Content\bower_components\github-markdown-css\readme.md" />
+    <None Include="Properties\PublishProfiles\Aliyun.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
@@ -2099,7 +2388,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Content\bower_components\" />
     <Folder Include="Content\themes\" />
     <Folder Include="Scripts\locale\" />
     <Folder Include="Scripts\tinybox2\" />
@@ -2414,6 +2702,7 @@
     <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
     <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.103\build\net451\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.103\build\net451\System.Data.SQLite.Core.targets'))" />
+    <Error Condition="!Exists('..\packages\SQLite.Native.3.12.2\build\net45\SQLite.Native.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SQLite.Native.3.12.2\build\net45\SQLite.Native.props'))" />
   </Target>
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.103\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.103\build\net451\System.Data.SQLite.Core.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

@@ -430,7 +430,7 @@
                 //        return cookie.Value;
                 //    }
 
-                //    if (CoreUtils.ShouldForceMainTheme(request))
+                //    if (WebUtils.ShouldForceMainTheme(request))
                 //    {
                 //        return this.configuredTheme;
                 //    }

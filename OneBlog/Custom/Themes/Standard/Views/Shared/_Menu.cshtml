@@ -12,7 +12,7 @@
             <div class="post_wrap">
                 <h2 class="post_title"><a href="@post.RelativeOrAbsoluteLink">@post.Title</a></h2>
                 <div class="post_content">
-                    @Html.RenderMarkdown(CoreUtils.Abstract(post))
+                    @Html.RenderMarkdown(WebUtils.Abstract(post))
                     <div class="clearfix"></div>
                 </div>
                 <div class="metadata">

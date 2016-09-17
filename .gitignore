@@ -56,3 +56,6 @@ Temporary Items
 /OneBlog.Data/obj/Debug
 /MarkdownKit/obj/Debug
 /MarkdownKit/bin/Debug
+/MarkdownKit/obj/Release
+/MarkdownKit/bin/Release
+/OneBlog/obj/Release
