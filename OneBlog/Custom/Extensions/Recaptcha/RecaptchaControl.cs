@@ -451,7 +451,7 @@ namespace App_Code.Controls
             {
                 var validator = new RecaptchaValidator
                     {
-                       PrivateKey = this.privateKey, RemoteIP = CoreUtils.GetClientIP() 
+                       PrivateKey = this.privateKey, RemoteIP = WebUtils.GetClientIP() 
                     };
                 if (String.IsNullOrEmpty(this.RecaptchaChallengeValue) &&
                     String.IsNullOrEmpty(this.RecaptchaResponseValue))

@@ -10,7 +10,7 @@ namespace OneBlog.NET.AppCode.Api
         {
             if (context.Exception is UnauthorizedAccessException) { return; }
 
-            CoreUtils.Log("{0} {1}: {2}", context.Request.Method, context.Request.RequestUri, context.Exception.Message);
+            WebUtils.Log("{0} {1}: {2}", context.Request.Method, context.Request.RequestUri, context.Exception.Message);
         }
     }
 }

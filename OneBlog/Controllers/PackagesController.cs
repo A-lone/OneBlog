@@ -81,7 +81,7 @@ public class PackagesController : ApiController
         }
         catch (System.Exception ex)
         {
-            OneBlog.Core.CoreUtils.Log("Error processing package", ex);
+            OneBlog.Core.WebUtils.Log("Error processing package", ex);
             throw new HttpResponseException(HttpStatusCode.InternalServerError);
         }
     }
@@ -100,7 +100,7 @@ public class PackagesController : ApiController
         }
         catch (Exception ex)
         {
-            OneBlog.Core.CoreUtils.Log("Error updating package", ex);
+            OneBlog.Core.WebUtils.Log("Error updating package", ex);
             throw new HttpResponseException(HttpStatusCode.InternalServerError);
         }
     }
@@ -147,7 +147,7 @@ public class PackagesController : ApiController
         }
         catch (Exception ex)
         {
-            OneBlog.Core.CoreUtils.Log("Error refreshing gallery cache", ex);
+            OneBlog.Core.WebUtils.Log("Error refreshing gallery cache", ex);
             throw new HttpResponseException(HttpStatusCode.InternalServerError);
         }
     }

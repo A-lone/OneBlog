@@ -81,7 +81,7 @@
             }
             catch (Exception e)
             {
-                CoreUtils.Log(string.Format("Error checking stopforumspam.com: {0}", e.Message));
+                WebUtils.Log(string.Format("Error checking stopforumspam.com: {0}", e.Message));
                 return false;
             }
         }

@@ -145,7 +145,7 @@ namespace OneBlog.Core.Providers
 
         private static string FileContainerRoot
         {
-            get { return string.Concat(Blog.CurrentInstance.StorageLocation, CoreUtils.FilesFolder).Trim(); }
+            get { return string.Concat(Blog.CurrentInstance.StorageLocation, WebUtils.FilesFolder).Trim(); }
         }
 
         /// <summary>
@@ -317,7 +317,7 @@ namespace OneBlog.Core.Providers
             }
             catch (Exception ex)
             {
-                CoreUtils.Log("File Provider FileToByArray", ex);
+                WebUtils.Log("File Provider FileToByArray", ex);
             }
 
             return Buffer;

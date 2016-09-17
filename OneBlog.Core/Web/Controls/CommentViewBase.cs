@@ -100,44 +100,44 @@
                     {
                         var confirmDelete = string.Format(
                             CultureInfo.InvariantCulture, 
-                            CoreUtils.Translate("areYouSure"), 
-                            CoreUtils.Translate("delete").ToLowerInvariant(), 
-                            CoreUtils.Translate("theComment"));
+                            WebUtils.Translate("areYouSure"), 
+                            WebUtils.Translate("delete").ToLowerInvariant(), 
+                            WebUtils.Translate("theComment"));
                         sb.AppendFormat(
                             " | <a href=\"javascript:void(0);\" onclick=\"if (confirm('{1}?')) location.href='?deletecomment={0}'\">{2}</a>", 
                             this.Comment.Id, 
                             confirmDelete, 
-                            CoreUtils.Translate("deleteKeepReplies"));
+                            WebUtils.Translate("deleteKeepReplies"));
 
                         var confirmRepliesDelete = string.Format(
                             CultureInfo.InvariantCulture, 
-                            CoreUtils.Translate("areYouSure"), 
-                            CoreUtils.Translate("delete").ToLowerInvariant(), 
-                            CoreUtils.Translate("theComment"));
+                            WebUtils.Translate("areYouSure"), 
+                            WebUtils.Translate("delete").ToLowerInvariant(), 
+                            WebUtils.Translate("theComment"));
                         sb.AppendFormat(
                             " | <a href=\"javascript:void(0);\" onclick=\"if (confirm('{1}?')) location.href='?deletecommentandchildren={0}'\">{2}</a>", 
                             this.Comment.Id, 
                             confirmRepliesDelete, 
-                            CoreUtils.Translate("deletePlusReplies"));
+                            WebUtils.Translate("deletePlusReplies"));
                     }
                     else
                     {
                         var confirmDelete = string.Format(
                             CultureInfo.InvariantCulture, 
-                            CoreUtils.Translate("areYouSure"), 
-                            CoreUtils.Translate("delete").ToLowerInvariant(), 
-                            CoreUtils.Translate("theComment"));
+                            WebUtils.Translate("areYouSure"), 
+                            WebUtils.Translate("delete").ToLowerInvariant(), 
+                            WebUtils.Translate("theComment"));
                         sb.AppendFormat(
                             " | <a href=\"javascript:void(0);\" onclick=\"if (confirm('{1}?')) location.href='?deletecomment={0}'\">{2}</a>", 
                             this.Comment.Id, 
                             confirmDelete, 
-                            CoreUtils.Translate("delete"));
+                            WebUtils.Translate("delete"));
                     }
 
                     if (!this.Comment.IsApproved)
                     {
                         sb.AppendFormat(
-                            " | <a href=\"?approvecomment={0}\">{1}</a>", this.Comment.Id, CoreUtils.Translate("approve"));
+                            " | <a href=\"?approvecomment={0}\">{1}</a>", this.Comment.Id, WebUtils.Translate("approve"));
                     }
 
                     return sb.ToString();
@@ -162,7 +162,7 @@
                 {
                     // return "<img src=\"" + Utils.RelativeWebRoot + "Content/images/blog/flags/" + Comment.Country + ".png\" class=\"country-name flag\" title=\"" + Comment.Country + "\" alt=\"" + Comment.Country + "\" />";
                     return string.Format(
-                        FlagImage, CoreUtils.RelativeWebRoot, this.Comment.Country, FindCountry(this.Comment.Country));
+                        FlagImage, WebUtils.RelativeWebRoot, this.Comment.Country, FindCountry(this.Comment.Country));
                 }
 
                 return null;
@@ -183,7 +183,7 @@
                            ? string.Format(
                                "<a href=\"javascript:void(0);\" class=\"reply-to-comment\" onclick=\"OneBlog.replyToComment('{0}');\">{1}</a>", 
                                this.Comment.Id, 
-                               CoreUtils.Translate("replyToThis"))
+                               WebUtils.Translate("replyToThis"))
                            : string.Empty;
             }
         }

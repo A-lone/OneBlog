@@ -2,7 +2,6 @@
 using OneBlog.Core.Data.Contracts;
 using OneBlog.Core.Data.Models;
 using OneBlog.Core.Data.ViewModels;
-using OneBlog.Utils;
 using System.Net;
 using System.Net.Http;
 using System.Net.Mail;
@@ -16,7 +15,7 @@ public class SettingsController : ApiController
 
     public SettingsController(ISettingsRepository repository)
     {
-        if (!WebUtils.CheckRightsForAdminSettingsPage(true))
+        if (!SecurityUtils.CheckRightsForAdminSettingsPage(true))
             throw new HttpResponseException(HttpStatusCode.Unauthorized);
 
         this.repository = repository;
@@ -71,13 +70,13 @@ public class SettingsController : ApiController
         {
             body.Append(
                 "<br /><br />_______________________________________________________________________________<br /><br />");
-            body.AppendFormat("<strong>IP address:</strong> {0}<br />", CoreUtils.GetClientIP());
+            body.AppendFormat("<strong>IP address:</strong> {0}<br />", WebUtils.GetClientIP());
             body.AppendFormat("<strong>User-agent:</strong> {0}", HttpContext.Current.Request.UserAgent);
         }
 
         body.Append("</div>");
         mail.Body = body.ToString();
 
-        return CoreUtils.SendMailMessage(mail, smtpServer, smtpServerPort, smtpUserName, smtpPassword, enableSsl.ToString());
+        return WebUtils.SendMailMessage(mail, smtpServer, smtpServerPort, smtpUserName, smtpPassword, enableSsl.ToString());
     }
 }

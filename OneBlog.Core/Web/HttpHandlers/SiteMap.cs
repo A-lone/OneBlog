@@ -80,7 +80,7 @@
 
                 // Contact
                 writer.WriteStartElement("url");
-                writer.WriteElementString("loc", string.Format("{0}contact.aspx", CoreUtils.AbsoluteWebRoot));
+                writer.WriteElementString("loc", string.Format("{0}contact.aspx", WebUtils.AbsoluteWebRoot));
                 writer.WriteElementString("lastmod", DateTime.Now.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
                 writer.WriteElementString("changefreq", "monthly");
                 writer.WriteEndElement();
@@ -89,7 +89,7 @@
                 if (Page.GetFrontPage() != null)
                 {
                     writer.WriteStartElement("url");
-                    writer.WriteElementString("loc", string.Format("{0}blog.aspx", CoreUtils.AbsoluteWebRoot));
+                    writer.WriteElementString("loc", string.Format("{0}blog.aspx", WebUtils.AbsoluteWebRoot));
                     writer.WriteElementString(
                         "lastmod", DateTime.Now.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
                     writer.WriteElementString("changefreq", "daily");

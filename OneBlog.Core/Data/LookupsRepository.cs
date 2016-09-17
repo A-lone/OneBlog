@@ -72,7 +72,7 @@ namespace OneBlog.Core.Data
             }
             else
             {
-                var path = HostingEnvironment.MapPath(string.Format("{0}App_GlobalResources/", CoreUtils.ApplicationRelativeWebRoot));
+                var path = HostingEnvironment.MapPath(string.Format("{0}App_GlobalResources/", WebUtils.ApplicationRelativeWebRoot));
                 foreach (var file in Directory.GetFiles(path, "labels.*.resx"))
                 {
                     var index = file.LastIndexOf(Path.DirectorySeparatorChar) + 1;

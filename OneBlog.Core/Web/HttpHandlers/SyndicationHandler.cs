@@ -376,7 +376,7 @@
                     break;
             }
 
-            if (CoreUtils.SetConditionalGetHeaders(lastModified))
+            if (WebUtils.SetConditionalGetHeaders(lastModified))
             {
                 context.Response.End();
             }

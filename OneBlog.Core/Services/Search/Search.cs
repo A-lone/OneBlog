@@ -493,7 +493,7 @@
         {
             if (removeHtml)
             {
-                content = CoreUtils.StripHtml(content);
+                content = WebUtils.StripHtml(content);
             }
 
             content =

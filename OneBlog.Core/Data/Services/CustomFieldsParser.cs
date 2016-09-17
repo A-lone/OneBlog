@@ -159,7 +159,7 @@ namespace OneBlog.Core.Data.Services
         static List<CustomField> FromThemeTemplates()
         {
             var dirPath = HttpContext.Current.Server.MapPath(
-                string.Format("{0}Custom/Themes", CoreUtils.ApplicationRelativeWebRoot));
+                string.Format("{0}Custom/Themes", WebUtils.ApplicationRelativeWebRoot));
 
             var items = new List<CustomField>();
 

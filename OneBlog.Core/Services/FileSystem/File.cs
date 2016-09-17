@@ -218,7 +218,7 @@ namespace OneBlog.Core.FileSystem
         {
             get
             {
-                return string.Format("{0}file.axd?file={1}", CoreUtils.RelativeWebRoot, this.SafeFilePath);
+                return string.Format("{0}file.axd?file={1}", WebUtils.RelativeWebRoot, this.SafeFilePath);
             }
         }
 

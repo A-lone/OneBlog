@@ -58,7 +58,7 @@ namespace OneBlog.Core.Web
                 p =>
                 (!haveDate || (p.DateCreated.Year == year && p.DateCreated.Month == month)) &&
                 ((!haveDate || (day == 0 || p.DateCreated.Day == day)) &&
-                 slug.Equals(CoreUtils.RemoveIllegalCharacters(p.Slug), StringComparison.OrdinalIgnoreCase)));
+                 slug.Equals(WebUtils.RemoveIllegalCharacters(p.Slug), StringComparison.OrdinalIgnoreCase)));
 
             if (post == null)
             {
@@ -67,9 +67,9 @@ namespace OneBlog.Core.Web
 
             var q = GetQueryString(context);
             if (q.Contains("id=" + post.Id, StringComparison.OrdinalIgnoreCase))
-                q = string.Format("{0}post.aspx?{1}", CoreUtils.ApplicationRelativeWebRoot, q);
+                q = string.Format("{0}post.aspx?{1}", WebUtils.ApplicationRelativeWebRoot, q);
             else
-                q = string.Format("{0}post.aspx?id={1}{2}", CoreUtils.ApplicationRelativeWebRoot, post.Id, q);
+                q = string.Format("{0}post.aspx?id={1}{2}", WebUtils.ApplicationRelativeWebRoot, post.Id, q);
 
             context.RewritePath(
                 url.Contains("/FEED/")
@@ -88,11 +88,11 @@ namespace OneBlog.Core.Web
             var slug = ExtractTitle(context, url);
             var page =
                 Page.Pages.Find(
-                    p => slug.Equals(CoreUtils.RemoveIllegalCharacters(p.Slug), StringComparison.OrdinalIgnoreCase));
+                    p => slug.Equals(WebUtils.RemoveIllegalCharacters(p.Slug), StringComparison.OrdinalIgnoreCase));
 
             if (page != null)
             {
-                context.RewritePath(string.Format("{0}page.aspx?id={1}{2}", CoreUtils.ApplicationRelativeWebRoot, page.Id, GetQueryString(context)), false);
+                context.RewritePath(string.Format("{0}page.aspx?id={1}{2}", WebUtils.ApplicationRelativeWebRoot, page.Id, GetQueryString(context)), false);
             }
         }
 
@@ -139,7 +139,7 @@ namespace OneBlog.Core.Web
             {
                 query = "?" + query.Substring(1);
             }
-            context.RewritePath(string.Format("{0}{1}{2}", CoreUtils.ApplicationRelativeWebRoot, relativePath, query), false);
+            context.RewritePath(string.Format("{0}{1}{2}", WebUtils.ApplicationRelativeWebRoot, relativePath, query), false);
         }
 
         /// <summary>
@@ -151,7 +151,7 @@ namespace OneBlog.Core.Web
         {
             var title = ExtractTitle(context, url);
             foreach (var cat in from cat in Category.ApplicableCategories
-                                let legalTitle = CoreUtils.RemoveIllegalCharacters(cat.Title).ToLowerInvariant()
+                                let legalTitle = WebUtils.RemoveIllegalCharacters(cat.Title).ToLowerInvariant()
                                 where title.Equals(legalTitle, StringComparison.OrdinalIgnoreCase)
                                 select cat)
             {
@@ -162,7 +162,7 @@ namespace OneBlog.Core.Web
                 else
                 {
                     context.RewritePath(
-                        string.Format("{0}default.aspx?id={1}{2}", CoreUtils.ApplicationRelativeWebRoot, cat.Id, GetQueryString(context)), false);
+                        string.Format("{0}default.aspx?id={1}{2}", WebUtils.ApplicationRelativeWebRoot, cat.Id, GetQueryString(context)), false);
                     break;
                 }
             }
@@ -183,7 +183,7 @@ namespace OneBlog.Core.Web
             }
             else
             {
-                tag = string.Format("{0}default.aspx?tag=/{1}{2}", CoreUtils.ApplicationRelativeWebRoot, tag, GetQueryString(context));
+                tag = string.Format("{0}default.aspx?tag=/{1}{2}", WebUtils.ApplicationRelativeWebRoot, tag, GetQueryString(context));
             }
             context.RewritePath(tag, false);
         }
@@ -202,7 +202,7 @@ namespace OneBlog.Core.Web
             // invalid: "/calendar/fake-value/default.aspx"
 
             url = url.ToLower();
-            var validUrl = CoreUtils.RelativeWebRoot.ToLower() + "calendar";
+            var validUrl = WebUtils.RelativeWebRoot.ToLower() + "calendar";
             
             if (!url.StartsWith(validUrl))
                 throw new HttpException(404, "File not found");
@@ -210,7 +210,7 @@ namespace OneBlog.Core.Web
             if(url.Contains("default.aspx") && !url.Contains("calendar/default.aspx"))
                 throw new HttpException(404, "File not found");
 
-            context.RewritePath(string.Format("{0}default.aspx?calendar=show", CoreUtils.ApplicationRelativeWebRoot), false);
+            context.RewritePath(string.Format("{0}default.aspx?calendar=show", WebUtils.ApplicationRelativeWebRoot), false);
         }
 
         /// <summary>
@@ -223,7 +223,7 @@ namespace OneBlog.Core.Web
             var author = UrlRules.ExtractTitle(context, url);
 
             var path = string.Format("{0}default.aspx?name={1}{2}",
-                CoreUtils.ApplicationRelativeWebRoot,
+                WebUtils.ApplicationRelativeWebRoot,
                 author,
                 GetQueryString(context));
 
@@ -238,7 +238,7 @@ namespace OneBlog.Core.Web
         public static void RewriteBlog(HttpContext context, string url)
         {
             var path = string.Format("{0}default.aspx?blog=true{1}",
-                CoreUtils.ApplicationRelativeWebRoot,
+                WebUtils.ApplicationRelativeWebRoot,
                 GetQueryString(context));
 
             context.RewritePath(path, false);
@@ -254,7 +254,7 @@ namespace OneBlog.Core.Web
             var wr = url.Substring(0, url.IndexOf("/FILES/") + 6);
             url = url.Replace(wr, "");
             url = url.Substring(0, url.LastIndexOf(System.IO.Path.GetExtension(url)));
-            var npath = string.Format("{0}file.axd?file={1}", CoreUtils.ApplicationRelativeWebRoot, url);
+            var npath = string.Format("{0}file.axd?file={1}", WebUtils.ApplicationRelativeWebRoot, url);
             context.RewritePath(npath);
         }
 
@@ -268,7 +268,7 @@ namespace OneBlog.Core.Web
             var wr = url.Substring(0, url.IndexOf("/IMAGES/") + 7);
             url = url.Replace(wr, "");
             url = url.Substring(0, url.LastIndexOf(System.IO.Path.GetExtension(url)));
-            var npath = string.Format("{0}res/image?picture={1}", CoreUtils.ApplicationRelativeWebRoot, url);
+            var npath = string.Format("{0}res/image?picture={1}", WebUtils.ApplicationRelativeWebRoot, url);
             context.RewritePath(npath);
         }
 
@@ -295,7 +295,7 @@ namespace OneBlog.Core.Web
                 var month = match.Groups[2].Value;
                 var day = match.Groups[3].Value;
                 var date = string.Format("{0}-{1}-{2}", year, month, day);
-                url = string.Format("{0}default.aspx?date={1}{2}", CoreUtils.ApplicationRelativeWebRoot, date, page);
+                url = string.Format("{0}default.aspx?date={1}{2}", WebUtils.ApplicationRelativeWebRoot, date, page);
             }
             else if (YearMonthRegex.IsMatch(url))
             {
@@ -303,20 +303,20 @@ namespace OneBlog.Core.Web
                 var year = match.Groups[1].Value;
                 var month = match.Groups[2].Value;
                 var path = string.Format("default.aspx?year={0}&month={1}", year, month);
-                url = CoreUtils.ApplicationRelativeWebRoot + path + page;
+                url = WebUtils.ApplicationRelativeWebRoot + path + page;
             }
             else if (YearRegex.IsMatch(url))
             {
                 var match = YearRegex.Match(url);
                 var year = match.Groups[1].Value;
                 var path = string.Format("default.aspx?year={0}", year);
-                url = CoreUtils.ApplicationRelativeWebRoot + path + page;
+                url = WebUtils.ApplicationRelativeWebRoot + path + page;
             }
             else
             {
                 string newUrl = url.Replace("Default.aspx", "default.aspx");  // fixes a casing oddity on Mono
                 int defaultStart = url.IndexOf("default.aspx", StringComparison.OrdinalIgnoreCase);
-                url = CoreUtils.ApplicationRelativeWebRoot + url.Substring(defaultStart);
+                url = WebUtils.ApplicationRelativeWebRoot + url.Substring(defaultStart);
             }
 
             //if (string.IsNullOrEmpty(BlogConfig.FileExtension) && url.Contains("page="))
@@ -337,7 +337,7 @@ namespace OneBlog.Core.Web
         public static bool DefaultPageRequested(HttpContext context)
         {
             var url = context.Request.Url.ToString();
-            var match = string.Format("{0}DEFAULT{1}", CoreUtils.AbsoluteWebRoot, BlogConfig.FileExtension);
+            var match = string.Format("{0}DEFAULT{1}", WebUtils.AbsoluteWebRoot, BlogConfig.FileExtension);
 
             var u = GetUrlWithQueryString(context);
             var m = YearMonthDayRegex.Match(u);
@@ -353,7 +353,7 @@ namespace OneBlog.Core.Web
 
             if (m.Success)
             {
-                var s = string.Format("{0}{1}DEFAULT{2}", CoreUtils.AbsoluteWebRoot, m.ToString().Substring(1), BlogConfig.FileExtension);
+                var s = string.Format("{0}{1}DEFAULT{2}", WebUtils.AbsoluteWebRoot, m.ToString().Substring(1), BlogConfig.FileExtension);
 
                 //Utils.Log("Url: " + url + "; s: " + s);
 

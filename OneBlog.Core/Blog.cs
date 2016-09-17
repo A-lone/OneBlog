@@ -245,7 +245,7 @@ namespace OneBlog.Core
         {
             get
             {
-                return this.RelativeWebRoot.Length > CoreUtils.ApplicationRelativeWebRoot.Length;
+                return this.RelativeWebRoot.Length > WebUtils.ApplicationRelativeWebRoot.Length;
             }
         }
 
@@ -640,7 +640,7 @@ namespace OneBlog.Core
         {
             get
             {
-                return BlogService.GetDirectory(string.Concat(this.StorageLocation, CoreUtils.FilesFolder));
+                return BlogService.GetDirectory(string.Concat(this.StorageLocation, WebUtils.FilesFolder));
             }
         }
 
@@ -767,7 +767,7 @@ namespace OneBlog.Core
             }
             catch (Exception ex)
             {   
-                CoreUtils.Log("Blog.CreateNewBlog", ex);
+                WebUtils.Log("Blog.CreateNewBlog", ex);
                 message = "Failed to create new blog. Error: " + ex.Message;
                 return null;
             }
@@ -808,9 +808,9 @@ namespace OneBlog.Core
 
             if (!string.IsNullOrWhiteSpace(hostname))
             {
-                if (!CoreUtils.IsHostnameValid(hostname) &&
-                    !CoreUtils.IsIpV4AddressValid(hostname) &&
-                    !CoreUtils.IsIpV6AddressValid(hostname))
+                if (!WebUtils.IsHostnameValid(hostname) &&
+                    !WebUtils.IsIpV4AddressValid(hostname) &&
+                    !WebUtils.IsIpV6AddressValid(hostname))
                 {
                     message = "Invalid Hostname.  Hostname must be an IP address or domain name.";
                     return false;
@@ -931,7 +931,7 @@ namespace OneBlog.Core
             }
             catch (Exception ex)
             {
-                CoreUtils.Log("Blog.DeleteBlogFolder", ex);
+                WebUtils.Log("Blog.DeleteBlogFolder", ex);
                 return false;
             }
 
@@ -960,13 +960,13 @@ namespace OneBlog.Core
             }
             catch (Exception ex)
             {
-                CoreUtils.Log("Blog.CreateNewBlogFromExisting", ex);
+                WebUtils.Log("Blog.CreateNewBlogFromExisting", ex);
                 throw;  // re-throw error so error message bubbles up.
             }
 
             // Ensure "BlogInstancesFolderName" exists.
             string blogInstancesFolder = HostingEnvironment.MapPath(string.Format("{0}{1}", BlogConfig.StorageLocation, BlogConfig.BlogInstancesFolderName));
-            if (!CoreUtils.CreateDirectoryIfNotExists(blogInstancesFolder))
+            if (!WebUtils.CreateDirectoryIfNotExists(blogInstancesFolder))
                 return false;
 
             // If newBlogStoragePath already exists, throw an exception as this may be a mistake
@@ -981,10 +981,10 @@ namespace OneBlog.Core
             }
             catch (Exception ex)
             {
-                CoreUtils.Log("Blog.CopyExistingBlogFolderToNewBlogFolder", ex);
+                WebUtils.Log("Blog.CopyExistingBlogFolderToNewBlogFolder", ex);
                 throw;  // re-throw error so error message bubbles up.
             }
-            if (!CoreUtils.CreateDirectoryIfNotExists(newBlogStoragePath))
+            if (!WebUtils.CreateDirectoryIfNotExists(newBlogStoragePath))
                 return false;
 
             // Copy the entire directory contents.
@@ -999,11 +999,11 @@ namespace OneBlog.Core
                 // If the 'source' is a blog instance under ~/App_Data/blogs (e.g. ~/App_Data/blogs/template),
                 // then this is not a concern.
 
-                CoreUtils.CopyDirectoryContents(source, target, new List<string>() { BlogConfig.BlogInstancesFolderName });
+                WebUtils.CopyDirectoryContents(source, target, new List<string>() { BlogConfig.BlogInstancesFolderName });
             }
             catch (Exception ex)
             {
-                CoreUtils.Log("Blog.CopyExistingBlogFolderToNewBlogFolder", ex);
+                WebUtils.Log("Blog.CopyExistingBlogFolderToNewBlogFolder", ex);
                 throw;  // re-throw error so error message bubbles up.
             }
 

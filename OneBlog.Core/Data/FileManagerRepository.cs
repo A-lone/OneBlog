@@ -20,11 +20,11 @@ namespace OneBlog.Core.Data
                 throw new UnauthorizedAccessException();
 
             var list = new List<FileInstance>();
-            var rwr = CoreUtils.RelativeWebRoot;
+            var rwr = WebUtils.RelativeWebRoot;
             var responsePath = "root";
 
             if(string.IsNullOrEmpty(path))
-                path = Blog.CurrentInstance.StorageLocation + CoreUtils.FilesFolder;
+                path = Blog.CurrentInstance.StorageLocation + WebUtils.FilesFolder;
 
             var directory = BlogService.GetDirectory(path);
 

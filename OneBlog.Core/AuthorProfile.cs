@@ -444,7 +444,7 @@
         {
             get
             {
-                return string.Format("{0}author/{1}{2}", CoreUtils.RelativeWebRoot, this.Id, BlogConfig.FileExtension);
+                return string.Format("{0}author/{1}{2}", WebUtils.RelativeWebRoot, this.Id, BlogConfig.FileExtension);
             }
         }
 
@@ -555,7 +555,7 @@
                 j.CityTown = "";
                 j.Country = "";
                 j.DisplayName = username;
-                j.EmailAddress = CoreUtils.GetUserEmail(username);
+                j.EmailAddress = WebUtils.GetUserEmail(username);
                 j.PhoneFax = "";
                 j.FirstName = username;
                 j.Private = true;

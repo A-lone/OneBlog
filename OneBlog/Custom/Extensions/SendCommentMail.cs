@@ -58,7 +58,7 @@ public class SendCommentMail
         // If moderation is on, send the email if the comment hasn't been moderated (so
         // the blog owner can determine if the comment should be approved/rejected).
         if (BlogSettings.Instance.EnableCommentsModeration &&
-            !CoreUtils.StringIsNullOrWhitespace(comment.ModeratedBy))
+            !WebUtils.StringIsNullOrWhitespace(comment.ModeratedBy))
         {
             return;
         }
@@ -84,13 +84,13 @@ public class SendCommentMail
                 break;
         }
 
-        var defaultCulture = CoreUtils.GetDefaultCulture();
+        var defaultCulture = WebUtils.GetDefaultCulture();
 
         var args = new ServingEventArgs(comment.Content, ServingLocation.Email);
         Comment.OnServing(comment, args);
         var body = args.Body;
         body = body.Replace(Environment.NewLine, "<br />");
-        body = body.Replace(string.Format("<img src=\"{0}", CoreUtils.RelativeWebRoot), string.Format("<img src=\"{0}", CoreUtils.AbsoluteWebRoot));
+        body = body.Replace(string.Format("<img src=\"{0}", WebUtils.RelativeWebRoot), string.Format("<img src=\"{0}", WebUtils.AbsoluteWebRoot));
 
         var mail = new MailMessage
             {
@@ -105,20 +105,20 @@ public class SendCommentMail
         sb.AppendFormat("{0}<br /><br />", body);
         sb.AppendFormat(
             "<strong>{0}</strong>: <a href=\"{1}#id_{2}\">{3}</a><br /><br />",
-            CoreUtils.Translate("post", null, defaultCulture),
+            WebUtils.Translate("post", null, defaultCulture),
             post.PermaLink,
             comment.Id,
             post.Title);
 
         var deleteLink = string.Format("{0}?deletecomment={1}", post.AbsoluteLink, comment.Id);
         sb.AppendFormat(
-            "<a href=\"{0}\">{1}</a>", deleteLink, CoreUtils.Translate("delete", null, defaultCulture));
+            "<a href=\"{0}\">{1}</a>", deleteLink, WebUtils.Translate("delete", null, defaultCulture));
 
         if (BlogSettings.Instance.EnableCommentsModeration)
         {
             var approveLink = string.Format("{0}?approvecomment={1}", post.AbsoluteLink, comment.Id);
             sb.AppendFormat(
-                " | <a href=\"{0}\">{1}</a>", approveLink, CoreUtils.Translate("approve", null, defaultCulture));
+                " | <a href=\"{0}\">{1}</a>", approveLink, WebUtils.Translate("approve", null, defaultCulture));
         }
 
         sb.Append("<br />_______________________________________________________________________________<br />");
@@ -135,7 +135,7 @@ public class SendCommentMail
 
         if (HttpContext.Current != null)
         {
-            sb.AppendFormat("<strong>IP address:</strong> {0}<br />", CoreUtils.GetClientIP());
+            sb.AppendFormat("<strong>IP address:</strong> {0}<br />", WebUtils.GetClientIP());
             sb.AppendFormat("<strong>User-agent:</strong> {0}", HttpContext.Current.Request.UserAgent);
         }
 
@@ -144,7 +144,7 @@ public class SendCommentMail
 
         mail.Body = sb.ToString();
 
-        CoreUtils.SendMailMessageAsync(mail);
+        WebUtils.SendMailMessageAsync(mail);
     }
 
     #endregion

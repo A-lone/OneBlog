@@ -412,7 +412,7 @@
         /// </param>
         public override bool RoleExists(string roleName)
         {
-            if (CoreUtils.StringIsNullOrWhitespace(roleName))
+            if (WebUtils.StringIsNullOrWhitespace(roleName))
             {
                 throw new ArgumentNullException("roleName");
             }

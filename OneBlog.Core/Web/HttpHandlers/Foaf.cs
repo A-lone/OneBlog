@@ -218,7 +218,7 @@
 
                     if (Blog.CurrentInstance.Cache[string.Format("foaf:{0}", title)] == null)
                     {
-                        var docs = CoreUtils.FindSemanticDocuments(new Uri(url), "foaf");
+                        var docs = WebUtils.FindSemanticDocuments(new Uri(url), "foaf");
                         if (docs.Count > 0)
                         {
                             foreach (var key in docs.Keys)
@@ -388,8 +388,8 @@
 
             // no homepage
             // this website = blog
-            this.Blog = CoreUtils.AbsoluteWebRoot.ToString();
-            this.Rdf = string.Format("{0}foaf_{1}.axd", CoreUtils.AbsoluteWebRoot, ap.UserName);
+            this.Blog = WebUtils.AbsoluteWebRoot.ToString();
+            this.Rdf = string.Format("{0}foaf_{1}.axd", WebUtils.AbsoluteWebRoot, ap.UserName);
             this.Firstname = ap.FirstName;
             this.Lastname = ap.LastName;
             this.Image = ap.PhotoUrl;

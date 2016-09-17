@@ -127,7 +127,7 @@
                 using (var client = new WebClient())
                 {
                     var html = client.DownloadString(referrer).ToUpperInvariant();
-                    var subdomain = CoreUtils.GetSubDomain(url);
+                    var subdomain = WebUtils.GetSubDomain(url);
                     var host = url.Host.ToUpperInvariant();
 
                     if (subdomain != null)
@@ -218,7 +218,7 @@
             }
 
             var referrer = context.Request.UrlReferrer;
-            if (!referrer.Host.Equals(CoreUtils.AbsoluteWebRoot.Host, StringComparison.OrdinalIgnoreCase) &&
+            if (!referrer.Host.Equals(WebUtils.AbsoluteWebRoot.Host, StringComparison.OrdinalIgnoreCase) &&
                 !IsSearchEngine(referrer.ToString()))
             {
                 Guid blogId = Blog.CurrentInstance.Id;

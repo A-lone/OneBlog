@@ -81,7 +81,7 @@ namespace OneBlog.Core.Web.HttpHandlers
                     }
                     catch (Exception)
                     {
-                        culture = CoreUtils.GetDefaultCulture();
+                        culture = WebUtils.GetDefaultCulture();
                     }
 
                     var jc = new BlogCulture(culture, BlogCulture.ResourceType.Admin);
@@ -89,14 +89,14 @@ namespace OneBlog.Core.Web.HttpHandlers
                     // add SiteVars used to pass server-side values to JavaScript in admin UI
                     var sbSiteVars = new StringBuilder();
 
-                    sbSiteVars.Append("ApplicationRelativeWebRoot: '" + CoreUtils.ApplicationRelativeWebRoot + "',");
-                    sbSiteVars.Append("RelativeWebRoot: '" + CoreUtils.RelativeWebRoot + "',");
-                    sbSiteVars.Append("AbsoluteWebRoot:  '" + CoreUtils.AbsoluteWebRoot + "',");
+                    sbSiteVars.Append("ApplicationRelativeWebRoot: '" + WebUtils.ApplicationRelativeWebRoot + "',");
+                    sbSiteVars.Append("RelativeWebRoot: '" + WebUtils.RelativeWebRoot + "',");
+                    sbSiteVars.Append("AbsoluteWebRoot:  '" + WebUtils.AbsoluteWebRoot + "',");
 
                     sbSiteVars.Append("IsPrimary: '" + Blog.CurrentInstance.IsPrimary + "',");
                     sbSiteVars.Append("BlogInstanceId: '" + Blog.CurrentInstance.Id + "',");
                     sbSiteVars.Append("BlogStorageLocation: '" + Blog.CurrentInstance.StorageLocation + "',");
-                    sbSiteVars.Append("BlogFilesFolder: '" + CoreUtils.FilesFolder + "',");
+                    sbSiteVars.Append("BlogFilesFolder: '" + WebUtils.FilesFolder + "',");
 
                     sbSiteVars.Append("GenericPageSize:  '" + BlogConfig.GenericPageSize.ToString() + "',");
                     sbSiteVars.Append("GalleryFeedUrl:  '" + BlogConfig.GalleryFeedUrl + "',");                 
@@ -120,15 +120,15 @@ namespace OneBlog.Core.Web.HttpHandlers
                     }
                     catch (Exception)
                     {
-                        culture = CoreUtils.GetDefaultCulture();
+                        culture = WebUtils.GetDefaultCulture();
                     }
 
                     var jc = new BlogCulture(culture, BlogCulture.ResourceType.Blog);
 
                     // Although this handler is intended to output resource strings,
                     // also outputting other non-resource variables.
-                    sb.AppendFormat("webRoot: '{0}',", CoreUtils.RelativeWebRoot);
-                    sb.AppendFormat("applicationWebRoot: '{0}',", CoreUtils.ApplicationRelativeWebRoot);
+                    sb.AppendFormat("webRoot: '{0}',", WebUtils.RelativeWebRoot);
+                    sb.AppendFormat("applicationWebRoot: '{0}',", WebUtils.ApplicationRelativeWebRoot);
                     sb.AppendFormat("blogInstanceId: '{0}',", Blog.CurrentInstance.Id);
                     sb.AppendFormat("fileExtension: '{0}',", BlogConfig.FileExtension);
                     sb.AppendFormat("i18n: {0}", jc.ToJsonString());
@@ -160,7 +160,7 @@ namespace OneBlog.Core.Web.HttpHandlers
         /// <returns></returns>
         public static string GetScriptPath(System.Globalization.CultureInfo cultureInfo)
         {
-            return String.Format("{0}{1}.res.axd", CoreUtils.RelativeWebRoot, cultureInfo.Name.ToLowerInvariant());
+            return String.Format("{0}{1}.res.axd", WebUtils.RelativeWebRoot, cultureInfo.Name.ToLowerInvariant());
         }
 
         /// <summary>

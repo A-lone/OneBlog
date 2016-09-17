@@ -96,15 +96,15 @@
         /// <returns></returns>
         static string PostUrl(string slug, DateTime dateCreated)
         {
-            var theslug = CoreUtils.RemoveIllegalCharacters(slug) + BlogConfig.FileExtension;
+            var theslug = WebUtils.RemoveIllegalCharacters(slug) + BlogConfig.FileExtension;
 
             return BlogSettings.Instance.TimeStampPostLinks
                        ? string.Format(
                            "{0}post/{1}{2}",
-                           CoreUtils.RelativeWebRoot,
+                           WebUtils.RelativeWebRoot,
                            dateCreated.ToString("yyyy/MM/dd/", CultureInfo.InvariantCulture),
                            theslug)
-                       : string.Format("{0}post/{1}", CoreUtils.RelativeWebRoot, theslug);
+                       : string.Format("{0}post/{1}", WebUtils.RelativeWebRoot, theslug);
         }
 
         #endregion

@@ -97,7 +97,7 @@ namespace OneBlog.Core.Data
                 }
 
                 c.Email = Membership.Provider.GetUser(Security.CurrentUser.Identity.Name, true).Email;
-                c.IP = CoreUtils.GetClientIP();
+                c.IP = WebUtils.GetClientIP();
                 c.DateCreated = DateTime.Now;
                 c.Parent = post;
 
@@ -109,7 +109,7 @@ namespace OneBlog.Core.Data
             }
             catch (Exception ex)
             {
-                CoreUtils.Log("Core.Data.CommentsRepository.Add", ex);
+                WebUtils.Log("Core.Data.CommentsRepository.Add", ex);
                 return null;
             }
         }

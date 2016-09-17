@@ -347,7 +347,7 @@ namespace OneBlog.Core
         /// <returns></returns>
         private static string PrepareRoleName(string roleName)
         {
-            if (CoreUtils.StringIsNullOrWhitespace(roleName))
+            if (WebUtils.StringIsNullOrWhitespace(roleName))
             {
                 throw new ArgumentNullException("roleName");
             }
@@ -373,7 +373,7 @@ namespace OneBlog.Core
         /// <returns></returns>
         public static Right GetRightByName(string rightName)
         {
-            if (CoreUtils.StringIsNullOrWhitespace(rightName))
+            if (WebUtils.StringIsNullOrWhitespace(rightName))
             {
                 throw new ArgumentNullException("rightName");
             }
@@ -658,7 +658,7 @@ namespace OneBlog.Core
         /// </summary>
         public string DisplayName
         {
-            get { return CoreUtils.FormatIdentifierForDisplay(Name); }
+            get { return WebUtils.FormatIdentifierForDisplay(Name); }
         }
 
         /// <summary>

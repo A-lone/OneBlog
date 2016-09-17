@@ -74,9 +74,9 @@ namespace OneBlog.Core.Web.Scripting
             var headerStyles = new List<LiteralControl>();
             var tmpl = "\n\t<link href=\"{0}\" rel=\"stylesheet\" type=\"text/css\" />";
 
-            foreach (var f in GetFiles(string.Format("{0}Content/Auto", CoreUtils.ApplicationRelativeWebRoot)))
+            foreach (var f in GetFiles(string.Format("{0}Content/Auto", WebUtils.ApplicationRelativeWebRoot)))
             {
-                var href = string.Format("{0}Content/Auto/{1}", CoreUtils.ApplicationRelativeWebRoot, f);
+                var href = string.Format("{0}Content/Auto/{1}", WebUtils.ApplicationRelativeWebRoot, f);
                 headerStyles.Add(new LiteralControl(string.Format(tmpl, href)));
             }
             return headerStyles;
@@ -95,9 +95,9 @@ namespace OneBlog.Core.Web.Scripting
             var rsrc = HttpHandlers.ResourceHandler.GetScriptPath(new CultureInfo(lang));
             headerScripts.Add(new LiteralControl(string.Format(tmpl, rsrc)));
 
-            foreach (var f in GetFiles(string.Format("{0}Scripts/Auto", CoreUtils.ApplicationRelativeWebRoot)))
+            foreach (var f in GetFiles(string.Format("{0}Scripts/Auto", WebUtils.ApplicationRelativeWebRoot)))
             {
-                var href = string.Format("{0}Scripts/Auto/{1}", CoreUtils.ApplicationRelativeWebRoot, f);
+                var href = string.Format("{0}Scripts/Auto/{1}", WebUtils.ApplicationRelativeWebRoot, f);
                 headerScripts.Add(new LiteralControl(string.Format(tmpl, href)));
             }
             return headerScripts;

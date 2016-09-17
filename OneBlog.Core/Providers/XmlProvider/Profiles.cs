@@ -179,7 +179,7 @@
 
             if (!File.Exists(fileName))
             {
-                CoreUtils.Log(string.Format("XmlBlogProvider: can not load profile from \"{0}\"", fileName));
+                WebUtils.Log(string.Format("XmlBlogProvider: can not load profile from \"{0}\"", fileName));
                 return null;
             }
 

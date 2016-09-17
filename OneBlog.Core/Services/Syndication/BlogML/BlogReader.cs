@@ -84,7 +84,7 @@
             catch (Exception ex)
             {
                 Message = string.Format("BlogReader.Import: BlogML could not load with 2.0 specs. {0}", ex.Message);
-                CoreUtils.Log(Message);
+                WebUtils.Log(Message);
                 return false;
             }
 
@@ -103,7 +103,7 @@
             catch (Exception ex)
             {
                 Message = string.Format("BlogReader.Import: {0}", ex.Message);
-                CoreUtils.Log(Message);
+                WebUtils.Log(Message);
                 return false;
             }
 
@@ -121,7 +121,7 @@
 
             // Value might be a GUID, or it could be a simple integer.
 
-            if (!CoreUtils.StringIsNullOrWhitespace(value) &&
+            if (!WebUtils.StringIsNullOrWhitespace(value) &&
                 value.Length == 36)
             {
                 return new Guid(value);
@@ -160,7 +160,7 @@
             DateTime defaultDate = DateTime.Now;
 
             DateTime dt = defaultDate;
-            if (!CoreUtils.StringIsNullOrWhitespace(value))
+            if (!WebUtils.StringIsNullOrWhitespace(value))
             {
                 if (!DateTime.TryParseExact(value, "yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out dt))
                     dt = defaultDate;
@@ -355,7 +355,7 @@
         private void LoadBlogPosts()
         {
             var bi = new BlogImporter();
-            CoreUtils.Log("BlogReader.LoadBlogPosts: Start importing posts");
+            WebUtils.Log("BlogReader.LoadBlogPosts: Start importing posts");
 
             foreach (BlogMlExtendedPost extPost in blogsExtended)
             {
@@ -389,16 +389,16 @@
                     }
                     else
                     {
-                        CoreUtils.Log("Post '{0}' has been skipped" + extPost.BlogPost.Title);
+                        WebUtils.Log("Post '{0}' has been skipped" + extPost.BlogPost.Title);
                     }
                 }
                 catch (Exception ex)
                 {
-                    CoreUtils.Log("BlogReader.LoadBlogPosts: " + ex.Message);
+                    WebUtils.Log("BlogReader.LoadBlogPosts: " + ex.Message);
                 }
             }
             bi.ForceReload();
-            CoreUtils.Log(string.Format("BlogReader.LoadBlogPosts: Completed importing {0} posts", PostCount));
+            WebUtils.Log(string.Format("BlogReader.LoadBlogPosts: Completed importing {0} posts", PostCount));
         }
 
         #endregion

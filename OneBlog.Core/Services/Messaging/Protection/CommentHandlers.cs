@@ -80,7 +80,7 @@
                 }
 
                 ExtensionManager.SaveSettings("MetaExtension", filters);
-                CoreUtils.Log(log);
+                WebUtils.Log(log);
             }
 
             // add value to filters
@@ -92,7 +92,7 @@
             filters.AddValues(f);
             ExtensionManager.SaveSettings("MetaExtension", filters);
 
-            CoreUtils.Log(string.Format("{0} added to {1} list: {2}", subject, blackWhiteList, value));
+            WebUtils.Log(string.Format("{0} added to {1} list: {2}", subject, blackWhiteList, value));
         }
 
         /// <summary>
@@ -137,7 +137,7 @@
         {
             try
             {
-                var codeAssemblies = CoreUtils.CodeAssemblies();
+                var codeAssemblies = WebUtils.CodeAssemblies();
                 return
                     codeAssemblies.Select(a => a.GetType(className)).Where(t => t != null).Select(
                         t => (ICustomFilter)Activator.CreateInstance(t)).FirstOrDefault();
@@ -224,7 +224,7 @@
             }
 
             var dt = customFilters.GetDataTable();
-            var codeAssemblies = CoreUtils.CodeAssemblies();
+            var codeAssemblies = WebUtils.CodeAssemblies();
 
             foreach (var type in
                 codeAssemblies.Cast<Assembly>().Select(a => a.GetTypes()).SelectMany(
@@ -539,7 +539,7 @@
                     comment.IsApproved = false;
                     comment.ModeratedBy = filterName;
 
-                    CoreUtils.Log(
+                    WebUtils.Log(
                     string.Format("Custom filter [{0}] - found spam; comment id: {1}", filterName, comment.Id));
 
                     UpdateCustomFilter(filterName, false);

@@ -71,7 +71,7 @@ namespace OneBlog.Core.Data.ViewModels
             }
             else
             {
-                CoreUtils.Log("Can not update BlogRoll " + id);
+                WebUtils.Log("Can not update BlogRoll " + id);
             }
         }
         /// <summary>
@@ -91,7 +91,7 @@ namespace OneBlog.Core.Data.ViewModels
             }
             else
             {
-                CoreUtils.Log("Can not delete BlogRoll " + id);
+                WebUtils.Log("Can not delete BlogRoll " + id);
             }
         }
         /// <summary>

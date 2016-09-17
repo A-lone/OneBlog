@@ -70,7 +70,7 @@ namespace OneBlog.Core.Web
                 }
                 catch (Exception ex)
                 {
-                    CoreUtils.Log("Error loading admin labels from App_Data/labels.txt", ex);
+                    WebUtils.Log("Error loading admin labels from App_Data/labels.txt", ex);
                 }
             }
             else
@@ -125,7 +125,7 @@ namespace OneBlog.Core.Web
         /// <returns>The translated string.</returns>
         public string AddResource(string resourceLabelKey)
         {
-            var translation = CoreUtils.Translate(resourceLabelKey, null, cultureInfo);
+            var translation = WebUtils.Translate(resourceLabelKey, null, cultureInfo);
             // "delete" label has a name conflict with jQuery under IE7/8, rename to "doDelete"
             translationDict.Add(resourceLabelKey == "delete" ? "doDelete" : resourceLabelKey, translation);
             return translation;

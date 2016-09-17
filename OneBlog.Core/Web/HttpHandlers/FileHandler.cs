@@ -75,7 +75,7 @@
                 if (fileName.Contains(".."))
                 {
                     OnBadRequest(fileName);
-                    context.Response.Redirect(string.Format("{0}error404.aspx", CoreUtils.AbsoluteWebRoot));
+                    context.Response.Redirect(string.Format("{0}error404.aspx", WebUtils.AbsoluteWebRoot));
                 }
 
                 OnServing(fileName);
@@ -88,7 +88,7 @@
                     {
                         context.Response.AppendHeader("Content-Disposition", string.Format("inline; filename=\"{0}\"", file.Name));
                         SetContentType(context, file.Name);
-                        if (CoreUtils.SetConditionalGetHeaders(file.DateCreated.ToUniversalTime()))
+                        if (WebUtils.SetConditionalGetHeaders(file.DateCreated.ToUniversalTime()))
                             return;
 
                         context.Response.BinaryWrite(file.FileContents);
@@ -97,13 +97,13 @@
                     else
                     {
                         OnBadRequest(fileName);
-                        context.Response.Redirect(string.Format("{0}error404.aspx", CoreUtils.AbsoluteWebRoot));
+                        context.Response.Redirect(string.Format("{0}error404.aspx", WebUtils.AbsoluteWebRoot));
                     }
                 }
                 catch (Exception)
                 {
                     OnBadRequest(fileName);
-                    context.Response.Redirect(string.Format("{0}error404.aspx", CoreUtils.AbsoluteWebRoot));
+                    context.Response.Redirect(string.Format("{0}error404.aspx", WebUtils.AbsoluteWebRoot));
                 }
             }
         }

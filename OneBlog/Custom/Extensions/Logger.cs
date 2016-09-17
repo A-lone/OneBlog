@@ -41,7 +41,7 @@ namespace App_Code.Extensions
         /// </summary>
         static Logger()
         {
-            CoreUtils.OnLog += OnLog;
+            WebUtils.OnLog += OnLog;
         }
 
         #endregion

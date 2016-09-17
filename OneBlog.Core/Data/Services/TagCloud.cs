@@ -34,7 +34,7 @@ namespace OneBlog.Core.Data.Services
             {
                 var link = string.Format(
                     Link,
-                    string.Format("{0}?tag={1}", CoreUtils.AbsoluteWebRoot, HttpUtility.UrlEncode(key)),
+                    string.Format("{0}?tag={1}", WebUtils.AbsoluteWebRoot, HttpUtility.UrlEncode(key)),
                     WeightedList[key], string.Format("Tag: {0}", key), key);
                 links.Add(link);  
             }

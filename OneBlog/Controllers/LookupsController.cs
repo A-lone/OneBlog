@@ -32,7 +32,7 @@ public class LookupsController : ApiController
         }
         catch (Exception ex)
         {
-            OneBlog.Core.CoreUtils.Log("Error updating", ex);
+            OneBlog.Core.WebUtils.Log("Error updating", ex);
             throw new HttpResponseException(HttpStatusCode.InternalServerError);
         }
     }

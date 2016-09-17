@@ -77,18 +77,18 @@ namespace OneBlog.NET.Custom.Widgets
             {
                 foreach (var email in emails)
                 {
-                    if (!CoreUtils.StringIsNullOrWhitespace(email) && CoreUtils.IsEmailValid(email))
+                    if (!WebUtils.StringIsNullOrWhitespace(email) && WebUtils.IsEmailValid(email))
                     {
                         MailMessage message = CreateEmail(publishable);
                         message.To.Add(email);
                         try
                         {
-                            CoreUtils.SendMailMessage(message);
+                            WebUtils.SendMailMessage(message);
                             //Utils.Log("sent to " + email + " on - " + publishable.Title);
                         }
                         catch (Exception ex)
                         {
-                            CoreUtils.Log("Custom.Widgets.Newsletter.SendEmails", ex);
+                            WebUtils.Log("Custom.Widgets.Newsletter.SendEmails", ex);
                         }
                     }
                 }
@@ -116,7 +116,7 @@ namespace OneBlog.NET.Custom.Widgets
             }
             catch (Exception ex)
             {
-                CoreUtils.Log("Custom.Widgets.Newsletter.GetXml", ex);
+                WebUtils.Log("Custom.Widgets.Newsletter.GetXml", ex);
             }
             return doc;
         }
@@ -138,7 +138,7 @@ namespace OneBlog.NET.Custom.Widgets
         {
             var body = new StringBuilder();
             var urlbase = Path.Combine(
-                Path.Combine(CoreUtils.AbsoluteWebRoot.AbsoluteUri, "themes"), BlogSettings.Instance.Theme);
+                Path.Combine(WebUtils.AbsoluteWebRoot.AbsoluteUri, "themes"), BlogSettings.Instance.Theme);
             var filePath = string.Format("~/Custom/Themes/{0}/newsletter.html", BlogSettings.Instance.Theme);
             filePath = HostingEnvironment.MapPath(filePath);
             if (File.Exists(filePath))
@@ -156,7 +156,7 @@ namespace OneBlog.NET.Custom.Widgets
                 }
                 else
                 {
-                    CoreUtils.Log(
+                    WebUtils.Log(
                         "When sending newsletter, newsletter.html does not exist " +
                         "in theme folder, and does not exist in the Standard theme " +
                         "folder.");
@@ -166,7 +166,7 @@ namespace OneBlog.NET.Custom.Widgets
             body = body.Replace("[TITLE]", publishable.Title);
             body = body.Replace("[LINK]", publishable.AbsoluteLink.AbsoluteUri);
             body = body.Replace("[LINK_DESCRIPTION]", publishable.Description);
-            body = body.Replace("[WebRoot]", CoreUtils.AbsoluteWebRoot.AbsoluteUri);
+            body = body.Replace("[WebRoot]", WebUtils.AbsoluteWebRoot.AbsoluteUri);
             body = body.Replace("[httpBase]", urlbase);
             return body.ToString();
         }

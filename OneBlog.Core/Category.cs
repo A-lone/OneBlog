@@ -239,7 +239,7 @@
         {
             get
             {
-                return CoreUtils.ConvertToAbsolute(this.FeedRelativeLink);
+                return WebUtils.ConvertToAbsolute(this.FeedRelativeLink);
             }
         }
 
@@ -251,9 +251,9 @@
         {
             get
             {
-                var root = Blog.CurrentInstance.IsSiteAggregation ? CoreUtils.ApplicationRelativeWebRoot : Blog.RelativeWebRoot;
+                var root = Blog.CurrentInstance.IsSiteAggregation ? WebUtils.ApplicationRelativeWebRoot : Blog.RelativeWebRoot;
                 return string.Format("{0}category/feed/{1}{2}", root,
-                    CoreUtils.RemoveIllegalCharacters(this.Title),
+                    WebUtils.RemoveIllegalCharacters(this.Title),
                     BlogConfig.FileExtension);
             }
         }
@@ -295,8 +295,8 @@
         {
             get
             {
-                var root = Blog.CurrentInstance.IsSiteAggregation ? CoreUtils.ApplicationRelativeWebRoot : Blog.RelativeWebRoot;
-                return root + "category/" + CoreUtils.RemoveIllegalCharacters(this.Title) +
+                var root = Blog.CurrentInstance.IsSiteAggregation ? WebUtils.ApplicationRelativeWebRoot : Blog.RelativeWebRoot;
+                return root + "category/" + WebUtils.RemoveIllegalCharacters(this.Title) +
                        BlogConfig.FileExtension;
             }
         }

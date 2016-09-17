@@ -123,7 +123,7 @@
             if (exception != null && exception.Message.Contains("site.master"))
             {
                 ctx.Server.ClearError();
-                this.MasterPageFile = string.Format("{0}Custom/Themes/RazorHost/site.master", CoreUtils.ApplicationRelativeWebRoot);
+                this.MasterPageFile = string.Format("{0}Custom/Themes/RazorHost/site.master", WebUtils.ApplicationRelativeWebRoot);
                 base.OnInit(EventArgs.Empty);
             }
 
@@ -139,8 +139,8 @@
         {
             base.OnLoad(e);
 
-            string relativeWebRoot = CoreUtils.RelativeWebRoot;
-            Uri absoluteWebRoot = CoreUtils.AbsoluteWebRoot;
+            string relativeWebRoot = WebUtils.RelativeWebRoot;
+            Uri absoluteWebRoot = WebUtils.AbsoluteWebRoot;
             string instanceName = BlogSettings.Instance.Name;
 
             if (!Page.IsCallback)
@@ -158,12 +158,12 @@
 
                 if (string.IsNullOrEmpty(BlogSettings.Instance.AlternateFeedUrl))
                 {
-                    header.AddLink("application/rss+xml", "alternate", string.Format("{0} (RSS)", instanceName), string.Format("{0}", CoreUtils.FeedUrl));
-                    header.AddLink("application/atom+xml", "alternate", string.Format("{0} (ATOM)", instanceName), string.Format("{0}?format=atom", CoreUtils.FeedUrl));
+                    header.AddLink("application/rss+xml", "alternate", string.Format("{0} (RSS)", instanceName), string.Format("{0}", WebUtils.FeedUrl));
+                    header.AddLink("application/atom+xml", "alternate", string.Format("{0} (ATOM)", instanceName), string.Format("{0}?format=atom", WebUtils.FeedUrl));
                 }
                 else
                 {
-                    header.AddLink("application/rss+xml", "alternate", instanceName, CoreUtils.FeedUrl);
+                    header.AddLink("application/rss+xml", "alternate", instanceName, WebUtils.FeedUrl);
                 }
                 if (BlogSettings.Instance.EnableOpenSearch)
                 {
@@ -204,7 +204,7 @@
                 allowViewing = true;
 
             if (!allowViewing)
-                Response.Redirect(string.Format("{0}Account/login.aspx", CoreUtils.RelativeWebRoot));
+                Response.Redirect(string.Format("{0}Account/login.aspx", WebUtils.RelativeWebRoot));
 
             MasterPageFile = GetSiteMaster();
 
@@ -219,7 +219,7 @@
 
             post.Delete();
             post.Save();
-            Response.Redirect(CoreUtils.RelativeWebRoot);
+            Response.Redirect(WebUtils.RelativeWebRoot);
         }
 
         /// <summary>
@@ -260,7 +260,7 @@
         {
             if (Request.FilePath.Contains("post.aspx", StringComparison.InvariantCultureIgnoreCase))
             {
-                string path = string.Format("{0}Custom/Themes/{1}/post.master", CoreUtils.ApplicationRelativeWebRoot, BlogSettings.Instance.Theme);
+                string path = string.Format("{0}Custom/Themes/{1}/post.master", WebUtils.ApplicationRelativeWebRoot, BlogSettings.Instance.Theme);
                 if (System.IO.File.Exists(Server.MapPath(path)))
                     return path;
             }
@@ -274,12 +274,12 @@
                 Request.FilePath.Contains("error404.aspx", StringComparison.InvariantCultureIgnoreCase) ||
                 Request.FilePath.Contains("search.aspx", StringComparison.InvariantCultureIgnoreCase))
             {
-                string path = string.Format("{0}Custom/Themes/{1}/page.master", CoreUtils.ApplicationRelativeWebRoot, BlogSettings.Instance.Theme);
+                string path = string.Format("{0}Custom/Themes/{1}/page.master", WebUtils.ApplicationRelativeWebRoot, BlogSettings.Instance.Theme);
                 if (System.IO.File.Exists(Server.MapPath(path)))
                     return path;
             }
 
-            return string.Format("{0}Custom/Themes/{1}/site.master", CoreUtils.ApplicationRelativeWebRoot, 
+            return string.Format("{0}Custom/Themes/{1}/site.master", WebUtils.ApplicationRelativeWebRoot, 
                 BlogSettings.Instance.GetThemeWithAdjustments(null));
         }
     }

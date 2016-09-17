@@ -252,7 +252,7 @@
                     continue;
                 }
                 
-                string passwordPrep = this.passwordFormat == MembershipPasswordFormat.Hashed ? CoreUtils.HashPassword(newPassword) : newPassword;
+                string passwordPrep = this.passwordFormat == MembershipPasswordFormat.Hashed ? WebUtils.HashPassword(newPassword) : newPassword;
 
                 node["Password"].InnerText = passwordPrep;
                 doc.Save(XmlFullyQualifiedPath);
@@ -321,7 +321,7 @@
 
             xmlUserName.InnerText = username;
 
-            string passwordPrep = this.passwordFormat == MembershipPasswordFormat.Hashed ? CoreUtils.HashPassword(password) : password;
+            string passwordPrep = this.passwordFormat == MembershipPasswordFormat.Hashed ? WebUtils.HashPassword(password) : password;
 
             xmlPassword.InnerText = passwordPrep;
 
@@ -674,7 +674,7 @@
             var doc = new XmlDocument();
             doc.Load(XmlFullyQualifiedPath);
             var nodes = doc.GetElementsByTagName("User");
-            var newPassword = CoreUtils.RandomPassword();
+            var newPassword = WebUtils.RandomPassword();
 
             foreach (var node in
                 nodes.Cast<XmlNode>().Where(
@@ -685,7 +685,7 @@
                 string passwordPrep;
                 if (this.passwordFormat == MembershipPasswordFormat.Hashed)
                 {
-                    passwordPrep = CoreUtils.HashPassword(newPassword);
+                    passwordPrep = WebUtils.HashPassword(newPassword);
                 }
                 else
                 {
@@ -813,7 +813,7 @@
             {
                 if (this.passwordFormat == MembershipPasswordFormat.Hashed)
                 {
-                    if (storedPassword == CoreUtils.HashPassword(inputPassword))
+                    if (storedPassword == WebUtils.HashPassword(inputPassword))
                     {
                         validated = true;
                     }
@@ -852,7 +852,7 @@
 
                         if (!File.Exists(path))
                         {
-                            CoreUtils.Log(string.Format("XmlMembershipProvider: can not read users from file \"{0}\"", path));
+                            WebUtils.Log(string.Format("XmlMembershipProvider: can not read users from file \"{0}\"", path));
                         }
 
                         ReadFromFile(path, b.Id);

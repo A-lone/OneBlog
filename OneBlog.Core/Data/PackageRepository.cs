@@ -129,7 +129,7 @@ namespace OneBlog.Core.Data
                         }
                         else
                         {
-                            CoreUtils.Log(string.Format("Failed to find extension {0} while trying to update package repository", item.Id));
+                            WebUtils.Log(string.Format("Failed to find extension {0} while trying to update package repository", item.Id));
                         }
                     }
                     break;

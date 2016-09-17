@@ -216,7 +216,7 @@ namespace OneBlog.Core.Data
             }
             catch (Exception ex)
             {
-                CoreUtils.Log("Error deleting user", ex.Message);
+                WebUtils.Log("Error deleting user", ex.Message);
                 return false;
             }
             return true;
@@ -226,7 +226,7 @@ namespace OneBlog.Core.Data
 
         static Profile GetProfile(string id)
         {
-            if (!CoreUtils.StringIsNullOrWhitespace(id))
+            if (!WebUtils.StringIsNullOrWhitespace(id))
             {
                 var pf = AuthorProfile.GetProfile(id);
                 if (pf == null)
@@ -234,7 +234,7 @@ namespace OneBlog.Core.Data
                     pf = new AuthorProfile(id);
                     pf.Birthday = DateTime.Parse("01/01/1900");
                     pf.DisplayName = id;
-                    pf.EmailAddress = CoreUtils.GetUserEmail(id);
+                    pf.EmailAddress = WebUtils.GetUserEmail(id);
                     pf.FirstName = id;
                     pf.Private = true;
                     pf.Save();
@@ -318,7 +318,7 @@ namespace OneBlog.Core.Data
             }
             catch (Exception ex)
             {
-                CoreUtils.Log("Error editing profile", ex);
+                WebUtils.Log("Error editing profile", ex);
                 return false;
             }
             return true;
@@ -346,7 +346,7 @@ namespace OneBlog.Core.Data
             }
             catch (Exception ex)
             {
-                CoreUtils.Log("Error updating user roles", ex);
+                WebUtils.Log("Error updating user roles", ex);
                 return false;
             }
         }

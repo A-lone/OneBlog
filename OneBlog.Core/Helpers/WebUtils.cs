@@ -27,7 +27,7 @@
     /// <summary>
     /// Utilities for the entire solution to use.
     /// </summary>
-    public static class CoreUtils
+    public static class WebUtils
     {
         #region Constants and Fields
 
@@ -675,7 +675,7 @@
         public static CultureInfo GetDefaultCulture()
         {
             var settingsCulture = BlogSettings.Instance.Culture;
-            if (CoreUtils.StringIsNullOrWhitespace(settingsCulture) ||
+            if (WebUtils.StringIsNullOrWhitespace(settingsCulture) ||
                 settingsCulture.Equals("Auto", StringComparison.OrdinalIgnoreCase))
             {
                 return CultureInfo.InstalledUICulture;
@@ -1157,7 +1157,7 @@
                     current = current.InnerException;
                 }
 
-                CoreUtils.Log(errorMsg.ToString());
+                WebUtils.Log(errorMsg.ToString());
             }
             finally
             {
@@ -1253,7 +1253,7 @@
         /// </returns>
         public static string StripHtml(string html)
         {
-            return CoreUtils.StringIsNullOrWhitespace(html) ? string.Empty : RegexStripHtml.Replace(html, string.Empty).Trim();
+            return WebUtils.StringIsNullOrWhitespace(html) ? string.Empty : RegexStripHtml.Replace(html, string.Empty).Trim();
         }
 
         /// <summary>
@@ -1396,7 +1396,7 @@
             }
             catch (Exception ex)
             {
-                CoreUtils.Log("Utils.CreateDirectoryIfNotExists", ex);
+                WebUtils.Log("Utils.CreateDirectoryIfNotExists", ex);
                 throw;  // re-throw error so error message bubbles up.
             }
 
@@ -1707,8 +1707,7 @@
                     }
                 }
             }
-
-            var md = new MarkdownDeep.Markdown
+            var md = new MarkdownKit.Markdown()
             {
                 SafeMode = false,
                 ExtraMode = true,

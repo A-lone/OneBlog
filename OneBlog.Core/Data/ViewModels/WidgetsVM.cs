@@ -31,7 +31,7 @@ namespace OneBlog.Core.Data.ViewModels
                 WebClient client = new WebClient();
 
                 // add zones registered in site.master
-                var html = client.DownloadString(CoreUtils.AbsoluteWebRoot);
+                var html = client.DownloadString(WebUtils.AbsoluteWebRoot);
                 AddZones(html);
 
                 // add zones registered in post.master
@@ -51,7 +51,7 @@ namespace OneBlog.Core.Data.ViewModels
                 }
             }
             catch (Exception ex) {
-                CoreUtils.Log(ex.Message);
+                WebUtils.Log(ex.Message);
             }
         }
         /// <summary>

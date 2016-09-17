@@ -67,7 +67,7 @@ namespace OneBlog.Core.Data
             }
             catch (Exception ex)
             {
-                CoreUtils.Log("CommentFilterRepository.Find(): " + ex.Message);
+                WebUtils.Log("CommentFilterRepository.Find(): " + ex.Message);
             }
             return filterList;
         }
@@ -132,7 +132,7 @@ namespace OneBlog.Core.Data
             }
             catch (Exception ex)
             {
-                CoreUtils.Log("Error adding new comment filter", ex);
+                WebUtils.Log("Error adding new comment filter", ex);
                 throw;
             }
         }
@@ -170,7 +170,7 @@ namespace OneBlog.Core.Data
             }
             catch (Exception ex)
             {
-                CoreUtils.Log("Error removing all comment filters", ex);
+                WebUtils.Log("Error removing all comment filters", ex);
                 throw;
             }
 

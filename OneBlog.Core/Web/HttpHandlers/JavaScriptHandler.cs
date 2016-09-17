@@ -48,7 +48,7 @@
         {
             var request = context.Request;
             string fileName = request.FilePath;
-            fileName = fileName.Substring(CoreUtils.RelativeWebRoot.Length);
+            fileName = fileName.Substring(WebUtils.RelativeWebRoot.Length);
 
             string resKey = "";
             string script = "";

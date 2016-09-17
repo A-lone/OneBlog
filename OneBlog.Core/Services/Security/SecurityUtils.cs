@@ -1,8 +1,6 @@
-﻿using OneBlog.Core;
-
-namespace OneBlog.Utils
+﻿namespace OneBlog.Core
 {
-    public static class WebUtils
+    public static class SecurityUtils
     {
         /// <summary>
         /// Checks to see if the current user has the rights to access an

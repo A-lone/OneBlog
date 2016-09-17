@@ -193,7 +193,7 @@
         {
             get
             {
-                return this.enableHttpCompression && !CoreUtils.IsMono;
+                return this.enableHttpCompression && !WebUtils.IsMono;
             }
 
             set
@@ -1312,7 +1312,7 @@
                     }
                     catch (Exception e)
                     {
-                        CoreUtils.Log(string.Format("Error loading blog settings: {0}", e.Message));
+                        WebUtils.Log(string.Format("Error loading blog settings: {0}", e.Message));
                     }
                 }
 

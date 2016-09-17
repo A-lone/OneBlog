@@ -79,7 +79,7 @@
                     if (fileName.Contains(".."))
                     {
                         OnBadRequest(fileName);
-                        context.Response.Redirect(string.Format("{0}error404.aspx", CoreUtils.AbsoluteWebRoot));
+                        context.Response.Redirect(string.Format("{0}error404.aspx", WebUtils.AbsoluteWebRoot));
                     }
 
                     var file = BlogService.GetFile(string.Format("{0}files{1}", Blog.CurrentInstance.StorageLocation, fileName));
@@ -88,7 +88,7 @@
                         context.Response.Cache.SetCacheability(HttpCacheability.Public);
                         context.Response.Cache.SetExpires(DateTime.Now.AddYears(1));
                         
-                        if (CoreUtils.SetConditionalGetHeaders(file.DateCreated.ToUniversalTime()))
+                        if (WebUtils.SetConditionalGetHeaders(file.DateCreated.ToUniversalTime()))
                             return;
                         
                         var index = fileName.LastIndexOf(".") + 1;
@@ -101,13 +101,13 @@
                     else
                     {
                         OnBadRequest(fileName);
-                        context.Response.Redirect(string.Format("{0}error404.aspx", CoreUtils.AbsoluteWebRoot));
+                        context.Response.Redirect(string.Format("{0}error404.aspx", WebUtils.AbsoluteWebRoot));
                     }
                 }
                 catch (Exception ex)
                 {
                     OnBadRequest(ex.Message);
-                    context.Response.Redirect(string.Format("{0}error404.aspx", CoreUtils.AbsoluteWebRoot));
+                    context.Response.Redirect(string.Format("{0}error404.aspx", WebUtils.AbsoluteWebRoot));
                 }
             }
         }

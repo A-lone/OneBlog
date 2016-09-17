@@ -264,7 +264,7 @@
             var name = url.Substring(start, stop - start).ToLowerInvariant();
 
             return (from post in Post.Posts
-                    let legalTitle = CoreUtils.RemoveIllegalCharacters(post.Title).ToLowerInvariant()
+                    let legalTitle = WebUtils.RemoveIllegalCharacters(post.Title).ToLowerInvariant()
                     where name == legalTitle
                     select post).FirstOrDefault();
         }
@@ -292,7 +292,7 @@
                     return false;
                 }
 
-                if (comment.IP != null && comment.IP == CoreUtils.GetClientIP())
+                if (comment.IP != null && comment.IP == WebUtils.GetClientIP())
                 {
                     return false;
                 }
@@ -398,7 +398,7 @@
             comment.Content = string.Format("Pingback from {0}{1}{2}{3}", comment.Author, Environment.NewLine, Environment.NewLine, this.title);
             comment.DateCreated = DateTime.Now;
             comment.Email = "pingback";
-            comment.IP = CoreUtils.GetClientIP();
+            comment.IP = WebUtils.GetClientIP();
             comment.Parent = post;
             comment.IsApproved = true; // NOTE: Pingback comments are approved by default.
             post.AddComment(comment);

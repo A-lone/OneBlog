@@ -42,7 +42,7 @@
         /// </param>
         public void ProcessRequest(HttpContext context)
         {
-            if (context.Request.FilePath.ToLower() != CoreUtils.RelativeWebRoot + "apml.axd")
+            if (context.Request.FilePath.ToLower() != WebUtils.RelativeWebRoot + "apml.axd")
                 throw new HttpException(404, "File not found");
 
             context.Response.ContentType = "text/xml";
@@ -226,7 +226,7 @@
                 writer.WriteStartElement("Concept");
                 writer.WriteAttributeString("key", key.Title);
                 writer.WriteAttributeString("value", key.Score.ToString());
-                writer.WriteAttributeString("from", CoreUtils.AbsoluteWebRoot.ToString());
+                writer.WriteAttributeString("from", WebUtils.AbsoluteWebRoot.ToString());
                 writer.WriteAttributeString("updated", key.LastUpdated.ToString());
                 writer.WriteEndElement(); // Concept
             }
@@ -273,13 +273,13 @@
                     writer.WriteAttributeString("name", title);
                     writer.WriteAttributeString("value", "1.0");
                     writer.WriteAttributeString("type", "text/html");
-                    writer.WriteAttributeString("from", CoreUtils.AbsoluteWebRoot.ToString());
+                    writer.WriteAttributeString("from", WebUtils.AbsoluteWebRoot.ToString());
                     writer.WriteAttributeString("updated", DateTime.Now.ToString());
 
                     writer.WriteStartElement("Author");
                     writer.WriteAttributeString("key", title);
                     writer.WriteAttributeString("value", "1.0");
-                    writer.WriteAttributeString("from", CoreUtils.AbsoluteWebRoot.ToString());
+                    writer.WriteAttributeString("from", WebUtils.AbsoluteWebRoot.ToString());
                     writer.WriteAttributeString("updated", DateTime.Now.ToString());
                     writer.WriteEndElement(); // Author
 

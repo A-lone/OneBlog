@@ -57,13 +57,13 @@
             // Mono has issues identifying relative paths when the url is rewritten,
             // so we need to place the full path in the form tag's action attribute
             // or postbacks won't work in rewritten pages.
-            if (CoreUtils.IsMono)
+            if (WebUtils.IsMono)
             {
                 if (name == "action")
                 {
                     if (HttpContext.Current.Items["ActionAlreadyWritten"] == null)
                     {
-                        value = CoreUtils.AbsoluteWebRoot + value;
+                        value = WebUtils.AbsoluteWebRoot + value;
                         HttpContext.Current.Items["ActionAlreadyWritten"] = true;
                     }
                 }

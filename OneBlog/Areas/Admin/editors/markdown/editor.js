@@ -111,7 +111,7 @@
 
 	            scope.setDisplayMode('inline');
 
-	            var markdown = new MarkdownDeep.Markdown();
+	            var markdown = new MarkdownKit.Markdown();
 
 	            scope.keydown = function () {
 	                scope.refreshPreview();

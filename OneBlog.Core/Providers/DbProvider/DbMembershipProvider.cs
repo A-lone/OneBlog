@@ -215,7 +215,7 @@
                                 {
                                     if (this.passwordFormat == MembershipPasswordFormat.Hashed)
                                     {
-                                        if (actualPassword == CoreUtils.HashPassword(oldPassword))
+                                        if (actualPassword == WebUtils.HashPassword(oldPassword))
                                         {
                                             oldPasswordCorrect = true;
                                         }
@@ -233,7 +233,7 @@
                         {
                             cmd.CommandText = string.Format("UPDATE {0}Users SET password = {1}pwd WHERE BlogID = {1}blogid AND userName = {1}name", this.tablePrefix, this.parmPrefix);
 
-                            cmd.Parameters.Add(conn.CreateParameter(FormatParamName("pwd"), (this.passwordFormat == MembershipPasswordFormat.Hashed ? CoreUtils.HashPassword(newPassword) : newPassword)));
+                            cmd.Parameters.Add(conn.CreateParameter(FormatParamName("pwd"), (this.passwordFormat == MembershipPasswordFormat.Hashed ? WebUtils.HashPassword(newPassword) : newPassword)));
 
                             cmd.ExecuteNonQuery();
                             success = true;
@@ -295,7 +295,7 @@
                         var parms = cmd.Parameters;
                         parms.Add(conn.CreateParameter(FormatParamName("blogid"), Blog.CurrentInstance.Id.ToString()));
                         parms.Add(conn.CreateParameter(FormatParamName("name"), username));
-                        parms.Add(conn.CreateParameter(FormatParamName("pwd"), (this.passwordFormat == MembershipPasswordFormat.Hashed ? CoreUtils.HashPassword(password) : password)));
+                        parms.Add(conn.CreateParameter(FormatParamName("pwd"), (this.passwordFormat == MembershipPasswordFormat.Hashed ? WebUtils.HashPassword(password) : password)));
                         parms.Add(conn.CreateParameter(FormatParamName("email"), email));
                         parms.Add(conn.CreateParameter(FormatParamName("login"), DateTime.Now));
 
@@ -560,7 +560,7 @@
                 name = "DbMembershipProvider";
             }
 
-            if (CoreUtils.IsMono)
+            if (WebUtils.IsMono)
             {
                 // Mono dies with a "Unrecognized attribute: description" if a description is part of the config.
                 if (!string.IsNullOrEmpty(config["description"]))
@@ -657,7 +657,7 @@
             }
 
             var oldPassword = string.Empty;
-            var randomPassword = CoreUtils.RandomPassword();
+            var randomPassword = WebUtils.RandomPassword();
 
             using (var conn = this.CreateConnection())
             {
@@ -684,7 +684,7 @@
                         {
                             cmd.CommandText = string.Format("UPDATE {0}Users SET password = {1}pwd WHERE BlogID = {1}blogid AND userName = {1}name", this.tablePrefix, this.parmPrefix);
 
-                            cmd.Parameters.Add(conn.CreateParameter(FormatParamName("pwd"), (this.passwordFormat == MembershipPasswordFormat.Hashed ? CoreUtils.HashPassword(randomPassword) : randomPassword)));
+                            cmd.Parameters.Add(conn.CreateParameter(FormatParamName("pwd"), (this.passwordFormat == MembershipPasswordFormat.Hashed ? WebUtils.HashPassword(randomPassword) : randomPassword)));
 
                             cmd.ExecuteNonQuery();
                             return randomPassword;
@@ -755,7 +755,7 @@
                                 var storedPwd = rdr.GetString(0);
                                 if (this.passwordFormat == MembershipPasswordFormat.Hashed)
                                 {
-                                    if (storedPwd == CoreUtils.HashPassword(password))
+                                    if (storedPwd == WebUtils.HashPassword(password))
                                     {
                                         validated = true;
                                     }

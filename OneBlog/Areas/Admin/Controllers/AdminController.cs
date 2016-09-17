@@ -78,7 +78,7 @@ namespace OneBlog.Areas.Admin.Controllers
                 }
                 catch (Exception)
                 {
-                    culture = OneBlog.Core.CoreUtils.GetDefaultCulture();
+                    culture = OneBlog.Core.WebUtils.GetDefaultCulture();
                 }
 
                 var jc = new BlogCulture(culture, BlogCulture.ResourceType.Admin);
@@ -86,14 +86,14 @@ namespace OneBlog.Areas.Admin.Controllers
                 // add SiteVars used to pass server-side values to JavaScript in admin UI
                 var sbSiteVars = new StringBuilder();
 
-                sbSiteVars.Append("ApplicationRelativeWebRoot: '" + OneBlog.Core.CoreUtils.ApplicationRelativeWebRoot + "',");
-                sbSiteVars.Append("RelativeWebRoot: '" + OneBlog.Core.CoreUtils.RelativeWebRoot + "',");
-                sbSiteVars.Append("AbsoluteWebRoot:  '" + OneBlog.Core.CoreUtils.AbsoluteWebRoot + "',");
+                sbSiteVars.Append("ApplicationRelativeWebRoot: '" + OneBlog.Core.WebUtils.ApplicationRelativeWebRoot + "',");
+                sbSiteVars.Append("RelativeWebRoot: '" + OneBlog.Core.WebUtils.RelativeWebRoot + "',");
+                sbSiteVars.Append("AbsoluteWebRoot:  '" + OneBlog.Core.WebUtils.AbsoluteWebRoot + "',");
 
                 sbSiteVars.Append("IsPrimary: '" + Blog.CurrentInstance.IsPrimary + "',");
                 sbSiteVars.Append("BlogInstanceId: '" + Blog.CurrentInstance.Id + "',");
                 sbSiteVars.Append("BlogStorageLocation: '" + Blog.CurrentInstance.StorageLocation + "',");
-                sbSiteVars.Append("BlogFilesFolder: '" + OneBlog.Core.CoreUtils.FilesFolder + "',");
+                sbSiteVars.Append("BlogFilesFolder: '" + OneBlog.Core.WebUtils.FilesFolder + "',");
 
                 sbSiteVars.Append("GenericPageSize:  '" + BlogConfig.GenericPageSize.ToString() + "',");
                 sbSiteVars.Append("GalleryFeedUrl:  '" + BlogConfig.GalleryFeedUrl + "',");

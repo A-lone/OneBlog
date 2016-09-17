@@ -1,7 +1,6 @@
 ﻿using OneBlog.Core;
 using OneBlog.Core.API.BlogML;
 using OneBlog.Core.Providers;
-using OneBlog.Utils;
 using System;
 using System.Drawing;
 using System.IO;
@@ -15,7 +14,7 @@ public class UploadController : ApiController
 {
     public HttpResponseMessage Post(string action, string dirPath = "")
     {
-        WebUtils.CheckRightsForAdminPostPages(false);
+        SecurityUtils.CheckRightsForAdminPostPages(false);
 
         HttpPostedFile file = HttpContext.Current.Request.Files[0];
         action = action.ToLowerInvariant();
@@ -100,7 +99,7 @@ public class UploadController : ApiController
                     var mediaPlayerExtension = OneBlog.Core.Web.Extensions.ExtensionManager.GetExtension("MediaElementPlayer");
                     mediaFolder = mediaPlayerExtension.Settings[0].GetSingleValue("folder");
 
-                    var folder = CoreUtils.ApplicationRelativeWebRoot + mediaFolder + "/";
+                    var folder = WebUtils.ApplicationRelativeWebRoot + mediaFolder + "/";
                     //var fileName = file.FileName;
 
                     UploadVideo(folder, file, fileName);

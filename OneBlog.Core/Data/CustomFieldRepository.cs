@@ -73,7 +73,7 @@ namespace OneBlog.Core.Data
             }
             catch (Exception ex)
             {
-                CoreUtils.Log("Error adding custom field", ex);
+                WebUtils.Log("Error adding custom field", ex);
                 throw;
             }
         }
@@ -97,7 +97,7 @@ namespace OneBlog.Core.Data
             }
             catch (Exception ex)
             {
-                CoreUtils.Log("Error updaging custom field", ex);
+                WebUtils.Log("Error updaging custom field", ex);
                 return false;
             }
         }
@@ -129,7 +129,7 @@ namespace OneBlog.Core.Data
             }
             catch (Exception ex)
             {
-                CoreUtils.Log("Error updaging custom field", ex);
+                WebUtils.Log("Error updaging custom field", ex);
                 return false;
             }
         }
@@ -151,7 +151,7 @@ namespace OneBlog.Core.Data
             }
             catch (Exception ex)
             {
-                CoreUtils.Log("Error updaging custom field", ex);
+                WebUtils.Log("Error updaging custom field", ex);
             }
         }
 

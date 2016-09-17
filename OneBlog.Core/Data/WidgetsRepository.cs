@@ -72,7 +72,7 @@ namespace OneBlog.Core.Data
             }
             catch (System.Exception ex)
             {
-                CoreUtils.Log("WidgetsRepository.Update", ex);
+                WebUtils.Log("WidgetsRepository.Update", ex);
                 return false;
             }
         }

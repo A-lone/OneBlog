@@ -149,7 +149,7 @@ public class MediaElementPlayer
 
     private static void AddHeader(Page page)
     {
-		string path = CoreUtils.ApplicationRelativeWebRoot + "Scripts/mediaelement/";
+		string path = WebUtils.ApplicationRelativeWebRoot + "Scripts/mediaelement/";
 		
 		AddJavaScript(path + "mediaelement.min.js", page);
         AddJavaScript(path + "mediaelementplayer.min.js", page);
@@ -193,11 +193,11 @@ $(document).ready(function($) {
 	
 		// path to media
         string folder = Settings.GetSingleValue("folder");			
-		string path = CoreUtils.RelativeWebRoot + folder.TrimEnd(new char[] {'/'}) + "/";
+		string path = WebUtils.RelativeWebRoot + folder.TrimEnd(new char[] {'/'}) + "/";
 		
 		// override for feed
 		if (e.Location == ServingLocation.Feed) {
-			path = CoreUtils.AbsoluteWebRoot + folder.TrimEnd(new char[] { '/' }) + "/";			
+			path = WebUtils.AbsoluteWebRoot + folder.TrimEnd(new char[] { '/' }) + "/";			
 		}
 					
 		// do replacement for media

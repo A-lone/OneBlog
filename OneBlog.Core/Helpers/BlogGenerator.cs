@@ -58,7 +58,7 @@ namespace OneBlog.Core
             }
             catch (Exception ex)
             {
-                CoreUtils.Log("BlogGenerator.CreateNewBlog", ex);
+                WebUtils.Log("BlogGenerator.CreateNewBlog", ex);
                 message = "Failed to create new blog. Error: " + ex.Message;
                 return null;
             }
@@ -155,7 +155,7 @@ namespace OneBlog.Core
             }
             catch (Exception ex)
             {
-                CoreUtils.Log("BlogGenerator.CopyTemplateBlogFolder", ex);
+                WebUtils.Log("BlogGenerator.CopyTemplateBlogFolder", ex);
                 throw;  // re-throw error so error message bubbles up.
             }
 
@@ -170,10 +170,10 @@ namespace OneBlog.Core
             }
             catch (Exception ex)
             {
-                CoreUtils.Log("BlogGenerator.CopyTemplateBlogFolder", ex);
+                WebUtils.Log("BlogGenerator.CopyTemplateBlogFolder", ex);
                 throw;  // re-throw error so error message bubbles up.
             }
-            if (!CoreUtils.CreateDirectoryIfNotExists(newBlogFolderPath))
+            if (!WebUtils.CreateDirectoryIfNotExists(newBlogFolderPath))
                 throw new Exception(string.Format("Can not create blog directory: {0}", newBlogFolderPath));
 
             // Copy the entire directory contents.
@@ -182,7 +182,7 @@ namespace OneBlog.Core
 
             try
             {
-                CoreUtils.CopyDirectoryContents(source, target, new List<string>() { BlogConfig.BlogInstancesFolderName });
+                WebUtils.CopyDirectoryContents(source, target, new List<string>() { BlogConfig.BlogInstancesFolderName });
 
                 string msg = "";
                 BlogGeneratorConfig.SetDefaults(out msg);
@@ -192,7 +192,7 @@ namespace OneBlog.Core
 
                 var usersFile = newBlogFolderPath + @"\users.xml";
                 ReplaceInFile(usersFile, "[UserName]", userName);
-                ReplaceInFile(usersFile, "[Password]", CoreUtils.HashPassword(password));
+                ReplaceInFile(usersFile, "[Password]", WebUtils.HashPassword(password));
                 ReplaceInFile(usersFile, "[Email]", email);
 
                 var rolesFile = newBlogFolderPath + @"\roles.xml";
@@ -224,12 +224,12 @@ namespace OneBlog.Core
                 }
 
                 ReplaceInFile(postFile, "[Title]", postTitle);
-                ReplaceInFile(postFile, "[Slug]", CoreUtils.RemoveIllegalCharacters(postTitle));
+                ReplaceInFile(postFile, "[Slug]", WebUtils.RemoveIllegalCharacters(postTitle));
                 
                 if (BlogGeneratorConfig.PostContent.Contains("{0}") && BlogGeneratorConfig.PostContent.Contains("{1}"))
                 {
                     ReplaceInFile(postFile, "[Post]", string.Format(BlogGeneratorConfig.PostContent, userName,
-                        CoreUtils.RelativeWebRoot + blogName + "/Account/login.aspx"));
+                        WebUtils.RelativeWebRoot + blogName + "/Account/login.aspx"));
                 }
                 else
                 {
@@ -242,7 +242,7 @@ namespace OneBlog.Core
             }
             catch (Exception ex)
             {
-                CoreUtils.Log("BlogGenerator.CopyTemplateBlogFolder", ex);
+                WebUtils.Log("BlogGenerator.CopyTemplateBlogFolder", ex);
                 throw;  // re-throw error so error message bubbles up.
             }
 

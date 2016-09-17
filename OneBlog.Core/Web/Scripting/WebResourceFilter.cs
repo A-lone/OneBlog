@@ -148,7 +148,7 @@ namespace OneBlog.Core.Web.Scripting
                     {
                         HtmlOut = HtmlOut.Insert(idx,
                             string.Format("\n<script src=\"{0}res-{1}.js.axd\" type=\"text/javascript\"></script>",
-                            CoreUtils.RelativeWebRoot, resKey.GetHashCode()));
+                            WebUtils.RelativeWebRoot, resKey.GetHashCode()));
                     }
                 }
             }
@@ -176,7 +176,7 @@ namespace OneBlog.Core.Web.Scripting
             var relative = match.Groups[1].Value;
             var absolute = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
             return match.Value.Replace(
-                relative, string.Format("{0}js.axd?path={1}", CoreUtils.ApplicationRelativeWebRoot, HttpUtility.UrlEncode(absolute + relative)));
+                relative, string.Format("{0}js.axd?path={1}", WebUtils.ApplicationRelativeWebRoot, HttpUtility.UrlEncode(absolute + relative)));
         }
 
         /// <summary>
@@ -319,7 +319,7 @@ namespace OneBlog.Core.Web.Scripting
 
         private static string RetrieveRemoteFile(string file)
         {
-            file = CoreUtils.AbsoluteWebRoot.ToString() + file.Substring(1); 
+            file = WebUtils.AbsoluteWebRoot.ToString() + file.Substring(1); 
             Uri url;
             if (Uri.TryCreate(file, UriKind.Absolute, out url))
             {

@@ -52,7 +52,7 @@
                 rsd.WriteStartElement("service");
                 rsd.WriteElementString("engineName", string.Format("OneBlog.NET {0}", BlogSettings.Instance.Version()));
                 rsd.WriteElementString("engineLink", "http://dotnetblogengine.com");
-                rsd.WriteElementString("homePageLink", CoreUtils.AbsoluteWebRoot.ToString());
+                rsd.WriteElementString("homePageLink", WebUtils.AbsoluteWebRoot.ToString());
 
                 // APIs
                 rsd.WriteStartElement("apis");
@@ -63,16 +63,16 @@
                 rsd.WriteAttributeString("preferred", "true");
                 var prefix = BlogSettings.Instance.RequireSslMetaWeblogApi ? "https://" : "http://";
                 rsd.WriteAttributeString(
-                    "apiLink", string.Format("{0}{1}{2}metaweblog.axd", prefix, context.Request.Url.Authority, CoreUtils.RelativeWebRoot));
-                rsd.WriteAttributeString("blogID", CoreUtils.AbsoluteWebRoot.ToString());
+                    "apiLink", string.Format("{0}{1}{2}metaweblog.axd", prefix, context.Request.Url.Authority, WebUtils.RelativeWebRoot));
+                rsd.WriteAttributeString("blogID", WebUtils.AbsoluteWebRoot.ToString());
                 rsd.WriteEndElement();
 
                 // BlogML
                 rsd.WriteStartElement("api");
                 rsd.WriteAttributeString("name", "BlogML");
                 rsd.WriteAttributeString("preferred", "false");
-                rsd.WriteAttributeString("apiLink", string.Format("{0}api/BlogImporter.asmx", CoreUtils.AbsoluteWebRoot));
-                rsd.WriteAttributeString("blogID", CoreUtils.AbsoluteWebRoot.ToString());
+                rsd.WriteAttributeString("apiLink", string.Format("{0}api/BlogImporter.asmx", WebUtils.AbsoluteWebRoot));
+                rsd.WriteAttributeString("blogID", WebUtils.AbsoluteWebRoot.ToString());
                 rsd.WriteEndElement();
 
                 // End APIs

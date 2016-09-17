@@ -163,7 +163,7 @@
             }
             else
             {
-                context.Response.Redirect(CoreUtils.RelativeWebRoot);
+                context.Response.Redirect(WebUtils.RelativeWebRoot);
             }
         }
 
@@ -238,7 +238,7 @@
                     Email = "trackback",
                     Parent = post,
                     DateCreated = DateTime.Now,
-                    IP = CoreUtils.GetClientIP(),
+                    IP = WebUtils.GetClientIP(),
                     IsApproved = true
                 };
             post.AddComment(comment);
@@ -267,7 +267,7 @@
                 !post.Comments.Any(
                     comment =>
                         comment.IP != null &&
-                        comment.IP == CoreUtils.GetClientIP());
+                        comment.IP == WebUtils.GetClientIP());
         }
 
         /// <summary>

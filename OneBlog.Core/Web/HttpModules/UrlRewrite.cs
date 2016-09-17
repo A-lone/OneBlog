@@ -55,7 +55,7 @@
             url = url.Replace(".ASPX.CS", string.Empty);
 
             // skip url rewrite for web api calls
-            if (url.ToLower().StartsWith(string.Format("{0}api/", CoreUtils.ApplicationRelativeWebRoot)))
+            if (url.ToLower().StartsWith(string.Format("{0}api/", WebUtils.ApplicationRelativeWebRoot)))
             {
                 context.RewritePath(UrlRules.GetUrlWithQueryString(context));
                 return;
@@ -72,18 +72,18 @@
             {
                 if (url.Contains("/SCRIPTS/") || url.Contains("/STYLES/"))
                 {
-                    var npath = url.Replace(Blog.CurrentInstance.RelativeWebRoot.ToUpper(), CoreUtils.ApplicationRelativeWebRoot);
+                    var npath = url.Replace(Blog.CurrentInstance.RelativeWebRoot.ToUpper(), WebUtils.ApplicationRelativeWebRoot);
                     context.RewritePath(npath);
                     return;
                 }
             }
 
-            if (CoreUtils.IsCurrentRequestForHomepage)
+            if (WebUtils.IsCurrentRequestForHomepage)
             {
                 // custom front page
                 if (!string.IsNullOrEmpty(BlogSettings.CustomFrontPage))
                 {
-                    url = CoreUtils.RelativeOrAbsoluteWebRoot + BlogSettings.CustomFrontPage;
+                    url = WebUtils.RelativeOrAbsoluteWebRoot + BlogSettings.CustomFrontPage;
                     context.RewritePath(url, false);
                 }
                 else
@@ -228,7 +228,7 @@
                     // Want to see if a specific page/file is being requested (something with a . (dot) in it).
                     // Because Utils.ApplicationRelativeWebRoot may contain a . (dot) in it, pathAfterAppWebRoot
                     // tells us if the actual path (after the AppWebRoot) contains a dot.
-                    string pathAfterAppWebRoot = rewriteUrl.Substring(CoreUtils.ApplicationRelativeWebRoot.Length);
+                    string pathAfterAppWebRoot = rewriteUrl.Substring(WebUtils.ApplicationRelativeWebRoot.Length);
 
                     if (!pathAfterAppWebRoot.Contains("."))
                     {
@@ -249,7 +249,7 @@
                     if (!skipRewrite)
                     {
                         // remove the subfolder portion.  so /subfolder/ becomes /.
-                        rewriteUrl = new Regex(Regex.Escape(blogInstance.RelativeWebRoot), RegexOptions.IgnoreCase).Replace(rewriteUrl, CoreUtils.ApplicationRelativeWebRoot);
+                        rewriteUrl = new Regex(Regex.Escape(blogInstance.RelativeWebRoot), RegexOptions.IgnoreCase).Replace(rewriteUrl, WebUtils.ApplicationRelativeWebRoot);
 
                         context.RewritePath(rewriteUrl + rewriteQs, false);
                     }

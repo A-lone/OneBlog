@@ -10,8 +10,8 @@ namespace OneBlog.Core.Data.Services
     /// </summary>
     public class Avatar
     {
-        private static string _noAvatar = string.Format("{0}Content/images/blog/noavatar.jpg", CoreUtils.AbsoluteWebRoot);
-        private static string _pingImg = string.Format("{0}Content/images/blog/pingback.png", CoreUtils.AbsoluteWebRoot);
+        private static string _noAvatar = string.Format("{0}Content/images/blog/noavatar.jpg", WebUtils.AbsoluteWebRoot);
+        private static string _pingImg = string.Format("{0}Content/images/blog/pingback.png", WebUtils.AbsoluteWebRoot);
 
         /// <summary>
         /// Get avatar image source
@@ -43,13 +43,13 @@ namespace OneBlog.Core.Data.Services
                 return src;
 
             // default noavatar if nothing worked
-            return string.Format("{0}Content/images/blog/noavatar.jpg", CoreUtils.AbsoluteWebRoot);
+            return string.Format("{0}Content/images/blog/noavatar.jpg", WebUtils.AbsoluteWebRoot);
         }
 
         static string ThemeNoAvatar(string email)
         {
             var themeAvatar = string.Format(
-                "{0}Custom/Themes/{1}/noavatar.jpg", CoreUtils.ApplicationRelativeWebRoot, BlogSettings.Instance.Theme);
+                "{0}Custom/Themes/{1}/noavatar.jpg", WebUtils.ApplicationRelativeWebRoot, BlogSettings.Instance.Theme);
 
             if (System.IO.File.Exists(HttpContext.Current.Server.MapPath(themeAvatar)))
                 return themeAvatar;
@@ -96,7 +96,7 @@ namespace OneBlog.Core.Data.Services
             var img = pf.PhotoUrl.Replace("\"", "");
 
             return img.StartsWith("http://") || img.StartsWith("https://") ? img :
-                CoreUtils.RelativeWebRoot + "res/image?picture=/avatars/" + img;
+                WebUtils.RelativeWebRoot + "res/image?picture=/avatars/" + img;
         }
 
         static string GetHash(string value)

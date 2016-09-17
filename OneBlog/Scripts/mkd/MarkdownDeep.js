@@ -1,5 +1,5 @@
 // 
-//! MarkdownDeep - http://www.toptensoftware.com/markdowndeep
+//! MarkdownKit - http://www.toptensoftware.com/markdowndeep
 //! Copyright (C) 2010-2011 Topten Software
 // 
 //   Licensed under the Apache License, Version 2.0 (the "License"); you may not use this product except in 
@@ -16,7 +16,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Markdown
 
-var MarkdownDeep = new function () {
+var MarkdownKit = new function () {
 
 
 	function array_indexOf(array, obj) {
@@ -4443,6 +4443,6 @@ var MarkdownDeep = new function () {
 
 // Export to nodejs
 if (typeof exports !== 'undefined') {
-	exports.Markdown = MarkdownDeep.Markdown;
-	exports.SplitUserSections = MarkdownDeep.SplitUserSections;
+	exports.Markdown = MarkdownKit.Markdown;
+	exports.SplitUserSections = MarkdownKit.SplitUserSections;
 }

@@ -99,7 +99,7 @@ namespace OneBlog.Core
             else if ((BlogSettings.Instance.RemoteMaxFileSize > 0) && (contentLength > BlogSettings.Instance.RemoteMaxFileSize))
             {
                 response.Close();
-                CoreUtils.Log("An attempt to download a remote file has been halted because the file is larger than allowed.");
+                WebUtils.Log("An attempt to download a remote file has been halted because the file is larger than allowed.");
                 return null;
             }
            
@@ -220,7 +220,7 @@ namespace OneBlog.Core
         {
             get
             {
-                return (this.Uri.AbsoluteUri.StartsWith(CoreUtils.AbsoluteWebRoot.AbsoluteUri));
+                return (this.Uri.AbsoluteUri.StartsWith(WebUtils.AbsoluteWebRoot.AbsoluteUri));
             }
         }
 

@@ -62,7 +62,7 @@ namespace OneBlog.Core.Web.Controls
                 }
                 catch (Exception ex)
                 {
-                    CoreUtils.Log("Error getting related posts", ex);
+                    WebUtils.Log("Error getting related posts", ex);
                     return new List<RelatedPost>();
                 }
             }
@@ -88,7 +88,7 @@ namespace OneBlog.Core.Web.Controls
 
         string GetDescription(IPublishable post)
         {
-            var description = CoreUtils.StripHtml(post.Description);
+            var description = WebUtils.StripHtml(post.Description);
             if (description != null && description.Length > this.DescriptionMaxLength)
             {
                 description = string.Format("{0}...", description.Substring(0, this.DescriptionMaxLength));
@@ -96,7 +96,7 @@ namespace OneBlog.Core.Web.Controls
 
             if (String.IsNullOrEmpty(description))
             {
-                var content = CoreUtils.StripHtml(post.Content);
+                var content = WebUtils.StripHtml(post.Content);
                 description = content.Length > this.DescriptionMaxLength
                     ? string.Format("{0}...", content.Substring(0, this.DescriptionMaxLength))
                     : content;

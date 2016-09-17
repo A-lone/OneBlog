@@ -19,7 +19,7 @@ namespace OneBlog
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new CustomViewEngine(BlogSettings.Instance.Theme));
 
-            CoreUtils.LoadExtensions();
+            WebUtils.LoadExtensions();
 
             AreaRegistration.RegisterAllAreas();
             RegisterDiContainer();

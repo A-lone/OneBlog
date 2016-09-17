@@ -51,3 +51,8 @@ Temporary Items
 /OneBlog.Core/bin
 /OneBlog.Core/obj
 /OneBlog.Tests/obj
+/OneBlog.Markdown/obj/Debug
+/OneBlog.Markdown/bin/Debug
+/OneBlog.Data/obj/Debug
+/MarkdownKit/obj/Debug
+/MarkdownKit/bin/Debug

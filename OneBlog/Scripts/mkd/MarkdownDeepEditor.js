@@ -1,5 +1,5 @@
 // 
-//! MarkdownDeep - http://www.toptensoftware.com/markdowndeep
+//! MarkdownKit - http://www.toptensoftware.com/markdowndeep
 //! Copyright (C) 2010-2011 Topten Software
 // 
 //   Licensed under the Apache License, Version 2.0 (the "License"); you may not use this product except in 
@@ -459,7 +459,7 @@ var MarkdownDeepEditor = new function () {
         this.m_undoStack = [];
         this.m_undoPos = 0;
         this.m_undoMode = undomode_navigate;
-        this.Markdown = new MarkdownDeep.Markdown();
+        this.Markdown = new MarkdownKit.Markdown();
         this.Markdown.SafeMode = false;
         this.Markdown.ExtraMode = true;
         this.Markdown.NewWindowForLocalLinks = true;
@@ -620,7 +620,7 @@ var MarkdownDeepEditor = new function () {
         this.m_lastContent = new_content;
     }
 
-    // Public method, should be called by client code if any of the MarkdownDeep
+    // Public method, should be called by client code if any of the MarkdownKit
     // transform options have changed
     pub.onOptionsChanged = function () {
         this.m_lastContent = null;
@@ -1053,7 +1053,7 @@ var MarkdownDeepEditor = new function () {
         }
 
         // We now need to find any surrounding lists and renumber them
-        var mdd = new MarkdownDeep.Markdown();
+        var mdd = new MarkdownKit.Markdown();
         mdd.ExtraMode = true;
         var listitems = mdd.GetListItems(state.m_text, state.m_selectionStart);
 

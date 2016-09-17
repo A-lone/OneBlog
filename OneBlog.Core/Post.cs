@@ -578,7 +578,7 @@
                 var settings = BlogSettings.GetInstanceSettings(Blog);
                 //var ext = string.IsNullOrEmpty(BlogConfig.FileExtension) ? ".aspx" : BlogConfig.FileExtension;
 
-                var theslug = CoreUtils.RemoveIllegalCharacters(this.Slug);
+                var theslug = WebUtils.RemoveIllegalCharacters(this.Slug);
                 //if (!settings.RemoveExtensionsFromUrls)
                 //    theslug += ext;
 
@@ -591,7 +591,7 @@
 
                 return settings.TimeStampPostLinks
                     ? string.Format("{0}{1}post/{2}{3}", Blog.RelativeWebRoot, BlogUrl, DateCreated.ToString("yyyy/MM/dd/", CultureInfo.InvariantCulture), theslug)
-                    : string.Format("{0}{1}post/{2}", CoreUtils.RelativeWebRoot, BlogUrl, theslug);
+                    : string.Format("{0}{1}post/{2}", WebUtils.RelativeWebRoot, BlogUrl, theslug);
             }
         }
 
@@ -942,11 +942,11 @@
         /// </returns>
         public static List<Post> GetPostsByAuthor(string author)
         {
-            var legalAuthor = CoreUtils.RemoveIllegalCharacters(author);
+            var legalAuthor = WebUtils.RemoveIllegalCharacters(author);
             var list = ApplicablePosts.FindAll(
                 p =>
                 {
-                    var legalTitle = CoreUtils.RemoveIllegalCharacters(p.Author);
+                    var legalTitle = WebUtils.RemoveIllegalCharacters(p.Author);
                     return legalAuthor.Equals(legalTitle, StringComparison.OrdinalIgnoreCase);
                 });
 
@@ -960,11 +960,11 @@
         /// <returns>Blog if author wrote any posts there</returns>
         public static Blog GetBlogByAuthor(string author)
         {
-            var legalAuthor = CoreUtils.RemoveIllegalCharacters(author);
+            var legalAuthor = WebUtils.RemoveIllegalCharacters(author);
             var post = ApplicablePosts.FirstOrDefault(
                 p =>
                 {
-                    var legalTitle = CoreUtils.RemoveIllegalCharacters(p.Author);
+                    var legalTitle = WebUtils.RemoveIllegalCharacters(p.Author);
                     return legalAuthor.Equals(legalTitle, StringComparison.OrdinalIgnoreCase);
                 });
 
@@ -1046,12 +1046,12 @@
         /// </returns>
         public static List<Post> GetPostsByTag(string tag)
         {
-            tag = CoreUtils.RemoveIllegalCharacters(tag);
+            tag = WebUtils.RemoveIllegalCharacters(tag);
 
             var list =
                 ApplicablePosts.FindAll(
                     p =>
-                    p.Tags.Any(t => CoreUtils.RemoveIllegalCharacters(t).Equals(tag, StringComparison.OrdinalIgnoreCase)));
+                    p.Tags.Any(t => WebUtils.RemoveIllegalCharacters(t).Equals(tag, StringComparison.OrdinalIgnoreCase)));
 
             return list;
         }
@@ -1071,10 +1071,10 @@
         /// </returns>
         public static bool IsTitleUnique(string title)
         {
-            var legal = CoreUtils.RemoveIllegalCharacters(title);
+            var legal = WebUtils.RemoveIllegalCharacters(title);
             return
                 Posts.All(
-                    post => !CoreUtils.RemoveIllegalCharacters(post.Title).Equals(legal, StringComparison.OrdinalIgnoreCase));
+                    post => !WebUtils.RemoveIllegalCharacters(post.Title).Equals(legal, StringComparison.OrdinalIgnoreCase));
         }
 
         /// <summary>
@@ -1172,7 +1172,7 @@
         /// <returns>Slug that is unique across blogs</returns>
         public static string GetUniqueSlug(string slug, Guid postId)
         {
-            string s = CoreUtils.RemoveIllegalCharacters(slug.Trim());
+            string s = WebUtils.RemoveIllegalCharacters(slug.Trim());
 
             // will do for up to 100 unique post titles
             for (int i = 1; i < 101; i++)
@@ -1919,7 +1919,7 @@
                     unsubscribeLink.Contains("?") ? "&" : "?",
                     HttpUtility.UrlEncode(email));
 
-                var defaultCulture = CoreUtils.GetDefaultCulture();
+                var defaultCulture = WebUtils.GetDefaultCulture();
 
                 var sb = new StringBuilder();
                 sb.AppendFormat(
@@ -1927,13 +1927,13 @@
                 sb.AppendFormat("{0}<br /><br />", comment.Content.Replace(Environment.NewLine, "<br />"));
                 sb.AppendFormat(
                     "<strong>{0}</strong>: <a href=\"{1}#id_{2}\">{3}</a><br/>",
-                    CoreUtils.Translate("post", null, defaultCulture),
+                    WebUtils.Translate("post", null, defaultCulture),
                     this.PermaLink,
                     comment.Id,
                     this.Title);
                 sb.Append("<br />_______________________________________________________________________________<br />");
                 sb.AppendFormat(
-                    "<a href=\"{0}\">{1}</a></div>", unsubscribeLink, CoreUtils.Translate("commentNotificationUnsubscribe"));
+                    "<a href=\"{0}\">{1}</a></div>", unsubscribeLink, WebUtils.Translate("commentNotificationUnsubscribe"));
 
                 var mail = new MailMessage
                 {
@@ -1943,7 +1943,7 @@
                 };
 
                 mail.To.Add(email);
-                CoreUtils.SendMailMessageAsync(mail);
+                WebUtils.SendMailMessageAsync(mail);
             }
         }
 

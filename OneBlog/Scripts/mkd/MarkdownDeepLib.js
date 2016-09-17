@@ -1,9 +1,9 @@
-// include:MarkdownDeep.js
+// include:MarkdownKit.js
 // include:MarkdownDeepEditor.js
 // include:MarkdownDeepEditorUI.js
 
 // 
-//   MarkdownDeep - http://www.toptensoftware.com/markdowndeep
+//   MarkdownKit - http://www.toptensoftware.com/markdowndeep
 // 
 //   The contents of this file are subject to the license terms as 
 //	 specified at the web address above.

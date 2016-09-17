@@ -9,6 +9,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneBlog.Core", "OneBlog.Cor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneBlog.Tests", "OneBlog.Tests\OneBlog.Tests.csproj", "{7011BC76-BB91-4D2B-8B83-F810A16950CD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneBlog.Data", "OneBlog.Data\OneBlog.Data.csproj", "{BC93621D-2E73-473C-816F-09099A1944D2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Third Party", "Third Party", "{4A6C388C-CA72-4D88-ABA7-0A4A4C83A62E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarkdownKit", "MarkdownKit\MarkdownKit.csproj", "{4421A951-21A8-4A4C-A79D-00E37F9D37E5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,8 +33,19 @@ Global
 		{7011BC76-BB91-4D2B-8B83-F810A16950CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7011BC76-BB91-4D2B-8B83-F810A16950CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7011BC76-BB91-4D2B-8B83-F810A16950CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC93621D-2E73-473C-816F-09099A1944D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC93621D-2E73-473C-816F-09099A1944D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC93621D-2E73-473C-816F-09099A1944D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC93621D-2E73-473C-816F-09099A1944D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4421A951-21A8-4A4C-A79D-00E37F9D37E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4421A951-21A8-4A4C-A79D-00E37F9D37E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4421A951-21A8-4A4C-A79D-00E37F9D37E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4421A951-21A8-4A4C-A79D-00E37F9D37E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4421A951-21A8-4A4C-A79D-00E37F9D37E5} = {4A6C388C-CA72-4D88-ABA7-0A4A4C83A62E}
 	EndGlobalSection
 EndGlobal

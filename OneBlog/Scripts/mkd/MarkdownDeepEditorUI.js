@@ -1,5 +1,5 @@
 // 
-//! MarkdownDeep - http://www.toptensoftware.com/markdowndeep
+//! MarkdownKit - http://www.toptensoftware.com/markdowndeep
 //! Copyright (C) 2010-2011 Topten Software
 // 
 //   Licensed under the Apache License, Version 2.0 (the "License"); you may not use this product except in 
@@ -177,7 +177,7 @@ var MarkdownDeepEditorUI=new function(){
 }();
 
 /*
-MarkdownDeep jQuery plugin
+MarkdownKit jQuery plugin
 
 Markup:
 
@@ -192,7 +192,7 @@ explicitly include them.
 
 Example: 
 
-     $("textarea.mdd_editor").MarkdownDeep({ 
+     $("textarea.mdd_editor").MarkdownKit({ 
         help_location: "/Content/mdd_help.html",
         disableTabHandling:true
      });
@@ -249,7 +249,7 @@ How the associated UI components are located:
     * if no preview div found by the above selector, creates one immediately after the
       resize bar
 
-4. Applies the passed options to both the MarkdownDeep text transform object and the Markdown 
+4. Applies the passed options to both the MarkdownKit text transform object and the Markdown 
  editor so the one options array can be used to set any supported option
  
 */
@@ -257,7 +257,7 @@ How the associated UI components are located:
 
 (function($){
 
-  $.fn.MarkdownDeep = function( options ) {  
+  $.fn.MarkdownKit = function( options ) {  
 
     // Default settings  
     var settings=

@@ -163,7 +163,7 @@ namespace OneBlog.Core.Data
                     }
                     catch (Exception)
                     {
-                        CoreUtils.Log("Error parsing parent ID while saving page");
+                        WebUtils.Log("Error parsing parent ID while saving page");
                     }
                 }
             }
@@ -174,7 +174,7 @@ namespace OneBlog.Core.Data
 
         static string GetUniqueSlug(string slug)
         {
-            string s = CoreUtils.RemoveIllegalCharacters(slug.Trim());
+            string s = WebUtils.RemoveIllegalCharacters(slug.Trim());
 
             // will do for up to 100 unique post titles
             for (int i = 1; i < 101; i++)
@@ -198,7 +198,7 @@ namespace OneBlog.Core.Data
         {
             if (string.IsNullOrEmpty(desc))
             {
-                var p = CoreUtils.StripHtml(content);
+                var p = WebUtils.StripHtml(content);
 
                 if (p.Length > 100)
                     return p.Substring(0, 100);

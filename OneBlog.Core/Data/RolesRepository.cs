@@ -67,7 +67,7 @@ namespace OneBlog.Core.Data
             {
                 throw new System.UnauthorizedAccessException();
             }
-            else if (CoreUtils.StringIsNullOrWhitespace(role.RoleName))
+            else if (WebUtils.StringIsNullOrWhitespace(role.RoleName))
             {
                 throw new ApplicationException("Role name is required");
             }
@@ -84,7 +84,7 @@ namespace OneBlog.Core.Data
                 }
                 catch (Exception ex)
                 {
-                    CoreUtils.Log(string.Format("Error adding role", ex));
+                    WebUtils.Log(string.Format("Error adding role", ex));
                     throw new ApplicationException("Error adding new role");
                 }
             }
@@ -121,7 +121,7 @@ namespace OneBlog.Core.Data
             if (!Security.IsAuthorizedTo(Rights.DeleteRoles))
                 throw new System.UnauthorizedAccessException();
 
-            if (CoreUtils.StringIsNullOrWhitespace(id))
+            if (WebUtils.StringIsNullOrWhitespace(id))
                 throw new ApplicationException("Role name is required");
 
             try
@@ -132,7 +132,7 @@ namespace OneBlog.Core.Data
             }
             catch (Exception ex)
             {
-                CoreUtils.Log("Error deleting role", ex);
+                WebUtils.Log("Error deleting role", ex);
                 return false;
             }
         }
@@ -234,7 +234,7 @@ namespace OneBlog.Core.Data
             {
                 throw new System.UnauthorizedAccessException();
             }
-            else if (CoreUtils.StringIsNullOrWhitespace(id))
+            else if (WebUtils.StringIsNullOrWhitespace(id))
             {
                 throw new ApplicationException("Invalid role name");
             }

@@ -38,7 +38,7 @@ namespace OneBlog.Core.Data.Models
         {
             get
             {
-                return CoreUtils.RemoveIllegalCharacters(Key);
+                return WebUtils.RemoveIllegalCharacters(Key);
             }
         }
     }

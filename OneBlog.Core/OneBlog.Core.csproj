@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -40,7 +40,7 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -83,11 +83,11 @@
       <HintPath>..\packages\DynamicQuery.1.0\lib\35\Dynamic.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.4.369, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
@@ -146,34 +146,84 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\Contracts\IWidgetsRepository.cs" />
+    <Compile Include="Data\BlogRepository.cs" />
+    <Compile Include="Data\CategoryRepository.cs" />
+    <Compile Include="Data\CommentFilterRepository.cs" />
+    <Compile Include="Data\CommentsRepository.cs" />
+    <Compile Include="Data\Contracts\IBlogRepository.cs" />
+    <Compile Include="Data\Contracts\ICategoryRepository.cs" />
+    <Compile Include="Data\Contracts\ICommentFilterRepository.cs" />
+    <Compile Include="Data\Contracts\ICommentsRepository.cs" />
+    <Compile Include="Data\Contracts\ICustomFieldRepository.cs" />
+    <Compile Include="Data\Contracts\ICustomFilterRepository.cs" />
     <Compile Include="Data\Contracts\IDashboardRepository.cs" />
-    <Compile Include="Data\Services\TagCloud.cs" />
-    <Compile Include="Data\ViewModels\BlogRollVM.cs" />
-    <Compile Include="Data\WidgetsRepository.cs" />
+    <Compile Include="Data\Contracts\IFileManagerRepository.cs" />
+    <Compile Include="Data\Contracts\ILookupsRepository.cs" />
+    <Compile Include="Data\Contracts\IPackageRepository.cs" />
+    <Compile Include="Data\Contracts\IPageRepository.cs" />
+    <Compile Include="Data\Contracts\IPostRepository.cs" />
+    <Compile Include="Data\Contracts\IRolesRepository.cs" />
+    <Compile Include="Data\Contracts\ISettingsRepository.cs" />
+    <Compile Include="Data\Contracts\IStatsRepository.cs" />
+    <Compile Include="Data\Contracts\ITagRepository.cs" />
+    <Compile Include="Data\Contracts\ITrashRepository.cs" />
+    <Compile Include="Data\Contracts\IUsersRepository.cs" />
+    <Compile Include="Data\Contracts\IWidgetsRepository.cs" />
+    <Compile Include="Data\CustomFieldRepository.cs" />
+    <Compile Include="Data\CustomFilterRepository.cs" />
     <Compile Include="Data\DashboardRepository.cs" />
+    <Compile Include="Data\FileManagerRepository.cs" />
+    <Compile Include="Data\LookupsRepository.cs" />
+    <Compile Include="Data\Models\Blog.cs" />
+    <Compile Include="Data\Models\BlogItem.cs" />
+    <Compile Include="Data\Models\BlogUser.cs" />
+    <Compile Include="Data\Models\CategoryItem.cs" />
+    <Compile Include="Data\Models\CommentDetail.cs" />
+    <Compile Include="Data\Models\CommentFilterItem.cs" />
+    <Compile Include="Data\Models\CommentItem.cs" />
+    <Compile Include="Data\Models\CustomField.cs" />
+    <Compile Include="Data\Models\CustomFilter.cs" />
     <Compile Include="Data\Models\EditorOptions.cs" />
+    <Compile Include="Data\Models\Enums.cs" />
+    <Compile Include="Data\Models\JsonResponse.cs" />
+    <Compile Include="Data\Models\Lookups.cs" />
+    <Compile Include="Data\Models\Package.cs" />
+    <Compile Include="Data\Models\PageDetail.cs" />
+    <Compile Include="Data\Models\PageItem.cs" />
+    <Compile Include="Data\Models\PostDetail.cs" />
+    <Compile Include="Data\Models\PostItem.cs" />
+    <Compile Include="Data\Models\Profile.cs" />
+    <Compile Include="Data\Models\Security.cs" />
+    <Compile Include="Data\Models\SelectOption.cs" />
+    <Compile Include="Data\Models\Settings.cs" />
+    <Compile Include="Data\Models\Stats.cs" />
+    <Compile Include="Data\Models\TagItem.cs" />
+    <Compile Include="Data\Models\TrashItem.cs" />
+    <Compile Include="Data\Models\TrashVM.cs" />
+    <Compile Include="Data\PackageRepository.cs" />
+    <Compile Include="Data\PageRepository.cs" />
+    <Compile Include="Data\PostRepository.cs" />
+    <Compile Include="Data\RolesRepository.cs" />
+    <Compile Include="Data\Services\Avatar.cs" />
+    <Compile Include="Data\Services\CustomFieldsParser.cs" />
     <Compile Include="Data\Services\Json.cs" />
+    <Compile Include="Data\Services\TagCloud.cs" />
+    <Compile Include="Data\Services\Updater.cs" />
+    <Compile Include="Data\SettingsRepository.cs" />
+    <Compile Include="Data\StatsRepository.cs" />
+    <Compile Include="Data\TagRepository.cs" />
+    <Compile Include="Data\TrashRepository.cs" />
+    <Compile Include="Data\UsersRepository.cs" />
+    <Compile Include="Data\ViewModels\BlogRollVM.cs" />
     <Compile Include="Data\ViewModels\CommentsVM.cs" />
     <Compile Include="Data\ViewModels\DashboardVM.cs" />
     <Compile Include="Data\ViewModels\SettingsVM.cs" />
     <Compile Include="Data\ViewModels\WidgetsVM.cs" />
+    <Compile Include="Data\WidgetsRepository.cs" />
     <Compile Include="Helpers\HtmlHelper.cs" />
     <Compile Include="IPagedList.cs" />
-    <Compile Include="MarkdownDeep\Abbreviation.cs" />
-    <Compile Include="MarkdownDeep\Block.cs" />
-    <Compile Include="MarkdownDeep\BlockProcessor.cs" />
-    <Compile Include="MarkdownDeep\FootnoteReference.cs" />
-    <Compile Include="MarkdownDeep\HtmlTag.cs" />
-    <Compile Include="MarkdownDeep\LinkDefinition.cs" />
-    <Compile Include="MarkdownDeep\LinkInfo.cs" />
-    <Compile Include="MarkdownDeep\MardownDeep.cs" />
-    <Compile Include="MarkdownDeep\SpanFormatter.cs" />
-    <Compile Include="MarkdownDeep\StringScanner.cs" />
-    <Compile Include="MarkdownDeep\TableSpec.cs" />
-    <Compile Include="MarkdownDeep\Token.cs" />
-    <Compile Include="MarkdownDeep\Utils.cs" />
     <Compile Include="PagedList.cs" />
+    <Compile Include="Services\Security\SecurityUtils.cs" />
     <Compile Include="Services\Syndication\BlogML\BaseReader.cs" />
     <Compile Include="Services\Syndication\BlogML\BlogImporter.cs" />
     <Compile Include="Services\Syndication\BlogML\BlogMLExtendedPost.cs" />
@@ -207,67 +257,6 @@
     <Compile Include="Services\Compilation\ReflectExpressionBuilder.cs" />
     <Compile Include="Services\Compilation\ServerVariableExpressionBuilder.cs" />
     <Compile Include="Services\Compilation\SessionExpressionBuilder.cs" />
-    <Compile Include="Data\CommentFilterRepository.cs" />
-    <Compile Include="Data\Contracts\ICommentFilterRepository.cs" />
-    <Compile Include="Data\Contracts\ICustomFieldRepository.cs" />
-    <Compile Include="Data\Contracts\IFileManagerRepository.cs" />
-    <Compile Include="Data\Contracts\IRolesRepository.cs" />
-    <Compile Include="Data\Contracts\IUsersRepository.cs" />
-    <Compile Include="Data\CustomFieldRepository.cs" />
-    <Compile Include="Data\BlogRepository.cs" />
-    <Compile Include="Data\CategoryRepository.cs" />
-    <Compile Include="Data\CommentsRepository.cs" />
-    <Compile Include="Data\Contracts\IBlogRepository.cs" />
-    <Compile Include="Data\Contracts\ICategoryRepository.cs" />
-    <Compile Include="Data\Contracts\ICommentsRepository.cs" />
-    <Compile Include="Data\Contracts\ICustomFilterRepository.cs" />
-    <Compile Include="Data\Contracts\ILookupsRepository.cs" />
-    <Compile Include="Data\Contracts\IPackageRepository.cs" />
-    <Compile Include="Data\Contracts\IPageRepository.cs" />
-    <Compile Include="Data\Contracts\IPostRepository.cs" />
-    <Compile Include="Data\Contracts\ISettingsRepository.cs" />
-    <Compile Include="Data\Contracts\IStatsRepository.cs" />
-    <Compile Include="Data\Contracts\ITagRepository.cs" />
-    <Compile Include="Data\Contracts\ITrashRepository.cs" />
-    <Compile Include="Data\CustomFilterRepository.cs" />
-    <Compile Include="Data\FileManagerRepository.cs" />
-    <Compile Include="Data\LookupsRepository.cs" />
-    <Compile Include="Data\Models\Blog.cs" />
-    <Compile Include="Data\Models\BlogItem.cs" />
-    <Compile Include="Data\Models\CategoryItem.cs" />
-    <Compile Include="Data\Models\CommentDetail.cs" />
-    <Compile Include="Data\Models\CommentFilterItem.cs" />
-    <Compile Include="Data\Models\CommentItem.cs" />
-    <Compile Include="Data\Models\CustomFilter.cs" />
-    <Compile Include="Data\Models\Enums.cs" />
-    <Compile Include="Data\Models\CustomField.cs" />
-    <Compile Include="Data\Models\JsonResponse.cs" />
-    <Compile Include="Data\Models\Lookups.cs" />
-    <Compile Include="Data\Models\Package.cs" />
-    <Compile Include="Data\Models\PageDetail.cs" />
-    <Compile Include="Data\Models\PageItem.cs" />
-    <Compile Include="Data\Models\PostDetail.cs" />
-    <Compile Include="Data\Models\PostItem.cs" />
-    <Compile Include="Data\Models\Profile.cs" />
-    <Compile Include="Data\Models\Security.cs" />
-    <Compile Include="Data\Models\SelectOption.cs" />
-    <Compile Include="Data\Models\Stats.cs" />
-    <Compile Include="Data\Models\BlogUser.cs" />
-    <Compile Include="Data\Models\TagItem.cs" />
-    <Compile Include="Data\Models\TrashItem.cs" />
-    <Compile Include="Data\Models\TrashVM.cs" />
-    <Compile Include="Data\PackageRepository.cs" />
-    <Compile Include="Data\PageRepository.cs" />
-    <Compile Include="Data\PostRepository.cs" />
-    <Compile Include="Data\RolesRepository.cs" />
-    <Compile Include="Data\Services\Avatar.cs" />
-    <Compile Include="Data\Services\CustomFieldsParser.cs" />
-    <Compile Include="Data\Services\Updater.cs" />
-    <Compile Include="Data\SettingsRepository.cs" />
-    <Compile Include="Data\StatsRepository.cs" />
-    <Compile Include="Data\UsersRepository.cs" />
-    <Compile Include="Data\TagRepository.cs" />
-    <Compile Include="Data\TrashRepository.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Services\FileSystem\Common.cs" />
     <Compile Include="Services\FileSystem\Directory.cs" />
@@ -275,7 +264,6 @@
     <Compile Include="Services\FileSystem\FileStoreDb.cs" />
     <Compile Include="Services\FileSystem\Image.cs" />
     <Compile Include="Services\FileSystem\FileSystemUtilities.cs" />
-    <Compile Include="Data\Models\Settings.cs" />
     <Compile Include="Services\Packaging\Constants.cs" />
     <Compile Include="Services\Packaging\GalleryData.cs" />
     <Compile Include="Services\Packaging\FileSystem.cs" />
@@ -362,7 +350,7 @@
     <Compile Include="Post.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helpers\StateCollection.cs" />
-    <Compile Include="Helpers\CoreUtils.cs" />
+    <Compile Include="Helpers\WebUtils.cs" />
     <Compile Include="Providers\XmlProvider\XmlMembershipProvider.cs" />
     <Compile Include="Web\HttpHandlers\SyndicationHandler.cs" />
     <Compile Include="Web\HttpHandlers\TrackbackHandler.cs" />
@@ -460,7 +448,12 @@
   <ItemGroup>
     <Compile Include="Web\HttpHandlers\JavaScriptHandler.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\MarkdownKit\MarkdownKit.csproj">
+      <Project>{4421a951-21a8-4a4c-a79d-00e37f9d37e5}</Project>
+      <Name>MarkdownKit</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

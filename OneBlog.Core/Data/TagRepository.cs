@@ -87,7 +87,7 @@ namespace OneBlog.Core.Data
             }
             catch (Exception ex)
             {
-                CoreUtils.Log(string.Format("TagRepository.Update: {0}", ex.Message));
+                WebUtils.Log(string.Format("TagRepository.Update: {0}", ex.Message));
                 return false;
             }
         }
@@ -117,7 +117,7 @@ namespace OneBlog.Core.Data
             }
             catch (Exception ex)
             {
-                CoreUtils.Log(string.Format("Tags.Delete: {0}", ex.Message));
+                WebUtils.Log(string.Format("Tags.Delete: {0}", ex.Message));
                 return false;
             }
         }

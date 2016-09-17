@@ -11,7 +11,7 @@ namespace System.Web.Mvc
             var text = File.ReadAllText(helper.ViewContext.HttpContext.Server.MapPath(filename));
 
             // Setup processor
-            var md = new MarkdownDeep.Markdown
+            var md = new MarkdownKit.Markdown
             {
                 SafeMode = false,
                 ExtraMode = true,
@@ -27,7 +27,7 @@ namespace System.Web.Mvc
 
         public static IHtmlString RenderMarkdown(this HtmlHelper helper, string text)
         {
-            var md = new MarkdownDeep.Markdown
+            var md = new MarkdownKit.Markdown
             {
                 SafeMode = false,
                 ExtraMode = true,

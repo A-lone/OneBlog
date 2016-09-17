@@ -516,7 +516,7 @@
             using (var writer = XmlWriter.Create(context.Response.OutputStream, settings))
             {
                 writer.WriteStartElement("blog", "http://www.blogml.com/2006/09/BlogML");
-                writer.WriteAttributeString("root-url", CoreUtils.RelativeWebRoot);
+                writer.WriteAttributeString("root-url", WebUtils.RelativeWebRoot);
                 writer.WriteAttributeString(
                     "date-created", DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture));
                 writer.WriteAttributeString("xmlns", "xs", null, "http://www.w3.org/2001/XMLSchema");

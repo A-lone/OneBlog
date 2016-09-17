@@ -72,7 +72,7 @@ namespace OneBlog.Core
                     context.Request.Cookies.Remove(FormsAuthCookieName);
                     authTicket = null;
 
-                    CoreUtils.Log("Failed to decrypt the FormsAuthentication cookie.", ex);
+                    WebUtils.Log("Failed to decrypt the FormsAuthentication cookie.", ex);
                 }
 
                 if (authTicket != null)
@@ -345,11 +345,11 @@ namespace OneBlog.Core
             // login page to prevent confusion.
             if (isFromLoginPage)
             {
-                context.Response.Redirect(CoreUtils.RelativeWebRoot);
+                context.Response.Redirect(WebUtils.RelativeWebRoot);
             }
             else
             {
-                context.Response.Redirect(string.Format("{0}Account/Login?ReturnURL={1}", CoreUtils.RelativeWebRoot, HttpUtility.UrlPathEncode(context.Request.RawUrl)));
+                context.Response.Redirect(string.Format("{0}Account/Login?ReturnURL={1}", WebUtils.RelativeWebRoot, HttpUtility.UrlPathEncode(context.Request.RawUrl)));
             }
         }
 

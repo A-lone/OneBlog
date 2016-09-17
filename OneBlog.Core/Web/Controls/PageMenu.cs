@@ -65,15 +65,15 @@ namespace OneBlog.Core.Web.Controls
             HtmlGenericControl ul = GetChildren(Guid.Empty);
 
             // items that will be appended to the end of menu list
-            AddMenuItem(ul, Contact, CoreUtils.RelativeWebRoot + "contact.aspx");
+            AddMenuItem(ul, Contact, WebUtils.RelativeWebRoot + "contact.aspx");
 
             if (Security.IsAuthenticated)
             {
-                AddMenuItem(ul, Logoff, CoreUtils.RelativeWebRoot + "Account/login.aspx?logoff");
+                AddMenuItem(ul, Logoff, WebUtils.RelativeWebRoot + "Account/login.aspx?logoff");
             }
             else
             {
-                AddMenuItem(ul, Logon, CoreUtils.RelativeWebRoot + "Account/login.aspx");
+                AddMenuItem(ul, Logon, WebUtils.RelativeWebRoot + "Account/login.aspx");
             }
 
             return ul;
@@ -108,8 +108,8 @@ namespace OneBlog.Core.Web.Controls
                 ul.Attributes.Add("class", "menu");
                 _ulIdSet = true;
 
-                AddMenuItem(ul, Home, CoreUtils.RelativeWebRoot + "default.aspx");
-                AddMenuItem(ul, Archive, CoreUtils.RelativeWebRoot + "archive.aspx");
+                AddMenuItem(ul, Home, WebUtils.RelativeWebRoot + "default.aspx");
+                AddMenuItem(ul, Archive, WebUtils.RelativeWebRoot + "archive.aspx");
             }
 
             foreach (OneBlog.Core.Page page in OneBlog.Core.Page.Pages)

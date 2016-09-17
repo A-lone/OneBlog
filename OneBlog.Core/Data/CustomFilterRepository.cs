@@ -51,7 +51,7 @@ namespace OneBlog.Core.Data
             }
             catch (Exception ex)
             {
-                CoreUtils.Log("CustomFilterRepository.GetCustomFilters(): " + ex.Message);
+                WebUtils.Log("CustomFilterRepository.GetCustomFilters(): " + ex.Message);
             }
             return filterList;
         }
@@ -85,7 +85,7 @@ namespace OneBlog.Core.Data
             }
             catch (Exception ex)
             {
-                CoreUtils.Log(string.Format("CustomFilterRepository.ResetCounters: {0}", ex.Message));
+                WebUtils.Log(string.Format("CustomFilterRepository.ResetCounters: {0}", ex.Message));
                 return new JsonResponse() { Message = "Error resetting counters" };
             }
         }

@@ -267,7 +267,7 @@
         {
             get
             {
-                var ret = CoreUtils.StripHtml(Content).Trim();
+                var ret = WebUtils.StripHtml(Content).Trim();
                 return ret.Length > 120 ? string.Format("{0} ...", ret.Substring(0, 116)) : ret;
             }
         }

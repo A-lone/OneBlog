@@ -115,7 +115,7 @@ namespace OneBlog.Core.Data
             }
             catch (Exception ex)
             {
-                CoreUtils.Log(string.Format("CategoryRepository.Add: {0}", ex.Message));
+                WebUtils.Log(string.Format("CategoryRepository.Add: {0}", ex.Message));
                 return null;
             }
         }
@@ -172,7 +172,7 @@ namespace OneBlog.Core.Data
             }
             catch (Exception ex)
             {
-                CoreUtils.Log(string.Format("CategoryRepository.Remove: {0}", ex.Message));
+                WebUtils.Log(string.Format("CategoryRepository.Remove: {0}", ex.Message));
                 return false;
             }
         }
@@ -220,7 +220,7 @@ namespace OneBlog.Core.Data
             }
             catch (Exception ex)
             {
-                CoreUtils.Log("Error updating category: ", ex);
+                WebUtils.Log("Error updating category: ", ex);
             }
         }
 

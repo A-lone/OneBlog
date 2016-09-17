@@ -459,7 +459,7 @@ namespace OneBlog.Core
             // ------------------------------------------------------------
             // Modify publishable content to make references absolute
             // ------------------------------------------------------------
-            var content = CoreUtils.ConvertPublishablePathsToAbsolute(arg.Body, publishable);
+            var content = WebUtils.ConvertPublishablePathsToAbsolute(arg.Body, publishable);
 
             writer.WriteStartElement("entry");
 
@@ -648,7 +648,7 @@ namespace OneBlog.Core
             // ------------------------------------------------------------
             // Modify post content to make references absolute
             // ------------------------------------------------------------    
-            var content = CoreUtils.ConvertPublishablePathsToAbsolute(arg.Body, publishable);
+            var content = WebUtils.ConvertPublishablePathsToAbsolute(arg.Body, publishable);
 
             // handle custom fields in the posts
             content = CustomFieldsParser.GetPageHtml(content);
@@ -822,7 +822,7 @@ namespace OneBlog.Core
             // ------------------------------------------------------------
             // Write required feed elements
             // ------------------------------------------------------------
-            writer.WriteElementString("id", CoreUtils.AbsoluteWebRoot.ToString());
+            writer.WriteElementString("id", WebUtils.AbsoluteWebRoot.ToString());
             writer.WriteElementString("title", title);
             
             var updated = publishables.Count > 0
@@ -837,12 +837,12 @@ namespace OneBlog.Core
             // Write recommended feed elements
             // ------------------------------------------------------------
             writer.WriteStartElement("link");
-            writer.WriteAttributeString("href", CoreUtils.AbsoluteWebRoot.ToString());
+            writer.WriteAttributeString("href", WebUtils.AbsoluteWebRoot.ToString());
             writer.WriteEndElement();
 
             writer.WriteStartElement("link");
             writer.WriteAttributeString("rel", "self");
-            writer.WriteAttributeString("href", string.Format("{0}syndication.axd?format=atom", CoreUtils.AbsoluteWebRoot));
+            writer.WriteAttributeString("href", string.Format("{0}syndication.axd?format=atom", WebUtils.AbsoluteWebRoot));
             writer.WriteEndElement();
 
             // writer.WriteStartElement("link");
@@ -898,7 +898,7 @@ namespace OneBlog.Core
             // ------------------------------------------------------------
             Uri blogRoll;
             if (Uri.TryCreate(
-                String.Concat(CoreUtils.AbsoluteWebRoot.ToString().TrimEnd('/'), "/opml.axd"),
+                String.Concat(WebUtils.AbsoluteWebRoot.ToString().TrimEnd('/'), "/opml.axd"),
                 UriKind.RelativeOrAbsolute,
                 out blogRoll))
             {
@@ -1024,7 +1024,7 @@ namespace OneBlog.Core
 
             writer.WriteElementString("title", title);
             writer.WriteElementString("description", this.Settings.Description);
-            writer.WriteElementString("link", CoreUtils.AbsoluteWebRoot.ToString());
+            writer.WriteElementString("link", WebUtils.AbsoluteWebRoot.ToString());
 
             // ------------------------------------------------------------
             // Write common/shared channel elements
@@ -1070,7 +1070,7 @@ namespace OneBlog.Core
             // ------------------------------------------------------------
             Uri blogRoll;
             if (Uri.TryCreate(
-                String.Concat(CoreUtils.AbsoluteWebRoot.ToString().TrimEnd('/'), "/opml.axd"),
+                String.Concat(WebUtils.AbsoluteWebRoot.ToString().TrimEnd('/'), "/opml.axd"),
                 UriKind.RelativeOrAbsolute,
                 out blogRoll))
             {

@@ -31,7 +31,7 @@ namespace OneBlog.Controllers
         {
 
             var cat = (from item in OneBlog.Core.Category.ApplicableCategories
-                                  let legalTitle = CoreUtils.RemoveIllegalCharacters(item.Title).ToLowerInvariant()
+                                  let legalTitle = WebUtils.RemoveIllegalCharacters(item.Title).ToLowerInvariant()
                                   where category.Equals(legalTitle, StringComparison.OrdinalIgnoreCase)
                                   select item).FirstOrDefault();
 
@@ -58,7 +58,7 @@ namespace OneBlog.Controllers
             else
             {
                 var cat = (from item in OneBlog.Core.Category.ApplicableCategories
-                           let legalTitle = CoreUtils.RemoveIllegalCharacters(item.Title).ToLowerInvariant()
+                           let legalTitle = WebUtils.RemoveIllegalCharacters(item.Title).ToLowerInvariant()
                            where category.Equals(legalTitle, StringComparison.OrdinalIgnoreCase)
                            select item).FirstOrDefault();
                 list = OneBlog.Core.Post.GetPostsByCategory(cat).ConvertAll(new Converter<Post, IPublishable>(delegate (Post post) { return post as IPublishable; }));
@@ -92,7 +92,7 @@ namespace OneBlog.Controllers
                 p =>
                 (!haveDate || (p.DateCreated.Year == year && p.DateCreated.Month == month)) &&
                 ((!haveDate || (day == 0 || p.DateCreated.Day == day)) &&
-                 slug.Equals(CoreUtils.RemoveIllegalCharacters(p.Slug), StringComparison.OrdinalIgnoreCase)));
+                 slug.Equals(WebUtils.RemoveIllegalCharacters(p.Slug), StringComparison.OrdinalIgnoreCase)));
 
             if (post == null)
             {

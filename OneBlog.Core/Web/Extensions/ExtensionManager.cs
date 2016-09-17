@@ -75,7 +75,7 @@
                 SaveToCache();
                 break;
             }
-            CoreUtils.RecycleIIS();
+            WebUtils.RecycleIIS();
         }
 
         /// <summary>
@@ -453,7 +453,7 @@
                 return;
             }
 
-            var codeAssemblies = CoreUtils.CodeAssemblies();
+            var codeAssemblies = WebUtils.CodeAssemblies();
 
             var meta = DataStoreExtension("MetaExtension");
             if (meta == null)
@@ -510,7 +510,7 @@
                         }
                         catch (Exception e)
                         {
-                            CoreUtils.Log(string.Format("Can not load {0}: {1}", type.Name, e.Message));
+                            WebUtils.Log(string.Format("Can not load {0}: {1}", type.Name, e.Message));
                         }
                     }
                 }

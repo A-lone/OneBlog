@@ -508,7 +508,7 @@ namespace OneBlog.Core.Providers
         /// <returns>the repleaced string</returns>
         public static string VirtualPathToDbPath(this string VirtualPath)
         {
-            return VirtualPath.Replace(Blog.CurrentInstance.StorageLocation + CoreUtils.FilesFolder, "");
+            return VirtualPath.Replace(Blog.CurrentInstance.StorageLocation + WebUtils.FilesFolder, "");
         }
     }
     #endregion

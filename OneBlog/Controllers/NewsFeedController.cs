@@ -30,7 +30,7 @@ public class NewsFeedController : ApiController
         }
         catch (Exception ex)
         {
-            OneBlog.Core.CoreUtils.Log("Dashboard news feed", ex);
+            OneBlog.Core.WebUtils.Log("Dashboard news feed", ex);
         }
         return items;
     }

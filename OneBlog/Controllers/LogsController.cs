@@ -46,7 +46,7 @@ public class LogsController : ApiController
         }
         catch (Exception ex)
         {
-            CoreUtils.Log("Error purging log file", ex);
+            WebUtils.Log("Error purging log file", ex);
             return Request.CreateResponse(HttpStatusCode.InternalServerError);
         }
     }

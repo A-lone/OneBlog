@@ -43,12 +43,12 @@
 
                 if (Blog.CurrentInstance.IsSiteAggregation)
                 {
-                    body = CoreUtils.ConvertPublishablePathsToAbsolute(body, post);
+                    body = WebUtils.ConvertPublishablePathsToAbsolute(body, post);
                 }
 
                 if (ShowExcerpt)
                 {
-                    var link = string.Format(" <a href=\"{0}\">[{1}]</a>", post.RelativeLink, CoreUtils.Translate("more"));
+                    var link = string.Format(" <a href=\"{0}\">[{1}]</a>", post.RelativeLink, WebUtils.Translate("more"));
 
                     if (!string.IsNullOrEmpty(post.Description))
                     {
@@ -56,7 +56,7 @@
                     }
                     else
                     {
-                        body = CoreUtils.StripHtml(body);
+                        body = WebUtils.StripHtml(body);
                         if (body.Length > DescriptionCharacters && DescriptionCharacters > 0)
                         {
                             body = string.Format("{0}...{1}", body.Substring(0, DescriptionCharacters), link);
@@ -200,13 +200,13 @@
                             CultureInfo.InvariantCulture,
                             "<a href=\"{0}\">{1} ({2})</a> | ",
                             postRelativeLink,
-                            CoreUtils.Translate("unapprovedcomments"),
+                            WebUtils.Translate("unapprovedcomments"),
                             Post.NotApprovedComments.Count);
                         sb.AppendFormat(
                             CultureInfo.InvariantCulture,
                             "<a href=\"{0}\">{1}</a> | ",
                             postRelativeLink + "?approveallcomments=true",
-                            CoreUtils.Translate("approveallcomments"));
+                            WebUtils.Translate("approveallcomments"));
                     }
                 }
 
@@ -216,16 +216,16 @@
                         CultureInfo.InvariantCulture,
                         "<a href=\"{0}\">{1}</a> | ",
                     Post.Blog.AbsoluteWebRoot + "admin/app/editor/editpost.cshtml?id=" + Post.Id,
-                        CoreUtils.Translate("edit"));
+                        WebUtils.Translate("edit"));
                 }
 
                 if (Post.CanUserDelete)
                 {
                     var confirmDelete = string.Format(
                             CultureInfo.InvariantCulture,
-                            CoreUtils.Translate("areYouSure"),
-                            CoreUtils.Translate("delete").ToLowerInvariant(),
-                            CoreUtils.Translate("thePost"));
+                            WebUtils.Translate("areYouSure"),
+                            WebUtils.Translate("delete").ToLowerInvariant(),
+                            WebUtils.Translate("thePost"));
                        
                     sb.AppendFormat(
                         CultureInfo.InvariantCulture,
@@ -233,7 +233,7 @@
                         postRelativeLink,
                         Post.Id,
                         HttpUtility.JavaScriptStringEncode(confirmDelete),
-                        CoreUtils.Translate("delete"));
+                        WebUtils.Translate("delete"));
                 }
                 return sb.ToString();
 
@@ -326,7 +326,7 @@
             }
             else
             {
-                CoreUtils.InjectUserControls(bodyContent, Body);
+                WebUtils.InjectUserControls(bodyContent, Body);
             }
         }
 

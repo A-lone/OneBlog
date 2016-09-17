@@ -42,7 +42,7 @@ namespace OneBlog.NET.Custom.Widgets
                 }
                 var item = new MonthItem();
                 item.Title = aIt.Key.ToString("MMMM");
-                item.Url = string.Format("{0}{1}/{2}", CoreUtils.RelativeOrAbsoluteWebRoot, aIt.Key.Year, aIt.Key.Month.ToString("00"));
+                item.Url = string.Format("{0}{1}/{2}", WebUtils.RelativeOrAbsoluteWebRoot, aIt.Key.Year, aIt.Key.Month.ToString("00"));
                 item.Count = aIt.Value;
                 years[aIt.Key.Year].Add(item);
             }

@@ -34,7 +34,7 @@
             url = url.Substring(start, stop - start);
 
             return Page.Pages
-                .Where(page => page.IsVisible && url.Equals(CoreUtils.RemoveIllegalCharacters(page.Title), StringComparison.OrdinalIgnoreCase))
+                .Where(page => page.IsVisible && url.Equals(WebUtils.RemoveIllegalCharacters(page.Title), StringComparison.OrdinalIgnoreCase))
                 .Select(page => new SiteMapNode(this, page.Id.ToString(), page.RelativeLink, page.Title, page.Description)).FirstOrDefault();
         }
 

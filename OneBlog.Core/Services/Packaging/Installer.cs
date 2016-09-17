@@ -38,7 +38,7 @@ namespace OneBlog.Core.Packaging
                     
                 var packageManager = new PackageManager( _repository,
                     new DefaultPackagePathResolver(BlogConfig.GalleryFeedUrl),
-                    new PhysicalFileSystem(HttpContext.Current.Server.MapPath(CoreUtils.ApplicationRelativeWebRoot + "App_Data/packages"))
+                    new PhysicalFileSystem(HttpContext.Current.Server.MapPath(WebUtils.ApplicationRelativeWebRoot + "App_Data/packages"))
                 );
 
                 var package = _repository.FindPackage(pkgId);
@@ -56,11 +56,11 @@ namespace OneBlog.Core.Packaging
 
                 CustomFieldsParser.ClearCache();
 
-                CoreUtils.Log(string.Format("Installed package {0} by {1}", pkgId, Security.CurrentUser.Identity.Name));
+                WebUtils.Log(string.Format("Installed package {0} by {1}", pkgId, Security.CurrentUser.Identity.Name));
             }
             catch (Exception ex)
             {
-                CoreUtils.Log("OneBlog.Core.Packaging.Installer.InstallPackage(" + pkgId + ")", ex);
+                WebUtils.Log("OneBlog.Core.Packaging.Installer.InstallPackage(" + pkgId + ")", ex);
                 UninstallPackage(pkgId);
                 throw;
             }
@@ -90,11 +90,11 @@ namespace OneBlog.Core.Packaging
                 // reset cache
                 Blog.CurrentInstance.Cache.Remove(Constants.CacheKey);
 
-                CoreUtils.Log(string.Format("Uninstalled package {0} by {1}", pkgId, Security.CurrentUser.Identity.Name));
+                WebUtils.Log(string.Format("Uninstalled package {0} by {1}", pkgId, Security.CurrentUser.Identity.Name));
             }
             catch (Exception ex)
             {
-                CoreUtils.Log(string.Format("Error unistalling package {0}: {1}"), pkgId, ex.Message);
+                WebUtils.Log(string.Format("Error unistalling package {0}: {1}"), pkgId, ex.Message);
                 throw;
             }
 
@@ -107,7 +107,7 @@ namespace OneBlog.Core.Packaging
             var packageManager = new PackageManager(
                 _repository,
                 new DefaultPackagePathResolver(BlogConfig.GalleryFeedUrl),
-                new PhysicalFileSystem(HttpContext.Current.Server.MapPath(CoreUtils.ApplicationRelativeWebRoot + "App_Data/packages"))
+                new PhysicalFileSystem(HttpContext.Current.Server.MapPath(WebUtils.ApplicationRelativeWebRoot + "App_Data/packages"))
             );
             var package = _repository.FindPackage(pkgId);
 

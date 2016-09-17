@@ -67,7 +67,7 @@ namespace OneBlog.Core.Packaging
             }
             catch (Exception ex)
             {
-                CoreUtils.Log("OneBlog.Core.Packaging.Load", ex);
+                WebUtils.Log("OneBlog.Core.Packaging.Load", ex);
             }   
         }
 
@@ -137,7 +137,7 @@ namespace OneBlog.Core.Packaging
             }
             catch (Exception ex)
             {
-                CoreUtils.Log("Error rating package", ex);
+                WebUtils.Log("Error rating package", ex);
                 return ex.Message;
             }
         }
@@ -155,13 +155,13 @@ namespace OneBlog.Core.Packaging
             switch (packageType)
             {
                 case "Theme":
-                    return string.Format("{0}Content/images/blog/Theme.png", CoreUtils.ApplicationRelativeWebRoot);
+                    return string.Format("{0}Content/images/blog/Theme.png", WebUtils.ApplicationRelativeWebRoot);
                 case "Extension":
-                    return string.Format("{0}Content/images/blog/ext.png", CoreUtils.ApplicationRelativeWebRoot);
+                    return string.Format("{0}Content/images/blog/ext.png", WebUtils.ApplicationRelativeWebRoot);
                 case "Widget":
-                    return string.Format("{0}Content/images/blog/Widget.png", CoreUtils.ApplicationRelativeWebRoot);
+                    return string.Format("{0}Content/images/blog/Widget.png", WebUtils.ApplicationRelativeWebRoot);
             }
-            return string.Format("{0}Content/images/blog/pkg.png", CoreUtils.ApplicationRelativeWebRoot);
+            return string.Format("{0}Content/images/blog/pkg.png", WebUtils.ApplicationRelativeWebRoot);
         }
 
         #endregion

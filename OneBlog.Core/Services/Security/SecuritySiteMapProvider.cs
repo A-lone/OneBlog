@@ -33,16 +33,16 @@
                 }
             }
 
-            if (!CoreUtils.StringIsNullOrWhitespace(node["rights"]))
+            if (!WebUtils.StringIsNullOrWhitespace(node["rights"]))
             {
                 // By default, all specified Rights must exist.
                 // We allow this to be overridden via the "rightsAuthorizationCheck"
                 // attribute.
 
                 AuthorizationCheck authCheck = AuthorizationCheck.HasAll;
-                if (!CoreUtils.StringIsNullOrWhitespace(node["rightsAuthorizationCheck"]))
+                if (!WebUtils.StringIsNullOrWhitespace(node["rightsAuthorizationCheck"]))
                 {
-                    authCheck = CoreUtils.ParseEnum<AuthorizationCheck>(node["rightsAuthorizationCheck"], AuthorizationCheck.HasAll);
+                    authCheck = WebUtils.ParseEnum<AuthorizationCheck>(node["rightsAuthorizationCheck"], AuthorizationCheck.HasAll);
                 }
 
                 string[] rightsRaw = node["rights"].Split(new char[] { ';', ',' }, StringSplitOptions.RemoveEmptyEntries);
@@ -50,7 +50,7 @@
                 List<Rights> rightsToCheck = new List<Rights>();
                 foreach (string r in rightsRaw)
                 {
-                    Rights right = CoreUtils.ParseEnum<Rights>(r.Trim(), Rights.None);
+                    Rights right = WebUtils.ParseEnum<Rights>(r.Trim(), Rights.None);
                     if (right != Rights.None)
                         rightsToCheck.Add(right);
                 }

@@ -199,7 +199,7 @@
         {
             get
             {
-                return CoreUtils.ConvertToAbsolute(this.RelativeLink);
+                return WebUtils.ConvertToAbsolute(this.RelativeLink);
             }
         }
 
@@ -348,8 +348,8 @@
         {
             get
             {
-                var theslug = CoreUtils.RemoveIllegalCharacters(this.Slug) + BlogConfig.FileExtension;
-                return string.Format("{0}page/{1}", CoreUtils.RelativeWebRoot, theslug);
+                var theslug = WebUtils.RemoveIllegalCharacters(this.Slug) + BlogConfig.FileExtension;
+                return string.Format("{0}page/{1}", WebUtils.RelativeWebRoot, theslug);
             }
         }
 
@@ -395,7 +395,7 @@
             {
                 if (string.IsNullOrEmpty(this.slug))
                 {
-                    return CoreUtils.RemoveIllegalCharacters(this.Title);
+                    return WebUtils.RemoveIllegalCharacters(this.Title);
                 }
 
                 return this.slug;

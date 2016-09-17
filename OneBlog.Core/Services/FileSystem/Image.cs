@@ -100,7 +100,7 @@ namespace OneBlog.Core.FileSystem
         {
             get
             {
-                return string.Format("{0}res/image?picture={1}", CoreUtils.RelativeWebRoot, this.SafeFilePath);
+                return string.Format("{0}res/image?picture={1}", WebUtils.RelativeWebRoot, this.SafeFilePath);
             }
         }
 

@@ -32,7 +32,7 @@ namespace OneBlog.Core.Packaging
             }
             catch (Exception ex)
             {
-                CoreUtils.Log(System.Reflection.MethodBase.GetCurrentMethod().Name, ex);
+                WebUtils.Log(System.Reflection.MethodBase.GetCurrentMethod().Name, ex);
                 return null;
             }
         }
@@ -49,7 +49,7 @@ namespace OneBlog.Core.Packaging
             }
             catch (Exception ex)
             {
-                CoreUtils.Log(System.Reflection.MethodBase.GetCurrentMethod().Name, ex);
+                WebUtils.Log(System.Reflection.MethodBase.GetCurrentMethod().Name, ex);
                 return null;
             }
         }
@@ -67,7 +67,7 @@ namespace OneBlog.Core.Packaging
             {
                 var x = ExtensionManager.GetExtension(ext.Key);
                 var adminPage = string.IsNullOrEmpty(x.AdminPage) ?
-                string.Format(CoreUtils.RelativeWebRoot + "admin/Extensions?ext={0}&enb={1}", x.Name, x.Enabled) :
+                string.Format(WebUtils.RelativeWebRoot + "admin/Extensions?ext={0}&enb={1}", x.Name, x.Enabled) :
                 string.Format(x.AdminPage, x.Name, x.Enabled);
 
                 var onlineVersion = GetInstalledVersion(x.Name);
@@ -80,7 +80,7 @@ namespace OneBlog.Core.Packaging
                     LocalVersion = x.Version,
                     OnlineVersion = onlineVersion,
                     Authors = x.Author,
-                    IconUrl = string.Format("{0}Content/images/blog/ext.png", CoreUtils.ApplicationRelativeWebRoot),
+                    IconUrl = string.Format("{0}Content/images/blog/ext.png", WebUtils.ApplicationRelativeWebRoot),
                     Enabled = x.Enabled,
                     Priority = x.Priority,
                     SettingsUrl = x.Settings.Count > 0 ? adminPage : ""
@@ -105,14 +105,14 @@ namespace OneBlog.Core.Packaging
         {
             var packageFiles = new List<PackageFile>();
 
-            var content = HttpContext.Current.Server.MapPath(CoreUtils.ApplicationRelativeWebRoot +
+            var content = HttpContext.Current.Server.MapPath(WebUtils.ApplicationRelativeWebRoot +
                 string.Format("App_Data/packages/{0}.{1}/content", package.Id, package.Version));
 
-            var lib = HttpContext.Current.Server.MapPath(CoreUtils.ApplicationRelativeWebRoot +
+            var lib = HttpContext.Current.Server.MapPath(WebUtils.ApplicationRelativeWebRoot +
                 string.Format("App_Data/packages/{0}.{1}/lib", package.Id, package.Version));
 
-            var root = HttpContext.Current.Server.MapPath(CoreUtils.ApplicationRelativeWebRoot);
-            var bin = HttpContext.Current.Server.MapPath(CoreUtils.ApplicationRelativeWebRoot + "bin");
+            var root = HttpContext.Current.Server.MapPath(WebUtils.ApplicationRelativeWebRoot);
+            var bin = HttpContext.Current.Server.MapPath(WebUtils.ApplicationRelativeWebRoot + "bin");
 
             // copy content files
             var source = new DirectoryInfo(content);
@@ -156,7 +156,7 @@ namespace OneBlog.Core.Packaging
 
             if (installedFiles.Count == 0)
             {
-                CoreUtils.Log(string.Format("Can not find any files installed for package: {0}", pkgId));
+                WebUtils.Log(string.Format("Can not find any files installed for package: {0}", pkgId));
                 throw new ApplicationException("No files to uninstall");
             }
 
@@ -165,7 +165,7 @@ namespace OneBlog.Core.Packaging
             
             foreach (var file in installedFiles.OrderByDescending(f => f.FileOrder))
             {
-                var fullPath = HttpContext.Current.Server.MapPath(Path.Combine(CoreUtils.RelativeWebRoot, file.FilePath));
+                var fullPath = HttpContext.Current.Server.MapPath(Path.Combine(WebUtils.RelativeWebRoot, file.FilePath));
 
                 if(file.IsDirectory)
                 {
@@ -187,7 +187,7 @@ namespace OneBlog.Core.Packaging
                             }
                             catch (Exception ex)
                             {
-                                CoreUtils.Log("Error deleting directory " + fullPath + "; " + ex.Message);
+                                WebUtils.Log("Error deleting directory " + fullPath + "; " + ex.Message);
                             }
                         }
                     }
@@ -203,7 +203,7 @@ namespace OneBlog.Core.Packaging
                 var pkgDir = string.Format("{0}.{1}", pkgId, pkg.OnlineVersion);
 
                 // clean up removing installed version
-                pkgDir = HttpContext.Current.Server.MapPath(string.Format("{0}App_Data/packages/{1}", CoreUtils.ApplicationRelativeWebRoot, pkgDir));
+                pkgDir = HttpContext.Current.Server.MapPath(string.Format("{0}App_Data/packages/{1}", WebUtils.ApplicationRelativeWebRoot, pkgDir));
                 if (Directory.Exists(pkgDir))
                 {
                     ForceDeleteDirectory(pkgDir);
@@ -216,7 +216,7 @@ namespace OneBlog.Core.Packaging
         static List<Package> GetThemes()
         {
             var installedThemes = new List<Package>();
-            var path = HttpContext.Current.Server.MapPath(string.Format("{0}Custom/Themes/", CoreUtils.ApplicationRelativeWebRoot));
+            var path = HttpContext.Current.Server.MapPath(string.Format("{0}Custom/Themes/", WebUtils.ApplicationRelativeWebRoot));
 
             foreach (var p in from d in Directory.GetDirectories(path)
                 let index = d.LastIndexOf(Path.DirectorySeparatorChar) + 1
@@ -251,7 +251,7 @@ namespace OneBlog.Core.Packaging
         static List<Package> GetWidgets()
         {
             var installedWidgets = new List<Package>();
-            var path = HttpContext.Current.Server.MapPath(string.Format("{0}Custom/Widgets/", CoreUtils.ApplicationRelativeWebRoot));
+            var path = HttpContext.Current.Server.MapPath(string.Format("{0}Custom/Widgets/", WebUtils.ApplicationRelativeWebRoot));
 
             foreach (var p in from d in Directory.GetDirectories(path)
                 let index = d.LastIndexOf(Path.DirectorySeparatorChar) + 1
@@ -285,7 +285,7 @@ namespace OneBlog.Core.Packaging
 
         static void CopyDirectory(DirectoryInfo source, DirectoryInfo target, string pkgId, List<PackageFile> installedFiles)
         {
-            var rootPath = HttpContext.Current.Server.MapPath(CoreUtils.RelativeWebRoot);
+            var rootPath = HttpContext.Current.Server.MapPath(WebUtils.RelativeWebRoot);
 
             foreach (var dir in source.GetDirectories())
             {
@@ -395,7 +395,7 @@ namespace OneBlog.Core.Packaging
             foreach (var img in validImages)
             {
                 var url = string.Format("{0}{1}/{2}/{3}",
-                CoreUtils.ApplicationRelativeWebRoot, pkgDir, pkg.Id, img);
+                WebUtils.ApplicationRelativeWebRoot, pkgDir, pkg.Id, img);
 
                 url = url.Replace("/themes", "/Custom/Themes");
                 url = url.Replace("/widgets", "/Custom/Widgets");
@@ -406,9 +406,9 @@ namespace OneBlog.Core.Packaging
             }
 
             if (pkg.PackageType == "Widget")
-                return CoreUtils.ApplicationRelativeWebRoot + "Content/images/blog/Widget.png";
+                return WebUtils.ApplicationRelativeWebRoot + "Content/images/blog/Widget.png";
 
-            return CoreUtils.ApplicationRelativeWebRoot + "Content/images/blog/Theme.png";
+            return WebUtils.ApplicationRelativeWebRoot + "Content/images/blog/Theme.png";
         }
 
         static void ReplaceInFile(string filePath, string searchText, string replaceText)
@@ -423,7 +423,7 @@ namespace OneBlog.Core.Packaging
 
             if (cnt > 0 && cnt != content.Length)
             {
-                CoreUtils.Log(string.Format("Package Installer: replacing in {0} from {1} to {2}", filePath, searchText, replaceText));
+                WebUtils.Log(string.Format("Package Installer: replacing in {0} from {1} to {2}", filePath, searchText, replaceText));
             }
 
             StreamWriter writer = new StreamWriter(filePath);
@@ -461,8 +461,8 @@ namespace OneBlog.Core.Packaging
             var jp = new Package { Id = id, PackageType = pkgType };
 
             var pkgUrl = pkgType == "Theme" ?
-                string.Format("{0}Custom/Themes/{1}/theme.xml", CoreUtils.ApplicationRelativeWebRoot, id) :
-                string.Format("{0}Custom/Widgets/{1}/widget.xml", CoreUtils.ApplicationRelativeWebRoot, id);
+                string.Format("{0}Custom/Themes/{1}/theme.xml", WebUtils.ApplicationRelativeWebRoot, id) :
+                string.Format("{0}Custom/Widgets/{1}/widget.xml", WebUtils.ApplicationRelativeWebRoot, id);
 
             var pkgPath = HttpContext.Current.Server.MapPath(pkgUrl);
             try
@@ -499,7 +499,7 @@ namespace OneBlog.Core.Packaging
             }
             catch (Exception ex)
             {
-                CoreUtils.Log("Packaging.FileSystem.GetPackageManifest", ex);
+                WebUtils.Log("Packaging.FileSystem.GetPackageManifest", ex);
             }
             return null;
         }
@@ -523,7 +523,7 @@ namespace OneBlog.Core.Packaging
             if (string.IsNullOrEmpty(shortPath))
                 return;
 
-            var path = Path.Combine(HttpContext.Current.Server.MapPath(CoreUtils.ApplicationRelativeWebRoot), shortPath);
+            var path = Path.Combine(HttpContext.Current.Server.MapPath(WebUtils.ApplicationRelativeWebRoot), shortPath);
 
             if (File.Exists(path))
                 return;

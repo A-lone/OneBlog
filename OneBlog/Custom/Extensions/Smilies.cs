@@ -47,7 +47,7 @@ public class Smilies
     /// <returns>The link image.</returns>
     private static string Convert(string name, string alt)
     {
-        return string.Format(Link, CoreUtils.RelativeWebRoot, name, alt);
+        return string.Format(Link, WebUtils.RelativeWebRoot, name, alt);
     }
 
     /// <summary>

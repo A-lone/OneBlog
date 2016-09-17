@@ -434,7 +434,7 @@ namespace OneBlog.Core.Providers
 
             if (!copyResult)
             {
-                CoreUtils.Log("DbBlogProvider.SetupBlogFromExistingBlog", new Exception("Unsuccessful result from newBlog.CopyExistingBlogFolderToNewBlogFolder."));
+                WebUtils.Log("DbBlogProvider.SetupBlogFromExistingBlog", new Exception("Unsuccessful result from newBlog.CopyExistingBlogFolderToNewBlogFolder."));
                 return false;
             }
 
@@ -699,7 +699,7 @@ namespace OneBlog.Core.Providers
 
             if (!copyResult)
             {
-                CoreUtils.Log("DbBlogProvider.SetupNewBlog", new Exception("Unsuccessful result from BlogGenerator.CopyTemplateBlogFolder."));
+                WebUtils.Log("DbBlogProvider.SetupNewBlog", new Exception("Unsuccessful result from BlogGenerator.CopyTemplateBlogFolder."));
                 return false;
             }
 
@@ -793,12 +793,12 @@ namespace OneBlog.Core.Providers
                     post.Title = BlogGeneratorConfig.PostTitle.Contains("{0}") ?
                         string.Format(BlogGeneratorConfig.PostTitle, newBlog.Name) :
                         BlogGeneratorConfig.PostTitle;
-                    post.Slug = CoreUtils.RemoveIllegalCharacters(post.Title);
+                    post.Slug = WebUtils.RemoveIllegalCharacters(post.Title);
                     post.Description = "The description is used as the meta description as well as shown in the related posts. It is recommended that you write a description, but not mandatory";
                     post.Author = userName;
                     string content = BlogGeneratorConfig.PostContent.Replace("&lt;", "<").Replace("&gt;", ">");
                     post.Content = content.Contains("{1}") ?
-                        string.Format(content, userName, CoreUtils.RelativeWebRoot + newBlog.Name + "/Account/login.aspx") : content;
+                        string.Format(content, userName, WebUtils.RelativeWebRoot + newBlog.Name + "/Account/login.aspx") : content;
                     InsertPost(post);
 
                     // be_posttags
@@ -837,7 +837,7 @@ namespace OneBlog.Core.Providers
                         var parms = cmd.Parameters;
                         parms.Add(conn.CreateParameter(FormatParamName("blogid"), newBlog.Id.ToString()));
                         parms.Add(conn.CreateParameter(FormatParamName("name"), userName));
-                        parms.Add(conn.CreateParameter(FormatParamName("pwd"), CoreUtils.HashPassword(password)));
+                        parms.Add(conn.CreateParameter(FormatParamName("pwd"), WebUtils.HashPassword(password)));
                         parms.Add(conn.CreateParameter(FormatParamName("email"), email));
                         parms.Add(conn.CreateParameter(FormatParamName("login"), DateTime.Now));
                         cmd.ExecuteNonQuery();
