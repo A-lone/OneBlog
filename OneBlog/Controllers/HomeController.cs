@@ -5,11 +5,92 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using OneBlog.Models;
+using System.Collections;
 
 namespace OneBlog.Controllers
 {
     public class HomeController : Controller
     {
+
+        [HttpGet]
+        public ActionResult Captcha()
+        {
+            string code = ValidateUtils.CreateValidateCode(5);
+            Session["ValidateCode"] = code;
+            byte[] bytes = ValidateUtils.CreateValidateGraphic(code);
+            return File(bytes, @"image/jpeg");
+        }
+
+        [HttpGet]
+        public ActionResult Comment(Guid id)
+        {
+            var model = new CommentViewModels();
+            OneBlog.Core.Post post = OneBlog.Core.Post.Posts.FirstOrDefault(m => m.Id == id);
+            model.PostId = post.Id;
+            var comments = post.Comments.Where(m => !m.IsDeleted).ToList();
+            // instantiate object
+            var nestedComments = new List<Comment>();
+
+            // temporary ID/Comment table
+            var commentTable = new Hashtable();
+
+            foreach (var comment in comments)
+            {
+                // add to hashtable for lookup
+                commentTable.Add(comment.Id, comment);
+
+                // check if this is a child comment
+                if (comment.ParentId == Guid.Empty)
+                {
+                    // root comment, so add it to the list
+                    nestedComments.Add(comment);
+                }
+                else
+                {
+                    // child comment, so find parent
+                    var parentComment = commentTable[comment.ParentId] as Comment;
+                    if (parentComment != null)
+                    {
+                        // double check that this sub comment has not already been added
+                        if (parentComment.Comments.IndexOf(comment) == -1)
+                        {
+                            parentComment.Comments.Add(comment);
+                        }
+                    }
+                    else
+                    {
+                        // just add to the base to prevent an error
+                        nestedComments.Add(comment);
+                    }
+                }
+            }
+            model.Comments = nestedComments.OrderByDescending(m=>m.DateCreated).ToList();
+            return PartialView(model);
+        }
+
+        [HttpPost]
+        public ActionResult Comment(CommentViewModels model, FormCollection collection)
+        {
+            var replyToCommentId = collection["hiddenReplyTo"].ToString();
+            OneBlog.Core.Post post = OneBlog.Core.Post.Posts.FirstOrDefault(m => m.Id == model.PostId);
+            var comment = new Comment
+            {
+                Id = Guid.NewGuid(),
+                ParentId = String.IsNullOrEmpty(replyToCommentId) ? Guid.Empty : new Guid(replyToCommentId),
+                Author = HttpUtility.HtmlAttributeEncode(model.UserName),
+                Email = Server.HtmlEncode(model.Email),
+                Content = HttpUtility.HtmlAttributeEncode(model.Content),
+                IP = WebUtils.GetClientIP(),
+                //Country = Server.HtmlEncode(country),
+                DateCreated = DateTime.Now,
+                Parent = post,
+                IsApproved = !BlogSettings.Instance.EnableCommentsModeration,
+                //Avatar = Server.HtmlEncode(avatar.Trim())
+            };
+            post.AddComment(comment);
+            return Json(new { Result = this.RenderViewToString("_Comment", comment), Content = model.Content }, JsonRequestBehavior.AllowGet);
+        }
+
 
         public ActionResult Rss()
         {
@@ -31,9 +112,9 @@ namespace OneBlog.Controllers
         {
 
             var cat = (from item in OneBlog.Core.Category.ApplicableCategories
-                                  let legalTitle = WebUtils.RemoveIllegalCharacters(item.Title).ToLowerInvariant()
-                                  where category.Equals(legalTitle, StringComparison.OrdinalIgnoreCase)
-                                  select item).FirstOrDefault();
+                       let legalTitle = WebUtils.RemoveIllegalCharacters(item.Title).ToLowerInvariant()
+                       where category.Equals(legalTitle, StringComparison.OrdinalIgnoreCase)
+                       select item).FirstOrDefault();
 
             var posts = OneBlog.Core.Post.GetPostsByCategory(cat).ConvertAll(new Converter<Post, IPublishable>(delegate (Post p) { return p as IPublishable; }));
             HomeViewModels model = new HomeViewModels();

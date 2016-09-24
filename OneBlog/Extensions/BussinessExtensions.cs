@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.Routing;
 
@@ -9,6 +11,46 @@ namespace System.Web.Mvc
 {
     public static class BussinessExtensions
     {
+        static string GetHash(string value)
+        {
+            MD5 algorithm = MD5.Create();
+            byte[] data = algorithm.ComputeHash(Encoding.UTF8.GetBytes(value));
+            string md5 = "";
+            for (int i = 0; i < data.Length; i++)
+            {
+                md5 += data[i].ToString("x2").ToUpperInvariant();
+            }
+            return md5;
+        }
+
+        public  static string Gravatar(this HtmlHelper helper, string email)
+        {
+            //var hash = FormsAuthentication.HashPasswordForStoringInConfigFile(email.ToLowerInvariant().Trim(), "MD5");
+            var hash = GetHash(email.ToLowerInvariant().Trim());
+
+            if (hash != null)
+                hash = hash.ToLowerInvariant();
+
+            var gravatar = string.Format("http://www.gravatar.com/avatar/{0}.jpg?d=", hash);
+
+            switch (BlogSettings.Instance.Avatar)
+            {
+                case "identicon":
+                    return gravatar + "identicon";
+                case "wavatar":
+                    return gravatar + "wavatar";
+                case "retro":
+                    return gravatar + "retro";
+                case "mm":
+                    return gravatar + "mm";
+                case "blank":
+                    return gravatar + "blank";
+                case "monsterid":
+                    return gravatar + "monsterid";
+                default:
+                    return "";
+            }
+        }
 
         public static MvcHtmlString Pager(this HtmlHelper helper, int currentPage, int pageSize, int totalItemCount, object routeValues, string actionOveride = null, string controllerOveride = null)
         {

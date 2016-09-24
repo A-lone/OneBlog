@@ -10,7 +10,7 @@
     var hdnId = "";
 
     var widgetId = Request.QueryString["id"];
-    var updateLink = OneBlog.Core.Utils.RelativeWebRoot +
+    var updateLink = OneBlog.Core.WebUtils.RelativeWebRoot +
         "Custom/Widgets/LinkList/edit.cshtml?id=" + widgetId;
     var settings = Common.GetSettings(widgetId);
     var linkList = new LinkList(widgetId);

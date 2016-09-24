@@ -38,11 +38,11 @@
                     }
                     @if (showRssIcon == true)
                     {
-                    <a rel="nofollow" href="@categoryUrl/feed/@Utils.RemoveIllegalCharacters(cat.Title)">
+                    <a rel="nofollow" href="@categoryUrl/feed/@WebUtils.RemoveIllegalCharacters(cat.Title)">
                         <img class="rssButton" alt="RSS feed for SubBlog" src="~/Content/images/blog/rssButton.png">
                     </a>
                     }
-                    <a title="Category: @cat.Title" href="@categoryUrl/@Utils.RemoveIllegalCharacters(cat.Title)">
+                    <a title="Category: @cat.Title" href="@categoryUrl/@WebUtils.RemoveIllegalCharacters(cat.Title)">
                         @cat.Title 
                         @if (showPostCnt)
                         {

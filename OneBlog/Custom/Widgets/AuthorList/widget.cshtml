@@ -2,8 +2,8 @@
 @using OneBlog.Core.Data.Services
 @{
     var title = Model.Title;
-    var authorUrl = Utils.RelativeWebRoot + "author";
-    var authorRss = Utils.RelativeWebRoot + "syndication.axd";
+    var authorUrl = WebUtils.RelativeWebRoot + "author";
+    var authorRss = WebUtils.RelativeWebRoot + "syndication.axd";
 
     IEnumerable<MembershipUser> users = Membership.GetAllUsers()
         .Cast<MembershipUser>().ToList().OrderBy(a => a.UserName);

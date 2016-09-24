@@ -1419,7 +1419,6 @@ Pace
 input,
 textarea {
   display: block;
-  width: 100%;
   height: 42px;
   padding: 6px 12px;
   font-size: 16px;
@@ -1431,6 +1430,10 @@ textarea {
   border: 1px solid #cccccc;
   border-radius: 2px;
   margin-bottom: 0.71428571428571em;
+}
+input[type=checkbox] {
+    display:inline!important;
+    height:auto!important;
 }
 input:focus,
 textarea:focus {
@@ -1838,4 +1841,136 @@ Defaul Skin
   h3 {
     page-break-after: avoid;
   }
+}
+
+.well-global {
+    background: #fff;
+    margin-bottom: 2rem;
+}
+
+
+
+#commentlist ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#commentlist .comment-item {
+    position: relative;
+}
+
+    #commentlist .comment-item .comment-text {
+        font-size: 0.875rem;
+    }
+
+    #commentlist .comment-item .comment-item {
+        margin-left: 3.5rem;
+    }
+
+    #commentlist .comment-item #status {
+        margin-left: 3.5rem;
+    }
+
+#commentlist .comment-content {
+    position: relative;
+    min-height: 3rem;
+    margin-bottom: 0.5rem;
+    margin-left: 3.5rem;
+    background-color: #eee;
+    padding: 1rem;
+}
+
+    #commentlist .comment-content img {
+        position: absolute;
+        left: -3.5rem;
+        top: 0;
+        width: 3rem;
+        height: 3rem;
+    }
+
+#commentlist .comment-author {
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+    #commentlist .comment-author a {
+        color: #000;
+    }
+
+#commentlist .comment-replylink {
+    color: #aaa;
+    font-size: 0.75rem;
+    font-style: italic;
+    font-weight: 400;
+    text-transform: uppercase;
+    margin-top: 0.5rem;
+}
+
+#commentlist .comment-adminlinks {
+    font-size: 0;
+}
+
+    #commentlist .comment-adminlinks a {
+        color: #fff;
+        font-size: 0.875rem;
+        background-color: #e81c4f;
+        margin-right: 0.5rem;
+        display: inline-block;
+        padding: 0.25rem 1rem;
+    }
+
+        #commentlist .comment-adminlinks a:nth-child(1), #commentlist .comment-adminlinks a:nth-child(2) {
+            display: none;
+        }
+
+        #commentlist .comment-adminlinks a[href^="?approvecomment"] {
+            background-color: #19cf86;
+        }
+
+#commentlist .comment-form {
+    box-shadow: none;
+    padding: 0;
+    margin-left: 3.5rem;
+    margin-top: 1rem;
+}
+
+
+
+#commentlist a#cancelReply{
+    color: #fff;
+    font-size: 0.875rem;
+    background-color: #666;
+    display: inline-block;
+    padding: 0.25rem 1rem;
+    margin-left: 3.5rem;
+}
+
+@media screen and (max-width: 48rem) {
+    #commentlist .comment-content {
+        margin-left: 0;
+        padding: 0 0 0.5rem;
+        background: none;
+        border-bottom: .0625rem solid #ddd;
+    }
+
+        #commentlist .comment-content img {
+            display: none;
+        }
+
+    #commentlist .comment-item .comment-item {
+        margin: 0;
+    }
+
+    #commentlist .comment-item #status {
+        margin-left: 0;
+    }
+
+    #commentlist .comment-adminlinks {
+        display: none;
+    }
+
+    #commentlist .comment-form, #commentlist p#cancelReply a {
+        margin-left: 0;
+    }
 }

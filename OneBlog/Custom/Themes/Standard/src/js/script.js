@@ -143,19 +143,19 @@ jQuery(document).ready(function ($) {
 
     //Disqus
 
-    $(document).on('click', '.main_col .meta_comments a', function (event) {
-        event.preventDefault();
-        /* Act on the event */
-        var post_id = $(".main_col > .post").attr('id');
+    //$(document).on('click', '.main_col .meta_comments a', function (event) {
+    //    event.preventDefault();
+    //    /* Act on the event */
+    //    var post_id = $(".main_col > .post").attr('id');
 
-        disqus_identifier = post_id.replace('post-', '');
-        $.ajax({
-            type: "GET",
-            url: "http://" + disqus_shortname + ".disqus.com/embed.js",
-            dataType: "script",
-            cache: true
-        });
-    });
+    //    disqus_identifier = post_id.replace('post-', '');
+    //    $.ajax({
+    //        type: "GET",
+    //        url: "http://" + disqus_shortname + ".disqus.com/embed.js",
+    //        dataType: "script",
+    //        cache: true
+    //    });
+    //});
 
     $(".collapse").collapse();
     $('.dropdown-toggle').dropdown();

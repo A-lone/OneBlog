@@ -1,12 +1,12 @@
 ﻿@using OneBlog.Core
 @{
     var title = Model.Title;
-    var dashboardUrl = Utils.RelativeWebRoot + "admin/index.cshtml";
-    var contentUrl = Utils.RelativeWebRoot + "admin/#/content/posts";
-    var customUrl = Utils.RelativeWebRoot + "admin/#/custom/themes";
-    var settingsUrl = Utils.RelativeWebRoot + "admin/#/settings/basic";
-    var profileUrl = Utils.RelativeWebRoot + "admin/#/security/profile";
-    var passwordUrl = Utils.RelativeWebRoot + "Account/change-password.aspx";
+    var dashboardUrl = WebUtils.RelativeWebRoot + "admin/index.cshtml";
+    var contentUrl = WebUtils.RelativeWebRoot + "admin/#/content/posts";
+    var customUrl = WebUtils.RelativeWebRoot + "admin/#/custom/themes";
+    var settingsUrl = WebUtils.RelativeWebRoot + "admin/#/settings/basic";
+    var profileUrl = WebUtils.RelativeWebRoot + "admin/#/security/profile";
+    var passwordUrl = WebUtils.RelativeWebRoot + "Account/change-password.aspx";
 }
 @if (Security.IsAuthenticated)
 {

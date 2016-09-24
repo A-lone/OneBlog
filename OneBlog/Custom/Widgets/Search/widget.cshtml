@@ -8,8 +8,8 @@
 <div class="Widget widget search">
     <div class="WidgetContent widget-content">
         <div id="searchbox">
-            <input type="text" id="txt-@widgetId" placeholder="@Resources.labels.search..." onkeypress="if (event.keyCode == 13) { OneBlog.search('@Utils.RelativeWebRoot', 'txt-@widgetId'); return false; }" />
-            <input type="button" onkeypress="OneBlog.search('@Utils.RelativeWebRoot', 'txt-@widgetId');" onclick="OneBlog.search('@Utils.RelativeWebRoot', 'txt-@widgetId');" id="searchbutton" value="Search" />
+            <input type="text" id="txt-@widgetId" placeholder="@Resources.labels.search..." onkeypress="if (event.keyCode == 13) { OneBlog.search('@WebUtils.RelativeWebRoot', 'txt-@widgetId'); return false; }" />
+            <input type="button" onkeypress="OneBlog.search('@WebUtils.RelativeWebRoot', 'txt-@widgetId');" onclick="OneBlog.search('@WebUtils.RelativeWebRoot', 'txt-@widgetId');" id="searchbutton" value="Search" />
         </div>
     </div>
 </div>

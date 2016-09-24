@@ -16,6 +16,33 @@ namespace OneBlog.Models
         public IPublishable CoverPost { get; set; }
 
     }
+    public class CommentViewModels
+    {
+
+        [Required]
+        [Display(Name = "用户名")]
+        public string UserName { get; set; }
+
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+
+        [Required]
+        public string Content { get; set; }
+
+        [Required]
+        public string Captcha { get; set; }
+
+        public Guid PostId { get; set; }
+
+        public List<Comment> Comments
+        {
+            get; set;
+        }
+
+    }
+
 
     public class MenuViewModels
     {

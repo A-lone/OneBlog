@@ -1,71 +1,184 @@
-﻿
-<div class="well-global">
-    <div id="commentlist" style="display: block">
+﻿@using OneBlog.Core;
+@model  OneBlog.Models.CommentViewModels
 
-        <ul id="id_0c6910fd-a3f7-480d-bac2-f8d87adb96c7">
+
+<div id="comment-box" class="well-global">
+
+    <div id="comment-form" class="panel panel-primary comment-form-containter">
+        <div class="panel-heading">
+            Comments (@Model.Comments.Count)
+            <a id="cancelReply" style="display: none;" class="pull-right" href="javascript:void(0);" onclick="OneBlog.cancelReply();">取消回复</a>
+        </div>
+        <div class="panel-body">
+            <div>
+                @using (Ajax.BeginForm("Comment", "Home", new AjaxOptions
+                {
+                    OnSuccess = "OnSuccess",
+                    OnFailure = "OnFailure"
+                }))
+                {
+                    <input id="CommentPostModel_PostId" name="CommentPostModel.PostId" type="hidden" value="122ad138-5ff2-494e-a46d-fd5e47b76fd3" />                        <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                            </div>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.TextAreaFor(m => m.Content, new { @class = "form-control", cols = "60" })
+                    </div>
+                    <div class="form-group input-group">
+                        <span class="input-group-addon" style="padding:0;">
+                            <img style="max-width:none;" onclick="this.src ='@Url.Action("Captcha", "Home")?t='+ Math.floor(Math.random() * 10000);" src="@Url.Action("Captcha", "Home")" />
+                        </span>
+                        @Html.TextBoxFor(m => m.Captcha, new { @class = "form-control", cols = "60" })
+                    </div>
+                    <div class="form-group">
+                        <button id="btnSaveAjax" type="submit" class="btn btn-success pull-right">Submit</button>
+                    </div>
+
+                    <input type="hidden" name="hiddenReplyTo" id="hiddenReplyTo" />
+
+                    <input type="hidden" name="hiddenCaptcha" id="hiddenCaptcha" />
+
+                    @Html.HiddenFor(m => m.PostId)
+                }
+            </div>
+        </div>
+    </div>
+
+    <div id="commentlist" style="display: block">
+        @foreach (var item in Model.Comments)
+        {
+            @Html.Partial("_Comment",item)
+        }
+        @*<ul id="id_13c7111d-b367-453c-a9bb-d1af050a336e">
             <li class="comment-item">
                 <div class="comment-content ">
-                    <img src='http://www.gravatar.com/avatar/6d94bb81bb9fe5dde17e2c5c535cc07e.jpg?d=identicon' width='48' />
+                    <img src='http://www.gravatar.com/avatar/afe77f402180782ae388731d98d6e90e.jpg?d=identicon' width='48' />
                     <div class="comment-author">
-                        <a class="fn">sss</a>
+                        <a class="fn">dddddddd</a>
                     </div>
                     <div class="comment-text">
-                        ssssssssss
+                        sssss
                     </div>
                     <div class="comment-replylink">
-                        <span>08 九月 2016</span> -
+                        <span>24 九月 2016</span> - <a href="javascript:void(0);" class="reply-to-comment" onclick="OneBlog.replyToComment('13c7111d-b367-453c-a9bb-d1af050a336e');">回复</a>
                     </div>
                     <div class="comment-adminlinks">
-                        <a class="email" href="mailto:admin@huafenfei.com">admin@huafenfei.com</a> | <a href="http://www.domaintools.com/go/?service=whois&amp;q=::1/">::1</a> | <a href="javascript:void(0);" onclick="if (confirm('您确定要 删除 评论??')) location.href='?deletecomment=0c6910fd-a3f7-480d-bac2-f8d87adb96c7'">删除</a> | <a href="?approvecomment=0c6910fd-a3f7-480d-bac2-f8d87adb96c7">通过</a>
+                        <a class="email" href="mailto:ddddddd@sss.com">ddddddd@sss.com</a> | <a href="http://www.domaintools.com/go/?service=whois&amp;q=::1/">::1</a> | <a href="javascript:void(0);" onclick="if (confirm('您确定要 删除 评论??')) location.href='?deletecomment=13c7111d-b367-453c-a9bb-d1af050a336e'">删除该留言，但保留回复</a> | <a href="javascript:void(0);" onclick="if (confirm('您确定要 删除 评论??')) location.href='?deletecommentandchildren=13c7111d-b367-453c-a9bb-d1af050a336e'">删除该留言和回复</a>
                     </div>
                 </div>
-                <div id="replies_0c6910fd-a3f7-480d-bac2-f8d87adb96c7" style="display:none;">
+                <div id="replies_13c7111d-b367-453c-a9bb-d1af050a336e">
+
+                    <ul id="id_6924ea51-74dc-4f51-a6e7-d7d205b9a915">
+                        <li class="comment-item">
+                            <div class="comment-content ">
+                                <img src='http://www.gravatar.com/avatar/8c0a72687b5de98862dbbd87c86e6252.jpg?d=identicon' width='48' />
+                                <div class="comment-author">
+                                    <a class="fn">eeeeeeee</a>
+                                </div>
+                                <div class="comment-text">
+                                    dddddddddd
+                                </div>
+                                <div class="comment-replylink">
+                                    <span>24 九月 2016</span> - <a href="javascript:void(0);" class="reply-to-comment" onclick="OneBlog.replyToComment('6924ea51-74dc-4f51-a6e7-d7d205b9a915');">回复</a>
+                                </div>
+                                <div class="comment-adminlinks">
+                                    <a class="email" href="mailto:eeee@sss.com">eeee@sss.com</a> | <a href="http://www.domaintools.com/go/?service=whois&amp;q=::1/">::1</a> | <a href="javascript:void(0);" onclick="if (confirm('您确定要 删除 评论??')) location.href='?deletecomment=6924ea51-74dc-4f51-a6e7-d7d205b9a915'">删除</a>
+                                </div>
+                            </div>
+                            <div id="replies_6924ea51-74dc-4f51-a6e7-d7d205b9a915" style="display:none;">
+
+                            </div>
+                        </li>
+                    </ul>
 
                 </div>
             </li>
-        </ul>
+        </ul>*@
+
 
     </div>
+
+
+
 </div>
 
 
-<div id="comment-form">
-    <img src="/Content/images/blog/ajax-loader.gif" width="24" height="24" alt="Saving the comment" style="display: none" id="ajaxLoader" />
-    <span id="status"></span>
 
-    <div class="comment-form well-global">
-        <h3 class="well-global-title" id="addcomment">添加评论</h3>
-        <div class="form-group">
-            <input type="text" class="form-control" placeholder="名字" name="txtName" id="txtName" />
-        </div>
-        <div class="form-group">
-            <input type="text" placeholder="E-mail" class="form-control" id="txtEmail" />
-            <span id="gravatarmsg"></span>
-        </div>
+<script type="text/javascript">
+    function OnFailure(xhr, status, error) {
+        alert("异步请求失败！");
+    }
+    function OnSuccess(data, status, xhr) {
+        var result = data.Result;
+        var commentList = OneBlog.$("commentlist");
+        if (commentList.innerHTML.length < 10)
+            commentList.innerHTML = "<h1 id='comment'>" + OneBlogRes.i18n.comments + "</h1>"
 
-        <div class="form-group" id="commentCompose">
-            <textarea class="form-control" id="txtContent" placeholder="评论" cols="50" rows="7" name="txtContent"></textarea>
-        </div>
+        // add comment html to the right place
+        var id = OneBlog.comments.replyToId ? OneBlog.comments.replyToId.value : '';
+        if (id != '') {
+            var replies = OneBlog.$('replies_' + id);
+            //replies.insertBefore(result, commentForm);
+            replies.innerHTML += result;
+        } else {
+            commentList.innerHTML += result;
+            commentList.style.display = 'block';
+        }
 
-        <div class="form-group comment-preview">
-            <label>预览</label>
-            <div id="commentPreview">
-                <img src="/Content/images/blog/ajax-loader.gif" style="display: none" alt="Loading" />
-            </div>
-        </div>
+        // reset form values
+        OneBlog.comments.contentBox.value = "";
+        OneBlog.comments.contentBox = OneBlog.$(OneBlog.comments.contentBox.id);
 
-        <div id="commentCaptcha" class="form-group"></div>
-        <div class="form-group">
-            <label>
-                <input type="checkbox" id="cbNotify" />
-                有评论的时候通知我
-            </label>
-        </div>
-        <input type="button" id="btnSaveAjax" value="保存评论" class="btn btn-primary btn-block" onclick="return OneBlog.validateAndSubmitCommentForm()" />
-    </div>
-    <input type="hidden" name="ctl00$cphBody$ucCommentList$hiddenReplyTo" id="ctl00_cphBody_ucCommentList_hiddenReplyTo" />
-    <p id="cancelReply" style="display: none;">
-        <a href="javascript:void(0);" onclick="OneBlog.cancelReply();">取消对该留言的回复</a>
-    </p>
-    <input type="hidden" name="ctl00$cphBody$ucCommentList$hfCaptcha" id="ctl00_cphBody_ucCommentList_hfCaptcha" value="6e4874a2-4cd7-4f3f-9cf0-d38d0c54b5ca" />
-</div>
+        var commentForm = OneBlog.$('comment-form');
+
+        var base = OneBlog.$("comment-box");
+        var commentlist = OneBlog.$("commentlist");
+        base.insertBefore(commentForm, commentlist);
+        if (id != '') {
+            $("body,html").animate({ scrollTop: $('#replies_' + id).offset().top }, 1000);
+        } else {
+            $("body,html").animate({ scrollTop: $('#id_' + id).offset().top }, 1000);
+        }
+
+        // reset reply to
+        if (OneBlog.comments.replyToId) OneBlog.comments.replyToId.value = '';
+        if (OneBlog.$('cancelReply')) OneBlog.$('cancelReply').style.display = 'none';
+    }
+
+</script>
+
+<script type="text/javascript" src="~/Scripts/Auto/blog.js"></script>
+<script type="text/javascript">
+    OneBlog.comments.flagImage = OneBlog.$("imgFlag");
+    OneBlog.comments.contentBox = OneBlog.$("Content");
+    OneBlog.comments.moderation = true;
+    OneBlog.comments.checkName = false;
+    OneBlog.comments.postAuthor = "Admin";
+    OneBlog.comments.nameBox = OneBlog.$("UserName");
+    OneBlog.comments.emailBox = OneBlog.$("Email");
+    OneBlog.comments.websiteBox = OneBlog.$("txtWebsite");
+    OneBlog.comments.countryDropDown = OneBlog.$("ddlCountry");
+    OneBlog.comments.controlId = 'ucCommentList';
+    OneBlog.comments.captchaField = OneBlog.$('hiddenCaptcha');
+    OneBlog.comments.replyToId = OneBlog.$("hiddenReplyTo");
+</script>
+<script type="text/javascript">
+    function toggle_visibility(id, id2) {
+        var e = document.getElementById(id);
+        var h = document.getElementById(id2);
+        if (e.style.display == 'block') {
+            e.style.display = 'none';
+            h.innerHTML = "Show Comments";
+        }
+        else {
+            e.style.display = 'block';
+            h.innerHTML = "Hide Comments";
+        }
+    }
+</script>

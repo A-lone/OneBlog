@@ -84,7 +84,7 @@ namespace OneBlog.NET.Custom.Widgets
                         try
                         {
                             WebUtils.SendMailMessage(message);
-                            //Utils.Log("sent to " + email + " on - " + publishable.Title);
+                            //WebUtils.Log("sent to " + email + " on - " + publishable.Title);
                         }
                         catch (Exception ex)
                         {

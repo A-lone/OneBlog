@@ -44,3 +44,24 @@ Dashboard news feed: 远程服务器返回错误: (404) 未找到。
 *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 日期: 2016/9/17 16:47:39
 Dashboard news feed: 远程服务器返回错误: (404) 未找到。
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+日期: 2016/9/25 0:09:48
+RazorHelper, ParseRazor, VirtualPath: /Custom/Widgets/Administration/widget.cshtml: F:\DEV\Github\OneBlog\OneBlog\Custom\Widgets\Administration\widget.cshtml(4): error CS0103: The name 'Utils' does not exist in the current context
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+日期: 2016/9/25 0:09:49
+RazorHelper, ParseRazor, VirtualPath: /Custom/Widgets/Search/widget.cshtml: F:\DEV\Github\OneBlog\OneBlog\Custom\Widgets\Search\widget.cshtml(11): error CS0103: The name 'Utils' does not exist in the current context
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+日期: 2016/9/25 0:09:49
+RazorHelper, ParseRazor, VirtualPath: /Custom/Widgets/CategoryList/widget.cshtml: F:\DEV\Github\OneBlog\OneBlog\Custom\Widgets\CategoryList\widget.cshtml(41): error CS0103: The name 'Utils' does not exist in the current context
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+日期: 2016/9/25 0:09:49
+RazorHelper, ParseRazor, VirtualPath: /Custom/Widgets/TagCloud/widget.cshtml: 序列不包含任何元素
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+日期: 2016/9/25 0:17:38
+RazorHelper, ParseRazor, VirtualPath: /Custom/Widgets/TagCloud/widget.cshtml: 序列不包含任何元素
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+日期: 2016/9/25 2:27:14
+Dashboard news feed: 远程服务器返回错误: (404) 未找到。
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+日期: 2016/9/25 6:13:39
+Dashboard news feed: 远程服务器返回错误: (404) 未找到。
