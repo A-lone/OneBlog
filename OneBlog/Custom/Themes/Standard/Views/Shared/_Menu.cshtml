@@ -23,7 +23,7 @@
                             <i class="fa fa-folder-open"></i>
                             @foreach (var item in post.Categories)
                             {
-                                <a href="@item.RelativeOrAbsoluteLink">@item.Title</a>
+                                <a href="@Url.Action("Category","Home",new { Category = WebUtils.RemoveIllegalCharacters(item.Title) })">@item.Title</a>
                             }
                         </li>
                         <li class="meta_comments"><i class="fa fa-comment"></i> <a href="@post.RelativeOrAbsoluteLink#comment">@post.Comments.Count</a></li>
