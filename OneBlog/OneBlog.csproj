@@ -414,6 +414,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
+    <Content Include="Content\prettify.css" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BlogRollController.cs" />
     <Compile Include="Controllers\BlogsController.cs" />
@@ -1511,6 +1512,10 @@
     <Content Include="Content\bower_components\github-markdown-css\license" />
     <Content Include="Content\bower_components\github-markdown-css\readme.md" />
     <Content Include="Custom\Themes\Standard\Views\Shared\_Comment.cshtml" />
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
@@ -1535,7 +1540,6 @@
     <Content Include="Scripts\angular-touch.min.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
-    <Content Include="Scripts\Auto\01-jquery-1.9.1.min.js" />
     <Content Include="Scripts\Auto\02-jquery.cookie.js" />
     <Content Include="Scripts\Auto\04-jquery-jtemplates.js" />
     <Content Include="Scripts\Auto\05-json2.min.js" />
@@ -2318,6 +2322,47 @@
     <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\prettify\lang-apollo.js" />
+    <Content Include="Scripts\prettify\lang-basic.js" />
+    <Content Include="Scripts\prettify\lang-clj.js" />
+    <Content Include="Scripts\prettify\lang-css.js" />
+    <Content Include="Scripts\prettify\lang-dart.js" />
+    <Content Include="Scripts\prettify\lang-erlang.js" />
+    <Content Include="Scripts\prettify\lang-go.js" />
+    <Content Include="Scripts\prettify\lang-hs.js" />
+    <Content Include="Scripts\prettify\lang-lasso.js" />
+    <Content Include="Scripts\prettify\lang-lisp.js" />
+    <Content Include="Scripts\prettify\lang-llvm.js" />
+    <Content Include="Scripts\prettify\lang-logtalk.js" />
+    <Content Include="Scripts\prettify\lang-lua.js" />
+    <Content Include="Scripts\prettify\lang-matlab.js" />
+    <Content Include="Scripts\prettify\lang-ml.js" />
+    <Content Include="Scripts\prettify\lang-mumps.js" />
+    <Content Include="Scripts\prettify\lang-n.js" />
+    <Content Include="Scripts\prettify\lang-pascal.js" />
+    <Content Include="Scripts\prettify\lang-proto.js" />
+    <Content Include="Scripts\prettify\lang-r.js" />
+    <Content Include="Scripts\prettify\lang-rd.js" />
+    <Content Include="Scripts\prettify\lang-rust.js" />
+    <Content Include="Scripts\prettify\lang-scala.js" />
+    <Content Include="Scripts\prettify\lang-sql.js" />
+    <Content Include="Scripts\prettify\lang-swift.js" />
+    <Content Include="Scripts\prettify\lang-tcl.js" />
+    <Content Include="Scripts\prettify\lang-tex.js" />
+    <Content Include="Scripts\prettify\lang-vb.js" />
+    <Content Include="Scripts\prettify\lang-vhdl.js" />
+    <Content Include="Scripts\prettify\lang-wiki.js" />
+    <Content Include="Scripts\prettify\lang-xq.js" />
+    <Content Include="Scripts\prettify\lang-yaml.js" />
+    <Content Include="Scripts\prettify\prettify.css" />
+    <Content Include="Scripts\prettify\prettify.es5.js">
+      <DependentUpon>prettify.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\prettify\prettify.es5.min.js">
+      <DependentUpon>prettify.es5.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\prettify\prettify.js" />
+    <Content Include="Scripts\prettify\run_prettify.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\syntaxhighlighter\editor_plugin.js" />

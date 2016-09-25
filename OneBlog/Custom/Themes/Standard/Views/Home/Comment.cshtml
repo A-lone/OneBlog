@@ -3,7 +3,7 @@
 
 
 
-<div id="comment-box" class="well-global">
+<div id="comment-box" class="well-global  animated fadeInUp" style="animation-duration: 0.6s; animation-timing-function: ease-in-out;">
 
     <div id="comment-form" class="panel panel-primary comment-form-containter">
         <div class="panel-heading">
@@ -43,7 +43,6 @@
 
                     <input type="hidden" name="hiddenReplyTo" id="hiddenReplyTo" />
 
-                    <input type="hidden" name="hiddenCaptcha" id="hiddenCaptcha" />
 
                     @Html.HiddenFor(m => m.PostId)
                 }
@@ -154,6 +153,10 @@
 
         // reset reply to
         if (OneBlog.comments.replyToId) OneBlog.comments.replyToId.value = '';
+        if (OneBlog.comments.contentBox) OneBlog.comments.contentBox.value = '';
+        if (OneBlog.comments.emailBox) OneBlog.comments.emailBox.value = '';
+        if (OneBlog.comments.nameBox) OneBlog.comments.nameBox.value = '';
+        if (OneBlog.comments.captcha) OneBlog.comments.captcha.value = '';
         if (OneBlog.$('cancelReply')) OneBlog.$('cancelReply').style.display = 'none';
     }
 
@@ -192,7 +195,7 @@
     OneBlog.comments.websiteBox = OneBlog.$("txtWebsite");
     OneBlog.comments.countryDropDown = OneBlog.$("ddlCountry");
     OneBlog.comments.controlId = 'ucCommentList';
-    OneBlog.comments.captchaField = OneBlog.$('hiddenCaptcha');
+    OneBlog.comments.captcha = OneBlog.$('Captcha');
     OneBlog.comments.replyToId = OneBlog.$("hiddenReplyTo");
 </script>
 <script type="text/javascript">

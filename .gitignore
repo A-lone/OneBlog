@@ -59,3 +59,5 @@ Temporary Items
 /MarkdownKit/obj/Release
 /MarkdownKit/bin/Release
 /OneBlog/obj/Release
+/OneBlog/Properties/PublishProfiles/SongStuido - Web Deploy.pubxml
+/OneBlog/Properties/PublishProfiles/Aliyun.pubxml

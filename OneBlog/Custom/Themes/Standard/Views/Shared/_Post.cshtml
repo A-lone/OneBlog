@@ -19,19 +19,16 @@
                 </div>
                 <div class="clearfix"></div>
             </article>
-
-
             @Html.Action("Comment", "Home", new { id = Model.Id })
 
-
+            <script>
+                $(function () {
+                    $("pre").addClass("prettyprint");
+                    prettyPrint();
+                });
+            </script>
 
         </div>
     </div>
     <div class="clearfix"></div>
-
 </div>
-
-
-
-@*@Html.RenderWidget()*@
-

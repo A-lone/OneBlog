@@ -17,7 +17,10 @@
     <link rel="stylesheet" type="text/css" href="~/Custom/Themes/Standard/src/css/animate.min.css" />
     <link rel="stylesheet" type="text/css" href="~/Custom/Themes/Standard/src/css/style.css" />
     <link rel="stylesheet" type="text/css" href="~/content/font-awesome.min.css" />
+    <link href="~/Content/prettify.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="~/Scripts/prettify/prettify.es5.min.js"></script>
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans:700,400" />
+    @Scripts.Render("~/bundles/jquery")
 </head>
 <body class="home-template">
     <div id="wrap">
@@ -65,7 +68,7 @@
                             <div class="clearfix" />
                             <a target="_blank" href="https://mvp.microsoft.com/zh-cn/PublicProfile/4040070" yuuko-static><img src="~/Content/images/mvp.png" alt="微软最有价值专家" class="mvp" /></a>
                             <div class="clearfix" />
-                       
+
                             <div class="clearfix" />
                             <p class="pull-left">© Copyright 2008-@DateTime.Now.Year </p>
                         </div><!-- /sub_footer -->
@@ -78,7 +81,7 @@
         </div><!-- /#container -->
         @RenderBody()
     </div><!-- /wrap -->
-    @Scripts.Render("~/bundles/jquery")
+
     @Scripts.Render("~/bundles/jqueryval")
 
     @Scripts.Render("~/bundles/bootstrap")
@@ -92,5 +95,7 @@
     <script type="text/javascript" src="~/Custom/Themes/Standard/src/js/jquery.ghostHunter.min.js"></script>
     <script type="text/javascript" src="~/Custom/Themes/Standard/src/js/script.js"></script>
     @RenderSection("scripts", required: false)
+
+
 </body>
 </html>

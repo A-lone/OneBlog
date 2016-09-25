@@ -1,7 +1,6 @@
 ﻿@using OneBlog.Core
 @model Comment
 @{
-
     ViewBag.Replies = Model.Comments.Count > 0 ? "display:block;" : "display:none;";
 }
 
@@ -22,7 +21,6 @@
                 <a class="email" href="mailto:@Model.Email">@Model.Email</a> | <a href="javascript:void(0);" onclick="if (confirm('您确定要 删除 评论??')) location.href = '?deletecomment=@Model.Id'">删除</a>
             </div>*@
         </div>
-
         <div id="replies_@Model.Id" style="@ViewBag.Replies">
             @foreach (var item in Model.Comments)
             {

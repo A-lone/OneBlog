@@ -1,0 +1,124 @@
+﻿.pln {
+    color: #000;
+}
+
+@media screen {
+    .str {
+        color: #a31515;
+    }
+
+    .kwd {
+        color: #00f;
+    }
+
+    .com {
+        color: green;
+    }
+
+    .typ {
+        color: #2b91af;
+    }
+
+    .lit {
+        color: red;
+    }
+
+    .pun, .opn, .clo {
+        color: #000;
+    }
+
+    .tag {
+        color: #a31515;
+    }
+
+    .atn {
+        color: red;
+    }
+
+    .atv {
+        color: #00f;
+    }
+
+    .dec {
+        color: purple;
+    }
+
+    .var {
+        color: #000;
+    }
+
+    .fun {
+        color: #000;
+    }
+}
+
+@media print,projection {
+    .str {
+    }
+
+    .kwd {
+        font-weight: bold;
+    }
+
+    .com {
+        font-style: italic;
+    }
+
+    .typ {
+        font-weight: bold;
+    }
+
+    .lit {
+    }
+
+    .pun, .opn, .clo {
+    }
+
+    .tag {
+        font-weight: bold;
+    }
+
+    .atn {
+    }
+
+    .atv {
+    }
+}
+
+ol.linenums {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+li.L0, li.L1, li.L2, li.L3, li.L5, li.L6, li.L7, li.L8 {
+    list-style-type: none;
+}
+
+li.L1, li.L3, li.L5, li.L7, li.L9 {
+    background: #eee;
+}
+
+pre, pre.prettyprint, .code_block {
+    background-color: #f3f3f3;
+    border: 1px dashed #ccc;
+    display: block;
+    font-family: "Consolas",monospace;
+    font-size: 13px;
+    line-height: 18.2px;
+    margin: 18px 0 30px;
+    overflow: auto;
+    padding: 5px;
+    vertical-align: baseline;
+    white-space: pre;
+}
+
+pre {
+    border-style: solid;
+    margin: 0 0 20px !important;
+    white-space: pre-wrap;
+}
+
+code {
+    color: #800039;
+    font-family: "Consolas",monospace;
+}

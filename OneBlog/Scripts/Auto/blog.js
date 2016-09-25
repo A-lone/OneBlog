@@ -90,7 +90,7 @@ OneBlog = {
         var author = OneBlog.comments.nameBox.value;
         var email = OneBlog.comments.emailBox.value;
         var content = OneBlog.comments.contentBox.value;
-        var captcha = OneBlog.comments.captchaField.value;
+        var captcha = OneBlog.comments.captcha.value;
 
         var website = OneBlog.comments.websiteBox ? OneBlog.comments.websiteBox.value : "";
         var country = OneBlog.comments.countryDropDown ? OneBlog.comments.countryDropDown.value : "";
@@ -619,7 +619,7 @@ OneBlog = {
         emailBox: null,
         websiteBox: null,
         countryDropDown: null,
-        captchaField: null,
+        captcha: null,
         controlId: null,
         replyToId: null
     }
