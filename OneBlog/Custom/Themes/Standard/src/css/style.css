@@ -773,15 +773,16 @@ Blog & Pages
                 margin-right: 0;
             }
 
-.ob_post_list .metadata ul li.meta_comments,
+.ob_post_list .metadata ul li.meta_comments ,
 .ob_post_list .metadata ul li.meta_author {
     display: none;
 }
 
-.ob_post_list .metadata ul li.meta_category {
+.ob_post_list .metadata ul li.meta_category{
     float: right;
     margin-right: 0;
 }
+
 
 .metadata hr {
     margin: 0;

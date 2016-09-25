@@ -131,7 +131,7 @@ OneBlog = {
         var commentForm = OneBlog.$('comment-form');
         if (!id || id == '' || id == null || id == '00000000-0000-0000-0000-000000000000') {
             // move to after comment list
-            var base = OneBlog.$("comment-box");
+            var base = OneBlog.$("comment");
             var commentlist = OneBlog.$("commentlist");
             base.insertBefore(commentForm,commentlist);
             // hide cancel button

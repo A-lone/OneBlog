@@ -193,7 +193,7 @@ jQuery(window).load(function ($) {
             //Main Post
             ob_animateMainPost = function () {
                 jQuery(function ($) {
-                    $("#container_post .post, #container_post .page, #container_post article , #container_post #comment-box").animo({ animation: 'fadeInUp', duration: 0.6, keep: true, timing: 'ease-in-out' }, function (e) {
+                    $("#container_post .post, #container_post .page, #container_post article , #container_post #comment").animo({ animation: 'fadeInUp', duration: 0.6, keep: true, timing: 'ease-in-out' }, function (e) {
                         //$("<style type='text/css'> .main_col{ border-right-color:#eeeeee!important;} </style>").appendTo("head");
                     });
                 });//jQuery(function($)

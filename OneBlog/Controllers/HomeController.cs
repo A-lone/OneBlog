@@ -173,11 +173,11 @@ namespace OneBlog.Controllers
             MenuViewModels model = new Models.MenuViewModels();
             var pageIndex = p ?? 1;
             var pageSize = BlogSettings.Instance.PostsPerPage;
-            List<IPublishable> list = null;
+            List<Post> list = null;
 
             if (string.IsNullOrEmpty(category))
             {
-                list = OneBlog.Core.Post.ApplicablePosts.ConvertAll(new Converter<Post, IPublishable>(delegate (Post post) { return post as IPublishable; }));
+                list = OneBlog.Core.Post.ApplicablePosts;
             }
             else
             {
@@ -185,7 +185,7 @@ namespace OneBlog.Controllers
                            let legalTitle = WebUtils.RemoveIllegalCharacters(item.Title).ToLowerInvariant()
                            where category.Equals(legalTitle, StringComparison.OrdinalIgnoreCase)
                            select item).FirstOrDefault();
-                list = OneBlog.Core.Post.GetPostsByCategory(cat).ConvertAll(new Converter<Post, IPublishable>(delegate (Post post) { return post as IPublishable; }));
+                list = OneBlog.Core.Post.GetPostsByCategory(cat);
             }
 
             var totalCount = list.Count;
@@ -196,7 +196,7 @@ namespace OneBlog.Controllers
                  .ToList();
 
             // Return a paged list
-            var pageList = new PagedList<IPublishable>(results, pageIndex, pageSize, totalCount);
+            var pageList = new PagedList<Post>(results, pageIndex, pageSize, totalCount);
 
             model.Posts = pageList;
             model.PageIndex = pageList.PageIndex;

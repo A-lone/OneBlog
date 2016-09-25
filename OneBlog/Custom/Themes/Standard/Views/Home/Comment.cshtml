@@ -3,7 +3,7 @@
 
 
 
-<div id="comment-box" class="well-global  animated fadeInUp" style="animation-duration: 0.6s; animation-timing-function: ease-in-out;">
+<div id="comment" class="well-global  animated fadeInUp" style="animation-duration: 0.6s; animation-timing-function: ease-in-out;">
 
     <div id="comment-form" class="panel panel-primary comment-form-containter">
         <div class="panel-heading">
@@ -154,7 +154,7 @@
 
         var commentForm = OneBlog.$('comment-form');
 
-        var base = OneBlog.$("comment-box");
+        var base = OneBlog.$("comment");
         var commentlist = OneBlog.$("commentlist");
         base.insertBefore(commentForm, commentlist);
 

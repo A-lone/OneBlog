@@ -7,7 +7,7 @@ jQuery(document).ready(function ($) {
 		$log = $('#log');
 
     var main_id = ".main_col"; //This is where to get the content.
-    var comment_id = "#comment-box";
+    var comment_id = "#comment";
     var $container = $("#container_post > .row"), //Where to load the content
     siteUrl = self.location.protocol.toString() + "//" + self.location.host.toString(),
     url = '';
@@ -87,7 +87,7 @@ jQuery(document).ready(function ($) {
     }
 
     function beforeLoad(paramFunc) {
-        $("#container_post article,#container_post #comment-box").animo({ animation: 'fadeOutDown', duration: 0.3, keep: true, timing: 'ease-in-out' }, function (e) {
+        $("#container_post article,#container_post #comment").animo({ animation: 'fadeOutDown', duration: 0.3, keep: true, timing: 'ease-in-out' }, function (e) {
             paramFunc();
         });
     }

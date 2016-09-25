@@ -50,7 +50,7 @@ namespace OneBlog.Models
         public int? TotalCount { get; set; }
         public int? TotalPages { get; set; }
 
-        public List<IPublishable> Posts { get; set; }
+        public List<Post> Posts { get; set; }
 
     }
 
