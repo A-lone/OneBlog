@@ -414,6 +414,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
+    <Content Include="Content\images\spinner_20.gif" />
     <Content Include="Content\prettify.css" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BlogRollController.cs" />

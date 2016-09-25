@@ -15,7 +15,9 @@
                 @using (Ajax.BeginForm("Comment", "Home", new AjaxOptions
                 {
                     OnSuccess = "OnSuccess",
-                    OnFailure = "OnFailure"
+                    OnFailure = "OnFailure",
+                    OnBegin = "OnBegin",
+                    LoadingElementId = "Comment-Loading",
                 }))
                 {
                     <input id="CommentPostModel_PostId" name="CommentPostModel.PostId" type="hidden" value="122ad138-5ff2-494e-a46d-fd5e47b76fd3" />                        <div class="form-group">
@@ -38,7 +40,10 @@
                         @Html.TextBoxFor(m => m.Captcha, new { @class = "form-control", placeholder = "验证码", cols = "60" })
                     </div>
                     <div class="form-group">
-                        <button id="btnSaveAjax" type="submit" class="btn btn-success pull-right">Submit</button>
+                        <span class=" pull-right">
+                            <img id="Comment-Loading" style="display:none;" src="~/Content/Images/spinner_20.gif" />
+                            <button id="btnSaveAjax" type="submit" class="btn btn-success">Submit</button>
+                        </span>
                     </div>
 
                     <input type="hidden" name="hiddenReplyTo" id="hiddenReplyTo" />
@@ -111,6 +116,9 @@
 
 
 <script type="text/javascript">
+    function OnBegin() {
+
+    }
     function OnFailure(xhr, status, error) {
         alert("异步请求失败！");
     }
