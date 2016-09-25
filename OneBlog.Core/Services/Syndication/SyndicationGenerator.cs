@@ -651,7 +651,7 @@ namespace OneBlog.Core
             var content = WebUtils.ConvertPublishablePathsToAbsolute(arg.Body, publishable);
 
             // handle custom fields in the posts
-            content = CustomFieldsParser.GetPageHtml(content);
+            content = CustomFieldsParserService.GetPageHtml(content);
 
             if (comment != null)
             {

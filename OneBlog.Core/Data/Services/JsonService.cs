@@ -9,7 +9,7 @@ namespace OneBlog.Core.Data.Services
     /// <summary>
     /// Helper class for Json operation
     /// </summary>
-    public class Json
+    public class JsonService
     {
         /// <summary>
         /// Get post converted to Json
@@ -255,7 +255,7 @@ namespace OneBlog.Core.Data.Services
         static string Gravatar(Comment comment)
         {
             var website = comment.Website == null ? "" : comment.Website.ToString();
-            return Avatar.GetSrc(comment.Email, website);
+            return AvatarService.GetSrc(comment.Email, website);
         }
 
         #endregion

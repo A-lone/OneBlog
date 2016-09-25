@@ -1,5 +1,6 @@
 ﻿namespace OneBlog.Core.Web.HttpHandlers
 {
+    using HttpModules;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -7,8 +8,6 @@
     using System.Text;
     using System.Web;
     using System.Xml;
-
-    using OneBlog.Core.Web.HttpModules;
 
     /// <summary>
     /// Implements a custom handler to synchronously process HTTP Web requests for a syndication feed.

@@ -8,7 +8,7 @@ namespace OneBlog.Core.Data.Services
     /// <summary>
     /// The avatar
     /// </summary>
-    public class Avatar
+    public class AvatarService
     {
         private static string _noAvatar = string.Format("{0}Content/images/blog/noavatar.jpg", WebUtils.AbsoluteWebRoot);
         private static string _pingImg = string.Format("{0}Content/images/blog/pingback.png", WebUtils.AbsoluteWebRoot);

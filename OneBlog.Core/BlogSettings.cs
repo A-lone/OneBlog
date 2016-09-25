@@ -120,7 +120,6 @@
                     {
                         // settings will be loaded in constructor.
                         blogSettings = new BlogSettings(blog);
-
                         blogSettingsSingleton[blog.Id] = blogSettings;
                     }
                 }

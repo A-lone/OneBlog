@@ -8,16 +8,16 @@ using System.Security.Permissions;
 
 #endregion
 
-[assembly: AssemblyTitle("OneBlog.NET")]
-[assembly: AssemblyDescription("OneBlog.NET")]
+[assembly: AssemblyTitle("OneBlog")]
+[assembly: AssemblyDescription("OneBlog")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("OneBlog.NET")]
-[assembly: AssemblyCopyright("Copyright @ 2007-2016")]
+[assembly: AssemblyProduct("OneBlog")]
+[assembly: AssemblyCopyright("Copyright @ 2008-2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: CLSCompliant(false)]
 [assembly: ComVisible(false)]
 [assembly: AllowPartiallyTrustedCallers]
-[assembly: AssemblyVersion("3.3.0.3")]
+[assembly: AssemblyVersion("1.0.0.0")]
 [assembly: SecurityRules(SecurityRuleSet.Level1)]

@@ -8,7 +8,7 @@ namespace OneBlog.Core.Data.Services
     /// <summary>
     /// Used by auto-upgrade to update to latest version
     /// </summary>
-    public class Updater
+    public class UpdaterService
     {
         private static string _upgradeReleases = BlogConfig.GalleryFeedUrl.Replace("nuget", "/Releases/");
         private string _versionsTxt = _upgradeReleases + "versions.txt";

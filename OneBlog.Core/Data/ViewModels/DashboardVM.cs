@@ -55,7 +55,7 @@ namespace OneBlog.Core.Data.ViewModels
                 var comments = new List<CommentItem>();
                 foreach(var c in _comments.AsQueryable().OrderBy("DateCreated desc").Take(5).ToList())
                 {
-                    comments.Add(Json.GetComment(c, _comments));
+                    comments.Add(JsonService.GetComment(c, _comments));
                 }
                 return comments;
             }
@@ -116,7 +116,7 @@ namespace OneBlog.Core.Data.ViewModels
             DraftPosts = new List<PostItem>();
             foreach (var p in posts.Where(p => p.IsPublished == false && p.IsDeleted == false).ToList())
             {
-                DraftPosts.Add(Json.GetPost(p));
+                DraftPosts.Add(JsonService.GetPost(p));
             }
             PostDraftCnt = DraftPosts == null ? 0 : DraftPosts.Count;
             PostPublishedCnt = posts.Where(p => p.IsPublished).ToList().Count;
@@ -136,7 +136,7 @@ namespace OneBlog.Core.Data.ViewModels
             DraftPages = new List<PageItem>();
             foreach (var p in pages.Where(p => p.IsPublished == false && p.IsDeleted == false).ToList())
             {
-                DraftPages.Add(Json.GetPage(p));
+                DraftPages.Add(JsonService.GetPage(p));
             }
             PageDraftCnt = DraftPages == null ? 0 : DraftPages.Count;
             PagePublishedCnt = pages.Where(p => p.IsPublished).ToList().Count;

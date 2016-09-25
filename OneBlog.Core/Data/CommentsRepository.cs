@@ -44,7 +44,7 @@ namespace OneBlog.Core.Data
             }  
             foreach (var c in comments)
             {
-                items.Add(Json.GetComment(c, comments));               
+                items.Add(JsonService.GetComment(c, comments));               
             }
             vm.Items = items;
 
@@ -66,7 +66,7 @@ namespace OneBlog.Core.Data
             return (from p in Post.Posts
                     from c in p.AllComments
                     where c.Id == id
-                    select Json.GetCommentDetail(c)).FirstOrDefault();
+                    select JsonService.GetCommentDetail(c)).FirstOrDefault();
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace OneBlog.Core.Data
                 post.Save();
 
                 var newComm = post.Comments.Where(cm => cm.Content == c.Content).FirstOrDefault();
-                return Json.GetComment(newComm, post.Comments);
+                return JsonService.GetComment(newComm, post.Comments);
             }
             catch (Exception ex)
             {

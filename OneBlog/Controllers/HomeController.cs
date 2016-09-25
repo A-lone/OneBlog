@@ -72,10 +72,16 @@ namespace OneBlog.Controllers
             return PartialView(model);
         }
 
+        /// <summary>
+        /// 评论
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="collection"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Comment(CommentViewModels model, FormCollection collection)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return Json(new
                 {
@@ -125,7 +131,11 @@ namespace OneBlog.Controllers
             return View(model);
         }
 
-
+        /// <summary>
+        /// 分类页
+        /// </summary>
+        /// <param name="category"></param>
+        /// <returns></returns>
         public ActionResult Category(string category)
         {
 
@@ -143,6 +153,12 @@ namespace OneBlog.Controllers
         }
 
 
+        /// <summary>
+        /// 菜单页
+        /// </summary>
+        /// <param name="p"></param>
+        /// <param name="category"></param>
+        /// <returns></returns>
         public PartialViewResult Menu(int? p, string category)
         {
             MenuViewModels model = new Models.MenuViewModels();
@@ -180,6 +196,14 @@ namespace OneBlog.Controllers
             return PartialView("_Menu", model);
         }
 
+        /// <summary>
+        /// 文章页面
+        /// </summary>
+        /// <param name="slug"></param>
+        /// <param name="year"></param>
+        /// <param name="month"></param>
+        /// <param name="day"></param>
+        /// <returns></returns>
         public ActionResult Post(string slug, int year = 0, int month = 0, int day = 0)
         {
             var haveDate = false;
@@ -201,7 +225,6 @@ namespace OneBlog.Controllers
             model.Post = post;
             return View(model);
         }
-
 
 
 

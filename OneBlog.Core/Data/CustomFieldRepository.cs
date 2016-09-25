@@ -29,7 +29,7 @@ namespace OneBlog.Core.Data
                 filter = "1 == 1";
 
             var items = new List<CustomField>();
-            var query = CustomFieldsParser.CachedFields.AsQueryable().Where(filter);
+            var query = CustomFieldsParserService.CachedFields.AsQueryable().Where(filter);
 
             foreach (var item in query)
                 items.Add(item);
@@ -68,7 +68,7 @@ namespace OneBlog.Core.Data
                 //    throw new ApplicationException("Custom field already exists");
 
                 Providers.BlogService.SaveCustomField(item);
-                CustomFieldsParser.ClearCache();
+                CustomFieldsParserService.ClearCache();
                 return item;
             }
             catch (Exception ex)
@@ -92,7 +92,7 @@ namespace OneBlog.Core.Data
                 item.BlogId = Blog.CurrentInstance.Id;
 
                 Providers.BlogService.SaveCustomField(item);
-                CustomFieldsParser.ClearCache();
+                CustomFieldsParserService.ClearCache();
                 return true;
             }
             catch (Exception ex)
@@ -124,7 +124,7 @@ namespace OneBlog.Core.Data
                 };
 
                 Providers.BlogService.DeleteCustomField(item);
-                CustomFieldsParser.ClearCache();
+                CustomFieldsParserService.ClearCache();
                 return true;
             }
             catch (Exception ex)
@@ -147,7 +147,7 @@ namespace OneBlog.Core.Data
             {
                 Providers.BlogService.ClearCustomFields(Blog.CurrentInstance.BlogId.ToString(), type, id);
 
-                CustomFieldsParser.ClearCache();
+                CustomFieldsParserService.ClearCache();
             }
             catch (Exception ex)
             {
@@ -157,7 +157,7 @@ namespace OneBlog.Core.Data
 
         bool AlreadyExists(CustomField item)
         {
-            var field = CustomFieldsParser.CachedFields.Where(f => f.BlogId == item.BlogId
+            var field = CustomFieldsParserService.CachedFields.Where(f => f.BlogId == item.BlogId
                     && f.CustomType == item.CustomType
                     && f.ObjectId == item.ObjectId
                     && f.Key == item.Key).FirstOrDefault();

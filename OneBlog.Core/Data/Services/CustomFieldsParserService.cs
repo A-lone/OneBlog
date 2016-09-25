@@ -13,7 +13,7 @@ namespace OneBlog.Core.Data.Services
     /// <summary>
     /// Parse Html page output and replace custom fields with appropriate values
     /// </summary>
-    public class CustomFieldsParser
+    public class CustomFieldsParserService
     {
         static readonly string _cacheKey = "CACHED_CUSTOM_FIELDS";
         static Regex regBlock = new Regex(@"\[CUSTOMBLOCK.*]", RegexOptions.IgnoreCase);
@@ -178,7 +178,7 @@ namespace OneBlog.Core.Data.Services
 
                         if (contents.Contains("[CUSTOMFIELD", System.StringComparison.OrdinalIgnoreCase))
                         {
-                            foreach (var item in CustomFieldsParser.GetFieldsFromString(contents))
+                            foreach (var item in CustomFieldsParserService.GetFieldsFromString(contents))
                             {
                                 if (FindInCollection(items, item) == null)
                                 {

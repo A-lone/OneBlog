@@ -477,6 +477,7 @@
     <Compile Include="Extensions\RadioButtonListExtensions.cs" />
     <Compile Include="Extensions\RazorExtensions.cs" />
     <Compile Include="Extensions\WidgetExtensions.cs" />
+    <Compile Include="Filter\AdminAttribute.cs" />
     <Compile Include="Filter\RedirectAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

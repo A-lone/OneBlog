@@ -2,20 +2,15 @@
 @using OneBlog.Core
 @using OneBlog.Core.Data.Services
 @{
-    if (!Security.IsAuthorizedTo(Rights.AccessAdminPages))
-    {
-        Security.RedirectForUnauthorizedRequest();
-    }
-    string loginUrl = Url.Action("Login", "Account");
-    var userRights = string.Join("','", Security.CurrentUserRights().Select(r => r.Flag).ToArray());
 
+    var userRights = string.Join("','", Security.CurrentUserRights().Select(r => r.Flag).ToArray());
     var name = Security.CurrentUser.Identity.Name;
     var email = Membership.Provider.GetUser(name, true).Email;
     var profile = new AuthorProfile(name);
     var src = profile.PhotoUrl;
     if (string.IsNullOrEmpty(src))
     {
-        src = Avatar.GetSrc(email);
+        src = AvatarService.GetSrc(email);
     }
 }
 <html ng-app="blogAdmin">

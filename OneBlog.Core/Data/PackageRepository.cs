@@ -229,7 +229,7 @@ namespace OneBlog.Core.Data
                         OneBlog.Core.Providers.BlogService.DeleteCustomField(f);
                     }
                 }
-                CustomFieldsParser.ClearCache();
+                CustomFieldsParserService.ClearCache();
             }
         }
 

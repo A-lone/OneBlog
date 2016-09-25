@@ -11,6 +11,7 @@ using System.Web.ModelBinding;
 
 namespace OneBlog.Areas.Admin.Controllers
 {
+    [Admin]
     public class AdminController : Controller
     {
 

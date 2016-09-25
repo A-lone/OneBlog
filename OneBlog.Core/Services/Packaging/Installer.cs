@@ -54,7 +54,7 @@ namespace OneBlog.Core.Packaging
 
                 Blog.CurrentInstance.Cache.Remove(Constants.CacheKey);
 
-                CustomFieldsParser.ClearCache();
+                CustomFieldsParserService.ClearCache();
 
                 WebUtils.Log(string.Format("Installed package {0} by {1}", pkgId, Security.CurrentUser.Identity.Name));
             }

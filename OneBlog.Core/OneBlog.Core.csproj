@@ -193,11 +193,11 @@
     <Compile Include="Data\PageRepository.cs" />
     <Compile Include="Data\PostRepository.cs" />
     <Compile Include="Data\RolesRepository.cs" />
-    <Compile Include="Data\Services\Avatar.cs" />
-    <Compile Include="Data\Services\CustomFieldsParser.cs" />
-    <Compile Include="Data\Services\Json.cs" />
-    <Compile Include="Data\Services\TagCloud.cs" />
-    <Compile Include="Data\Services\Updater.cs" />
+    <Compile Include="Data\Services\AvatarService.cs" />
+    <Compile Include="Data\Services\CustomFieldsParserService.cs" />
+    <Compile Include="Data\Services\JsonService.cs" />
+    <Compile Include="Data\Services\TagCloudService.cs" />
+    <Compile Include="Data\Services\UpdaterService.cs" />
     <Compile Include="Data\SettingsRepository.cs" />
     <Compile Include="Data\StatsRepository.cs" />
     <Compile Include="Data\TagRepository.cs" />
@@ -299,20 +299,7 @@
     <Compile Include="Services\Syndication\SyndicationFormat.cs" />
     <Compile Include="Web\BlogCulture.cs" />
     <Compile Include="Web\Controls\ExtensionAttribute.cs" />
-    <Compile Include="Web\Controls\CommentViewBase.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Web\Controls\PageMenu.cs" />
     <Compile Include="Web\Controls\PageSiteMap.cs" />
-    <Compile Include="Web\Controls\CommentFormBase.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Web\Controls\PostNavigationBase.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Web\Controls\RelatedPostsBase.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="Web\HttpHandlers\OpmlHandler.cs" />
     <Compile Include="Web\HttpHandlers\RatingHandler.cs" />
     <Compile Include="Web\HttpHandlers\FileHandler.cs" />
@@ -328,12 +315,6 @@
     <Compile Include="BlogSettings.cs" />
     <Compile Include="BusinessBase.cs" />
     <Compile Include="Comment.cs" />
-    <Compile Include="Web\Controls\BlogBasePage.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Web\Controls\PostViewBase.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="Page.cs" />
     <Compile Include="Services\Messaging\Ping\Pingback.cs" />
     <Compile Include="Services\Messaging\Ping\PingService.cs" />
@@ -345,10 +326,6 @@
     <Compile Include="Web\HttpHandlers\SyndicationHandler.cs" />
     <Compile Include="Web\HttpHandlers\TrackbackHandler.cs" />
     <Compile Include="Web\HttpModules\CompressionModule.cs" />
-    <Compile Include="Web\HttpModules\ReferrerModule.cs" />
-    <Compile Include="Web\HttpModules\WwwSubDomainModule.cs" />
-    <Compile Include="Web\HttpModules\UrlRewrite.cs" />
-    <Compile Include="Web\Scripting\PageHeader.cs" />
     <Compile Include="Web\Scripting\Helpers.cs" />
     <Compile Include="Web\Scripting\JavascriptMinifier.cs" />
     <Compile Include="Web\Scripting\WebResourceFilter.cs" />
@@ -385,7 +362,6 @@
     <Compile Include="Role.cs" />
     <Compile Include="Services\Syndication\SyndicationGenerator.cs" />
     <Compile Include="AuthorProfile.cs" />
-    <Compile Include="Web\Controls\RewriteFormHtmlTextWriter.cs" />
     <Compile Include="Web\Extensions\ExtensionManager.cs" />
     <Compile Include="Web\Extensions\ExtensionParameter.cs" />
     <Compile Include="Web\Extensions\ExtensionSettings.cs" />

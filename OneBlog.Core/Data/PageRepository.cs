@@ -37,7 +37,7 @@ namespace OneBlog.Core.Data
             if (take == 0) take = Page.Pages.Count;
 
             foreach (var item in query.OrderBy(order).Skip(skip).Take(take))
-                items.Add(Json.GetPage(item));
+                items.Add(JsonService.GetPage(item));
 
             return items;
         }
@@ -53,7 +53,7 @@ namespace OneBlog.Core.Data
                 throw new UnauthorizedAccessException();
             try
             {
-                return Json.GetPageDetail((from p in Page.Pages.ToList() where p.Id == id select p).FirstOrDefault());
+                return JsonService.GetPageDetail((from p in Page.Pages.ToList() where p.Id == id select p).FirstOrDefault());
             }
             catch (Exception)
             {
@@ -73,7 +73,7 @@ namespace OneBlog.Core.Data
 
             var page = new Page();
             if (Save(page, detail))
-                return Json.GetPageDetail(page);
+                return JsonService.GetPageDetail(page);
 
             return null;
         }

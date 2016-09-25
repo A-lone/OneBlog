@@ -41,7 +41,7 @@ namespace OneBlog.Core.Data
             var query = postList.AsQueryable().Where(filter);
 
             foreach (var item in query.OrderBy(order).Skip(skip).Take(take))
-                posts.Add(Json.GetPost(item));
+                posts.Add(JsonService.GetPost(item));
 
             return posts;
         }
@@ -57,7 +57,7 @@ namespace OneBlog.Core.Data
                 throw new UnauthorizedAccessException();
             try
             {
-                return Json.GetPostDetail((from p in Post.Posts.ToList() where p.Id == id select p).FirstOrDefault());
+                return JsonService.GetPostDetail((from p in Post.Posts.ToList() where p.Id == id select p).FirstOrDefault());
             }
             catch (Exception)
             {
@@ -78,7 +78,7 @@ namespace OneBlog.Core.Data
             var post = new Post();
                         
             Save(post, detail);
-            return Json.GetPostDetail(post);
+            return JsonService.GetPostDetail(post);
         }
 
         /// <summary>

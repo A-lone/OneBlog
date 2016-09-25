@@ -8,7 +8,7 @@ namespace OneBlog.Core.Data.Services
     /// <summary>
     /// Tag cloud
     /// </summary>
-    public class TagCloud
+    public class TagCloudService
     {
         private const string Link = "<a href=\"{0}\" class=\"{1}\" title=\"{2}\">{3}</a> ";
         private static readonly object SyncRoot = new object();
@@ -17,7 +17,7 @@ namespace OneBlog.Core.Data.Services
         public int MinimumPosts { get; set; }
         public int TagCloudSize { get; set; }
 
-        public TagCloud()
+        public TagCloudService()
         {
             MinimumPosts = 1;
             TagCloudSize = -1;

@@ -1,10 +1,8 @@
 ﻿using System;
 using System.IO;
-using System.IO.Compression;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
-using System.Web.UI;
 using System.Net.Sockets;
 using System.Collections.Generic;
 using OneBlog.Core.Data.Services;
@@ -154,7 +152,7 @@ namespace OneBlog.Core.Web.Scripting
             }
 
             // parse custom fields
-            HtmlOut = CustomFieldsParser.GetPageHtml(HtmlOut);
+            HtmlOut = CustomFieldsParserService.GetPageHtml(HtmlOut);
 
             var outdata = Encoding.UTF8.GetBytes(HtmlOut);
 
