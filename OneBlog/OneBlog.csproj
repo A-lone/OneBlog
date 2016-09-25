@@ -1511,8 +1511,6 @@
     <Content Include="Content\bower_components\github-markdown-css\license" />
     <Content Include="Content\bower_components\github-markdown-css\readme.md" />
     <Content Include="Custom\Themes\Standard\Views\Shared\_Comment.cshtml" />
-    <None Include="Properties\PublishProfiles\Aliyun.pubxml" />
-    <None Include="Properties\PublishProfiles\SongStuido - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
