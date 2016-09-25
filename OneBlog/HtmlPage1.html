@@ -1,169 +1,559 @@
-﻿<div id="container_post" class="container">
-    <div class="row">
-        <div class="col-md-6 col-lg-7 col-md-offset-6 col-sm-12 main_col" data-body-class="home-template" style="height: auto;">
-            <article id="post-3be14ee7-96c0-4ffa-8aac-9cb109da6d5e" class="post tag-sky published  has-post-image animated fadeInUp" style="animation-duration: 0.6s; animation-timing-function: ease-in-out;">
-                <h2 class="post_title">ASP.NET MVC 301重定向</h2>
-                <div class="post_content">
-                    <p>通常大家在做Web开发的时候会绑定两个域名</p>
-                    <blockquote>
-                        <p>www.chenrensong.com</p>
-                        <p>chenrensong.com</p>
-                    </blockquote>
-                    <p>这样不论你访问的时候带与不带www都能访问到网站，但是非常不利于搜索引擎排名的域名权重集中。</p>
-                    <p>那么如何让带www与不带www域名都能被正常访问，又能将权重集中到我们的主域名上呢？</p>
-                    <p>有2种比较常用的重定向方法：302和301重定向</p>
-                    <p><strong>302临时重定向</strong></p>
-                    <p>　　这个状态码告诉用户、搜索引擎、浏览器，该资源已经暂时性的移动到另外一个位置(旧版本页面临时重定向到新版本页面)，这种移动不会当作永久性，而且会恢复原来的位置，通常用于一些死链的重定向。</p>
-                    <p><strong>301永久重定向</strong></p>
-                    <p>　　这个状态码告诉用户、搜索引擎、浏览器，该资源已经永久性的移动到另一个位置(旧版本页面永久重定向到新版本页面)，而且没有恢复原位的打算。301永久重定向最适合目录转移，域名这种情况推荐使用301重定向!</p>
-                    <p>那么在ASP.NET MVC 中怎么设置全局301跳转呢？</p>
-                    <p>这里我们使用ActionFilter这个特性，ActionFilterAttribute是Action过滤类,在执行一个action之前先执行.而ActionFilterAttribute是 MVC的一个专门处理action过滤的类.基于这个原理 我们来做301跳转</p>
-                    <p>新建一个 RedirectAttribute 类,首先继承 ActionFilterAttribute 类，然后重写OnActionExecuting方法，具体代码如下</p>
-<pre class="prettyprint prettyprinted"><code><span class="pln"> </span><span class="kwd">private</span><span class="pln"> </span><span class="kwd">const</span><span class="pln"> </span><span class="kwd">string</span><span class="pln"> MAIN_HOST </span><span class="pun">=</span><span class="pln"> </span><span class="str">"chenrensong.com"</span><span class="pun">;</span><span class="pln">
-        </span><span class="kwd">private</span><span class="pln"> </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">readonly</span><span class="pln"> </span><span class="typ">Regex</span><span class="pln"> wwwRegex </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Regex</span><span class="pun">(@</span><span class="str">"www\.(?&lt;mainDomain&gt;.*)"</span><span class="pun">,</span><span class="pln">
-        </span><span class="typ">RegexOptions</span><span class="pun">.</span><span class="typ">Compiled</span><span class="pln"> </span><span class="pun">|</span><span class="pln"> </span><span class="typ">RegexOptions</span><span class="pun">.</span><span class="typ">IgnoreCase</span><span class="pln"> </span><span class="pun">|</span><span class="pln"> </span><span class="typ">RegexOptions</span><span class="pun">.</span><span class="typ">Singleline</span><span class="pun">);</span><span class="pln">
-        </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">override</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> </span><span class="typ">OnActionExecuting</span><span class="pun">(</span><span class="typ">ActionExecutingContext</span><span class="pln"> filterContext</span><span class="pun">)</span><span class="pln">
-        </span><span class="pun">{</span><span class="pln">
-            </span><span class="kwd">base</span><span class="pun">.</span><span class="typ">OnActionExecuting</span><span class="pun">(</span><span class="pln">filterContext</span><span class="pun">);</span><span class="pln">
-            </span><span class="kwd">string</span><span class="pln"> hostName </span><span class="pun">=</span><span class="pln"> filterContext</span><span class="pun">.</span><span class="typ">HttpContext</span><span class="pun">.</span><span class="typ">Request</span><span class="pun">.</span><span class="typ">Headers</span><span class="pun">[</span><span class="str">"x-forwarded-host"</span><span class="pun">];</span><span class="pln">
-            hostName </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">string</span><span class="pun">.</span><span class="typ">IsNullOrEmpty</span><span class="pun">(</span><span class="pln">hostName</span><span class="pun">)</span><span class="pln"> </span><span class="pun">?</span><span class="pln"> filterContext</span><span class="pun">.</span><span class="typ">HttpContext</span><span class="pun">.</span><span class="typ">Request</span><span class="pun">.</span><span class="typ">Url</span><span class="pun">.</span><span class="typ">Host</span><span class="pln"> </span><span class="pun">:</span><span class="pln"> hostName</span><span class="pun">;</span><span class="pln">
-            hostName </span><span class="pun">=</span><span class="pln"> hostName</span><span class="pun">.</span><span class="typ">ToLower</span><span class="pun">();</span><span class="pln">
-            </span><span class="kwd">var</span><span class="pln"> </span><span class="typ">IsDomain</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> hostName</span><span class="pun">.</span><span class="typ">Contains</span><span class="pun">(</span><span class="pln">MAIN_HOST</span><span class="pun">);</span><span class="pln">
-            </span><span class="typ">UriBuilder</span><span class="pln"> builder </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">;</span><span class="pln">
-            </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(!</span><span class="typ">IsDomain</span><span class="pun">)</span><span class="pln">
-            </span><span class="pun">{</span><span class="pln">
-                </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">hostName </span><span class="pun">!=</span><span class="pln"> </span><span class="str">"localhost"</span><span class="pln"> </span><span class="pun">&amp;&amp;</span><span class="pln"> hostName </span><span class="pun">!=</span><span class="pln"> </span><span class="str">"127.0.0.1"</span><span class="pun">)</span><span class="pln">
-                </span><span class="pun">{</span><span class="pln">
-                    builder </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">UriBuilder</span><span class="pun">(</span><span class="pln">filterContext</span><span class="pun">.</span><span class="typ">HttpContext</span><span class="pun">.</span><span class="typ">Request</span><span class="pun">.</span><span class="typ">Url</span><span class="pun">)</span><span class="pln">
-                    </span><span class="pun">{</span><span class="pln">
-                        </span><span class="typ">Host</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> MAIN_HOST
-                    </span><span class="pun">};</span><span class="pln">
-                </span><span class="pun">}</span><span class="pln">
-            </span><span class="pun">}</span><span class="pln">
-            </span><span class="kwd">else</span><span class="pln">
-            </span><span class="pun">{</span><span class="pln">
-                </span><span class="typ">Match</span><span class="pln"> match </span><span class="pun">=</span><span class="pln"> wwwRegex</span><span class="pun">.</span><span class="typ">Match</span><span class="pun">(</span><span class="pln">hostName</span><span class="pun">);</span><span class="pln">
-                </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">match</span><span class="pun">.</span><span class="typ">Success</span><span class="pun">)</span><span class="pln">
-                </span><span class="pun">{</span><span class="pln">
-                    </span><span class="kwd">string</span><span class="pln"> mainDomain </span><span class="pun">=</span><span class="pln"> match</span><span class="pun">.</span><span class="typ">Groups</span><span class="pun">[</span><span class="str">"mainDomain"</span><span class="pun">].</span><span class="typ">Value</span><span class="pun">;</span><span class="pln">
-                    builder </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">UriBuilder</span><span class="pun">(</span><span class="pln">filterContext</span><span class="pun">.</span><span class="typ">HttpContext</span><span class="pun">.</span><span class="typ">Request</span><span class="pun">.</span><span class="typ">Url</span><span class="pun">)</span><span class="pln">
-                    </span><span class="pun">{</span><span class="pln">
-                        </span><span class="typ">Host</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> mainDomain
-                    </span><span class="pun">};</span><span class="pln">
-                </span><span class="pun">}</span><span class="pln">
-            </span><span class="pun">}</span><span class="pln">
-            </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">builder </span><span class="pun">!=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">)</span><span class="pln">
-            </span><span class="pun">{</span><span class="pln">
-                </span><span class="kwd">string</span><span class="pln"> redirectUrl </span><span class="pun">=</span><span class="pln"> builder</span><span class="pun">.</span><span class="typ">Uri</span><span class="pun">.</span><span class="typ">ToString</span><span class="pun">();</span><span class="pln">
-                filterContext</span><span class="pun">.</span><span class="typ">HttpContext</span><span class="pun">.</span><span class="typ">Response</span><span class="pun">.</span><span class="typ">Clear</span><span class="pun">();</span><span class="pln">
-                filterContext</span><span class="pun">.</span><span class="typ">HttpContext</span><span class="pun">.</span><span class="typ">Response</span><span class="pun">.</span><span class="typ">StatusCode</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="lit">301</span><span class="pun">;</span><span class="pln">
-                filterContext</span><span class="pun">.</span><span class="typ">HttpContext</span><span class="pun">.</span><span class="typ">Response</span><span class="pun">.</span><span class="typ">StatusDescription</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="str">"Moved Permanently"</span><span class="pun">;</span><span class="pln">
-                filterContext</span><span class="pun">.</span><span class="typ">HttpContext</span><span class="pun">.</span><span class="typ">Response</span><span class="pun">.</span><span class="typ">AddHeader</span><span class="pun">(</span><span class="str">"Location"</span><span class="pun">,</span><span class="pln"> redirectUrl</span><span class="pun">);</span><span class="pln">
-                filterContext</span><span class="pun">.</span><span class="typ">HttpContext</span><span class="pun">.</span><span class="typ">Response</span><span class="pun">.</span><span class="typ">End</span><span class="pun">();</span><span class="pln">
-            </span><span class="pun">}</span><span class="pln">
-        </span><span class="pun">}</span></code></pre>
+﻿<html class=" js touch cssanimations cssgradients csstransforms csstransforms3d csstransitions">
+<head>
+    <title>陈仁松博客</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="stay hungry stay foolish">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="/Content/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/Custom/Themes/Standard/src/css/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/Custom/Themes/Standard/src/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/content/font-awesome.min.css">
+    <link href="/Content/prettify.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/Scripts/prettify/prettify.es5.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans:700,400">
+    <script src="/Scripts/jquery-2.1.4.js"></script>
 
-                    <p>上面是我博客的代码片段，由于我博客原先的域名是songsong.org现在改为chenrensong.com,所以上面代码是让所有的<code>非chenrensong.com</code>的域名 301重定向至<code>chenrensong.com</code></p>
-                    <p>当然也可以用这个方法将301替换成302跳转，代码比较简单，有什么问题给我留言即可。</p>
-
-                    <div class="clearfix"></div>
-                </div>
-                <div class="metadata">
-                    <ul>
-                        <li class="meta_date"><i class="fa fa-clock-o"></i>11 九月 2016</li>
-                        <li class="meta_author"><i class="fa fa-user"></i>Admin</li>
-
-                    </ul>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="clearfix"></div>
-            </article>
-
-
-            <div id="comment-box" class="well-global animated fadeInUp" style="animation-duration: 0.6s; animation-timing-function: ease-in-out;">
-
-                <div id="comment-form" class="panel panel-primary comment-form-containter">
-                    <div class="panel-heading">
-                        Comments (1)
-                        <a id="cancelReply" style="display: none;" class="pull-right" href="javascript:void(0);" onclick="OneBlog.cancelReply();">取消回复</a>
-                    </div>
-                    <div class="panel-body">
-                        <div>
-                            <form action="/home/comment/3be14ee7-96c0-4ffa-8aac-9cb109da6d5e" data-ajax="true" data-ajax-begin="OnBegin" data-ajax-failure="OnFailure" data-ajax-loading="#Comment-Loading" data-ajax-success="OnSuccess" id="form0" method="post">
-                                <input id="CommentPostModel_PostId" name="CommentPostModel.PostId" type="hidden" value="122ad138-5ff2-494e-a46d-fd5e47b76fd3">                        <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <input class="form-control" data-val="true" data-val-required="用户名 字段是必需的。" id="UserName" name="UserName" placeholder="用户名" type="text" value="">
-                                        </div>
-                                        <div class="col-md-8">
-                                            <input class="form-control" data-val="true" data-val-email="The Email field is not a valid e-mail address." data-val-required="Email 字段是必需的。" id="Email" name="Email" placeholder="邮箱" type="text" value="">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <textarea class="form-control" cols="60" data-val="true" data-val-required="Content 字段是必需的。" id="Content" name="Content" placeholder="内容" rows="2"></textarea>
-                                </div>
-                                <div class="form-group input-group">
-                                    <span class="input-group-addon" style="padding:0;">
-                                        <img style="max-width:none;" onclick="this.src ='/home/captcha?t='+ Math.floor(Math.random() * 10000);" src="/home/captcha">
-                                    </span>
-                                    <input class="form-control" cols="60" data-val="true" data-val-required="Captcha 字段是必需的。" id="Captcha" name="Captcha" placeholder="验证码" type="text" value="">
-                                </div>
-                                <div class="form-group">
-                                    <span class=" pull-right">
-                                        <img id="Comment-Loading" style="display:none;" src="/Content/Images/spinner_20.gif">
-                                        <button id="btnSaveAjax" type="submit" class="btn btn-success">Submit</button>
-                                    </span>
-                                </div>
-                                <input type="hidden" name="hiddenReplyTo" id="hiddenReplyTo">
-                                <input data-val="true" data-val-required="PostId 字段是必需的。" id="PostId" name="PostId" type="hidden" value="3be14ee7-96c0-4ffa-8aac-9cb109da6d5e">
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="commentlist" style="display: block">
-
-
-                    <ul id="id_dc0e5b6d-39f0-4c16-a83b-e294b6cef6b1">
-                        <li class="comment-item">
-                            <div class="comment-content">
-                                <img src="http://www.gravatar.com/avatar/ba7e6316a58c972b8b35bc4a6284ef51.jpg?d=identicon" width="48">
-                                <div class="comment-author">
-                                    <a class="fn">Ok</a>
-                                </div>
-                                <div class="comment-text">
-                                    学习了很实用...
-                                </div>
-                                <div class="comment-replylink">
-                                    <span>26 九月 2016</span> - <a href="javascript:void(0);" class="reply-to-comment" onclick="OneBlog.replyToComment('dc0e5b6d-39f0-4c16-a83b-e294b6cef6b1');">回复</a>
-                                </div>
-
-                            </div>
-                            <div id="replies_dc0e5b6d-39f0-4c16-a83b-e294b6cef6b1" style="display:none;">
-                            </div>
-                        </li>
-                    </ul>
-
-
-                </div>
-
-
-
-            </div>
-
-
-
-
-
-
-
-
-
-
-
-
+</head>
+<body class="home-template  pace-done">
+    <div class="pace  pace-inactive">
+        <div class="pace-progress" data-progress-text="100%" data-progress="99" style="transform: translate3d(100%, 0px, 0px);">
+            <div class="pace-progress-inner"></div>
         </div>
+        <div class="pace-activity"></div>
     </div>
-    <div class="clearfix"></div>
-</div>
+    <div id="wrap">
+        <div id="container" class="container container_2col">
+            <div class="row">
+                <div id="header_sidebar" tabindex="5000" style="overflow: hidden; outline: none; animation-duration: 0.7s; animation-timing-function: ease-in-out;" class="animated fadeIn">
+                    <div class="header_line"></div>
+                    <header id="header" class="">
+                        <div class="logo_container">
+                            <a href="/" class="ob_logo">陈仁松博客</a>
+                            <p class="logo_desc">stay hungry stay foolish</p>
+                        </div>
+                        <div class="clearfix"></div>
+                        <nav id="jqueryslidemenu" class="jqueryslidemenu ">
+                            <ul id="nav" class="nav">
+                                <li class="nav-home current_page_item"><a href="/" class="current_nav">Home</a></li>
+                                <li>
+                                    <a title="Category: .Net &amp; XAML" href="/category/net-xaml">
+                                        .Net &amp; XAML
+                                    </a>
+                                </li>
+                                <li>
+                                    <a title="Category: Android" href="/category/android">
+                                        Android
+                                    </a>
+                                </li>
+                                <li>
+                                    <a title="Category: Windows" href="/category/windows">
+                                        Windows
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                        <div class="clearfix"></div>
+                        <hr class="ob_line">
+                        <form class="search_form">
+                            <input id="search-field">
+                            <input class="seach_submit" type="submit" value="search">
+                            <i class="fa fa-search"></i>
+                        </form>
+                        <hr class="ob_line">
+                        友情链接:
+                        <a href="http://validvoid.net" title="" target="_blank">Valid Void </a>
+                        <hr class="ob_line">
+                        <div class="sub_footer">
+                            <ul class="nav nav_social">
+                                <li class="n_github"><a href="http://www.github.com/chenrensong" target="_blank"><i class="fa fa-github"></i></a></li>
+                                <li class="n_weibo"><a href="http://www.weibo.com/chenrensong" target="_blank"><i class="fa fa-weibo"></i></a></li>
+                                <li class="n_mail"><a href="mailto:chenrensong@outlook.com" target="_blank"><i class="fa fa-envelope"></i></a></li>
+                                <li class="n_rss"><a href="/rss" target="_blank"><i class="fa fa-rss"></i></a></li>
+                            </ul>
+                            <div class="clearfix">
+                                <a target="_blank" href="https://mvp.microsoft.com/zh-cn/PublicProfile/4040070" yuuko-static=""><img src="/Content/images/mvp.png" alt="微软最有价值专家" class="mvp"></a>
+                                <div class="clearfix">
+
+                                    <div class="clearfix">
+                                        <p class="pull-left">© Copyright 2008-2016 </p>
+                                    </div><!-- /sub_footer -->
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+                </div><!-- /header_sidebar -->
+
+                <div class="col-md-8 col-sm-12 ob_post_list" tabindex="5001" style="border-right-color: rgb(238, 238, 238); overflow: hidden; outline: none;">
+                    <article id="list_post-3be14ee7-96c0-4ffa-8aac-9cb109da6d5e" class="post tag-getting-started published animated fadeInLeft" style="animation-duration: 0.4s; animation-timing-function: ease-in-out;">
+                        <div class="current_line"></div>
+                        <div class="post_wrap">
+                            <h2 class="post_title"><a href="/post/asp-net-mvc-301-Redirect">ASP.NET MVC 301重定向</a></h2>
+                            <div class="post_content">
+                                <p>通常大家在做Web开发的时候会绑定两个域名</p>
+                                <p>www.chenrensong.com</p>
+                                <p>chenrensong.com</p>
+                                <p>这样不论你访问的时候带与不带www都能访问到网站，但是非常不利于搜索引擎排名的域名权重集中。»</p>
+
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="metadata">
+                                <ul>
+                                    <li class="meta_date"><i class="fa fa-clock-o"></i>11 九月 2016</li>
+                                    <li class="meta_author"><i class="fa fa-user"></i> Admin&lt;</li>
+
+                                    <li class="meta_comments"><i class="fa fa-comment"></i> <a href="/post/asp-net-mvc-301-Redirect#comment">Show Comments</a></li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </article>
+                    <article id="list_post-0d6212de-5524-4a71-a712-8971cf6a54f7" class="post tag-getting-started published animated fadeInLeft" style="animation-duration: 0.4s; animation-timing-function: ease-in-out;">
+                        <div class="current_line"></div>
+                        <div class="post_wrap">
+                            <h2 class="post_title"><a href="/post/mac-libpcap-xamarin">在Mac上写一个抓包工具-入门篇</a></h2>
+                            <div class="post_content">
+                                <p>之前在Windows上用.Net写过一个抓取TCP包的一个工具，但是越来越多周围的同事使用Mac，最近打算把她迁移到Mac上来，我在Windows上基于winpcap进行开发的，libpcap是其Linux版本，著名的tcpdump就是使用libpcap进行抓包的，所以Mac也可以使用libpcap进行抓包。»</p>
+
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="metadata">
+                                <ul>
+                                    <li class="meta_date"><i class="fa fa-clock-o"></i>04 九月 2016</li>
+                                    <li class="meta_author"><i class="fa fa-user"></i> Admin&lt;</li>
+
+                                    <li class="meta_comments"><i class="fa fa-comment"></i> <a href="/post/mac-libpcap-xamarin#comment">Show Comments</a></li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </article>
+                    <article id="list_post-75e1c41a-dbf7-42bb-865c-efa0594d229e" class="post tag-getting-started published current_post_list animated fadeInLeft" style="animation-duration: 0.4s; animation-timing-function: ease-in-out;">
+                        <div class="current_line"></div>
+                        <div class="post_wrap">
+                            <h2 class="post_title"><a href="/post/resources-pri-dump">PRI文件反编译</a></h2>
+                            <div class="post_content">
+                                <p>PRI全称Package Resources Index, MSDN官方解释</p>
+                                <p>pri文件是通过微软提供的工具makepri.exe提供了打包、解包PRI功能的。»</p>
+
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="metadata">
+                                <ul>
+                                    <li class="meta_date"><i class="fa fa-clock-o"></i>26 六月 2016</li>
+                                    <li class="meta_author"><i class="fa fa-user"></i> Admin&lt;</li>
+
+                                    <li class="meta_comments"><i class="fa fa-comment"></i> <a href="/post/resources-pri-dump#comment">Show Comments</a></li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </article>
+                    <article id="list_post-1e4d1757-d635-40ae-bd18-b0a478d328b7" class="post tag-getting-started published animated fadeInLeft" style="animation-duration: 0.4s; animation-timing-function: ease-in-out;">
+                        <div class="current_line"></div>
+                        <div class="post_wrap">
+                            <h2 class="post_title"><a href="/post/windows-10-linux">在Windows 10中开启Linux子系统体验</a></h2>
+                            <div class="post_content">
+                                <p>最新版本的Windows 10中已经集成了Linux子系统，大家可以到控制面板中找到程序-启用或关闭windows功能，然后找到“适用于 Linux 的 Windows 子系统（Beta）”，勾选安装»</p>
+
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="metadata">
+                                <ul>
+                                    <li class="meta_date"><i class="fa fa-clock-o"></i>24 五月 2016</li>
+                                    <li class="meta_author"><i class="fa fa-user"></i> Admin&lt;</li>
+
+                                    <li class="meta_comments"><i class="fa fa-comment"></i> <a href="/post/windows-10-linux#comment">Show Comments</a></li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </article>
+                    <article id="list_post-ded94eaf-03ab-41dc-b447-be41fce09d93" class="post tag-getting-started published animated fadeInLeft" style="animation-duration: 0.4s; animation-timing-function: ease-in-out;">
+                        <div class="current_line"></div>
+                        <div class="post_wrap">
+                            <h2 class="post_title"><a href="/post/uwp-screencaptureenabled">在UWP应用中禁用&amp;开启截取应用屏幕</a></h2>
+                            <div class="post_content">
+                                <p>用过iOS支付宝的同学都应该知道，在切换App的时候界面是模糊的，为了防止自己的隐私数据被泄露，本文就是告诉大家如何在UWP应用中实现这个效果么。</p>
+                                <p>新建一个页面，加入下面的Xaml代码»</p>
+
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="metadata">
+                                <ul>
+                                    <li class="meta_date"><i class="fa fa-clock-o"></i>24 三月 2016</li>
+                                    <li class="meta_author"><i class="fa fa-user"></i> Admin&lt;</li>
+
+                                    <li class="meta_comments"><i class="fa fa-comment"></i> <a href="/post/uwp-screencaptureenabled#comment">Show Comments</a></li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </article>
+                    <article id="list_post-4cf3e3c0-35f9-4294-9441-3c545b22c431" class="post tag-getting-started published animated fadeInLeft" style="animation-duration: 0.4s; animation-timing-function: ease-in-out;">
+                        <div class="current_line"></div>
+                        <div class="post_wrap">
+                            <h2 class="post_title"><a href="/post/android-memory-leak">Android开发中应该避免的内存泄露</a></h2>
+                            <div class="post_content">
+                                <p>一、背景和目的：</p>
+                                <p>目前许多开发人员在Android开发过程中，较少关注实现细节和内存使用，容易会造成内存泄露，导致程序OOM。</p>
+                                <p>本文会通过代码向大家介绍在Android开发过程中常见的内存泄露。»</p>
+
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="metadata">
+                                <ul>
+                                    <li class="meta_date"><i class="fa fa-clock-o"></i>15 十二月 2015</li>
+                                    <li class="meta_author"><i class="fa fa-user"></i> Admin&lt;</li>
+
+                                    <li class="meta_comments"><i class="fa fa-comment"></i> <a href="/post/android-memory-leak#comment">Show Comments</a></li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </article>
+                    <article id="list_post-841d32bb-a98a-4402-b200-b0e7b94d08b2" class="post tag-getting-started published animated fadeInLeft" style="animation-duration: 0.4s; animation-timing-function: ease-in-out;">
+                        <div class="current_line"></div>
+                        <div class="post_wrap">
+                            <h2 class="post_title"><a href="/post/rtmpdump">【实战】抓取RTMP数据</a></h2>
+                            <div class="post_content">
+                                <p>需要的工具：抓包工具（这里我使用的是WireShark）、Rtmpdump</p>
+                                <p>一开始我思路是想分析下html查看下是否有直接的下载地址：</p>
+                                <p>查询到了meta.xml,在里面发现了stream的path，这时候发现是rtmp的无法直接下载， 于是想到使用WireShark工具抓包,利用meta.xml里面的 cp11276.edgefcs.net/ondemand ，首先ping 获取ip»</p>
+
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="metadata">
+                                <ul>
+                                    <li class="meta_date"><i class="fa fa-clock-o"></i>23 十月 2015</li>
+                                    <li class="meta_author"><i class="fa fa-user"></i> Admin&lt;</li>
+
+                                    <li class="meta_comments"><i class="fa fa-comment"></i> <a href="/post/rtmpdump#comment">Show Comments</a></li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </article>
+                    <article id="list_post-2fa34d63-72ed-49c2-8ea0-6506d65ccc61" class="post tag-getting-started published animated fadeInLeft" style="animation-duration: 0.4s; animation-timing-function: ease-in-out;">
+                        <div class="current_line"></div>
+                        <div class="post_wrap">
+                            <h2 class="post_title"><a href="/post/uwp-gif">在UWP应用中实现Gif播放</a></h2>
+                            <div class="post_content">
+                                <p>众所周知，在UWP应用框架中，Image控件是无法播放GIF的图片，只能显示静态图，这样的体验不是特别友好。我在Win8、WP8.1的时候实现过gif播放功能，但是最近发现性能和播放效果都差强人意，大家可以看我的贴吧应用，目前还是用我以前写的gif控件，一些图片播放效果并不是很正确，或者内存消耗过高，主要原因是因为只对gif每帧做了简单的处理。»</p>
+
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="metadata">
+                                <ul>
+                                    <li class="meta_date"><i class="fa fa-clock-o"></i>13 十月 2015</li>
+                                    <li class="meta_author"><i class="fa fa-user"></i> Admin&lt;</li>
+
+                                    <li class="meta_comments"><i class="fa fa-comment"></i> <a href="/post/uwp-gif#comment">Show Comments</a></li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </article>
+                    <article id="list_post-6671a479-87ff-42c7-ad9e-7167d83dcdcb" class="post tag-getting-started published animated fadeInLeft" style="animation-duration: 0.4s; animation-timing-function: ease-in-out;">
+                        <div class="current_line"></div>
+                        <div class="post_wrap">
+                            <h2 class="post_title"><a href="/post/win10-file-transfer-manager">在Win10中使用File Transfer Manager下载</a></h2>
+                            <div class="post_content">
+                                <p>FTM是微软MSDN专用的下载工具，微软发布了Visual Studio 2015 pre-RTM，目前通过FTM下载比较快速，但是在Windows10上无法直接使用，必须到安装目录，用带有管理员权限的CMD执行»</p>
+
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="metadata">
+                                <ul>
+                                    <li class="meta_date"><i class="fa fa-clock-o"></i>02 七月 2015</li>
+                                    <li class="meta_author"><i class="fa fa-user"></i> Admin&lt;</li>
+
+                                    <li class="meta_comments"><i class="fa fa-comment"></i> <a href="/post/win10-file-transfer-manager#comment">Show Comments</a></li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </article>
+                    <article id="list_post-4132f383-b568-4907-93b9-30bbcdca0373" class="post tag-getting-started published animated fadeInLeft" style="animation-duration: 0.4s; animation-timing-function: ease-in-out;">
+                        <div class="current_line"></div>
+                        <div class="post_wrap">
+                            <h2 class="post_title"><a href="/post/net-tools">.NET开发人员必备工具推荐</a></h2>
+                            <div class="post_content">
+                                <p>如果你是一名.NET程序员，不妨来看看本文推荐的这些工具吧。灵活搭配并使用它们，或许可以给你带来意想不到的收获。</p>
+                                <p>主要工具</p>
+                                <p>Visual Studio——最好用的IDE没有之一，.NET开发者的必备IDE。Visual Studio提供非常强大的启动工具箱，并且还有一些让人惊喜的插件支持。在去年11月，微软发布了Visual Studio 2013社区版，免费提供给学生、开源贡献者及初创企业使用。每一次版本更新都会给开发者带来无限惊喜。»</p>
+
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="metadata">
+                                <ul>
+                                    <li class="meta_date"><i class="fa fa-clock-o"></i>23 二月 2015</li>
+                                    <li class="meta_author"><i class="fa fa-user"></i> Admin&lt;</li>
+
+                                    <li class="meta_comments"><i class="fa fa-comment"></i> <a href="/post/net-tools#comment">Show Comments</a></li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </article>
+                    <nav class="pagination" role="pagination"><span class="page-number">Page 1 of 4</span><a class="older-posts" href="/?p=2&amp;slug=resources-pri-dump">Older Posts →</a></nav>
+                </div>
+
+            </div><!--/row -->
+            <div class="clearfix"></div>
+            <div id="ascrail2000" class="nicescroll-rails" style="padding-right: 2px; width: 9px; z-index: 3; cursor: default; position: absolute; top: 0px; left: 186px; height: 708px; display: none;"><div style="position: relative; top: 0px; float: right; width: 5px; height: 0px; border: 1px solid rgb(255, 255, 255); border-radius: 5px; background-color: rgb(0, 0, 0); background-clip: padding-box;"></div></div><div id="ascrail2000-hr" class="nicescroll-rails" style="height: 7px; z-index: 3; top: 701px; left: 0px; position: absolute; display: none;"><div style="position: relative; top: 0px; height: 5px; width: 0px; border: 1px solid rgb(255, 255, 255); border-radius: 5px; background-color: rgb(0, 0, 0); background-clip: padding-box;"></div></div><div id="ascrail2001" class="nicescroll-rails" style="padding-right: 2px; width: 9px; z-index: 5; cursor: default; position: absolute; opacity: 0; display: block; top: 0px; left: 575px; height: 664px;"><div style="position: relative; float: right; width: 5px; border: 1px solid rgb(255, 255, 255); border-radius: 5px; height: 385px; top: 0px; background-color: rgb(0, 0, 0); background-clip: padding-box;"></div></div><div id="ascrail2001-hr" class="nicescroll-rails" style="height: 7px; z-index: 5; position: absolute; opacity: 0; display: none; top: 657px; left: 195px; width: 380px;"><div style="position: relative; top: 0px; height: 5px; border: 1px solid rgb(255, 255, 255); border-radius: 5px; width: 389px; background-color: rgb(0, 0, 0); background-clip: padding-box;"></div></div>
+            <div id="ascrail2002" class="nicescroll-rails" style="padding-right: 2px; width: 9px; z-index: 3; cursor: default; position: absolute; top: 0px; left: 186px; height: 285px; display: block; opacity: 0;"><div style="position: relative; top: 0px; float: right; width: 5px; height: 141px; border: 1px solid rgb(255, 255, 255); border-radius: 5px; background-color: rgb(0, 0, 0); background-clip: padding-box;"></div></div><div id="ascrail2002-hr" class="nicescroll-rails" style="height: 7px; z-index: 3; top: 278px; left: 0px; position: absolute; display: none; width: 186px; opacity: 0;"><div style="position: relative; top: 0px; height: 5px; width: 195px; border: 1px solid rgb(255, 255, 255); border-radius: 5px; background-color: rgb(0, 0, 0); background-clip: padding-box;"></div></div><div id="ascrail2003" class="nicescroll-rails" style="padding-right: 2px; width: 9px; z-index: 5; cursor: default; position: absolute; top: 0px; left: 575px; height: 285px; opacity: 0;"><div style="position: relative; top: 0px; float: right; width: 5px; height: 195px; border: 1px solid rgb(255, 255, 255); border-radius: 5px; background-color: rgb(0, 0, 0); background-clip: padding-box;"></div></div><div id="ascrail2003-hr" class="nicescroll-rails" style="height: 7px; z-index: 5; top: 278px; left: 195px; position: absolute; display: none; width: 380px; opacity: 0;"><div style="position: relative; top: 0px; height: 5px; width: 389px; border: 1px solid rgb(255, 255, 255); border-radius: 5px; background-color: rgb(0, 0, 0); background-clip: padding-box;"></div></div>
+        </div><!-- /#container -->
+
+        <div id="container_post" class="container">
+            <div class="row">
+                <div class="col-md-6 col-lg-7 col-md-offset-6 col-sm-12 main_col" data-body-class="home-template" style="height: auto;">
+                    <article id="post-75e1c41a-dbf7-42bb-865c-efa0594d229e" class="post tag-sky published  has-post-image animated fadeInUp" style="animation-duration: 0.6s; animation-timing-function: ease-in-out;">
+                        <h2 class="post_title">PRI文件反编译</h2>
+                        <div class="post_content">
+                            <p>PRI全称Package Resources Index, <a href="https://msdn.microsoft.com/zh-cn/library/windows/apps/jj552947.aspx" target="_blank">MSDN官方解释</a></p>
+                            <p>pri文件是通过微软提供的工具makepri.exe提供了打包、解包PRI功能的。</p>
+                            <p>
+                                Windows 8.1版本的makepri.exe路径：
+                                <code>C:\Program Files (x86)\Windows Kits\8.1\bin\x86\makepri.exe</code>
+                            </p>
+                            <p>
+                                Windows 10版本的makepri.exe路径：
+                                <code>C:\Program Files (x86)\Windows Kits\10\bin\x64\makepri.exe</code>
+                            </p>
+                            <p>如果要反编译Pri to Xml 直接输入命令</p>
+<pre class="prettyprint prettyprinted"><code><span class="pun">“</span><span class="pln">C</span><span class="pun">:</span><span class="pln">\Program </span><span class="typ">Files</span><span class="pln"> </span><span class="pun">(</span><span class="pln">x86</span><span class="pun">)</span><span class="pln">\Windows </span><span class="typ">Kits</span><span class="pln">\1</span><span class="lit">0</span><span class="pln">\b</span><span class="kwd">in</span><span class="pln">\x</span><span class="lit">64</span><span class="pln">\makepri</span><span class="pun">.</span><span class="pln">exe</span><span class="pun">”</span><span class="pln"> </span><span class="kwd">dump</span><span class="pln">  </span><span class="pun">/</span><span class="kwd">if</span><span class="pln"> </span><span class="pun">“</span><span class="pln">c</span><span class="pun">:</span><span class="pln">\resources</span><span class="pun">.</span><span class="pln">pri</span><span class="pun">”</span><span class="pln"> </span><span class="pun">/</span><span class="pln">of </span><span class="pun">“</span><span class="pln">c</span><span class="pun">:</span><span class="pln">\resources</span><span class="pun">.</span><span class="pln">pri</span><span class="pun">.</span><span class="pln">xml</span><span class="pun">”</span></code></pre>
+
+                            <p>这时候会在c盘得到resources.pri.xml文件，里面就包含pri的各种信息。</p>
+                            <p>pri的反编译不仅可以用于UWP，Modern应用，还有一个比较成功的案例<a href="https://github.com/PFCKrutonium/Windows-10-Login-Background-Changer" target="_blank">Windows-10-Login-Background-Changer</a>，用于更换Win10登录背景的工具。</p>
+
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="metadata">
+                            <ul>
+                                <li class="meta_date"><i class="fa fa-clock-o"></i>26 六月 2016</li>
+                                <li class="meta_author"><i class="fa fa-user"></i>Admin</li>
+
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </article>
+
+
+                    <div id="comment-box" class="well-global animated fadeInUp" style="animation-duration: 0.6s; animation-timing-function: ease-in-out;">
+
+                        <div id="comment-form" class="panel panel-primary comment-form-containter">
+                            <div class="panel-heading">
+                                Comments (0)
+                                <a id="cancelReply" style="display: none;" class="pull-right" href="javascript:void(0);" onclick="OneBlog.cancelReply();">取消回复</a>
+                            </div>
+                            <div class="panel-body">
+                                <div>
+                                    <form action="/home/comment/75e1c41a-dbf7-42bb-865c-efa0594d229e" data-ajax="true" data-ajax-begin="OnBegin" data-ajax-failure="OnFailure" data-ajax-loading="#Comment-Loading" data-ajax-success="OnSuccess" id="form0" method="post" novalidate="novalidate">
+                                        <input id="CommentPostModel_PostId" name="CommentPostModel.PostId" type="hidden" value="122ad138-5ff2-494e-a46d-fd5e47b76fd3">                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <input class="form-control" data-val="true" data-val-required="用户名 字段是必需的。" id="UserName" name="UserName" placeholder="用户名" type="text" value="">
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input class="form-control" data-val="true" data-val-email="Email 字段不是有效的电子邮件地址。" data-val-required="Email 字段是必需的。" id="Email" name="Email" placeholder="邮箱" type="text" value="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <textarea class="form-control" cols="60" data-val="true" data-val-required="Content 字段是必需的。" id="Content" name="Content" placeholder="内容" rows="2"></textarea>
+                                        </div>
+                                        <div class="form-group input-group">
+                                            <span class="input-group-addon" style="padding:0;">
+                                                <img style="max-width:none;" onclick="this.src ='/home/captcha?t='+ Math.floor(Math.random() * 10000);" src="/home/captcha">
+                                            </span>
+                                            <input class="form-control" cols="60" data-val="true" data-val-required="Captcha 字段是必需的。" id="Captcha" name="Captcha" placeholder="验证码" type="text" value="">
+                                        </div>
+                                        <div class="form-group">
+                                            <span class=" pull-right">
+                                                <img id="Comment-Loading" style="display:none;" src="/Content/Images/spinner_20.gif">
+                                                <button id="btnSaveAjax" type="submit" class="btn btn-success">Submit</button>
+                                            </span>
+                                        </div>
+                                        <input type="hidden" name="hiddenReplyTo" id="hiddenReplyTo">
+                                        <input data-val="true" data-val-required="PostId 字段是必需的。" id="PostId" name="PostId" type="hidden" value="75e1c41a-dbf7-42bb-865c-efa0594d229e">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="commentlist" style="display: block">
+
+
+
+                        </div>
+
+
+
+                    </div>
+
+
+
+                    <script type="text/javascript">
+                        function OnBegin() {
+
+                        }
+                        function OnFailure(xhr, status, error) {
+                            alert("异步请求失败！");
+                        }
+                        function OnSuccess(data, status, xhr) {
+                            var result = data.Result;
+                            var error = data.Error;
+                            if (error) {
+                                alert(error);
+                                return;
+                            }
+                            var commentId = data.CommentId;
+                            var commentList = OneBlog.$("commentlist");
+                            if (commentList.innerHTML.length < 10)
+                                commentList.innerHTML = "<h1 id='comment'>" + OneBlogRes.i18n.comments + "</h1>"
+
+                            // add comment html to the right place
+                            var id = OneBlog.comments.replyToId ? OneBlog.comments.replyToId.value : '';
+                            if (id != '') {
+                                var replies = OneBlog.$('replies_' + id);
+                                //replies.insertBefore(result, commentForm);
+                                replies.innerHTML += result;
+                            } else {
+                                commentList.innerHTML += result;
+                                commentList.style.display = 'block';
+                            }
+
+                            // reset form values
+                            OneBlog.comments.contentBox.value = "";
+                            OneBlog.comments.contentBox = OneBlog.$(OneBlog.comments.contentBox.id);
+
+                            var commentForm = OneBlog.$('comment-form');
+
+                            var base = OneBlog.$("comment-box");
+                            var commentlist = OneBlog.$("commentlist");
+                            base.insertBefore(commentForm, commentlist);
+
+                            $("body,html").animate({ scrollTop: $('#id_' + commentId).offset().top }, 1000);
+
+                            shake($('#id_' + commentId + " .comment-item  .comment-content "), "notice-red", 3);
+
+                            // reset reply to
+                            if (OneBlog.comments.replyToId) OneBlog.comments.replyToId.value = '';
+                            if (OneBlog.comments.contentBox) OneBlog.comments.contentBox.value = '';
+                            if (OneBlog.comments.emailBox) OneBlog.comments.emailBox.value = '';
+                            if (OneBlog.comments.nameBox) OneBlog.comments.nameBox.value = '';
+                            if (OneBlog.comments.captcha) OneBlog.comments.captcha.value = '';
+                            if (OneBlog.$('cancelReply')) OneBlog.$('cancelReply').style.display = 'none';
+                        }
+
+                        function shake(ele, cls, times) {
+                            var eleclass = ele.attr("class");
+                            if (eleclass == 'undefined') {
+                                eleclass = '';
+                            }
+
+                            var i = 0, t = false, o = eleclass + " ", c = "", times = times || 2;
+                            if (t) return;
+                            t = setInterval(function () {
+                                i++;
+                                c = i % 2 ? o + cls : o;
+                                ele.attr("class", c);
+                                if (i == 2 * times) {
+                                    clearInterval(t);
+                                    ele.removeClass(cls);
+                                }
+                            }, 200);
+                        };
+
+
+
+                    </script>
+
+                    <script type="text/javascript" src="/Scripts/Auto/blog.js"></script>
+                    <script type="text/javascript">
+                        OneBlog.comments.flagImage = OneBlog.$("imgFlag");
+                        OneBlog.comments.contentBox = OneBlog.$("Content");
+                        OneBlog.comments.moderation = true;
+                        OneBlog.comments.checkName = false;
+                        OneBlog.comments.postAuthor = "Admin";
+                        OneBlog.comments.nameBox = OneBlog.$("UserName");
+                        OneBlog.comments.emailBox = OneBlog.$("Email");
+                        OneBlog.comments.websiteBox = OneBlog.$("txtWebsite");
+                        OneBlog.comments.countryDropDown = OneBlog.$("ddlCountry");
+                        OneBlog.comments.controlId = 'ucCommentList';
+                        OneBlog.comments.captcha = OneBlog.$('Captcha');
+                        OneBlog.comments.replyToId = OneBlog.$("hiddenReplyTo");
+                    </script>
+                    <script type="text/javascript">
+                        function toggle_visibility(id, id2) {
+                            var e = document.getElementById(id);
+                            var h = document.getElementById(id2);
+                            if (e.style.display == 'block') {
+                                e.style.display = 'none';
+                                h.innerHTML = "Show Comments";
+                            }
+                            else {
+                                e.style.display = 'block';
+                                h.innerHTML = "Hide Comments";
+                            }
+                        }
+                    </script>
+
+
+                    <script>
+                        $(function () {
+                            $("pre").addClass("prettyprint");
+                            prettyPrint();
+                        });
+                    </script>
+
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+
+
+    </div><!-- /wrap -->
+
+    <script src="/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="/Scripts/jquery.validate.js"></script>
+    <script src="/Scripts/jquery.validate.unobtrusive.js"></script>
+
+
+    <script src="/Scripts/bootstrap.js"></script>
+    <script src="/Scripts/respond.js"></script>
+
+    <script type="text/javascript" data-pace-options="{ &quot;restartOnPushState&quot;: false }" src="/Custom/Themes/Standard/src/js/pace.min.js"></script>
+    <script type="text/javascript" src="/Custom/Themes/Standard/src/js/modernizr.min.js"></script>
+    <script type="text/javascript" src="/Custom/Themes/Standard/src/js/jquery.debouncedresize.min.js"></script>
+    <script type="text/javascript" src="/Custom/Themes/Standard/src/js/jquery.history.js"></script>
+    <script type="text/javascript" src="/Custom/Themes/Standard/src/js/animo.min.js"></script>
+    <script type="text/javascript" src="/Custom/Themes/Standard/src/js/ajax-script.js"></script>
+    <script type="text/javascript" src="/Custom/Themes/Standard/src/js/jquery.nicescroll.min.js"></script>
+    <script type="text/javascript" src="/Custom/Themes/Standard/src/js/jquery.ghostHunter.min.js"></script>
+    <script type="text/javascript" src="/Custom/Themes/Standard/src/js/script.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
