@@ -1,0 +1,169 @@
+﻿<div id="container_post" class="container">
+    <div class="row">
+        <div class="col-md-6 col-lg-7 col-md-offset-6 col-sm-12 main_col" data-body-class="home-template" style="height: auto;">
+            <article id="post-3be14ee7-96c0-4ffa-8aac-9cb109da6d5e" class="post tag-sky published  has-post-image animated fadeInUp" style="animation-duration: 0.6s; animation-timing-function: ease-in-out;">
+                <h2 class="post_title">ASP.NET MVC 301重定向</h2>
+                <div class="post_content">
+                    <p>通常大家在做Web开发的时候会绑定两个域名</p>
+                    <blockquote>
+                        <p>www.chenrensong.com</p>
+                        <p>chenrensong.com</p>
+                    </blockquote>
+                    <p>这样不论你访问的时候带与不带www都能访问到网站，但是非常不利于搜索引擎排名的域名权重集中。</p>
+                    <p>那么如何让带www与不带www域名都能被正常访问，又能将权重集中到我们的主域名上呢？</p>
+                    <p>有2种比较常用的重定向方法：302和301重定向</p>
+                    <p><strong>302临时重定向</strong></p>
+                    <p>　　这个状态码告诉用户、搜索引擎、浏览器，该资源已经暂时性的移动到另外一个位置(旧版本页面临时重定向到新版本页面)，这种移动不会当作永久性，而且会恢复原来的位置，通常用于一些死链的重定向。</p>
+                    <p><strong>301永久重定向</strong></p>
+                    <p>　　这个状态码告诉用户、搜索引擎、浏览器，该资源已经永久性的移动到另一个位置(旧版本页面永久重定向到新版本页面)，而且没有恢复原位的打算。301永久重定向最适合目录转移，域名这种情况推荐使用301重定向!</p>
+                    <p>那么在ASP.NET MVC 中怎么设置全局301跳转呢？</p>
+                    <p>这里我们使用ActionFilter这个特性，ActionFilterAttribute是Action过滤类,在执行一个action之前先执行.而ActionFilterAttribute是 MVC的一个专门处理action过滤的类.基于这个原理 我们来做301跳转</p>
+                    <p>新建一个 RedirectAttribute 类,首先继承 ActionFilterAttribute 类，然后重写OnActionExecuting方法，具体代码如下</p>
+<pre class="prettyprint prettyprinted"><code><span class="pln"> </span><span class="kwd">private</span><span class="pln"> </span><span class="kwd">const</span><span class="pln"> </span><span class="kwd">string</span><span class="pln"> MAIN_HOST </span><span class="pun">=</span><span class="pln"> </span><span class="str">"chenrensong.com"</span><span class="pun">;</span><span class="pln">
+        </span><span class="kwd">private</span><span class="pln"> </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">readonly</span><span class="pln"> </span><span class="typ">Regex</span><span class="pln"> wwwRegex </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Regex</span><span class="pun">(@</span><span class="str">"www\.(?&lt;mainDomain&gt;.*)"</span><span class="pun">,</span><span class="pln">
+        </span><span class="typ">RegexOptions</span><span class="pun">.</span><span class="typ">Compiled</span><span class="pln"> </span><span class="pun">|</span><span class="pln"> </span><span class="typ">RegexOptions</span><span class="pun">.</span><span class="typ">IgnoreCase</span><span class="pln"> </span><span class="pun">|</span><span class="pln"> </span><span class="typ">RegexOptions</span><span class="pun">.</span><span class="typ">Singleline</span><span class="pun">);</span><span class="pln">
+        </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">override</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> </span><span class="typ">OnActionExecuting</span><span class="pun">(</span><span class="typ">ActionExecutingContext</span><span class="pln"> filterContext</span><span class="pun">)</span><span class="pln">
+        </span><span class="pun">{</span><span class="pln">
+            </span><span class="kwd">base</span><span class="pun">.</span><span class="typ">OnActionExecuting</span><span class="pun">(</span><span class="pln">filterContext</span><span class="pun">);</span><span class="pln">
+            </span><span class="kwd">string</span><span class="pln"> hostName </span><span class="pun">=</span><span class="pln"> filterContext</span><span class="pun">.</span><span class="typ">HttpContext</span><span class="pun">.</span><span class="typ">Request</span><span class="pun">.</span><span class="typ">Headers</span><span class="pun">[</span><span class="str">"x-forwarded-host"</span><span class="pun">];</span><span class="pln">
+            hostName </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">string</span><span class="pun">.</span><span class="typ">IsNullOrEmpty</span><span class="pun">(</span><span class="pln">hostName</span><span class="pun">)</span><span class="pln"> </span><span class="pun">?</span><span class="pln"> filterContext</span><span class="pun">.</span><span class="typ">HttpContext</span><span class="pun">.</span><span class="typ">Request</span><span class="pun">.</span><span class="typ">Url</span><span class="pun">.</span><span class="typ">Host</span><span class="pln"> </span><span class="pun">:</span><span class="pln"> hostName</span><span class="pun">;</span><span class="pln">
+            hostName </span><span class="pun">=</span><span class="pln"> hostName</span><span class="pun">.</span><span class="typ">ToLower</span><span class="pun">();</span><span class="pln">
+            </span><span class="kwd">var</span><span class="pln"> </span><span class="typ">IsDomain</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> hostName</span><span class="pun">.</span><span class="typ">Contains</span><span class="pun">(</span><span class="pln">MAIN_HOST</span><span class="pun">);</span><span class="pln">
+            </span><span class="typ">UriBuilder</span><span class="pln"> builder </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">;</span><span class="pln">
+            </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(!</span><span class="typ">IsDomain</span><span class="pun">)</span><span class="pln">
+            </span><span class="pun">{</span><span class="pln">
+                </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">hostName </span><span class="pun">!=</span><span class="pln"> </span><span class="str">"localhost"</span><span class="pln"> </span><span class="pun">&amp;&amp;</span><span class="pln"> hostName </span><span class="pun">!=</span><span class="pln"> </span><span class="str">"127.0.0.1"</span><span class="pun">)</span><span class="pln">
+                </span><span class="pun">{</span><span class="pln">
+                    builder </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">UriBuilder</span><span class="pun">(</span><span class="pln">filterContext</span><span class="pun">.</span><span class="typ">HttpContext</span><span class="pun">.</span><span class="typ">Request</span><span class="pun">.</span><span class="typ">Url</span><span class="pun">)</span><span class="pln">
+                    </span><span class="pun">{</span><span class="pln">
+                        </span><span class="typ">Host</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> MAIN_HOST
+                    </span><span class="pun">};</span><span class="pln">
+                </span><span class="pun">}</span><span class="pln">
+            </span><span class="pun">}</span><span class="pln">
+            </span><span class="kwd">else</span><span class="pln">
+            </span><span class="pun">{</span><span class="pln">
+                </span><span class="typ">Match</span><span class="pln"> match </span><span class="pun">=</span><span class="pln"> wwwRegex</span><span class="pun">.</span><span class="typ">Match</span><span class="pun">(</span><span class="pln">hostName</span><span class="pun">);</span><span class="pln">
+                </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">match</span><span class="pun">.</span><span class="typ">Success</span><span class="pun">)</span><span class="pln">
+                </span><span class="pun">{</span><span class="pln">
+                    </span><span class="kwd">string</span><span class="pln"> mainDomain </span><span class="pun">=</span><span class="pln"> match</span><span class="pun">.</span><span class="typ">Groups</span><span class="pun">[</span><span class="str">"mainDomain"</span><span class="pun">].</span><span class="typ">Value</span><span class="pun">;</span><span class="pln">
+                    builder </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">UriBuilder</span><span class="pun">(</span><span class="pln">filterContext</span><span class="pun">.</span><span class="typ">HttpContext</span><span class="pun">.</span><span class="typ">Request</span><span class="pun">.</span><span class="typ">Url</span><span class="pun">)</span><span class="pln">
+                    </span><span class="pun">{</span><span class="pln">
+                        </span><span class="typ">Host</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> mainDomain
+                    </span><span class="pun">};</span><span class="pln">
+                </span><span class="pun">}</span><span class="pln">
+            </span><span class="pun">}</span><span class="pln">
+            </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">builder </span><span class="pun">!=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">)</span><span class="pln">
+            </span><span class="pun">{</span><span class="pln">
+                </span><span class="kwd">string</span><span class="pln"> redirectUrl </span><span class="pun">=</span><span class="pln"> builder</span><span class="pun">.</span><span class="typ">Uri</span><span class="pun">.</span><span class="typ">ToString</span><span class="pun">();</span><span class="pln">
+                filterContext</span><span class="pun">.</span><span class="typ">HttpContext</span><span class="pun">.</span><span class="typ">Response</span><span class="pun">.</span><span class="typ">Clear</span><span class="pun">();</span><span class="pln">
+                filterContext</span><span class="pun">.</span><span class="typ">HttpContext</span><span class="pun">.</span><span class="typ">Response</span><span class="pun">.</span><span class="typ">StatusCode</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="lit">301</span><span class="pun">;</span><span class="pln">
+                filterContext</span><span class="pun">.</span><span class="typ">HttpContext</span><span class="pun">.</span><span class="typ">Response</span><span class="pun">.</span><span class="typ">StatusDescription</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="str">"Moved Permanently"</span><span class="pun">;</span><span class="pln">
+                filterContext</span><span class="pun">.</span><span class="typ">HttpContext</span><span class="pun">.</span><span class="typ">Response</span><span class="pun">.</span><span class="typ">AddHeader</span><span class="pun">(</span><span class="str">"Location"</span><span class="pun">,</span><span class="pln"> redirectUrl</span><span class="pun">);</span><span class="pln">
+                filterContext</span><span class="pun">.</span><span class="typ">HttpContext</span><span class="pun">.</span><span class="typ">Response</span><span class="pun">.</span><span class="typ">End</span><span class="pun">();</span><span class="pln">
+            </span><span class="pun">}</span><span class="pln">
+        </span><span class="pun">}</span></code></pre>
+
+                    <p>上面是我博客的代码片段，由于我博客原先的域名是songsong.org现在改为chenrensong.com,所以上面代码是让所有的<code>非chenrensong.com</code>的域名 301重定向至<code>chenrensong.com</code></p>
+                    <p>当然也可以用这个方法将301替换成302跳转，代码比较简单，有什么问题给我留言即可。</p>
+
+                    <div class="clearfix"></div>
+                </div>
+                <div class="metadata">
+                    <ul>
+                        <li class="meta_date"><i class="fa fa-clock-o"></i>11 九月 2016</li>
+                        <li class="meta_author"><i class="fa fa-user"></i>Admin</li>
+
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
+            </article>
+
+
+            <div id="comment-box" class="well-global animated fadeInUp" style="animation-duration: 0.6s; animation-timing-function: ease-in-out;">
+
+                <div id="comment-form" class="panel panel-primary comment-form-containter">
+                    <div class="panel-heading">
+                        Comments (1)
+                        <a id="cancelReply" style="display: none;" class="pull-right" href="javascript:void(0);" onclick="OneBlog.cancelReply();">取消回复</a>
+                    </div>
+                    <div class="panel-body">
+                        <div>
+                            <form action="/home/comment/3be14ee7-96c0-4ffa-8aac-9cb109da6d5e" data-ajax="true" data-ajax-begin="OnBegin" data-ajax-failure="OnFailure" data-ajax-loading="#Comment-Loading" data-ajax-success="OnSuccess" id="form0" method="post">
+                                <input id="CommentPostModel_PostId" name="CommentPostModel.PostId" type="hidden" value="122ad138-5ff2-494e-a46d-fd5e47b76fd3">                        <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <input class="form-control" data-val="true" data-val-required="用户名 字段是必需的。" id="UserName" name="UserName" placeholder="用户名" type="text" value="">
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input class="form-control" data-val="true" data-val-email="The Email field is not a valid e-mail address." data-val-required="Email 字段是必需的。" id="Email" name="Email" placeholder="邮箱" type="text" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <textarea class="form-control" cols="60" data-val="true" data-val-required="Content 字段是必需的。" id="Content" name="Content" placeholder="内容" rows="2"></textarea>
+                                </div>
+                                <div class="form-group input-group">
+                                    <span class="input-group-addon" style="padding:0;">
+                                        <img style="max-width:none;" onclick="this.src ='/home/captcha?t='+ Math.floor(Math.random() * 10000);" src="/home/captcha">
+                                    </span>
+                                    <input class="form-control" cols="60" data-val="true" data-val-required="Captcha 字段是必需的。" id="Captcha" name="Captcha" placeholder="验证码" type="text" value="">
+                                </div>
+                                <div class="form-group">
+                                    <span class=" pull-right">
+                                        <img id="Comment-Loading" style="display:none;" src="/Content/Images/spinner_20.gif">
+                                        <button id="btnSaveAjax" type="submit" class="btn btn-success">Submit</button>
+                                    </span>
+                                </div>
+                                <input type="hidden" name="hiddenReplyTo" id="hiddenReplyTo">
+                                <input data-val="true" data-val-required="PostId 字段是必需的。" id="PostId" name="PostId" type="hidden" value="3be14ee7-96c0-4ffa-8aac-9cb109da6d5e">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="commentlist" style="display: block">
+
+
+                    <ul id="id_dc0e5b6d-39f0-4c16-a83b-e294b6cef6b1">
+                        <li class="comment-item">
+                            <div class="comment-content">
+                                <img src="http://www.gravatar.com/avatar/ba7e6316a58c972b8b35bc4a6284ef51.jpg?d=identicon" width="48">
+                                <div class="comment-author">
+                                    <a class="fn">Ok</a>
+                                </div>
+                                <div class="comment-text">
+                                    学习了很实用...
+                                </div>
+                                <div class="comment-replylink">
+                                    <span>26 九月 2016</span> - <a href="javascript:void(0);" class="reply-to-comment" onclick="OneBlog.replyToComment('dc0e5b6d-39f0-4c16-a83b-e294b6cef6b1');">回复</a>
+                                </div>
+
+                            </div>
+                            <div id="replies_dc0e5b6d-39f0-4c16-a83b-e294b6cef6b1" style="display:none;">
+                            </div>
+                        </li>
+                    </ul>
+
+
+                </div>
+
+
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>

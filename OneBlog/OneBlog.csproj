@@ -1325,6 +1325,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="HtmlPage1.html" />
     <Content Include="Scripts\account.js" />
     <Content Include="Scripts\admin.js" />
     <Content Include="Scripts\ai.0.22.19-build00125.js" />
