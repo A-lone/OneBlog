@@ -6,11 +6,11 @@
 <!DOCTYPE html>
 <html class="no-js">
 <head>
-    <title>陈仁松博客</title>
+    <title>@ViewBag.Title</title>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="description" content="stay hungry stay foolish" />
-    <meta name="HandheldFriendly" content="True" />
+    <meta name="keywords" content="@ViewBag.Keywords" />
+    <meta name="description" content="@ViewBag.Description" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="/favicon.ico">
     <link rel="stylesheet" type="text/css" href="~/Content/bootstrap.min.css" />
@@ -64,13 +64,14 @@
                                 <li class="n_weibo"><a href="http://www.weibo.com/chenrensong" target="_blank"><i class="fa fa-weibo"></i></a></li>
                                 <li class="n_mail"><a href="mailto:chenrensong@outlook.com" target="_blank"><i class="fa fa-envelope"></i></a></li>
                                 <li class="n_rss"><a href="@Url.Action("Rss","Home")" target="_blank"><i class="fa fa-rss"></i></a></li>
+                                @*<li class="n_link"><a href="mailto:chenrensong@outlook.com" target="_blank"><i class="fa fa-link"></i></a></li>*@
                             </ul>
                             <div class="clearfix" />
                             <a target="_blank" href="https://mvp.microsoft.com/zh-cn/PublicProfile/4040070" yuuko-static><img src="~/Content/images/mvp.png" alt="微软最有价值专家" class="mvp" /></a>
                             <div class="clearfix" />
 
                             <div class="clearfix" />
-                            <p class="pull-left">© Copyright 2008-@DateTime.Now.Year </p>
+                            <p class="pull-left"> © Copyright 2008-@DateTime.Now.Year </p>
                         </div><!-- /sub_footer -->
                     </header>
                 </div><!-- /header_sidebar -->

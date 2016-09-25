@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
@@ -23,7 +24,34 @@ namespace System.Web.Mvc
             return md5;
         }
 
-        public  static string Gravatar(this HtmlHelper helper, string email)
+        public static string GetMetaDescription(this Controller helper, string desc = null)
+        {
+            if (string.IsNullOrEmpty(desc))
+                desc = BlogSettings.Instance.Name + " - " + BlogSettings.Instance.Description;
+            else
+                desc = BlogSettings.Instance.Name + " - " + BlogSettings.Instance.Description + " - " + desc;
+            return WebUtility.HtmlEncode(desc);
+        }
+
+        public static string GetMetaKeywords(this Controller helper)
+        {
+            string metakeywords = string.Empty;
+            if (Category.Categories.Count > 0)
+            {
+                string[] categories = new string[Category.Categories.Count];
+                for (int i = 0; i < Category.Categories.Count; i++)
+                {
+                    categories[i] = Category.Categories[i].Title;
+                }
+
+                 metakeywords = WebUtility.HtmlEncode(string.Join(",", categories));
+            }
+            return metakeywords;
+
+        }
+
+
+        public static string Gravatar(this HtmlHelper helper, string email)
         {
             //var hash = FormsAuthentication.HashPasswordForStoringInConfigFile(email.ToLowerInvariant().Trim(), "MD5");
             var hash = GetHash(email.ToLowerInvariant().Trim());
@@ -65,11 +93,6 @@ namespace System.Web.Mvc
             // cleanup any out bounds page number passed  	
             currentPage = Math.Max(currentPage, 1);
             currentPage = Math.Min(currentPage, pageCount);
-
-
-        
-
-         
 
             var urlHelper = new UrlHelper(helper.ViewContext.RequestContext, helper.RouteCollection);
             var containerdiv = new TagBuilder("nav");

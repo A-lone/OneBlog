@@ -8,7 +8,7 @@ namespace System.Web.Mvc
 {
     public static class ControllerExtensions
     {
-
+  
         public static string RenderViewToString(this Controller controller, string viewName, object model = null)
         {
             controller.ViewData.Model = model;

@@ -12,6 +12,13 @@ namespace OneBlog.Controllers
     public class HomeController : Controller
     {
 
+        public HomeController()
+        {
+            ViewBag.Description = this.GetMetaDescription();
+            ViewBag.Keywords = this.GetMetaKeywords();
+            ViewBag.Title = BlogSettings.Instance.Name;
+        }
+
         /// <summary>
         /// 验证码
         /// </summary>
@@ -149,6 +156,8 @@ namespace OneBlog.Controllers
             model.Posts = posts;
             var first = posts.FirstOrDefault();
             model.CoverPost = first == null ? new Post() : first;
+
+            ViewBag.Description = this.GetMetaDescription(string.IsNullOrWhiteSpace(cat.Description) ? cat.Title : cat.Description);
             return View("Index", model);
         }
 
@@ -223,6 +232,9 @@ namespace OneBlog.Controllers
 
             PostViewModels model = new Models.PostViewModels();
             model.Post = post;
+
+            ViewBag.Title = post.Title;
+
             return View(model);
         }
 
