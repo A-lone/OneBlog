@@ -61,6 +61,20 @@ namespace OneBlog
                 new { controller = "Home", action = "Category", p = UrlParameter.Optional } // Parameter defaults
             );
 
+
+
+            routes.MapRoute(
+                "Tag_Old", // Route name
+                "tag/{tag}.html/{p}", // URL with parameters
+                new { controller = "Home", action = "Tag", p = UrlParameter.Optional } // Parameter defaults
+            );
+
+            routes.MapRoute(
+                "Tag", // Route name
+                "tag/{tag}/{p}", // URL with parameters
+                new { controller = "Home", action = "Tag", p = UrlParameter.Optional } // Parameter defaults
+            );
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

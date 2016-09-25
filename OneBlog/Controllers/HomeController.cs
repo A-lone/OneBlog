@@ -138,6 +138,11 @@ namespace OneBlog.Controllers
             return View(model);
         }
 
+        public ActionResult Tag(string tag)
+        {
+            return RedirectToAction("Index", "Home");
+        }
+
         /// <summary>
         /// 分类页
         /// </summary>
@@ -150,6 +155,11 @@ namespace OneBlog.Controllers
                        let legalTitle = WebUtils.RemoveIllegalCharacters(item.Title).ToLowerInvariant()
                        where category.Equals(legalTitle, StringComparison.OrdinalIgnoreCase)
                        select item).FirstOrDefault();
+
+            if (cat == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
             var posts = OneBlog.Core.Post.GetPostsByCategory(cat).ConvertAll(new Converter<Post, IPublishable>(delegate (Post p) { return p as IPublishable; }));
             HomeViewModels model = new HomeViewModels();
