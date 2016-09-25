@@ -60,7 +60,7 @@ jQuery(document).ready(function ($) {
 
         $container.load(State.url + " " + main_id, function (data) {
             /* After the content loads you can make additional callbacks*/
-            $container.prepend("<div class='main_line'></div>");
+            //$container.prepend("<div class='main_line'></div>");
 
             $(".main_preloader").css('opacity', 0).delay(900).fadeOut();
 

@@ -7,7 +7,7 @@
 
     <div id="comment-form" class="panel panel-primary comment-form-containter">
         <div class="panel-heading">
-            Comments (@Model.Comments.Count)
+            <span id="comment-title">Comments (@Model.Comments.Count)</span>
             <a id="cancelReply" style="display: none;" class="pull-right" href="javascript:void(0);" onclick="OneBlog.cancelReply();">取消回复</a>
         </div>
         <div class="panel-body">
@@ -23,7 +23,7 @@
                     <input id="CommentPostModel_PostId" name="CommentPostModel.PostId" type="hidden" value="122ad138-5ff2-494e-a46d-fd5e47b76fd3" />                        <div class="form-group">
                         <div class="row">
                             <div class="col-md-4">
-                                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" , placeholder = "用户名" })
+                                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "用户名" })
                             </div>
                             <div class="col-md-8">
                                 @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "邮箱" })
@@ -130,6 +130,9 @@
             return;
         }
         var commentId = data.CommentId;
+        var commentCount = data.CommentCount;
+        OneBlog.$("comment-title").innerHTML = "Comments (" + commentCount + ")";
+
         var commentList = OneBlog.$("commentlist");
         if (commentList.innerHTML.length < 10)
             commentList.innerHTML = "<h1 id='comment'>" + OneBlogRes.i18n.comments + "</h1>"

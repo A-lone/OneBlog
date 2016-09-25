@@ -112,7 +112,7 @@ namespace OneBlog.Controllers
                 //Avatar = Server.HtmlEncode(avatar.Trim())
             };
             post.AddComment(comment);
-            return Json(new { Error = "", CommentId = comment.Id, Result = this.RenderViewToString("_Comment", comment), Content = model.Content }, JsonRequestBehavior.AllowGet);
+            return Json(new { Error = "", CommentId = comment.Id, CommentCount = (post.Comments.Count + 1), Result = this.RenderViewToString("_Comment", comment), Content = model.Content }, JsonRequestBehavior.AllowGet);
         }
 
 
