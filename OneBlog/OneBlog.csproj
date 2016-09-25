@@ -477,6 +477,7 @@
     <Compile Include="Extensions\RadioButtonListExtensions.cs" />
     <Compile Include="Extensions\RazorExtensions.cs" />
     <Compile Include="Extensions\WidgetExtensions.cs" />
+    <Compile Include="Filter\RedirectAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1510,6 +1511,7 @@
     <Content Include="Content\bower_components\github-markdown-css\readme.md" />
     <Content Include="Custom\Themes\Standard\Views\Shared\_Comment.cshtml" />
     <None Include="Properties\PublishProfiles\Aliyun.pubxml" />
+    <None Include="Properties\PublishProfiles\SongStuido - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
@@ -2376,6 +2378,16 @@
     <Content Include="Scripts\syntaxhighlighter\styles\syntaxhighlighter.css" />
     <Content Include="Scripts\syntaxhighlighter\syntaxhighlighter.htm" />
     <Content Include="Scripts\textext.js" />
+    <Content Include="Scripts\tinybox2\advanced.html" />
+    <Content Include="Scripts\tinybox2\ajax.html" />
+    <Content Include="Scripts\tinybox2\images\close.png" />
+    <Content Include="Scripts\tinybox2\images\preload.gif" />
+    <Content Include="Scripts\tinybox2\images\rhino.jpg" />
+    <Content Include="Scripts\tinybox2\index.html" />
+    <Content Include="Scripts\tinybox2\packed.js" />
+    <Content Include="Scripts\tinybox2\post.php" />
+    <Content Include="Scripts\tinybox2\style.css" />
+    <Content Include="Scripts\tinybox2\tinybox.js" />
     <Content Include="Scripts\toastr.js" />
     <Content Include="Scripts\toastr.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -2396,7 +2408,6 @@
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Content\themes\" />
     <Folder Include="Scripts\locale\" />
-    <Folder Include="Scripts\tinybox2\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -2691,7 +2702,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>39931</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:39933/</IISUrl>
+          <IISUrl>http://localhost:33333/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

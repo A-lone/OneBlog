@@ -14,8 +14,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="/favicon.ico">
     <link rel="stylesheet" type="text/css" href="~/Content/bootstrap.min.css" />
-    @Styles.Render("~/Content/standard")
-    <link rel="stylesheet" type="text/css"  href="~/content/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/Custom/Themes/Standard/src/css/animate.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/Custom/Themes/Standard/src/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="~/content/font-awesome.min.css" />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans:700,400" />
 </head>
 <body class="home-template">
@@ -36,7 +37,7 @@
                                 @foreach (var cat in dic.Values)
                                 {
                                     <li>
-                                        <a title="Category: @cat.Title" href="@Url.Action("Category","Home",new { Category = WebUtils.RemoveIllegalCharacters(cat.Title) })" >
+                                        <a title="Category: @cat.Title" href="@Url.Action("Category","Home",new { Category = WebUtils.RemoveIllegalCharacters(cat.Title) })">
                                             @cat.Title
                                         </a>
                                     </li>
@@ -51,6 +52,9 @@
                             <i class="fa fa-search"></i>
                         </form>
                         <hr class="ob_line">
+                        友情链接:
+                        <a href="http://validvoid.net" title="" target="_blank">Valid Void </a>
+                        <hr class="ob_line">
                         <div class="sub_footer">
                             <ul class="nav nav_social">
                                 <li class="n_github"><a href="http://www.github.com/chenrensong" target="_blank"><i class="fa fa-github"></i></a></li>
@@ -60,6 +64,8 @@
                             </ul>
                             <div class="clearfix" />
                             <a target="_blank" href="https://mvp.microsoft.com/zh-cn/PublicProfile/4040070" yuuko-static><img src="~/Content/images/mvp.png" alt="微软最有价值专家" class="mvp" /></a>
+                            <div class="clearfix" />
+                       
                             <div class="clearfix" />
                             <p class="pull-left">© Copyright 2008-@DateTime.Now.Year </p>
                         </div><!-- /sub_footer -->

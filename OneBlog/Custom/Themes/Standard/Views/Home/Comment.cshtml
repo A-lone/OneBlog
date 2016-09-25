@@ -2,6 +2,7 @@
 @model  OneBlog.Models.CommentViewModels
 
 
+
 <div id="comment-box" class="well-global">
 
     <div id="comment-form" class="panel panel-primary comment-form-containter">
@@ -20,21 +21,21 @@
                     <input id="CommentPostModel_PostId" name="CommentPostModel.PostId" type="hidden" value="122ad138-5ff2-494e-a46d-fd5e47b76fd3" />                        <div class="form-group">
                         <div class="row">
                             <div class="col-md-4">
-                                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" , placeholder = "用户名" })
                             </div>
                             <div class="col-md-8">
-                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "邮箱" })
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        @Html.TextAreaFor(m => m.Content, new { @class = "form-control", cols = "60" })
+                        @Html.TextAreaFor(m => m.Content, new { @class = "form-control", placeholder = "内容", cols = "60" })
                     </div>
                     <div class="form-group input-group">
                         <span class="input-group-addon" style="padding:0;">
                             <img style="max-width:none;" onclick="this.src ='@Url.Action("Captcha", "Home")?t='+ Math.floor(Math.random() * 10000);" src="@Url.Action("Captcha", "Home")" />
                         </span>
-                        @Html.TextBoxFor(m => m.Captcha, new { @class = "form-control", cols = "60" })
+                        @Html.TextBoxFor(m => m.Captcha, new { @class = "form-control", placeholder = "验证码", cols = "60" })
                     </div>
                     <div class="form-group">
                         <button id="btnSaveAjax" type="submit" class="btn btn-success pull-right">Submit</button>
@@ -53,53 +54,53 @@
     <div id="commentlist" style="display: block">
         @foreach (var item in Model.Comments)
         {
-            @Html.Partial("_Comment",item)
+            @Html.Partial("_Comment", item)
         }
         @*<ul id="id_13c7111d-b367-453c-a9bb-d1af050a336e">
-            <li class="comment-item">
-                <div class="comment-content ">
-                    <img src='http://www.gravatar.com/avatar/afe77f402180782ae388731d98d6e90e.jpg?d=identicon' width='48' />
-                    <div class="comment-author">
-                        <a class="fn">dddddddd</a>
+                <li class="comment-item">
+                    <div class="comment-content ">
+                        <img src='http://www.gravatar.com/avatar/afe77f402180782ae388731d98d6e90e.jpg?d=identicon' width='48' />
+                        <div class="comment-author">
+                            <a class="fn">dddddddd</a>
+                        </div>
+                        <div class="comment-text">
+                            sssss
+                        </div>
+                        <div class="comment-replylink">
+                            <span>24 九月 2016</span> - <a href="javascript:void(0);" class="reply-to-comment" onclick="OneBlog.replyToComment('13c7111d-b367-453c-a9bb-d1af050a336e');">回复</a>
+                        </div>
+                        <div class="comment-adminlinks">
+                            <a class="email" href="mailto:ddddddd@sss.com">ddddddd@sss.com</a> | <a href="http://www.domaintools.com/go/?service=whois&amp;q=::1/">::1</a> | <a href="javascript:void(0);" onclick="if (confirm('您确定要 删除 评论??')) location.href='?deletecomment=13c7111d-b367-453c-a9bb-d1af050a336e'">删除该留言，但保留回复</a> | <a href="javascript:void(0);" onclick="if (confirm('您确定要 删除 评论??')) location.href='?deletecommentandchildren=13c7111d-b367-453c-a9bb-d1af050a336e'">删除该留言和回复</a>
+                        </div>
                     </div>
-                    <div class="comment-text">
-                        sssss
-                    </div>
-                    <div class="comment-replylink">
-                        <span>24 九月 2016</span> - <a href="javascript:void(0);" class="reply-to-comment" onclick="OneBlog.replyToComment('13c7111d-b367-453c-a9bb-d1af050a336e');">回复</a>
-                    </div>
-                    <div class="comment-adminlinks">
-                        <a class="email" href="mailto:ddddddd@sss.com">ddddddd@sss.com</a> | <a href="http://www.domaintools.com/go/?service=whois&amp;q=::1/">::1</a> | <a href="javascript:void(0);" onclick="if (confirm('您确定要 删除 评论??')) location.href='?deletecomment=13c7111d-b367-453c-a9bb-d1af050a336e'">删除该留言，但保留回复</a> | <a href="javascript:void(0);" onclick="if (confirm('您确定要 删除 评论??')) location.href='?deletecommentandchildren=13c7111d-b367-453c-a9bb-d1af050a336e'">删除该留言和回复</a>
-                    </div>
-                </div>
-                <div id="replies_13c7111d-b367-453c-a9bb-d1af050a336e">
+                    <div id="replies_13c7111d-b367-453c-a9bb-d1af050a336e">
 
-                    <ul id="id_6924ea51-74dc-4f51-a6e7-d7d205b9a915">
-                        <li class="comment-item">
-                            <div class="comment-content ">
-                                <img src='http://www.gravatar.com/avatar/8c0a72687b5de98862dbbd87c86e6252.jpg?d=identicon' width='48' />
-                                <div class="comment-author">
-                                    <a class="fn">eeeeeeee</a>
+                        <ul id="id_6924ea51-74dc-4f51-a6e7-d7d205b9a915">
+                            <li class="comment-item">
+                                <div class="comment-content ">
+                                    <img src='http://www.gravatar.com/avatar/8c0a72687b5de98862dbbd87c86e6252.jpg?d=identicon' width='48' />
+                                    <div class="comment-author">
+                                        <a class="fn">eeeeeeee</a>
+                                    </div>
+                                    <div class="comment-text">
+                                        dddddddddd
+                                    </div>
+                                    <div class="comment-replylink">
+                                        <span>24 九月 2016</span> - <a href="javascript:void(0);" class="reply-to-comment" onclick="OneBlog.replyToComment('6924ea51-74dc-4f51-a6e7-d7d205b9a915');">回复</a>
+                                    </div>
+                                    <div class="comment-adminlinks">
+                                        <a class="email" href="mailto:eeee@sss.com">eeee@sss.com</a> | <a href="http://www.domaintools.com/go/?service=whois&amp;q=::1/">::1</a> | <a href="javascript:void(0);" onclick="if (confirm('您确定要 删除 评论??')) location.href='?deletecomment=6924ea51-74dc-4f51-a6e7-d7d205b9a915'">删除</a>
+                                    </div>
                                 </div>
-                                <div class="comment-text">
-                                    dddddddddd
-                                </div>
-                                <div class="comment-replylink">
-                                    <span>24 九月 2016</span> - <a href="javascript:void(0);" class="reply-to-comment" onclick="OneBlog.replyToComment('6924ea51-74dc-4f51-a6e7-d7d205b9a915');">回复</a>
-                                </div>
-                                <div class="comment-adminlinks">
-                                    <a class="email" href="mailto:eeee@sss.com">eeee@sss.com</a> | <a href="http://www.domaintools.com/go/?service=whois&amp;q=::1/">::1</a> | <a href="javascript:void(0);" onclick="if (confirm('您确定要 删除 评论??')) location.href='?deletecomment=6924ea51-74dc-4f51-a6e7-d7d205b9a915'">删除</a>
-                                </div>
-                            </div>
-                            <div id="replies_6924ea51-74dc-4f51-a6e7-d7d205b9a915" style="display:none;">
+                                <div id="replies_6924ea51-74dc-4f51-a6e7-d7d205b9a915" style="display:none;">
 
-                            </div>
-                        </li>
-                    </ul>
+                                </div>
+                            </li>
+                        </ul>
 
-                </div>
-            </li>
-        </ul>*@
+                    </div>
+                </li>
+            </ul>*@
 
 
     </div>
@@ -116,6 +117,12 @@
     }
     function OnSuccess(data, status, xhr) {
         var result = data.Result;
+        var error = data.Error;
+        if (error) {
+            alert(error);
+            return;
+        }
+        var commentId = data.CommentId;
         var commentList = OneBlog.$("commentlist");
         if (commentList.innerHTML.length < 10)
             commentList.innerHTML = "<h1 id='comment'>" + OneBlogRes.i18n.comments + "</h1>"
@@ -140,16 +147,36 @@
         var base = OneBlog.$("comment-box");
         var commentlist = OneBlog.$("commentlist");
         base.insertBefore(commentForm, commentlist);
-        if (id != '') {
-            $("body,html").animate({ scrollTop: $('#replies_' + id).offset().top }, 1000);
-        } else {
-            $("body,html").animate({ scrollTop: $('#id_' + id).offset().top }, 1000);
-        }
+
+        $("body,html").animate({ scrollTop: $('#id_' + commentId).offset().top }, 1000);
+
+        shake($('#id_' + commentId + " .comment-item  .comment-content "), "notice-red", 3);
 
         // reset reply to
         if (OneBlog.comments.replyToId) OneBlog.comments.replyToId.value = '';
         if (OneBlog.$('cancelReply')) OneBlog.$('cancelReply').style.display = 'none';
     }
+
+    function shake(ele, cls, times) {
+        var eleclass = ele.attr("class");
+        if (eleclass == 'undefined') {
+            eleclass = '';
+        }
+
+        var i = 0, t = false, o = eleclass + " ", c = "", times = times || 2;
+        if (t) return;
+        t = setInterval(function () {
+            i++;
+            c = i % 2 ? o + cls : o;
+            ele.attr("class", c);
+            if (i == 2 * times) {
+                clearInterval(t);
+                ele.removeClass(cls);
+            }
+        }, 200);
+    };
+
+
 
 </script>
 

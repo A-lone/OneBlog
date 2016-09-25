@@ -12,6 +12,10 @@ namespace OneBlog.Controllers
     public class HomeController : Controller
     {
 
+        /// <summary>
+        /// 验证码
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult Captcha()
         {
@@ -64,13 +68,27 @@ namespace OneBlog.Controllers
                     }
                 }
             }
-            model.Comments = nestedComments.OrderByDescending(m=>m.DateCreated).ToList();
+            model.Comments = nestedComments.OrderBy(m => m.DateCreated).ToList();
             return PartialView(model);
         }
 
         [HttpPost]
         public ActionResult Comment(CommentViewModels model, FormCollection collection)
         {
+            if (ModelState.IsValid)
+            {
+                return Json(new
+                {
+                    Error = "提交的信息有误,请检查后再试"
+                });
+            }
+            if (Session["ValidateCode"].ToString() != model.Captcha)
+            {
+                return Json(new
+                {
+                    Error = "提交的验证码错误！",
+                });
+            }
             var replyToCommentId = collection["hiddenReplyTo"].ToString();
             OneBlog.Core.Post post = OneBlog.Core.Post.Posts.FirstOrDefault(m => m.Id == model.PostId);
             var comment = new Comment
@@ -88,7 +106,7 @@ namespace OneBlog.Controllers
                 //Avatar = Server.HtmlEncode(avatar.Trim())
             };
             post.AddComment(comment);
-            return Json(new { Result = this.RenderViewToString("_Comment", comment), Content = model.Content }, JsonRequestBehavior.AllowGet);
+            return Json(new { Error = "", CommentId = comment.Id, Result = this.RenderViewToString("_Comment", comment), Content = model.Content }, JsonRequestBehavior.AllowGet);
         }
 
 
@@ -162,9 +180,8 @@ namespace OneBlog.Controllers
             return PartialView("_Menu", model);
         }
 
-        public ActionResult Post(string slug)
+        public ActionResult Post(string slug, int year = 0, int month = 0, int day = 0)
         {
-            int year = 0, month = 0, day = 0;
             var haveDate = false;
             // Allow for Year/Month only dates in URL (in this case, day == 0), as well as Year/Month/Day dates.
             // first make sure the Year and Month match.
@@ -177,13 +194,15 @@ namespace OneBlog.Controllers
 
             if (post == null)
             {
-                return View();
+                return RedirectToAction("Index", "Home");
             }
 
             PostViewModels model = new Models.PostViewModels();
             model.Post = post;
             return View(model);
         }
+
+
 
 
         //public ActionResult Archive()

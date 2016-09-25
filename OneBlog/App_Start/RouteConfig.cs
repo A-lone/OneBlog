@@ -37,6 +37,19 @@ namespace OneBlog
             );
 
             routes.MapRoute(
+               "Post_Date_Old", // 旧版本兼容
+               "post/{year}/{month}/{day}/{slug}.html", // URL with parameters
+               new { controller = "Home", action = "Post", year = @"\d+", month = @"\d+", day = @"\d+" } // Parameter defaults
+           );
+
+            routes.MapRoute(
+               "Post_Date", // Route name
+               "post/{year}/{month}/{day}/{slug}", // URL with parameters
+               new { controller = "Home", action = "Post", year = @"\d+", month = @"\d+", day = @"\d+" } // Parameter defaults
+           );
+
+
+            routes.MapRoute(
                 "Rss", // Route name
                 "rss", // URL with parameters
                 new { controller = "Home", action = "Rss" } // Parameter defaults

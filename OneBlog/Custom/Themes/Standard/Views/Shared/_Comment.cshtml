@@ -7,7 +7,7 @@
 
 <ul id="id_@Model.Id">
     <li class="comment-item">
-        <div class="comment-content ">
+        <div class="comment-content">
             <img src='@Html.Gravatar(Model.Email)' width='48' />
             <div class="comment-author">
                 <a class="fn">@Model.Author</a>
@@ -18,9 +18,9 @@
             <div class="comment-replylink">
                 <span>@Model.DateCreated.ToString("dd MMMM yyyy")</span> - <a href="javascript:void(0);" class="reply-to-comment" onclick="OneBlog.replyToComment('@Model.Id');">回复</a>
             </div>
-            <div class="comment-adminlinks">
+            @*<div class="comment-adminlinks">
                 <a class="email" href="mailto:@Model.Email">@Model.Email</a> | <a href="javascript:void(0);" onclick="if (confirm('您确定要 删除 评论??')) location.href = '?deletecomment=@Model.Id'">删除</a>
-            </div>
+            </div>*@
         </div>
 
         <div id="replies_@Model.Id" style="@ViewBag.Replies">

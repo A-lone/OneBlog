@@ -4,6 +4,9 @@ using OneBlog.Core.Data.Contracts;
 using OneBlog.ViewEngine;
 using SimpleInjector;
 using SimpleInjector.Integration.WebApi;
+using System;
+using System.Text.RegularExpressions;
+using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -13,6 +16,7 @@ namespace OneBlog
 {
     public class MvcApplication : System.Web.HttpApplication
     {
+
         //http://stevemichelotti.com/mvc-radiobuttonlist-html-helper/
         protected void Application_Start()
         {
