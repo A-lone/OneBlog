@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.2\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.2\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" />
   <Import Project="..\packages\SQLite.Native.3.12.2\build\net45\SQLite.Native.props" Condition="Exists('..\packages\SQLite.Native.3.12.2\build\net45\SQLite.Native.props')" />
-  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
-  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -50,8 +50,8 @@
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.1\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+    <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.0.1\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.AI.DependencyCollector, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -78,8 +78,8 @@
       <HintPath>..\packages\Microsoft.ApplicationInsights.2.1.0\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.2\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
@@ -414,6 +414,10 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\images\spinner_20.gif" />
     <Content Include="Content\prettify.css" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -651,10 +655,6 @@
     <Content Include="Areas\Admin\themes\standard\img\profile.png" />
     <Content Include="Content\account.css" />
     <Content Include="Content\Auto\Global.css" />
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bower_components\app.css" />
     <Content Include="Content\bower_components\foundation-icon-fonts\.gitignore" />
     <Content Include="Content\bower_components\foundation-icon-fonts\foundation-icons.css" />
@@ -1333,12 +1333,6 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\Admin\Index.cshtml" />
     <Content Include="Areas\Admin\themes\standard\css\styles.css.map" />
@@ -1413,6 +1407,8 @@
     <Content Include="Scripts\angular-sanitize.min.js.map" />
     <Content Include="Scripts\angular-touch.min.js.map" />
     <Content Include="Scripts\angular.min.js.map" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\easyloader.js" />
     <Content Include="Scripts\errors.json" />
     <Content Include="Areas\Admin\Views\Admin\editpage.cshtml" />
@@ -1518,6 +1514,14 @@
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Properties\PublishProfiles\Aliyun.pubxml" />
     <None Include="Properties\PublishProfiles\SongStuido - Web Deploy %282%29.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
@@ -1544,12 +1548,7 @@
     <Content Include="Scripts\angular-touch.min.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
-    <Content Include="Scripts\Auto\02-jquery.cookie.js" />
-    <Content Include="Scripts\Auto\04-jquery-jtemplates.js" />
-    <Content Include="Scripts\Auto\05-json2.min.js" />
-    <Content Include="Scripts\Auto\blog.js" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\blog.js" />
     <Content Include="Scripts\contact.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-dj.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-er.js" />
@@ -2279,30 +2278,25 @@
     <Content Include="Scripts\i18n\angular-locale_zh.js" />
     <Content Include="Scripts\i18n\angular-locale_zu-za.js" />
     <Content Include="Scripts\i18n\angular-locale_zu.js" />
-    <Content Include="Scripts\jquery-2.1.4.js" />
-    <Content Include="Scripts\jquery-2.1.4.min.js" />
-    <Content Include="Scripts\jquery-2.1.4.min.map" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <None Include="Scripts\jquery-3.1.0.intellisense.js" />
+    <Content Include="Scripts\jquery-3.1.0.js" />
+    <Content Include="Scripts\jquery-3.1.0.min.js" />
+    <Content Include="Scripts\jquery-3.1.0.slim.js" />
+    <Content Include="Scripts\jquery-3.1.0.slim.min.js" />
     <Content Include="Scripts\jquery-jtemplates.js" />
     <Content Include="Scripts\jquery-jtemplates.min.js" />
     <Content Include="Scripts\jquery-ui.js" />
     <Content Include="Scripts\jquery.cookie.js" />
-    <Content Include="Scripts\jquery.easyui-1.4.5.js" />
-    <Content Include="Scripts\jquery.easyui-1.4.5.min.js" />
-    <Content Include="Scripts\jquery.easyui.mobile-1.4.5.js" />
-    <Content Include="Scripts\jquery.easyui.mobile-1.4.5.min.js" />
     <Content Include="Scripts\jquery.form.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery-3.1.0.slim.min.map" />
+    <Content Include="Scripts\jquery-3.1.0.min.map" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\jQuery\01-jquery-1.9.1.min.js" />
-    <Content Include="Scripts\jQuery\02-jquery.cookie.js" />
-    <Content Include="Scripts\jQuery\03-jquery.validate.min.js" />
-    <Content Include="Scripts\jQuery\04-jquery-jtemplates.js" />
-    <Content Include="Scripts\jQuery\05-json2.min.js" />
     <Content Include="Scripts\json2.js" />
     <Content Include="Scripts\json2.min.js" />
     <Content Include="Scripts\knockout.bindings.js" />
@@ -2321,7 +2315,7 @@
     <Content Include="Scripts\mkd\MarkdownDeepEditor.js" />
     <Content Include="Scripts\mkd\MarkdownDeepEditorUI.js" />
     <Content Include="Scripts\mkd\MarkdownDeepLib.js" />
-    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\moment-with-locales.js" />
     <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
@@ -2368,63 +2362,9 @@
     <Content Include="Scripts\prettify\prettify.js" />
     <Content Include="Scripts\prettify\run_prettify.js" />
     <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.matchmedia.addListener.js" />
+    <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Scripts\syntaxhighlighter\editor_plugin.js" />
-    <Content Include="Scripts\syntaxhighlighter\editor_plugin_src.js" />
-    <Content Include="Scripts\syntaxhighlighter\images\syntaxhighlighter.gif" />
-    <Content Include="Scripts\syntaxhighlighter\langs\en.js" />
-    <Content Include="Scripts\syntaxhighlighter\scripts\shAutoloader.js" />
-    <Content Include="Scripts\syntaxhighlighter\scripts\shBrushAppleScript.js" />
-    <Content Include="Scripts\syntaxhighlighter\scripts\shBrushAS3.js" />
-    <Content Include="Scripts\syntaxhighlighter\scripts\shBrushBash.js" />
-    <Content Include="Scripts\syntaxhighlighter\scripts\shBrushColdFusion.js" />
-    <Content Include="Scripts\syntaxhighlighter\scripts\shBrushCpp.js" />
-    <Content Include="Scripts\syntaxhighlighter\scripts\shBrushCSharp.js" />
-    <Content Include="Scripts\syntaxhighlighter\scripts\shBrushCss.js" />
-    <Content Include="Scripts\syntaxhighlighter\scripts\shBrushDelphi.js" />
-    <Content Include="Scripts\syntaxhighlighter\scripts\shBrushDiff.js" />
-    <Content Include="Scripts\syntaxhighlighter\scripts\shBrushErlang.js" />
-    <Content Include="Scripts\syntaxhighlighter\scripts\shBrushGroovy.js" />
-    <Content Include="Scripts\syntaxhighlighter\scripts\shBrushHaxe.js" />
-    <Content Include="Scripts\syntaxhighlighter\scripts\shBrushJava.js" />
-    <Content Include="Scripts\syntaxhighlighter\scripts\shBrushJavaFX.js" />
-    <Content Include="Scripts\syntaxhighlighter\scripts\shBrushJScript.js" />
-    <Content Include="Scripts\syntaxhighlighter\scripts\shBrushPerl.js" />
-    <Content Include="Scripts\syntaxhighlighter\scripts\shBrushPhp.js" />
-    <Content Include="Scripts\syntaxhighlighter\scripts\shBrushPlain.js" />
-    <Content Include="Scripts\syntaxhighlighter\scripts\shBrushPowerShell.js" />
-    <Content Include="Scripts\syntaxhighlighter\scripts\shBrushPython.js" />
-    <Content Include="Scripts\syntaxhighlighter\scripts\shBrushRuby.js" />
-    <Content Include="Scripts\syntaxhighlighter\scripts\shBrushSass.js" />
-    <Content Include="Scripts\syntaxhighlighter\scripts\shBrushScala.js" />
-    <Content Include="Scripts\syntaxhighlighter\scripts\shBrushSql.js" />
-    <Content Include="Scripts\syntaxhighlighter\scripts\shBrushVb.js" />
-    <Content Include="Scripts\syntaxhighlighter\scripts\shBrushXml.js" />
-    <Content Include="Scripts\syntaxhighlighter\scripts\shCore.js" />
-    <Content Include="Scripts\syntaxhighlighter\scripts\shLegacy.js" />
-    <Content Include="Scripts\syntaxhighlighter\scripts\syntaxhighlighter.js" />
-    <Content Include="Scripts\syntaxhighlighter\scripts\XRegExp.js" />
-    <Content Include="Scripts\syntaxhighlighter\shActivator.js" />
-    <Content Include="Scripts\syntaxhighlighter\styles\shCore.css" />
-    <Content Include="Scripts\syntaxhighlighter\styles\shCoreDefault.css" />
-    <Content Include="Scripts\syntaxhighlighter\styles\shCoreDjango.css" />
-    <Content Include="Scripts\syntaxhighlighter\styles\shCoreEclipse.css" />
-    <Content Include="Scripts\syntaxhighlighter\styles\shCoreEmacs.css" />
-    <Content Include="Scripts\syntaxhighlighter\styles\shCoreFadeToGrey.css" />
-    <Content Include="Scripts\syntaxhighlighter\styles\shCoreMDUltra.css" />
-    <Content Include="Scripts\syntaxhighlighter\styles\shCoreMidnight.css" />
-    <Content Include="Scripts\syntaxhighlighter\styles\shCoreRDark.css" />
-    <Content Include="Scripts\syntaxhighlighter\styles\shThemeAppleScript.css" />
-    <Content Include="Scripts\syntaxhighlighter\styles\shThemeDefault.css" />
-    <Content Include="Scripts\syntaxhighlighter\styles\shThemeDjango.css" />
-    <Content Include="Scripts\syntaxhighlighter\styles\shThemeEclipse.css" />
-    <Content Include="Scripts\syntaxhighlighter\styles\shThemeEmacs.css" />
-    <Content Include="Scripts\syntaxhighlighter\styles\shThemeFadeToGrey.css" />
-    <Content Include="Scripts\syntaxhighlighter\styles\shThemeMDUltra.css" />
-    <Content Include="Scripts\syntaxhighlighter\styles\shThemeMidnight.css" />
-    <Content Include="Scripts\syntaxhighlighter\styles\shThemeRDark.css" />
-    <Content Include="Scripts\syntaxhighlighter\styles\syntaxhighlighter.css" />
-    <Content Include="Scripts\syntaxhighlighter\syntaxhighlighter.htm" />
     <Content Include="Scripts\textext.js" />
     <Content Include="Scripts\tinybox2\advanced.html" />
     <Content Include="Scripts\tinybox2\ajax.html" />
@@ -2449,13 +2389,11 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Service References\Application Insights\ConnectedService.json" />
-    <Content Include="Scripts\syntaxhighlighter\syntaxhighlighter.version" />
     <Content Include="Scripts\version.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Content\themes\" />
-    <Folder Include="Scripts\locale\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -2764,10 +2702,10 @@
     <PropertyGroup>
       <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。使用“NuGet 程序包还原”可下载这些程序包。有关更多信息，请参见 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
     <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.103\build\net451\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.103\build\net451\System.Data.SQLite.Core.targets'))" />
     <Error Condition="!Exists('..\packages\SQLite.Native.3.12.2\build\net45\SQLite.Native.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SQLite.Native.3.12.2\build\net45\SQLite.Native.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.2\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.2\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.103\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.103\build\net451\System.Data.SQLite.Core.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
