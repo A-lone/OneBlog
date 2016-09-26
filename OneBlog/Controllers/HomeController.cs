@@ -19,6 +19,24 @@ namespace OneBlog.Controllers
             ViewBag.Title = BlogSettings.Instance.Name;
         }
 
+        [HttpGet]
+        public ActionResult Error(int code)
+        {
+            ViewBag.Code = code;
+            string result = "";
+            if (code == 404)
+            {
+                result = "您访问的页面已丢失，正在外太空寻找";
+            }
+            else
+            {
+                result = "服务器无法跟上您的脚步，正在紧急抢救";
+            }
+            ViewBag.Tip = result;
+            return View();
+        }
+
+
         /// <summary>
         /// 验证码
         /// </summary>
@@ -158,7 +176,7 @@ namespace OneBlog.Controllers
 
             if (cat == null)
             {
-                return RedirectToAction("Index", "Home");
+                 new AggregateException("没有找到该分类!");
             }
 
             var posts = OneBlog.Core.Post.GetPostsByCategory(cat).ConvertAll(new Converter<Post, IPublishable>(delegate (Post p) { return p as IPublishable; }));

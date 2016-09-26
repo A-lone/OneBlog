@@ -418,6 +418,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\Error.png" />
+    <Content Include="Content\images\NotFound.png" />
     <Content Include="Content\images\spinner_20.gif" />
     <Content Include="Content\prettify.css" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -484,6 +486,7 @@
     <Compile Include="Extensions\RazorExtensions.cs" />
     <Compile Include="Extensions\WidgetExtensions.cs" />
     <Compile Include="Filter\AdminAttribute.cs" />
+    <Compile Include="Filter\GlobalHandleErrorAttribute.cs" />
     <Compile Include="Filter\RedirectAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1522,6 +1525,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Custom\Themes\Standard\Views\Home\Error.cshtml" />
     <None Include="Properties\PublishProfiles\Aliyun.pubxml" />
     <None Include="Properties\PublishProfiles\SongStuido - Web Deploy %282%29.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
