@@ -9,11 +9,11 @@
       mail: {
         name: "",
         email: "",
-        subject: "Pick One...",
+        subject: "Pick OneBlog...",
         msg: ""
       },
       subjects: [
-        "Pick One...",
+        "Pick OneBlog...",
         "Training",
         "Course Question",
         "Business Proposition",

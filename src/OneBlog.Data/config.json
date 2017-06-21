@@ -1,6 +1,5 @@
 ﻿{
   "OneDb": {
-    "ConnectionString": "Data Source=180.76.135.165;Initial Catalog=datiancun_db;User ID=sa;Password=abcd1234!"
-    //"ConnectionString": "Data Source=datiancun.database.windows.net;Initial Catalog=datiancun_db;User ID=datiancun;Password=abcd1234!!"
+    "ConnectionString": "Data Source=.;Initial Catalog=OneBlog;User ID=sa;Password=abcd1234!"
   }
 }

@@ -9,8 +9,8 @@
         this.replyToComment('');
     },
     addComment: function (e) {
-        var content = One.comments.contentBox.val();
-        var captcha = One.comments.captcha.val();
+        var content = OneBlog.comments.contentBox.val();
+        var captcha = OneBlog.comments.captcha.val();
         if (!captcha) {
             toastr.error("请填写验证码~");
             return false;
@@ -41,7 +41,7 @@
                 var commentCount = data.CommentCount;
                 var commentList = $("#commentlist");
                 // add comment html to the right place
-                var id = One.comments.replyToId ? One.comments.replyToId.val() : '';
+                var id = OneBlog.comments.replyToId ? OneBlog.comments.replyToId.val() : '';
                 if (id) {
                     var replies = $('#replies_' + id);
                     replies.html(replies.html() + result);
@@ -65,9 +65,9 @@
                 $("#captchaImg").click();
 
                 // reset form values
-                One.comments.contentBox.val("");
-                One.comments.replyToId.val("")
-                One.comments.captcha.val("");
+                OneBlog.comments.contentBox.val("");
+                OneBlog.comments.replyToId.val("")
+                OneBlog.comments.captcha.val("");
             },
             error: function (data) {
                 l.stop();
@@ -88,7 +88,7 @@
         init();
 
         // set hidden value
-        One.comments.replyToId.val(id);
+        OneBlog.comments.replyToId.val(id);
 
         // move comment form into position
         var commentForm = $('#comment-form');
@@ -127,7 +127,7 @@ $(document).ready(function () {
     setTimeout(function () {
         $.ajax('/postcount', {
             method: "POST",
-            data: "id=" + One.comments.postId,
+            data: "id=" + OneBlog.comments.postId,
             success: function (data) {
             }
         });
@@ -137,12 +137,12 @@ $(document).ready(function () {
 
 
 function init() {
-    One.comments.contentBox = $("#Content");
-    One.comments.captcha = $('#Captcha');
-    One.comments.replyToId = $("#hiddenReplyTo");
-    One.comments.contentBox.val("");
-    One.comments.replyToId.val("")
-    One.comments.captcha.val("");
+    OneBlog.comments.contentBox = $("#Content");
+    OneBlog.comments.captcha = $('#Captcha');
+    OneBlog.comments.replyToId = $("#hiddenReplyTo");
+    OneBlog.comments.contentBox.val("");
+    OneBlog.comments.replyToId.val("")
+    OneBlog.comments.captcha.val("");
 }
 
 

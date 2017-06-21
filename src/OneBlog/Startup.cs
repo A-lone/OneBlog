@@ -1,12 +1,14 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.Extensions.WebEncoders;
+using OneBlog.Core;
 using OneBlog.Data;
 using OneBlog.Data.Common;
 using OneBlog.Data.Contracts;
@@ -99,6 +101,12 @@ namespace OneBlog
             {
                 options.TextEncoderSettings = new TextEncoderSettings(UnicodeRanges.All);
             });
+
+            svcs.Configure<RazorViewEngineOptions>(options =>
+            {
+                options.ViewLocationExpanders.Add(new ThemeViewLocationExpander());
+            });
+
             svcs.AddScoped<IStoreRepository, StoreRepository>();
             svcs.AddScoped<IViewRenderService, ViewRenderService>();
             svcs.AddScoped<ICommentsRepository, CommentsRepository>();

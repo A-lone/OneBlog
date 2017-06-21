@@ -2,8 +2,7 @@
   "version": "1.0.0",
   "name": "wilderblog",
   "private": true,
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "concurrently": "^2.0.0",
     "lite-server": "^2.2.0",
@@ -17,5 +16,4 @@
     "gulp-less": "^3.3.0",
     "gulp-rename": "^1.2.2"
   }
-
 }

@@ -1,0 +1,27 @@
+﻿@model CommentItem
+@{
+    ViewBag.Replies = Model.Comments.Count > 0 ? "display:block;" : "display:none;";
+}
+
+<ul id="id_@Model.Id">
+    <li class="comment-item">
+        <div class="comment-content">
+            <img src="@Model.Author.Avatar" width='48'>
+            <div class="comment-author">
+                <a class="fn">@Model.Author.DisplayName</a>
+            </div>
+            <div class="comment-text">
+                @Model.Content
+            </div>
+            <div class="comment-replylink">
+                <span>@Model.DateCreated</span> - <a href="javascript:void(0);" class="reply-to-comment" onclick="OneBlog.replyToComment('@Model.Id');">回复</a>
+            </div>
+        </div>
+        <div id="replies_@Model.Id" style="@ViewBag.Replies">
+            @foreach (var item in Model.Comments)
+            {
+                @Html.Partial("_Comment", item)
+            }
+        </div>
+    </li>
+</ul>

@@ -54,7 +54,7 @@ namespace OneBlog.Data
 
             var typesToRegister = typeof(ApplicationContext).GetTypeInfo().Assembly.GetTypes()
                             .Where(type => !string.IsNullOrEmpty(type.Namespace))
-                            .Where(type => type.FullName.Contains("One.Data.Mapping"));
+                            .Where(type => type.FullName.Contains("OneBlog.Data.Mapping"));
             foreach (var type in typesToRegister)
             {
                 IEntityMapping mapping = (IEntityMapping)Activator.CreateInstance(type);

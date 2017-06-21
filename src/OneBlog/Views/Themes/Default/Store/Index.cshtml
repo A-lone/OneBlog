@@ -1,0 +1,88 @@
+﻿@model OneBlog.Models.StoreViewModels.StoreListViewModel
+@using Microsoft.AspNetCore.Routing
+@{
+    if (Model.AppResult != null&&!string.IsNullOrEmpty(Model.AppResult.Category))
+    {
+        ViewBag.Title = $"{Model.AppResult.Category} - Windows 应用商店 - 大田村";
+    }
+    else
+    {
+        ViewBag.Title = "Windows 应用商店 - 大田村";
+    }
+    var routeData = ViewContext.HttpContext.GetRouteData().Values;
+
+    string id = null;
+    if (routeData.ContainsKey(nameof(id)))
+    {
+        id = (string)routeData[nameof(id)];
+    }
+    ViewBag.ControllerName = "Store";
+    ViewBag.Id = id;
+    var isActive = new Func<Guid, string>((a) =>
+    {
+        if (a == Guid.Empty && id == null)
+        {
+            return "active";
+        }
+        else
+        {
+            var aid = a.ToString();
+            if (aid.Equals(id, StringComparison.OrdinalIgnoreCase))
+            {
+                return "active";
+            }
+            return "";
+        }
+    });
+}
+<div id="box" class="container page_index push-down-30 ">
+    <div class="store-main boxed">
+        <div class="new " id="vote_list">
+            <div class="row">
+                <div class="sortlist  col-sm-4 col-md-3 col-lg-2">
+                    <h4 class="sub-header"><i class="i_h4"></i>分类筛选</h4>
+                    <ul class="row">
+                        @foreach (var item in Model.StoreCategories)
+                        {
+                            <li class="col-xs-4 col-sm-12 col-md-12 col-lg-12 @isActive(item.Id)">
+                                <div class="sort">
+                                    <a class="title" title="@item.Title" asp-action="Category" asp-controller="Store" asp-route-id="@item.Id">@item.Title</a>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <div class="col-sm-8 col-md-9 col-lg-10">
+                    <h4 class="sub-header"><i class="i_h4"></i>全部-软件列表</h4>
+                    <ul class="row indexlist" id="page_main">
+                        @if (Model.AppResult != null)
+                        {
+                            @foreach (var item in Model.AppResult.Apps)
+                            {
+                                <li class="col-sm-6 col-md-4 col-lg-4">
+                                    <div class="item">
+                                        <div class="po_box">
+                                            <a class="ico" href="@item.PDB" rel="nofollow"><img src="@item.Icon" class="app_ico_bg" width="70"></a>
+                                            <a class="text title" href="@item.PDB" rel="nofollow"><strong>@item.AppName</strong></a>
+                                            <span class="text dianping">@item.Description</span>
+                                        </div>
+                                    </div>
+                                    <div class="tools_btn tools_show dhcss" id="tools_btn">
+                                        <a class="store" href="@item.PDB" rel="nofollow"><i class="fa fa-windows"></i> 应用商店</a>
+                                    </div>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    @Html.Partial("_Pager", Model.AppResult)
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

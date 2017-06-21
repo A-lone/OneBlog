@@ -13,7 +13,7 @@ namespace OneBlog.Data.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .HasAnnotation("ProductVersion", "1.1.1")
+                .HasAnnotation("ProductVersion", "1.1.2")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole", b =>
@@ -123,7 +123,7 @@ namespace OneBlog.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("One.Data.ApplicationUser", b =>
+            modelBuilder.Entity("OneBlog.Data.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -185,7 +185,7 @@ namespace OneBlog.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("One.Data.Categories", b =>
+            modelBuilder.Entity("OneBlog.Data.Categories", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -201,7 +201,7 @@ namespace OneBlog.Data.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("One.Data.Comments", b =>
+            modelBuilder.Entity("OneBlog.Data.Comments", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -231,7 +231,7 @@ namespace OneBlog.Data.Migrations
                     b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("One.Data.Posts", b =>
+            modelBuilder.Entity("OneBlog.Data.Posts", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -268,7 +268,7 @@ namespace OneBlog.Data.Migrations
                     b.ToTable("Posts");
                 });
 
-            modelBuilder.Entity("One.Data.PostsInCategories", b =>
+            modelBuilder.Entity("OneBlog.Data.PostsInCategories", b =>
                 {
                     b.Property<Guid>("PostsId");
 
@@ -281,7 +281,7 @@ namespace OneBlog.Data.Migrations
                     b.ToTable("PostsInCategories");
                 });
 
-            modelBuilder.Entity("One.Data.StoreApp", b =>
+            modelBuilder.Entity("OneBlog.Data.StoreApp", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -305,7 +305,7 @@ namespace OneBlog.Data.Migrations
                     b.ToTable("StoreApp");
                 });
 
-            modelBuilder.Entity("One.Data.StoreCategories", b =>
+            modelBuilder.Entity("OneBlog.Data.StoreCategories", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -319,7 +319,7 @@ namespace OneBlog.Data.Migrations
                     b.ToTable("StoreCategories");
                 });
 
-            modelBuilder.Entity("One.Data.Tags", b =>
+            modelBuilder.Entity("OneBlog.Data.Tags", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -331,7 +331,7 @@ namespace OneBlog.Data.Migrations
                     b.ToTable("Tags");
                 });
 
-            modelBuilder.Entity("One.Data.TagsInPosts", b =>
+            modelBuilder.Entity("OneBlog.Data.TagsInPosts", b =>
                 {
                     b.Property<Guid>("PostId");
 
@@ -354,7 +354,7 @@ namespace OneBlog.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("One.Data.ApplicationUser")
+                    b.HasOne("OneBlog.Data.ApplicationUser")
                         .WithMany("Claims")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -362,7 +362,7 @@ namespace OneBlog.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("One.Data.ApplicationUser")
+                    b.HasOne("OneBlog.Data.ApplicationUser")
                         .WithMany("Logins")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -375,58 +375,58 @@ namespace OneBlog.Data.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("One.Data.ApplicationUser")
+                    b.HasOne("OneBlog.Data.ApplicationUser")
                         .WithMany("Roles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("One.Data.Comments", b =>
+            modelBuilder.Entity("OneBlog.Data.Comments", b =>
                 {
-                    b.HasOne("One.Data.ApplicationUser", "Author")
+                    b.HasOne("OneBlog.Data.ApplicationUser", "Author")
                         .WithMany("Comments")
                         .HasForeignKey("AuthorId");
 
-                    b.HasOne("One.Data.Posts", "Posts")
+                    b.HasOne("OneBlog.Data.Posts", "Posts")
                         .WithMany("Comments")
                         .HasForeignKey("PostsId");
                 });
 
-            modelBuilder.Entity("One.Data.Posts", b =>
+            modelBuilder.Entity("OneBlog.Data.Posts", b =>
                 {
-                    b.HasOne("One.Data.ApplicationUser", "Author")
+                    b.HasOne("OneBlog.Data.ApplicationUser", "Author")
                         .WithMany("Posts")
                         .HasForeignKey("AuthorId");
                 });
 
-            modelBuilder.Entity("One.Data.PostsInCategories", b =>
+            modelBuilder.Entity("OneBlog.Data.PostsInCategories", b =>
                 {
-                    b.HasOne("One.Data.Categories", "Categories")
+                    b.HasOne("OneBlog.Data.Categories", "Categories")
                         .WithMany("PostsInCategories")
                         .HasForeignKey("CategoriesId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("One.Data.Posts", "Posts")
+                    b.HasOne("OneBlog.Data.Posts", "Posts")
                         .WithMany("PostsInCategories")
                         .HasForeignKey("PostsId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("One.Data.StoreApp", b =>
+            modelBuilder.Entity("OneBlog.Data.StoreApp", b =>
                 {
-                    b.HasOne("One.Data.StoreCategories", "Categories")
+                    b.HasOne("OneBlog.Data.StoreCategories", "Categories")
                         .WithMany("StoreApp")
                         .HasForeignKey("CategoriesId");
                 });
 
-            modelBuilder.Entity("One.Data.TagsInPosts", b =>
+            modelBuilder.Entity("OneBlog.Data.TagsInPosts", b =>
                 {
-                    b.HasOne("One.Data.Posts", "Posts")
+                    b.HasOne("OneBlog.Data.Posts", "Posts")
                         .WithMany("TagsInPosts")
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("One.Data.Tags", "Tags")
+                    b.HasOne("OneBlog.Data.Tags", "Tags")
                         .WithMany("TagsInPosts")
                         .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.Cascade);

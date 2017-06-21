@@ -1,0 +1,38 @@
+﻿{
+  "OneDb": {
+    "ConnectionString": "Data Source=chenrensong.database.windows.net;Initial Catalog=chenrensong_db;User ID=chenrensong;Password=abcd1234!",
+    //"ConnectionString": "Data Source=.;Initial Catalog=OneBlog;User ID=sa;Password=abcd1234!",
+    "TestData": "False"
+  },
+  "OneDb11": {
+    //"ConnectionString": "Data Source=chenrensong.database.windows.net;Initial Catalog=chenrensong_db;User ID=chenrensong;Password=abcd1234!",
+    "ConnectionString": "Server=.;Database=OneBlog;User ID=sa;Password=abcd1234!;Trusted_Connection=True;MultipleActiveResultsets=true;ConnectRetryCount=5;ConnectRetryInterval=10;Connect Timeout=5;",
+    "TestData": "False"
+  },
+  "MailService": {
+    "ApiKey": "FOOBAR",
+    "ApiUser": "FOOBAR",
+    "Receiver": "shawn@wildermuth.com"
+  },
+  "MetaWeblog": {
+    "StoragePath": "/img/media/"
+  },
+  "AdService": {
+    "Client": "Add Google Client ID",
+    "Slot": "Add Ad Slot Number"
+  },
+  "Google": {
+    "Analytics": "Get Your GA Number"
+  },
+  "BlobService": {
+    "Account": "FOO",
+    "Key": "BAR"
+  },
+  "Qiniu": {
+    "AccessKey": "nOfdLbGi9khuNohIB7iT2hE0HCHMXsIc8Dwg0KVA",
+    "SecretKey": "VCpr3DWwB9c03VL8m02cuSroUZHeMJMS9mLKjDn7",
+    "Bucket": "datiancun",
+    "UP_Host": "http://up-z1.qiniu.com",
+    "Domain": "http://cdn.datiancun.com"
+  }
+}

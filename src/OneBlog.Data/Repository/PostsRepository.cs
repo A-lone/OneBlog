@@ -36,36 +36,32 @@ namespace OneBlog.Data
 
         public Pager<PostItem> Find(int take = 10, int skip = 0, string filter = "", string order = "")
         {
-            var postList = _ctx.Posts.Include(m => m.Author).Include(m => m.Comments).ToList();
-
-            if (take == 0)
+            var count = _ctx.Posts.Include(m => m.Author).Include(m => m.Comments).Count();
+            if (take == 0)  //全部显示
             {
-                take = postList.Count;
+                take = count;
             }
             if (string.IsNullOrEmpty(filter)) filter = "1==1";
             if (string.IsNullOrEmpty(order)) order = "DateCreated desc";
 
             int currentPage = skip / take + 1;
-            int totalItems = postList.Count;
+            int totalItems = count;
             int itemsPerPage = take;
             int pagesLength = ((int)(totalItems / itemsPerPage)) + ((totalItems % itemsPerPage) > 0 ? 1 : 0);
-
             var posts = new List<PostItem>();
 
-            var list = postList.OrderByDescending(m => m.DatePublished).Skip(skip).Take(take);
+            var list = _ctx.Posts.Include(m => m.Author).Include(m => m.Comments).OrderByDescending(m => m.DatePublished).Skip(skip).Take(take).ToList();
 
             foreach (var item in list)
             {
                 var newItem = _jsonService.GetPost(item);
                 posts.Add(newItem);
             }
-
             var postPager = new Pager<PostItem>(posts);
             postPager.CurrentPage = currentPage;
             postPager.TotalItems = totalItems;
             postPager.ItemsPerPage = take;
             postPager.PagesLength = pagesLength;
-
             return postPager;
         }
 

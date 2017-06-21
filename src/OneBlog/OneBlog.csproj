@@ -542,10 +542,15 @@
     <Content Include="wwwroot\admin\static\scss\rtl\_rtl.widgets.scss" />
     <Content Include="wwwroot\admin\static\scss\styles.scss" />
     <Content Include="wwwroot\css\account.css" />
+    <Content Include="wwwroot\css\light\site.css" />
+    <Content Include="wwwroot\css\light\site.min.css" />
     <Content Include="wwwroot\css\setting.css" />
     <Content Include="wwwroot\css\star-rating.css" />
     <Content Include="wwwroot\js\account.js" />
     <Content Include="wwwroot\js\contact.js" />
+    <Content Include="wwwroot\js\light\jquery.ghostHunter.min.js" />
+    <Content Include="wwwroot\js\light\post.js" />
+    <Content Include="wwwroot\js\light\site.js" />
     <Content Include="wwwroot\js\post.js" />
     <Content Include="wwwroot\js\setting.js" />
     <Content Include="wwwroot\js\site.js" />
