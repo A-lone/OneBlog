@@ -27,7 +27,7 @@ namespace OneBlog.Controllers
     [Route("")]
     public class RootController : Controller
     {
-        readonly int _pageSize = 16;
+        readonly int _pageSize = 15;
 
         private IMailService _mailService;
         private IPostsRepository _repo;

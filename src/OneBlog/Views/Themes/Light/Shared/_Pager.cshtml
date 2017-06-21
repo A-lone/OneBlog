@@ -5,7 +5,7 @@
   var firstPage = Model.CurrentPage - windowSize < 1 ? 1 : Model.CurrentPage - windowSize;
   var lastPage = Model.CurrentPage + windowSize > Model.TotalPages ? Model.TotalPages : Model.CurrentPage + windowSize;
 }
-<nav>
+<nav class="column">
   <ul class="pagination pagination-sm">
     @if (Model.CurrentPage != 1)
     {
