@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using One.Data.Contracts;
-using One.Helpers;
-using One.AspNetCore.TimedJob;
+using OneBlog.Data.Contracts;
+using OneBlog.Helpers;
+using OneBlog.AspNetCore.TimedJob;
 using System;
 using System.IO;
 using System.Linq;
@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 
-namespace One.Jobs
+namespace OneBlog.Jobs
 {
     public class SitemapJob : Job
     {

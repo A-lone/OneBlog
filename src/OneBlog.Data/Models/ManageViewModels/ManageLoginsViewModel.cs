@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.AspNetCore.Identity;
 
-namespace One.Models.ManageViewModels
+namespace OneBlog.Models.ManageViewModels
 {
     public class ManageLoginsViewModel
     {

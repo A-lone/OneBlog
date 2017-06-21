@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
 
-namespace One.Services
+namespace OneBlog.Services
 {
   public class AdService
   {

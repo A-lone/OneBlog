@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using One.Data;
+using OneBlog.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace One.Validator
+namespace OneBlog.Validator
 {
     public class CustomPasswordValidator : PasswordValidator<ApplicationUser>
     {

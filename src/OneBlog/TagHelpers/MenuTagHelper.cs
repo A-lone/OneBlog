@@ -1,12 +1,12 @@
 ﻿//using Microsoft.AspNetCore.Http;
 //using Microsoft.AspNetCore.Razor.TagHelpers;
-//using One.Helpers;
+//using OneBlog.Helpers;
 //using System;
 //using System.Collections.Generic;
 //using System.Linq;
 //using System.Threading.Tasks;
 
-//namespace One.TagHelpers
+//namespace OneBlog.TagHelpers
 //{
 
 //    [HtmlTargetElement("menus")]

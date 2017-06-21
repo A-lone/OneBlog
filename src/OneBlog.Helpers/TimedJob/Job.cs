@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace One.AspNetCore.TimedJob
+namespace OneBlog.AspNetCore.TimedJob
 {
     public class Job
     {

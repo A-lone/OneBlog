@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace One.Models.AccountViewModels
+namespace OneBlog.Models.AccountViewModels
 {
     public class SendCodeViewModel
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace One.Helpers
+namespace OneBlog.Helpers
 {
     public static class ExtensionMethods
     {

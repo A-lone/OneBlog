@@ -1,5 +1,5 @@
-﻿using One.AspNetCore.TimedJob;
-using One.AspNetCore.TimedJob.EntityFramework;
+﻿using OneBlog.AspNetCore.TimedJob;
+using OneBlog.AspNetCore.TimedJob.EntityFramework;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

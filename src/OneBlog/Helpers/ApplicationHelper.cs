@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Reflection;
 
-namespace One.Helpers
+namespace OneBlog.Helpers
 {
     public class ApplicationHelper
     {

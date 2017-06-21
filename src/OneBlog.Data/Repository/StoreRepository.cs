@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using One.Data.Contracts;
-using One.Data.Models;
+using OneBlog.Data.Contracts;
+using OneBlog.Data.Models;
 
-namespace One.Data
+namespace OneBlog.Data
 {
     public class StoreRepository : BaseRepository, IStoreRepository
     {

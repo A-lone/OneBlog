@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace One.RssSyndication
+namespace OneBlog.RssSyndication
 {
   public class RssAuthor
   {

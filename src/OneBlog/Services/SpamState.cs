@@ -1,4 +1,4 @@
-﻿namespace One.Services
+﻿namespace OneBlog.Services
 {
   public class SpamState
   {

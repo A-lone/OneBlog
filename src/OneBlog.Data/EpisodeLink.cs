@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace One.Data
+namespace OneBlog.Data
 {
   public class EpisodeLink
   {

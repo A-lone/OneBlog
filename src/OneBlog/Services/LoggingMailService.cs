@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
 
-namespace One.Services
+namespace OneBlog.Services
 {
   public class LoggingMailService : IMailService
   {

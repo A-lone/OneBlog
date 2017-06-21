@@ -3,7 +3,7 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Newtonsoft.Json;
 
-namespace One.Services.DataProviders
+namespace OneBlog.Services.DataProviders
 {
   public abstract class DataProvider<T>
   {

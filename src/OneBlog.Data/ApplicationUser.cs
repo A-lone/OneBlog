@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using System.Collections.Generic;
 
-namespace One.Data
+namespace OneBlog.Data
 {
     /// <summary>
     /// UserName = Email 

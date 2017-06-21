@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using One.Data;
-using One.Data.Contracts;
-using One.Data.Models;
+using OneBlog.Data;
+using OneBlog.Data.Contracts;
+using OneBlog.Data.Models;
 
-namespace One.Controllers
+namespace OneBlog.Controllers
 {
     [Route("[controller]")]
     public class SearchController : Controller

@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Text.RegularExpressions;
 
-namespace One.MetaWeblog
+namespace OneBlog.MetaWeblog
 {
   // Borrowed from: https://github.com/snielsson/XmlRpcLight/blob/master/XmlRpcLight/DataTypes/DateTime8601.cs
 

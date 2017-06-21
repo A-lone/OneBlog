@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace One.Data.Migrations
+namespace OneBlog.Data.Migrations
 {
     public partial class addcomment : Migration
     {

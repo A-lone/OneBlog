@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using One.Models.ToolsViewModels;
-using One.Helpers;
+using OneBlog.Models.ToolsViewModels;
+using OneBlog.Helpers;
 using System.Net.Http;
 using System.Xml.Linq;
-using One.Data;
+using OneBlog.Data;
 using Microsoft.AspNetCore.Identity;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace One.Controllers
+namespace OneBlog.Controllers
 {
     [Route("tools")]
     public class ToolsController : Controller

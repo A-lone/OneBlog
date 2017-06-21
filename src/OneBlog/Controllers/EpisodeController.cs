@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using One.Services.DataProviders;
+using OneBlog.Services.DataProviders;
 
-namespace One.Controllers.Api
+namespace OneBlog.Controllers.Api
 {
   [Route("/api/episodes")]
   public class EpisodeController : Controller

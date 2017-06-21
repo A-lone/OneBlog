@@ -1,12 +1,12 @@
-﻿using One.Data.Contracts;
+﻿using OneBlog.Data.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using One.Data.Models;
+using OneBlog.Data.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
-namespace One.Data
+namespace OneBlog.Data
 {
     public class CategoriesRepository : BaseRepository, ICategoriesRepository
     {

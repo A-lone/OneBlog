@@ -1,11 +1,11 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using One.Helpers;
-using One.Services;
+using OneBlog.Helpers;
+using OneBlog.Services;
 using System;
 using System.IO;
 using System.Linq;
 
-namespace One.UEditor
+namespace OneBlog.UEditor
 {
     /// <summary>
     /// UploadHandler 的摘要说明

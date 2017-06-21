@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using One.Services;
+using OneBlog.Services;
 
-namespace One.Logger
+namespace OneBlog.Logger
 {
   public class EmailLogger : ILogger
   {

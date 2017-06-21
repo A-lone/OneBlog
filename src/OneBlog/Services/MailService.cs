@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace One.Services
+namespace OneBlog.Services
 {
   public class MailService : IMailService
   {

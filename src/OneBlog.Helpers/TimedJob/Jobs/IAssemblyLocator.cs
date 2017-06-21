@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
-namespace One.AspNetCore.TimedJob.Jobs
+namespace OneBlog.AspNetCore.TimedJob.Jobs
 {
     public interface IAssemblyLocator
     {

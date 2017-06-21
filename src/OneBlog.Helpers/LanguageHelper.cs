@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
-namespace One.Helpers
+namespace OneBlog.Helpers
 {
     public static class LanguageHelper
     {

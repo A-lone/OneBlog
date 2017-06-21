@@ -7,15 +7,15 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.Extensions.WebEncoders;
-using One.Data;
-using One.Data.Common;
-using One.Data.Contracts;
-using One.Data.Repository;
-using One.Helpers;
-using One.Logger;
-using One.MetaWeblog;
-using One.Services;
-using One.Services.DataProviders;
+using OneBlog.Data;
+using OneBlog.Data.Common;
+using OneBlog.Data.Contracts;
+using OneBlog.Data.Repository;
+using OneBlog.Helpers;
+using OneBlog.Logger;
+using OneBlog.MetaWeblog;
+using OneBlog.Services;
+using OneBlog.Services.DataProviders;
 using Qiniu.Conf;
 using System;
 using System.Collections.Generic;
@@ -23,7 +23,7 @@ using System.Linq;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
 
-namespace One
+namespace OneBlog
 {
     public class Startup
     {
@@ -94,16 +94,7 @@ namespace One
                 options.Password.RequireUppercase = false;
             }).AddEntityFrameworkStores<ApplicationContext>();
 
-
-            //if (_config["OneDb:TestData"] == "True")
-            //{
-            //    svcs.AddScoped<IPostsRepository, MemoryRepository>();
-            //}
-            //else
-            //{
             svcs.AddScoped<IPostsRepository, PostsRepository>();
-            //}
-
             svcs.Configure<WebEncoderOptions>(options =>
             {
                 options.TextEncoderSettings = new TextEncoderSettings(UnicodeRanges.All);

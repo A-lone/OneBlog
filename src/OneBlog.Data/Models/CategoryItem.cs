@@ -4,7 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
 
-namespace One.Data.Models
+namespace OneBlog.Data.Models
 {
     //https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-web-api
     [DataContract]

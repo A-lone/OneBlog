@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using Microsoft.Security.Application;
 using Microsoft.AspNetCore.Http.Features;
 
-namespace One.Helpers
+namespace OneBlog.Helpers
 {
     public static class StringHelper
     {

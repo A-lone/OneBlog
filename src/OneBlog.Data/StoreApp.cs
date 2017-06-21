@@ -1,9 +1,9 @@
-﻿using One.Helpers;
+﻿using OneBlog.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace One.Data
+namespace OneBlog.Data
 {
     [DataContract]
     public class StoreApp

@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
-using One.Data.Common;
-using One.Data.Contracts;
-using One.Data.Models;
-using One.Helpers;
+using OneBlog.Data.Common;
+using OneBlog.Data.Contracts;
+using OneBlog.Data.Models;
+using OneBlog.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -16,7 +16,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.Caching.Memory;
 
-namespace One.Data
+namespace OneBlog.Data
 {
     public class PostsRepository : BaseRepository, IPostsRepository
     {

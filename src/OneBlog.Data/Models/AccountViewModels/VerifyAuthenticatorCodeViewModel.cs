@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace One.Models.AccountViewModels
+namespace OneBlog.Models.AccountViewModels
 {
     public class VerifyAuthenticatorCodeViewModel
     {

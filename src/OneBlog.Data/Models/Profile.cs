@@ -1,4 +1,4 @@
-﻿namespace One.Data.Models
+﻿namespace OneBlog.Data.Models
 {
     /// <summary>
     /// Author profile for json serialization

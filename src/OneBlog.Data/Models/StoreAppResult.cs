@@ -4,7 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
 
-namespace One.Data.Models
+namespace OneBlog.Data.Models
 {
     [DataContract]
     public class StoreAppResult : BasePager

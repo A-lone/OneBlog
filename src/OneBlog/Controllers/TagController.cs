@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using One.Data;
-using One.Data.Contracts;
+using OneBlog.Data;
+using OneBlog.Data.Contracts;
 
-namespace One.Controllers
+namespace OneBlog.Controllers
 {
   [Route("[controller]")]
   public class TagController : Controller

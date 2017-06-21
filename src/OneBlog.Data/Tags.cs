@@ -1,8 +1,8 @@
 ﻿using System;
-using One.Helpers;
+using OneBlog.Helpers;
 using System.Collections.Generic;
 
-namespace One.Data
+namespace OneBlog.Data
 {
     public class Tags
     {

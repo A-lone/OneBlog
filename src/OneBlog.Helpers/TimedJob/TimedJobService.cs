@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using System.Reflection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
-using One.AspNetCore.TimedJob.Jobs;
+using OneBlog.AspNetCore.TimedJob.Jobs;
 
-namespace One.AspNetCore.TimedJob
+namespace OneBlog.AspNetCore.TimedJob
 {
     public class TimedJobService
     {

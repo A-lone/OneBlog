@@ -2,14 +2,14 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Routing;
-using One.Data.Contracts;
-using One.Data.Models;
+using OneBlog.Data.Contracts;
+using OneBlog.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace One.Helpers
+namespace OneBlog.Helpers
 {
     public class NavigationHelper
     {

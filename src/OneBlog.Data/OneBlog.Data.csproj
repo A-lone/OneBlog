@@ -3,7 +3,7 @@
     <Description>One.Data Class Library</Description>
     <TargetFramework>netcoreapp1.1</TargetFramework>
     <PreserveCompilationContext>true</PreserveCompilationContext>
-    <AssemblyName>One.Data</AssemblyName>
+    <AssemblyName>OneBlog.Data</AssemblyName>
     <OutputType>Exe</OutputType>
     <PackageId>One.Data</PackageId>
     <PackageTargetFallback>$(PackageTargetFallback);dotnet5.6;dnxcore50;portable-net45+win8</PackageTargetFallback>

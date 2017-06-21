@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace One.Data.Models
+namespace OneBlog.Data.Models
 {
     /// <summary>
     /// Json friendly Role wrapper

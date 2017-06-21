@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using One.Services;
+using OneBlog.Services;
 
-namespace One.Logger
+namespace OneBlog.Logger
 {
   public static class EmailLoggerExtensions
   {

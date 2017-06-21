@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace One.AspNetCore.TimedJob
+namespace OneBlog.AspNetCore.TimedJob
 {
     public class DynamicTimedJob
     {

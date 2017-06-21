@@ -5,7 +5,7 @@ using System.Reflection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyModel;
 
-namespace One.AspNetCore.TimedJob.Jobs
+namespace OneBlog.AspNetCore.TimedJob.Jobs
 {
     public class DefaultAssemblyLocator : IAssemblyLocator
     {

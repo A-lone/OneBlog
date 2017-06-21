@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace One.Data
+namespace OneBlog.Data
 {
   // HACK to get Migrations to work.
   public class Startup

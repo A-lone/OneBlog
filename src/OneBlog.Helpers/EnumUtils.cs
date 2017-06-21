@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace One.Helpers
+namespace OneBlog.Helpers
 {
     public static class EnumUtils
     {

@@ -1,8 +1,8 @@
-﻿using One.Data.Models;
+﻿using OneBlog.Data.Models;
 using System;
 using System.Collections.Generic;
 
-namespace One.Data.Contracts
+namespace OneBlog.Data.Contracts
 {
     public interface IStoreRepository
     {

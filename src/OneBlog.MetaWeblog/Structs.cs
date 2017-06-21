@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace One.MetaWeblog
+namespace OneBlog.MetaWeblog
 {
   public class BlogInfo
   {

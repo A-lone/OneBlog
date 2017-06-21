@@ -9,7 +9,7 @@ using System.Collections;
 using System.Diagnostics;
 using Microsoft.Extensions.Logging;
 
-namespace One.MetaWeblog
+namespace OneBlog.MetaWeblog
 {
   public class XmlRpcService
   {

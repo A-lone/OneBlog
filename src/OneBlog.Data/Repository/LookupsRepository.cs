@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
-using One.Data.Contracts;
-using One.Data.Models;
+using OneBlog.Data.Contracts;
+using OneBlog.Data.Models;
 using System.Collections.Generic;
 
-namespace One.Data
+namespace OneBlog.Data
 {
     /// <summary>
     /// Lookups repository

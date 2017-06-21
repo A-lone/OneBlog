@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using HtmlAgilityPack;
 
-namespace One.Helpers
+namespace OneBlog.Helpers
 {
     public class NodePositions
     {

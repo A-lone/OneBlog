@@ -5,17 +5,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using One.Data;
-using One.Data.Contracts;
-using One.Data.Models;
+using OneBlog.Data;
+using OneBlog.Data.Contracts;
+using OneBlog.Data.Models;
 using Microsoft.Net.Http.Headers;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
-using One.Services;
+using OneBlog.Services;
 using System.Threading.Tasks;
-using One.Helpers;
+using OneBlog.Helpers;
 
-namespace One.Areas.Admin.Controllers
+namespace OneBlog.Areas.Admin.Controllers
 {
 
     //[Area("Admin")]

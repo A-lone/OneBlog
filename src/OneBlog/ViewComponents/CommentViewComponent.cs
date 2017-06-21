@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using One.Data.Contracts;
-using One.Data.Models;
-using One.Models.CommentViewModels;
+using OneBlog.Data.Contracts;
+using OneBlog.Data.Models;
+using OneBlog.Models.CommentViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace One.ViewComponents
+namespace OneBlog.ViewComponents
 {
     public class CommentViewComponent : ViewComponent
     {

@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using One.Data;
+using OneBlog.Data;
 
-namespace One.Data.Migrations
+namespace OneBlog.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
     [Migration("20170330070952_icon")]

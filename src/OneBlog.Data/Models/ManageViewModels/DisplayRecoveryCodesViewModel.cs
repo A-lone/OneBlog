@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace One.Models.ManageViewModels
+namespace OneBlog.Models.ManageViewModels
 {
     public class DisplayRecoveryCodesViewModel
     {

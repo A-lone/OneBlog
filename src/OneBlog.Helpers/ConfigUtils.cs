@@ -3,7 +3,7 @@
 //using System.Collections.Generic;
 //using System.Xml;
 
-//namespace One.Helpers
+//namespace OneBlog.Helpers
 //{
 //    public static class ConfigUtils
 //    {

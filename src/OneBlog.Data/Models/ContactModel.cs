@@ -1,4 +1,4 @@
-﻿namespace One.Models
+﻿namespace OneBlog.Models
 {
   public class ContactModel
   {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
-using One.Helpers;
+using OneBlog.Helpers;
 using Qiniu.IO;
 using Qiniu.RS;
 using System;
@@ -10,7 +10,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace One.Services
+namespace OneBlog.Services
 {
     public class QiniuService
     {

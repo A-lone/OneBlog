@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using One.Data;
-using One.Services.DataProviders;
+using OneBlog.Data;
+using OneBlog.Services.DataProviders;
 
-namespace One.Controllers
+namespace OneBlog.Controllers
 {
   [Route("hwpod")]
   public class PodcastController : Controller

@@ -1,12 +1,12 @@
-﻿//using One.Data.Contracts;
+﻿//using OneBlog.Data.Contracts;
 //using System;
 //using System.Collections.Generic;
 //using System.Linq;
 //using System.Threading.Tasks;
-//using One.Data.Models;
-//using One.Data.Common;
+//using OneBlog.Data.Models;
+//using OneBlog.Data.Common;
 
-//namespace One.Data
+//namespace OneBlog.Data
 //{
 //    public class MemoryRepository : BaseRepository, IPostsRepository
 //    {

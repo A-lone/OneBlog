@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace One.Data.Models
+namespace OneBlog.Data.Models
 {
     /// <summary>
     /// The blog user

@@ -1,5 +1,5 @@
 ﻿using System;
-namespace One.Data
+namespace OneBlog.Data
 {
   public class Publications
   {

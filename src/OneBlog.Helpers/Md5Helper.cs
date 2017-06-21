@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace One.Helpers
+namespace OneBlog.Helpers
 {
     public class Md5Helper
     {

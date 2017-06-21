@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace One.Data
+namespace OneBlog.Data
 {
   public enum EpisodeStatus
   {

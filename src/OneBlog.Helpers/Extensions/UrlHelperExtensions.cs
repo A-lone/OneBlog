@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using One.Helpers;
+using OneBlog.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace One.Helpers
+namespace OneBlog.Helpers
 {
     public static class UrlHelperExtensions
     {

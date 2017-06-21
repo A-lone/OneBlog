@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace One.Data.Mapping
+namespace OneBlog.Data.Mapping
 {
 
     public class StoreAppMapping : EntityMapping<StoreApp>

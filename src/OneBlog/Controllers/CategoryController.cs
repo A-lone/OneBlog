@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
-using One.Data;
-using One.Data.Contracts;
-using One.Data.Models;
+using OneBlog.Data;
+using OneBlog.Data.Contracts;
+using OneBlog.Data.Models;
 using System;
 
-namespace One.Controllers
+namespace OneBlog.Controllers
 {
     [Route("category")]
     public class CategoryController : Controller

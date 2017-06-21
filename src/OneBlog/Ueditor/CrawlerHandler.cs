@@ -1,15 +1,15 @@
 ﻿using Microsoft.AspNetCore.Hosting.Internal;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Primitives;
-using One.Helpers;
-using One.Services;
+using OneBlog.Helpers;
+using OneBlog.Services;
 using System;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 
-namespace One.UEditor
+namespace OneBlog.UEditor
 {
     /// <summary>
     /// Crawler 的摘要说明

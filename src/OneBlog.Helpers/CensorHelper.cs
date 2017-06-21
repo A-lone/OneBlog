@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace One.Helpers
+namespace OneBlog.Helpers
 {
     public class CensorHelper
     {

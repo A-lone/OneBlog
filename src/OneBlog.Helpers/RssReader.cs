@@ -1,4 +1,4 @@
-﻿using One.RssSyndication;
+﻿using OneBlog.RssSyndication;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 
-namespace One.Helpers
+namespace OneBlog.Helpers
 {
     public class RssReader
     {

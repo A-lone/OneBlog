@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using One.AspNetCore.TimedJob;
-using One.AspNetCore.TimedJob.Jobs;
+using OneBlog.AspNetCore.TimedJob;
+using OneBlog.AspNetCore.TimedJob.Jobs;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Microsoft.Extensions.DependencyInjection

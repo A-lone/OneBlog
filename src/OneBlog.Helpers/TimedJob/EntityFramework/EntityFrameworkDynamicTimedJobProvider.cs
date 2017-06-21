@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 
-namespace One.AspNetCore.TimedJob.EntityFramework
+namespace OneBlog.AspNetCore.TimedJob.EntityFramework
 {
     public class EntityFrameworkDynamicTimedJobProvider<TContext> : IDynamicTimedJobProvider
         where TContext : ITimedJobContext

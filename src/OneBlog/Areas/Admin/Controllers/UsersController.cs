@@ -2,15 +2,15 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using One.Data;
-using One.Data.Contracts;
-using One.Data.Models;
-using One.Helpers;
+using OneBlog.Data;
+using OneBlog.Data.Contracts;
+using OneBlog.Data.Models;
+using OneBlog.Helpers;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace One.Areas.Admin.Controllers
+namespace OneBlog.Areas.Admin.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]

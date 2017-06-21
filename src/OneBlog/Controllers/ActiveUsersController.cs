@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
-using One.Services;
+using OneBlog.Services;
 
-namespace One.Controllers.Api
+namespace OneBlog.Controllers.Api
 {
   public class ActiveUsersController : Controller
   {

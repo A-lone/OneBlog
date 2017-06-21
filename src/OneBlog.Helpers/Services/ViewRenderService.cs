@@ -12,7 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace One.Services
+namespace OneBlog.Services
 {
     public class ViewRenderService : IViewRenderService
     {

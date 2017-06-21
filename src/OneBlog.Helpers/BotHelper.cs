@@ -4,7 +4,7 @@ using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 
-namespace One.Helpers
+namespace OneBlog.Helpers
 {
     public static class BotHelper
     {

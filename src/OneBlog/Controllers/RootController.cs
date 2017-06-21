@@ -7,14 +7,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using One.Data;
-using One.Data.Contracts;
-using One.Data.Models;
-using One.Helpers;
-using One.Models;
-using One.Models.CommentViewModels;
-using One.RssSyndication;
-using One.Services;
+using OneBlog.Data;
+using OneBlog.Data.Contracts;
+using OneBlog.Data.Models;
+using OneBlog.Helpers;
+using OneBlog.Models;
+using OneBlog.Models.CommentViewModels;
+using OneBlog.RssSyndication;
+using OneBlog.Services;
 using System;
 using System.Linq;
 using System.Net;
@@ -22,7 +22,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace One.Controllers
+namespace OneBlog.Controllers
 {
     [Route("")]
     public class RootController : Controller

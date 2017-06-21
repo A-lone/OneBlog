@@ -1,14 +1,14 @@
-﻿using One.Data.Models;
+﻿using OneBlog.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using One.Helpers;
+using OneBlog.Helpers;
 using Microsoft.AspNetCore.Mvc;
 
-namespace One.Data.Common
+namespace OneBlog.Data.Common
 {
     /// <summary>
     /// Helper class for Json operation

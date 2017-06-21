@@ -5,7 +5,7 @@ using System;
 using System.Linq;
 using System.Reflection;
 
-namespace One.Data
+namespace OneBlog.Data
 {
     public class ApplicationContext : IdentityDbContext<ApplicationUser>
     {

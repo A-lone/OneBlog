@@ -7,13 +7,13 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using One.Data;
-using One.Helpers;
-using One.MetaWeblog;
-using One.Data.Contracts;
-using One.Services;
+using OneBlog.Data;
+using OneBlog.Helpers;
+using OneBlog.MetaWeblog;
+using OneBlog.Data.Contracts;
+using OneBlog.Services;
 
-namespace One.MetaWeblog
+namespace OneBlog.MetaWeblog
 {
     public class WeblogProvider : IMetaWeblogProvider
     {

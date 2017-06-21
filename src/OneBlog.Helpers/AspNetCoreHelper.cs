@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 
-namespace One.Helpers
+namespace OneBlog.Helpers
 {
     public static class AspNetCoreHelper
     {

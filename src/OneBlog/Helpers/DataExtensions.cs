@@ -2,9 +2,9 @@
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using One.Data;
+using OneBlog.Data;
 
-namespace One.Helpers
+namespace OneBlog.Helpers
 {
   public static class DataExtensions
   {

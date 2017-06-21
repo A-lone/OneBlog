@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
-using One.Data;
-using One.Data.Contracts;
-using One.Data.Models;
-using One.Models.StoreViewModels;
+using OneBlog.Data;
+using OneBlog.Data.Contracts;
+using OneBlog.Data.Models;
+using OneBlog.Models.StoreViewModels;
 using System;
 using System.Collections.Generic;
 
-namespace One.Controllers
+namespace OneBlog.Controllers
 {
     [Route("store")]
     public class StoreController : Controller

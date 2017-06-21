@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace One.RssSyndication
+namespace OneBlog.RssSyndication
 {
     [Serializable]
     public class RssItem

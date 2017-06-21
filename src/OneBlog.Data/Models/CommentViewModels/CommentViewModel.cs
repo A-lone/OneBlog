@@ -1,9 +1,9 @@
-﻿using One.Data.Models;
+﻿using OneBlog.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace One.Models.CommentViewModels
+namespace OneBlog.Models.CommentViewModels
 {
     public class CommentViewModel
     {

@@ -1,4 +1,4 @@
-﻿namespace One.MetaWeblog
+﻿namespace OneBlog.MetaWeblog
 {
   public interface IMetaWeblogProvider
   {

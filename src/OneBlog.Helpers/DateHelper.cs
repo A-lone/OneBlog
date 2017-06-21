@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace One.Helpers
+namespace OneBlog.Helpers
 {
     public static class DateHelper
     {

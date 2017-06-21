@@ -1,5 +1,5 @@
 ﻿@model One.Services.DataProviders.PodcastEpisode
-@using One.Services.DataProviders
+@using OneBlog.Services.DataProviders
 <div class="col-lg-2 headshot">
   @if (Model.Status == PodcastEpisodeStatus.Planned || (Model.Status == PodcastEpisodeStatus.Live && Model.PublishedDate.AddHours(14) > DateTime.UtcNow))
   {

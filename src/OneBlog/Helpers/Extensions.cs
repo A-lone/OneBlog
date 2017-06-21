@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.IO;
 using Microsoft.Extensions.PlatformAbstractions;
 
-namespace One.Helpers
+namespace OneBlog.Helpers
 {
 
 

@@ -1,14 +1,14 @@
 ﻿using System;
-using One.Data.Models;
+using OneBlog.Data.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
-using One.Data.Common;
+using OneBlog.Data.Common;
 using System.Collections.Generic;
-using One.Helpers;
+using OneBlog.Helpers;
 using Microsoft.AspNetCore.Identity;
 
-namespace One.Data.Contracts
+namespace OneBlog.Data.Contracts
 {
     /// <summary>
     /// Comments repository

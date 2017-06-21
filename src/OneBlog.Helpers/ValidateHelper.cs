@@ -3,7 +3,7 @@ using System.DrawingCore;
 using System.DrawingCore.Drawing2D;
 using System.DrawingCore.Imaging;
 
-namespace One.Helpers
+namespace OneBlog.Helpers
 {
     public class ValidateHelper
     {

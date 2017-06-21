@@ -12,7 +12,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace One.Controllers
+namespace OneBlog.Controllers
 {
     public class QiniuFileController : Controller
     {

@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace One.Services
+namespace OneBlog.Services
 {
   public interface IMailService
   {

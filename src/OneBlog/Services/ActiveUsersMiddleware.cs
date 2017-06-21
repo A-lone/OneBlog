@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 
-namespace One.Services
+namespace OneBlog.Services
 {
     public class ActiveUsersMiddleware
     {

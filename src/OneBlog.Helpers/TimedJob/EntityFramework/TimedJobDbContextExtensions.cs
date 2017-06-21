@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace One.AspNetCore.TimedJob.EntityFramework
+namespace OneBlog.AspNetCore.TimedJob.EntityFramework
 {
     public static class TimedJobDbContextExtensions
     {

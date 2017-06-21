@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using One.UEditor;
+using OneBlog.UEditor;
 using System.IO;
 
-namespace One.Controllers
+namespace OneBlog.Controllers
 {
     [Authorize]
     [Route("api/ueditor")]

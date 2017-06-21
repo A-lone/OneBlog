@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace One.Helpers
+namespace OneBlog.Helpers
 {
     public static class ModelStateExtensions
     {

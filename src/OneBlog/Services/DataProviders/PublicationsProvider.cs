@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Hosting;
 
-namespace One.Services.DataProviders
+namespace OneBlog.Services.DataProviders
 {
   public class PublicationsProvider : DataProvider<Publication>
   {

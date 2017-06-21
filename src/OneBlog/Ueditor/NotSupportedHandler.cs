@@ -1,4 +1,4 @@
-﻿namespace One.UEditor
+﻿namespace OneBlog.UEditor
 {
     public class NotSupportedHandler : IHandler
     {

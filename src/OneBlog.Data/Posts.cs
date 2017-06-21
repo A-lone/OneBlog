@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using One.Helpers;
+using OneBlog.Helpers;
 
-namespace One.Data
+namespace OneBlog.Data
 {
     /// <summary>
     /// 文章列表

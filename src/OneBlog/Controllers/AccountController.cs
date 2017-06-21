@@ -6,15 +6,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using Microsoft.Net.Http.Headers;
-using One.Data;
-using One.Helpers;
-using One.Models.AccountViewModels;
-using One.Services;
+using OneBlog.Data;
+using OneBlog.Helpers;
+using OneBlog.Models.AccountViewModels;
+using OneBlog.Services;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace One.Controllers
+namespace OneBlog.Controllers
 {
     [Route("account")]
     public class AccountController : Controller

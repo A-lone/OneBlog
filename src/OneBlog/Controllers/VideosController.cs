@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using One.Services.DataProviders;
+using OneBlog.Services.DataProviders;
 
-namespace One.Controllers
+namespace OneBlog.Controllers
 {
   [Route("[controller]")]
   public class VideosController : Controller

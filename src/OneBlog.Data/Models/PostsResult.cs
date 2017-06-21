@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace One.Data.Models
+namespace OneBlog.Data.Models
 {
 
     [DataContract]

@@ -1,16 +1,16 @@
-﻿using One.Data.Contracts;
+﻿using OneBlog.Data.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using One.Data.Models;
+using OneBlog.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace One.Data
+namespace OneBlog.Data
 {
 
     public class RolesRepository : IRolesRepository

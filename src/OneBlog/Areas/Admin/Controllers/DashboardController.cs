@@ -4,7 +4,7 @@
 //using System.Linq;
 //using System.Threading.Tasks;
 
-//namespace One.Areas.Admin.Controllers
+//namespace OneBlog.Areas.Admin.Controllers
 //{
 //    public class DashboardController : Controller
 //    {
