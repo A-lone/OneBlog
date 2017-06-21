@@ -1,0 +1,8 @@
+version: '2'
+
+services:
+  one:
+    image: one
+    build:
+      context: ./One
+      dockerfile: Dockerfile

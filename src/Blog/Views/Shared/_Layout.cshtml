@@ -1,0 +1,91 @@
+﻿@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="陈仁松同学 - stay hungry stay foolish">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>陈仁松同学</title>
+    <link rel="shortcut icon" href="~/favicon.ico">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    @RenderSection("Styles", required: false)
+</head>
+<body class="home-template" chromeextension:video-tape="true">
+    <div class="off-canvas-container">
+
+        <div class="sidebar">
+            <div class="row">
+                <div class="column small-10 large-12">
+                    <div class="user-avatar">
+                        <img src="http://cdn.datiancun.com/bf16a41c-5417-49a3-91aa-a74a00c5723d.png" height="100" width="100" alt="陈仁松同学">
+                    </div>
+                    <h1 class="logo"><a href="/">陈仁松同学</a></h1>
+                    <div class="sidebar__description font-small">
+                        stay hungry stay foolish
+                    </div>
+
+                </div>
+                <label class="off-canvas-toggle">
+                    <div class="icon icon--ei-navicon icon--s "><i class="fa fa-bars"></i></div>
+                </label>
+                <div class="off-canvas-content">
+                    <div class="column large-12">
+                        <ul class="social-nav social-icons">
+                            <li>
+                                <a href="http://www.datiancun.com" target="_blank">
+                                    <div class="icon icon--ei-search icon--s "><i class="fa fa-windows"></i> 大田村</div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="toggle-search-button" href="#">
+                                    <div class="icon icon--ei-search icon--s "><i class="fa fa-search"></i> 搜索</div>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                    @*<a class="mvp-logo" target="_blank" href="https://mvp.microsoft.com/zh-cn/PublicProfile/4040070">
+                            <img src="http://cdn.datiancun.com/da9fd0b8-7017-4ee5-894e-a74a00c63560.png" alt="微软最有价值专家" class="mvp">
+                        </a>*@
+                    <div class="sidebar__bottom">
+                        <div class="column large-12">
+                            <div class="font-tiny">
+                                © 2015-2017 chenrensong.com
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="search-form-container">
+            <form class="search-form">
+                <fieldset class="search-form__fieldset">
+                    <div class="row">
+                        <div class="column column--center large-8">
+                            <input class="search-form__field" placeholder="Type to Search" autofocus="">
+                            <input class="search-form__submit" type="submit" value="search">
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+            <div class="row">
+                <div class="column column--center large-8">
+                    <div class="search-results"></div>
+                </div>
+            </div>
+            <div class="icon icon--ei-close icon--s close-search-button search-form-container__close">
+                <i class="fa fa-close"></i>
+            </div>
+        </div>
+        @RenderBody()
+    </div>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/jquery.ghostHunter.min.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

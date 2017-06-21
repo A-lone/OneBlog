@@ -1,0 +1,53 @@
+﻿@inject One.Helpers.NavigationHelper NavigationHelper
+@using Microsoft.AspNetCore.Routing
+@{
+    //var ctrl = (string)ViewContext.RouteData.Values["controller"];
+    //var action = (string)ViewContext.RouteData.Values["action"];
+    var menu = NavigationHelper.GetMenu();
+    var isActive = new Func<bool, string>((a) =>
+    {
+        if (a) return "active";
+        return "";
+    });
+
+    var routeData = ViewContext.HttpContext.GetRouteData().Values;
+    var controller = (string)routeData["controller"];
+
+    var isController = new Func<string, string>((a) =>
+    {
+        if (a.Equals(controller, StringComparison.OrdinalIgnoreCase)) return "active";
+        return "";
+    });
+}
+<nav class="navbar  navbar-default" role="navigation">
+    <div class="collapse  navbar-collapse" id="readable-navbar-collapse">
+        <ul class="navigation">
+            @foreach (var item in menu)
+            {
+                if (item.Menus.Count == 0)
+                {
+                    <li class="@isActive(item.IsActive)">
+                        <a href="@item.Url">@item.Title</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="dropdown @isActive(item.IsActive)">
+                        <a href="@item.Url" class="dropdown-toggle" data-toggle="dropdown">@item.Title</a>
+                        <ul class="navigation__dropdown">
+                            @foreach (var child in item.Menus)
+                            {
+                                <li> <a href="@child.Url">@child.Title</a> </li>
+                            }
+                        </ul>
+                    </li>
+                }
+            }
+
+            <li class="@isController("Store")">
+                <a asp-action="Index" asp-controller="Store">应用商店</a>
+            </li>
+
+        </ul>
+    </div>
+</nav>

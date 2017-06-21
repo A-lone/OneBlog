@@ -1,0 +1,176 @@
+﻿@model List<One.Mock.Data.SitePath>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>松果-致力接口联调</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="keyword" content="松果,接口,工具" />
+    <meta name="description" content="松果平台,致力于下一代接口联调工具研发。" />
+    <link rel="stylesheet" type="text/css" href="~/mock/css/base.css">
+    <link rel="stylesheet" type="text/css" href="~/mock/css/rule-config.css">
+</head>
+<body>
+    <header class="head-banner-container">
+        <nav class="mp-header-content">
+            <div class="header-logo">
+                <span class="logo-ico">
+                </span>
+                <span class="logo-title">
+                    松果-接口联调
+                </span>
+            </div>
+            <ul class="">
+                <li>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <div class="col-container">
+        <div class="sub-banner">
+            <h1 class="website-title" style="display: inline-block">
+                接口规则配置
+            </h1>
+        </div>
+        <div class="config-form-container">
+            <div class="main-form" data-item-id="">
+                <div class="form-hd-bar">
+                    <h1 class="hd-title">
+                        配置表单
+                    </h1>
+                </div>
+                <div class="form-content">
+                    <div class="row-container method-bar">
+                        <div class="row-left">
+                            Method:
+                        </div>
+                        <div class="row-right">
+                            <input type="text" placeholder="请输入Method">
+                        </div>
+                    </div>
+                    <div class="row-container path-bar">
+                        <div class="row-left">
+                            Path:
+                        </div>
+                        <div class="row-right">
+                            <input type="text" placeholder="请输入Path">
+                        </div>
+                    </div>
+                    <div class="row-container query-bar">
+                        <div class="row-left">
+                            Query:
+                        </div>
+                        <div class="row-right">
+                            <input type="text" placeholder="请输入Query">
+                        </div>
+                    </div>
+                    <div class="row-container op-bar">
+                        <div class="row-left">
+                            表达式:
+                        </div>
+                        <div class="row-right">
+                            <textarea cols="93" rows="4" placeholder="请输入表达式"></textarea>
+                        </div>
+                    </div>
+                    <div class="row-container cookie-bar">
+                        <div class="row-left">
+                            Cookie:
+                        </div>
+                        <div class="row-right">
+                            <textarea cols="93" rows="4" placeholder="请输入Cookie"></textarea>
+                        </div>
+                    </div>
+                    <div class="row-container json-bar">
+                        <div class="row-left">
+                            Json:
+                        </div>
+                        <div class="row-right">
+                            <textarea cols="93" rows="4" placeholder="请输入Json"></textarea>
+                        </div>
+                    </div>
+                    <div class="btn-bar">
+                        <span class="add-config-btn">
+                            提交配置
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="config-list-container">
+            <div class="form-hd-bar">
+                <h1 class="hd-title">
+                    已配置列表
+                </h1>
+            </div>
+            <table class="config-items">
+                <thead>
+                    <tr>
+                        <th>
+                            Method
+                        </th>
+                        <th>
+                            Path
+                        </th>
+                        <th>
+                            Query
+                        </th>
+                        <th>
+                            Cookie
+                        </th>
+                        <th>
+                            Json
+                        </th>
+                        <th>
+                            表达式
+                        </th>
+                        <th>
+                            操作
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr data-item-id="@item.Id">
+                            <td class="method-col-item">
+                               @item.Method
+                            </td>
+                            <td class="path-col-item">
+                                @item.Path
+                            </td>
+                            <td class="query-col-item">
+                                @item.Query
+                            </td>
+                            <td class="cookie-col-item">
+                                @item.Cookie
+                            </td>
+                            <td class="json-col-item">
+                                @item.Json
+                            </td>
+                            <td class="func-col-item">
+                                @item.Expression
+                            </td>
+                            <td class="operate-col-item">
+                                <span class="remove-btn">
+                                    删除
+                                </span>
+                                <span class="modify-btn">
+                                    修改
+                                </span>
+                            </td>
+                        </tr>
+                    }
+                  
+              
+                </tbody>
+                <tfoot>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    <script type="text/javascript" src="~/mock/js/lib/jquery.js"></script>
+    <script type="text/javascript" src="~/mock/js/lib/juicer.js"></script>
+    <script type="text/javascript" src="~/mock/js/rule-config.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,40 @@
+{
+  "name": "vee-validate",
+  "version": "2.0.0-beta.19",
+  "homepage": "http://vee-validate.logaretm.com/",
+  "authors": [
+    "'Abdelrahman Awad' <'logaretm1@outlook.com'>"
+  ],
+  "description": "Simple Vue.js validation plugin",
+  "main": "dist/vee-validate.min.js",
+  "keywords": [
+    "vee-validate",
+    "vuejs",
+    "validate",
+    "laravel"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "src",
+    "gh-pages",
+    "docs",
+    "coverage",
+    "webpack.config.js",
+    "rollup.config.dev.js",
+    "rollup.config.prod.js"
+  ],
+  "_release": "2.0.0-beta.19",
+  "_resolution": {
+    "type": "version",
+    "tag": "2.0.0-beta.19",
+    "commit": "c6758381177f2f4ca1869e576f85c1ca8cb490ef"
+  },
+  "_source": "https://github.com/logaretm/vee-validate.git",
+  "_target": "2.0.0-beta.19",
+  "_originalSource": "vee-validate"
+}

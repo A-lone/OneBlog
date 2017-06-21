@@ -1,0 +1,13 @@
+﻿{
+  "WilderDb": {
+    "ConnectionString": "Data Source=180.76.135.165;Initial Catalog=datiancun_db;User ID=sa;Password=abcd1234!"
+    //"ConnectionString": "Data Source=datiancun.database.windows.net;Initial Catalog=datiancun_db;User ID=datiancun;Password=abcd1234!!"
+  },
+  "Qiniu": {
+    "AccessKey": "nOfdLbGi9khuNohIB7iT2hE0HCHMXsIc8Dwg0KVA",
+    "SecretKey": "VCpr3DWwB9c03VL8m02cuSroUZHeMJMS9mLKjDn7",
+    "Bucket": "datiancun",
+    "UP_Host": "http://up-z1.qiniu.com",
+    "Domain": "http://cdn.datiancun.com"
+  }
+}
