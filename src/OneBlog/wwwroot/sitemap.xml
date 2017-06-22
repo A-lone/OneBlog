@@ -17,47 +17,46 @@
 &amp;lt;returncode&amp;gt;200&amp;lt;/returncode&amp;gt;
 &amp;lt;key&amp;gt;datiancun.com&amp;lt;/key&amp;gt;
 &amp;lt;original&amp;gt;211&amp;nbsp;:&amp;nbsp;Domain&amp;nbsp;name&amp;nbsp;is&amp;nbsp;not&amp;nbsp;available&amp;lt;/original&amp;gt;
-&amp;lt;/property&amp;gt;&lt;/pre&gt;&lt;p&gt;返回 XML 结果说明：&lt;br/&gt;returncode=200 表示接口返回成功&lt;br/&gt;key=***.com表示当前check的域名&lt;br/&gt;original=210 : Domain name is available&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; 表示域名可以注册&lt;br/&gt;original=211 : Domain name is not available 表示域名已经注册&lt;br/&gt;original=212 : Domain name is invalid&amp;nbsp;&amp;nbsp; 表示域名参数传输错误&lt;br/&gt;original=213 : Time out 查询超时&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;有了接口之后一切都比较好办了，这时候需要一个拼音的单词表&lt;/p&gt;&lt;pre class="brush:c#;toolbar:false"&gt;&amp;nbsp;private&amp;nbsp;static&amp;nbsp;string&amp;nbsp;CONST&amp;nbsp;=&amp;nbsp;@&amp;quot;a,ai,an,ang,ao,ba,bai,ban,bang,bao,bei,ben,beng,bi,bian,biao,bie,bin,bing,bo,bu,ca,cai,can,cang,cao,ce,cen,ceng,cha,chai,chan,chang,chao,che,chen,cheng,chi,chong,chou,chu,chuan,chuang,chui,chun,chuo,ci,cong,cou,cu,cuan,cui,cun,cuo,da,dai,dan,dang,dao,de,deng,di,dia,dian,diao,die,ding,diu,dong,dou,du,duan,dui,dun,duo,e,en,er,fa,fan,fang,fei,fen,feng,fo,fou,fu,ga,gai,gan,gang,gao,ge,gei,gen,geng,gong,gou,gu,gua,guai,guan,guang,gui,gun,guo,ha,hai,han,hang,hao,he,hei,hen,heng,hong,hou,hu,hua,huai,huan,huang,hui,hun,huo,ji,jia,jian,jiang,jiao,jie,jin,jing,jiong,jiu,ju,juan,jue,ka,kai,kan,kang,kao,ke,ken,keng,kong,kou,ku,kua,kuai,kuan,kuang,kui,kun,kuo,la,lai,lan,lang,lao,le,lei,leng,li,lia,lian,liang,liao,lie,lin,ling,liu,lo,long,lou,lu,luan,lun,luo,lv,ma,mai,man,mang,mao,me,mei,men,meng,mi,mian,miao,mie,min,ming,miu,mo,mou,mu,na,nai,nan,nang,nao,ne,nei,nen,neng,ni,nian,niang,niao,nie,nin,ning,niu,nong,nou,nu,nuan,nuo,nv,o,ou,pa,pai,pan,pang,pao,pei,pen,peng,pi,pian,piao,pie,pin,ping,po,pou,pu,qi,qia,qian,qiang,qiao,qie,qin,qing,qiong,qiu,qu,quan,que,qun,ran,rang,rao,re,ren,reng,ri,rong,rou,ru,ruan,rui,run,ruo,sa,sai,san,sang,sao,se,sen,seng,sha,shai,shan,shang,shao,she,shen,sheng,shi,shou,shu,shua,shuai,shuan,shuang,shui,shun,shuo,si,song,sou,su,suan,sui,sun,suo,ta,tai,tan,tang,tao,te,teng,ti,tian,tiao,tie,ting,tong,tou,tu,tuan,tui,tun,tuo,wa,wai,wan,wang,wei,wen,weng,wo,wu,xi,xia,xian,xiang,xiao,xie,xin,xing,xiong,xiu,xu,xuan,xue,xun,ya,yan,yang,yao,ye,yi,yin,ying,yo,yong,you,yu,yuan,yue,yun,za,zai,zan,zang,zao,ze,zei,zen,zeng,zha,zhai,zhan,zhang,zhao,zhe,zhen,zheng,zhi,zhong,zhou,zhu,zhua,zhuai,zhuan,zhuang,zhui,zhun,zhuo,zi,zong,zou,zu,zuan,zui,zun,zuo&amp;quot;;&lt;/pre&gt;&lt;p&gt;通过遍历单词表来查询双拼域名，再请求相应的服务即可&lt;/p&gt;&lt;pre class="brush:c#;toolbar:false"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;HttpClient&amp;nbsp;client&amp;nbsp;=&amp;nbsp;new&amp;nbsp;HttpClient();
-&amp;nbsp;&amp;nbsp;&amp;nbsp;var&amp;nbsp;response&amp;nbsp;=&amp;nbsp;await&amp;nbsp;client.GetAsync(url);
-&amp;nbsp;&amp;nbsp;&amp;nbsp;var&amp;nbsp;result&amp;nbsp;=&amp;nbsp;await&amp;nbsp;response.Content.ReadAsStringAsync();
-&amp;nbsp;&amp;nbsp;&amp;nbsp;result&amp;nbsp;=&amp;nbsp;resolve(result);&lt;/pre&gt;&lt;p&gt;需要说明的是aaw8的接口比较挫，返回的是html 包装的json....&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;img src="http://cdn.datiancun.com/b2dc959a-0d54-4be8-9465-a777003659a8.png" title="" alt=""/&gt;&lt;/p&gt;&lt;p&gt;需要正则把body里面的部分给截取出来&lt;/p&gt;&lt;pre class="brush:c#;toolbar:false"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;private&amp;nbsp;static&amp;nbsp;string&amp;nbsp;ReadHtmlToEditHtml(string&amp;nbsp;htmlContent1)
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;{
+&amp;lt;/property&amp;gt;&lt;/pre&gt;&lt;p&gt;返回 XML 结果说明：&lt;br/&gt;returncode=200 表示接口返回成功&lt;br/&gt;key=***.com表示当前check的域名&lt;br/&gt;original=210 : Domain name is available&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; 表示域名可以注册&lt;br/&gt;original=211 : Domain name is not available 表示域名已经注册&lt;br/&gt;original=212 : Domain name is invalid&amp;nbsp;&amp;nbsp; 表示域名参数传输错误&lt;br/&gt;original=213 : Time out 查询超时&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;有了接口之后一切都比较好办了，这时候需要一个拼音的单词表&lt;/p&gt;&lt;pre class="brush:c#;toolbar:false"&gt;&amp;nbsp;private&amp;nbsp;static&amp;nbsp;string&amp;nbsp;CONST&amp;nbsp;=&amp;nbsp;@&amp;quot;a,ai,an,ang,ao,ba,bai,ban,bang,bao,bei,ben,beng,bi,bian,biao,bie,bin,bing,bo,bu,ca,cai,can,cang,cao,ce,cen,ceng,cha,chai,chan,chang,chao,che,chen,cheng,chi,chong,chou,chu,chuan,chuang,chui,chun,chuo,ci,cong,cou,cu,cuan,cui,cun,cuo,da,dai,dan,dang,dao,de,deng,di,dia,dian,diao,die,ding,diu,dong,dou,du,duan,dui,dun,duo,e,en,er,fa,fan,fang,fei,fen,feng,fo,fou,fu,ga,gai,gan,gang,gao,ge,gei,gen,geng,gong,gou,gu,gua,guai,guan,guang,gui,gun,guo,ha,hai,han,hang,hao,he,hei,hen,heng,hong,hou,hu,hua,huai,huan,huang,hui,hun,huo,ji,jia,jian,jiang,jiao,jie,jin,jing,jiong,jiu,ju,juan,jue,ka,kai,kan,kang,kao,ke,ken,keng,kong,kou,ku,kua,kuai,kuan,kuang,kui,kun,kuo,la,lai,lan,lang,lao,le,lei,leng,li,lia,lian,liang,liao,lie,lin,ling,liu,lo,long,lou,lu,luan,lun,luo,lv,ma,mai,man,mang,mao,me,mei,men,meng,mi,mian,miao,mie,min,ming,miu,mo,mou,mu,na,nai,nan,nang,nao,ne,nei,nen,neng,ni,nian,niang,niao,nie,nin,ning,niu,nong,nou,nu,nuan,nuo,nv,o,ou,pa,pai,pan,pang,pao,pei,pen,peng,pi,pian,piao,pie,pin,ping,po,pou,pu,qi,qia,qian,qiang,qiao,qie,qin,qing,qiong,qiu,qu,quan,que,qun,ran,rang,rao,re,ren,reng,ri,rong,rou,ru,ruan,rui,run,ruo,sa,sai,san,sang,sao,se,sen,seng,sha,shai,shan,shang,shao,she,shen,sheng,shi,shou,shu,shua,shuai,shuan,shuang,shui,shun,shuo,si,song,sou,su,suan,sui,sun,suo,ta,tai,tan,tang,tao,te,teng,ti,tian,tiao,tie,ting,tong,tou,tu,tuan,tui,tun,tuo,wa,wai,wan,wang,wei,wen,weng,wo,wu,xi,xia,xian,xiang,xiao,xie,xin,xing,xiong,xiu,xu,xuan,xue,xun,ya,yan,yang,yao,ye,yi,yin,ying,yo,yong,you,yu,yuan,yue,yun,za,zai,zan,zang,zao,ze,zei,zen,zeng,zha,zhai,zhan,zhang,zhao,zhe,zhen,zheng,zhi,zhong,zhou,zhu,zhua,zhuai,zhuan,zhuang,zhui,zhun,zhuo,zi,zong,zou,zu,zuan,zui,zun,zuo&amp;quot;;&lt;/pre&gt;&lt;p&gt;通过遍历单词表来查询双拼域名，再请求相应的服务即可&lt;/p&gt;&lt;pre class="brush:c#;toolbar:false"&gt;HttpClient&amp;nbsp;client&amp;nbsp;=&amp;nbsp;new&amp;nbsp;HttpClient();
+var&amp;nbsp;response&amp;nbsp;=&amp;nbsp;await&amp;nbsp;client.GetAsync(url);
+var&amp;nbsp;result&amp;nbsp;=&amp;nbsp;await&amp;nbsp;response.Content.ReadAsStringAsync();
+result&amp;nbsp;=&amp;nbsp;resolve(result);&lt;/pre&gt;&lt;p&gt;需要说明的是aaw8的接口比较挫，返回的是html 包装的json....&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;img src="http://cdn.datiancun.com/2f9b7e77-331a-4f3e-9153-a79a01208cbc.png" title="" alt=""/&gt;&lt;/p&gt;&lt;p&gt;需要正则把body里面的部分给截取出来&lt;/p&gt;&lt;pre class="brush:c#;toolbar:false"&gt;private&amp;nbsp;static&amp;nbsp;string&amp;nbsp;ReadHtmlToEditHtml(string&amp;nbsp;htmlContent1)
+{
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Regex&amp;nbsp;reg&amp;nbsp;=&amp;nbsp;new&amp;nbsp;Regex(&amp;quot;(?is)&amp;lt;body[^&amp;gt;]*&amp;gt;(?&amp;lt;body&amp;gt;.*?)&amp;lt;/body&amp;gt;&amp;quot;);
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;string&amp;nbsp;bodyHtml&amp;nbsp;=&amp;nbsp;&amp;quot;&amp;quot;;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;bodyHtml&amp;nbsp;=&amp;nbsp;reg.Match(htmlContent1).Groups[&amp;quot;body&amp;quot;].Value;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;return&amp;nbsp;bodyHtml;
+}&lt;/pre&gt;&lt;p&gt;剩下来的就是写个返回数据解析了，为了防止查询过的域名再查询一遍浪费时间，我简单做了下本地cache，完整的代码如下&lt;br/&gt;&lt;/p&gt;&lt;pre class="brush:c#;toolbar:false"&gt;private&amp;nbsp;async&amp;nbsp;Task&amp;lt;ResultModel&amp;gt;&amp;nbsp;FindDomain(string&amp;nbsp;entity)
+{
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;String&amp;nbsp;filePath&amp;nbsp;=&amp;nbsp;&amp;quot;D:\\cache\\&amp;quot;&amp;nbsp;+&amp;nbsp;md5(url)&amp;nbsp;+&amp;nbsp;&amp;quot;_com.txt&amp;quot;;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;string&amp;nbsp;fileContents&amp;nbsp;=&amp;nbsp;&amp;quot;&amp;quot;;
 
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Regex&amp;nbsp;reg&amp;nbsp;=&amp;nbsp;new&amp;nbsp;Regex(&amp;quot;(?is)&amp;lt;body[^&amp;gt;]*&amp;gt;(?&amp;lt;body&amp;gt;.*?)&amp;lt;/body&amp;gt;&amp;quot;);
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;string&amp;nbsp;bodyHtml&amp;nbsp;=&amp;nbsp;&amp;quot;&amp;quot;;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;bodyHtml&amp;nbsp;=&amp;nbsp;reg.Match(htmlContent1).Groups[&amp;quot;body&amp;quot;].Value;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;return&amp;nbsp;bodyHtml;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;}&lt;/pre&gt;&lt;p&gt;剩下来的就是写个返回数据解析了，为了防止查询过的域名再查询一遍浪费时间，我简单做了下本地cache，完整的代码如下&lt;br/&gt;&lt;/p&gt;&lt;pre class="brush:c#;toolbar:false"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;private&amp;nbsp;async&amp;nbsp;Task&amp;lt;ResultModel&amp;gt;&amp;nbsp;FindDomain(string&amp;nbsp;entity)
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;{
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;String&amp;nbsp;filePath&amp;nbsp;=&amp;nbsp;&amp;quot;D:\\cache\\&amp;quot;&amp;nbsp;+&amp;nbsp;md5(url)&amp;nbsp;+&amp;nbsp;&amp;quot;_com.txt&amp;quot;;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;string&amp;nbsp;fileContents&amp;nbsp;=&amp;nbsp;&amp;quot;&amp;quot;;
-
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;if&amp;nbsp;(File.Exists(filePath))
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;{
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;fileContents&amp;nbsp;=&amp;nbsp;File.ReadAllText(filePath);
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;}
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;else
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;{
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;HttpClient&amp;nbsp;client&amp;nbsp;=&amp;nbsp;new&amp;nbsp;HttpClient()
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;if&amp;nbsp;(File.Exists(filePath))
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;{
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;fileContents&amp;nbsp;=&amp;nbsp;File.ReadAllText(filePath);
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;}
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;else
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;{
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;HttpClient&amp;nbsp;client&amp;nbsp;=&amp;nbsp;new&amp;nbsp;HttpClient()
 &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;var&amp;nbsp;response&amp;nbsp;=&amp;nbsp;await&amp;nbsp;client.GetAsync(url);
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;var&amp;nbsp;result&amp;nbsp;=&amp;nbsp;await&amp;nbsp;response.Content.ReadAsStringAsync();
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;result&amp;nbsp;=&amp;nbsp;resolve(result);
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;fileContents&amp;nbsp;=&amp;nbsp;result;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;bool&amp;nbsp;flag&amp;nbsp;=&amp;nbsp;true;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;try
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;{
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;JsonConvert.DeserializeObject(fileContents);
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;flag&amp;nbsp;=&amp;nbsp;true;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;File.WriteAllText(filePath,&amp;nbsp;fileContents);
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;}
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;catch&amp;nbsp;(Exception&amp;nbsp;ex)
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;{
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;flag&amp;nbsp;=&amp;nbsp;false;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;}
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;}
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;var&amp;nbsp;obj&amp;nbsp;=&amp;nbsp;(ResultModel)Newtonsoft.Json.JsonConvert.DeserializeObject(fileContents,&amp;nbsp;typeof(ResultModel));
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;return&amp;nbsp;obj;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;}&lt;/pre&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;</content>
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;var&amp;nbsp;result&amp;nbsp;=&amp;nbsp;await&amp;nbsp;response.Content.ReadAsStringAsync();
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;result&amp;nbsp;=&amp;nbsp;resolve(result);
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;fileContents&amp;nbsp;=&amp;nbsp;result;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;bool&amp;nbsp;flag&amp;nbsp;=&amp;nbsp;true;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;try
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;{
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;JsonConvert.DeserializeObject(fileContents);
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;flag&amp;nbsp;=&amp;nbsp;true;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;File.WriteAllText(filePath,&amp;nbsp;fileContents);
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;}
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;catch&amp;nbsp;(Exception&amp;nbsp;ex)
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;{
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;flag&amp;nbsp;=&amp;nbsp;false;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;}
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;}
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;var&amp;nbsp;obj&amp;nbsp;=&amp;nbsp;(ResultModel)Newtonsoft.Json.JsonConvert.DeserializeObject(fileContents,&amp;nbsp;typeof(ResultModel));
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;return&amp;nbsp;obj;
+}&lt;/pre&gt;</content>
         <tag />
         <pubTime>2017-05-18T10:50:00</pubTime>
         <breadCrumb title="大田村" url="http://www.datiancun.com" />

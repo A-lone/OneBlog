@@ -1551,7 +1551,7 @@ input[type=text], input[type=tel], input[type=number], input[type=email], textar
     right: 32px;
     font-size: 20px;
     cursor: pointer;
-    margin:10px;
+    margin: 10px;
     -webkit-transition: .4s;
     transition: .4s;
     fill: #222
@@ -2007,4 +2007,16 @@ body .text-link {
 
 .example-field {
     color: #888888;
+}
+
+.panel-heading {
+    font-size: 16px;
+}
+
+    .panel-heading a {
+        font-size: 14px;
+    }
+
+.font-tiny p {
+    margin: 0px;
 }

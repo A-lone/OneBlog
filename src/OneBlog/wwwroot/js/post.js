@@ -1,4 +1,4 @@
-﻿One = {
+﻿OneBlog = {
     comments: {
         postId: null,
         contentBox: $("#Content"),
