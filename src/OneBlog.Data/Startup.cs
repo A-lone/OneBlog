@@ -15,7 +15,7 @@ namespace OneBlog.Data
     {
       var builder = new ConfigurationBuilder()
         .SetBasePath(env.ContentRootPath)
-        .AddJsonFile("config.json", false, true)
+        .AddJsonFile("appsettings.json", false, true)
         .AddEnvironmentVariables();
 
       _config = builder.Build();

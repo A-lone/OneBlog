@@ -63,7 +63,7 @@
             </ul>
         </li>
 
-        <li id="mu-settings">
+        @*<li id="mu-settings">
             <a href="{{SiteVars.RelativeWebRoot}}admin/#/settings/basic"><i class="fa fa-cog"></i> 设置</a>
             <ul class="sub-nav-sidebar">
                 <li data-ng-class="{ active: isActive('/settings/basic')}"><a class="ng-binding" href="{{SiteVars.RelativeWebRoot}}admin/#/settings/basic">基础</a></li>
@@ -73,7 +73,7 @@
                 <li data-ng-class="{ active: isActive('/settings/controls')}"><a class="ng-binding" href="{{SiteVars.RelativeWebRoot}}admin/#/settings/controls">基本设置</a></li>
                 <li data-ng-class="{ active: isActive('/settings/advanced')}"><a class="ng-binding" href="{{SiteVars.RelativeWebRoot}}admin/#/settings/advanced">高级设置</a></li>
             </ul>
-        </li>
+        </li>*@
         <li id="mu-about"><a href="@Url.Action("About","Admin",new { area = "Admin" })"><i class="fa fa-info-circle"></i>about</a></li>
     </ul>
 </div>

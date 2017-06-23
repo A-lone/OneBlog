@@ -1,5 +1,8 @@
 ﻿@model OneBlog.Data.Models.PostDetail
-
+@inject Microsoft.Extensions.Options.IOptions<AppSettings> AppSettings
+@{
+    ViewBag.Title = $"{Model.Title} - {AppSettings.Value.Title}";
+}
 <div class="wrapper">
     <div class="row row--full">
         <div class="column column--center medium-12 large-12">

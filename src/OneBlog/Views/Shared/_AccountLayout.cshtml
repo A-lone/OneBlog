@@ -1,14 +1,18 @@
-﻿@{
-    ViewBag.Title = $"{ViewBag.Title} - 大田村|UWP之家";
+﻿@inject Microsoft.Extensions.Options.IOptions<AppSettings> AppSettings
+
+@{
+    ViewBag.Title = $"{ViewBag.Title} - {AppSettings.Value.Title}";
 }
+
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="大田村、UWP、Windows10、WM10、UWP开源项目" />
-    <meta name="description" content="大田村提供手机评测和ROM下载，以及WP10软件，还有WM10游戏，越狱，破解，WP10教程，铃声，壁纸和开发等资源。" />
+    <meta name="keywords" content="@AppSettings.Value.Title" />
+    <meta name="description" content="@AppSettings.Value.Description" />
     <title>@ViewBag.Title</title>
     <environment names="Development">
         <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />

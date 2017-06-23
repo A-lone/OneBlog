@@ -8,7 +8,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.Extensions.WebEncoders;
-using OneBlog.Core;
 using OneBlog.Data;
 using OneBlog.Data.Common;
 using OneBlog.Data.Contracts;
@@ -16,8 +15,10 @@ using OneBlog.Data.Repository;
 using OneBlog.Helpers;
 using OneBlog.Logger;
 using OneBlog.MetaWeblog;
+using OneBlog.Mvc;
 using OneBlog.Services;
 using OneBlog.Services.DataProviders;
+using OneBlog.Settings;
 using Qiniu.Conf;
 using System;
 using System.Collections.Generic;
@@ -50,7 +51,7 @@ namespace OneBlog
 
             var builder = new ConfigurationBuilder()
               .SetBasePath(env.ContentRootPath)
-              .AddJsonFile("config.json", false, true)
+              .AddJsonFile("appsettings.json", false, true)
               .AddEnvironmentVariables();
 
             _config = builder.Build();
@@ -61,6 +62,9 @@ namespace OneBlog
             svcs.AddTimedJob();
             svcs.AddMvcDI();
             AspNetCoreHelper.ConfigureServices(svcs);
+
+            svcs.Configure<AppSettings>(_config.GetSection("AppSettings"));
+            
             svcs.AddSession();
             svcs.AddResponseCompression();
             svcs.Configure<GzipCompressionProviderOptions>(options => options.Level = System.IO.Compression.CompressionLevel.Optimal);

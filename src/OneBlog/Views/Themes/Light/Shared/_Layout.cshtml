@@ -1,11 +1,13 @@
-﻿<!DOCTYPE html>
+﻿@inject Microsoft.Extensions.Options.IOptions<AppSettings> AppSettings
+
+<!DOCTYPE html>
 <html lang="zh-cn">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="陈仁松同学 - stay hungry stay foolish">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>陈仁松同学</title>
+    <title>@ViewBag.Title</title>
     <link rel="shortcut icon" href="~/favicon.ico">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" />
@@ -21,9 +23,9 @@
                     <div class="user-avatar">
                         <img src="http://cdn.datiancun.com/bf16a41c-5417-49a3-91aa-a74a00c5723d.png" height="100" width="100" alt="陈仁松同学">
                     </div>
-                    <h1 class="logo"><a href="/">陈仁松同学</a></h1>
+                    <h1 class="logo"><a href="/">@AppSettings.Value.Title</a></h1>
                     <div class="sidebar__description font-small">
-                        stay hungry stay foolish
+                        @AppSettings.Value.Description
                     </div>
 
                 </div>
@@ -34,12 +36,12 @@
                     <div class="column large-12">
 
                         @*<ul class="nav">
-                            <li class="nav- nav-current" role="presentation"><a href="https://sb.sb/">首页</a></li>
-                            <li class="nav-" role="presentation"><a href="https://sb.sb/about/">关于</a></li>
-                            <li class="nav-" role="presentation"><a href="https://sb.sb/contact/">联系</a></li>
-                            <li class="nav-" role="presentation"><a href="https://sb.sb/links/">友链</a></li>
-                            <li class="nav-" role="presentation"><a href="https://sb.sb/rss-feed/">订阅</a></li>
-                        </ul>*@
+                                <li class="nav- nav-current" role="presentation"><a href="https://sb.sb/">首页</a></li>
+                                <li class="nav-" role="presentation"><a href="https://sb.sb/about/">关于</a></li>
+                                <li class="nav-" role="presentation"><a href="https://sb.sb/contact/">联系</a></li>
+                                <li class="nav-" role="presentation"><a href="https://sb.sb/links/">友链</a></li>
+                                <li class="nav-" role="presentation"><a href="https://sb.sb/rss-feed/">订阅</a></li>
+                            </ul>*@
 
                         <ul class="social-nav social-icons">
 
