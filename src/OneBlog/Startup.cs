@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.Extensions.WebEncoders;
+using OneBlog.Configuration;
 using OneBlog.Data;
 using OneBlog.Data.Common;
 using OneBlog.Data.Contracts;
@@ -64,7 +65,8 @@ namespace OneBlog
             AspNetCoreHelper.ConfigureServices(svcs);
 
             svcs.Configure<AppSettings>(_config.GetSection("AppSettings"));
-            
+            svcs.Configure<DataConfiguration>(_config.GetSection("Data"));
+
             svcs.AddSession();
             svcs.AddResponseCompression();
             svcs.Configure<GzipCompressionProviderOptions>(options => options.Level = System.IO.Compression.CompressionLevel.Optimal);
@@ -133,6 +135,7 @@ namespace OneBlog
             svcs.AddScoped<VideosProvider>();
             svcs.AddTransient<ApplicationEnvironment>();
 
+            svcs.AddTransient<IDbContextFactory, DbContextFactory>();
             // Supporting Live Writer (MetaWeblogAPI)
             svcs.AddMetaWeblog<WeblogProvider>();
 
@@ -209,14 +212,14 @@ namespace OneBlog
             app.UseIdentity();
 
             app.UseMvc();
-            if (_config["OneDb:TestData"] != "True")
-            {
-                using (var scope = scopeFactory.CreateScope())
-                {
-                    var initializer = scope.ServiceProvider.GetService<ApplicationInitializer>();
-                    initializer.SeedAsync().Wait();
-                }
-            }
+            //if (_config["OneDb:TestData"] != "True")
+            //{
+            //    using (var scope = scopeFactory.CreateScope())
+            //    {
+            //        var initializer = scope.ServiceProvider.GetService<ApplicationInitializer>();
+            //        initializer.SeedAsync().Wait();
+            //    }
+            //}
         }
     }
 }

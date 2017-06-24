@@ -9,12 +9,18 @@ namespace OneBlog.Data
 {
     public class ApplicationContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationContext(DbContextOptions<ApplicationContext> options, IConfigurationRoot config) : base(options)
+        public ApplicationContext(DbContextOptions<ApplicationContext> options)
+            : base(options)
         {
-            _config = config;
         }
 
-        private IConfigurationRoot _config;
+        //private IConfigurationRoot _config;
+
+        //public ApplicationContext(DbContextOptions<ApplicationContext> options, IConfigurationRoot config) : base(options)
+        //{
+        //    _config = config;
+        //}
+
 
         /// <summary>
         /// 文章
@@ -62,13 +68,13 @@ namespace OneBlog.Data
             }
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            var aspnetcore_env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-            var connectionString = _config[string.Equals(aspnetcore_env, "Development") ? "OneDb:ConnectionString_Test" : "OneDb:ConnectionString"];
-            optionsBuilder.UseSqlServer(connectionString);
-            base.OnConfiguring(optionsBuilder);
-        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    var aspnetcore_env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+        //    var connectionString = _config[string.Equals(aspnetcore_env, "Development") ? "OneDb:ConnectionString_Test" : "OneDb:ConnectionString"];
+        //    optionsBuilder.UseSqlite(connectionString);
+        //    base.OnConfiguring(optionsBuilder);
+        //}
 
     }
 }

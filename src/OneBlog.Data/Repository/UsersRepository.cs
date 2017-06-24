@@ -15,14 +15,12 @@ namespace OneBlog.Data
 
         SignInManager<ApplicationUser> _signInManager;
         UserManager<ApplicationUser> _userManager;
-        ApplicationContext _context;
+        private readonly IDbContextFactory _contextFactory;
 
-        public UsersRepository(
-            ApplicationContext context,
-            SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager
+        public UsersRepository(IDbContextFactory contextFactory, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager
             )
         {
-            _context = context;
+            _contextFactory = contextFactory;
             _signInManager = signInManager;
             _userManager = userManager;
         }
@@ -58,26 +56,27 @@ namespace OneBlog.Data
         public IEnumerable<UserItem> Find(int take = 10, int skip = 0, string filter = "", string order = "")
         {
             var users = new List<UserItem>();
-
-            if (take == 0)
+            using (var ctx = _contextFactory.Create())
             {
-                take = _context.Users.Count();
-            }
-
-            var members = _context.Users.Skip(skip)
-                     .Take(take)
-                     .ToList();
-
-            foreach (var m in members)
-            {
-                users.Add(new UserItem
+                if (take == 0)
                 {
-                    IsChecked = false,
-                    UserName = m.UserName,
-                    Email = m.Email,
-                    Profile = GetProfile(m),
-                    Roles = GetRoles(m)
-                });
+                    take = ctx.Users.Count();
+                }
+                var members = ctx.Users.Skip(skip)
+                         .Take(take)
+                         .ToList();
+
+                foreach (var m in members)
+                {
+                    users.Add(new UserItem
+                    {
+                        IsChecked = false,
+                        UserName = m.UserName,
+                        Email = m.Email,
+                        Profile = GetProfile(m),
+                        Roles = GetRoles(m)
+                    });
+                }
             }
             return users;
         }
