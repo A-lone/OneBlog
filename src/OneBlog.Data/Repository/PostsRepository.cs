@@ -34,15 +34,13 @@ namespace OneBlog.Data
             _userManager = userManager;
         }
 
-        public Pager<PostItem> Find(int take = 10, int skip = 0, string filter = "", string order = "")
+        public Pager<PostItem> Find(int take = 10, int skip = 0)
         {
             var count = _ctx.Posts.Include(m => m.Author).Include(m => m.Comments).Count();
             if (take == 0)  //全部显示
             {
                 take = count;
             }
-            if (string.IsNullOrEmpty(filter)) filter = "1==1";
-            if (string.IsNullOrEmpty(order)) order = "DateCreated desc";
 
             int currentPage = skip / take + 1;
             int totalItems = count;
@@ -57,6 +55,7 @@ namespace OneBlog.Data
                 var newItem = _jsonService.GetPost(item);
                 posts.Add(newItem);
             }
+
             var postPager = new Pager<PostItem>(posts);
             postPager.CurrentPage = currentPage;
             postPager.TotalItems = totalItems;

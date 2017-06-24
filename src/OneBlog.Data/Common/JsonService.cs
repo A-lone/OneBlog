@@ -94,6 +94,7 @@ namespace OneBlog.Data.Common
                 Title = post.Title,
                 Slug = post.Slug,
                 Description = post.Description,
+                RelativeLink = "/post/" + post.Id,
                 Content = post.Content,
                 DateCreated = post.DatePublished.ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture),
                 Categories = GetCategories(categories),

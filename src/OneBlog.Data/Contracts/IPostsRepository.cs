@@ -7,7 +7,7 @@ namespace OneBlog.Data.Contracts
     public interface IPostsRepository
     {
 
-        Pager<PostItem> Find(int take = 10, int skip = 0, string filter = "", string order = "");
+        Pager<PostItem> Find(int take = 10, int skip = 0);
         /// <summary>
         /// 获取Post
         /// </summary>
