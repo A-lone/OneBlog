@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using OneBlog.Data;
 using OneBlog.Data.Contracts;
@@ -15,6 +16,7 @@ using OneBlog.Models;
 using OneBlog.Models.CommentViewModels;
 using OneBlog.RssSyndication;
 using OneBlog.Services;
+using OneBlog.Settings;
 using System;
 using System.Linq;
 using System.Net;
@@ -27,7 +29,6 @@ namespace OneBlog.Controllers
     [Route("")]
     public class RootController : Controller
     {
-        readonly int _pageSize = 15;
 
         private IMailService _mailService;
         private IPostsRepository _repo;
@@ -37,14 +38,16 @@ namespace OneBlog.Controllers
         private IViewRenderService _viewRenderService;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IOptions<AppSettings> _appsettings;
         private ISession _session => _httpContextAccessor.HttpContext.Session;
 
-        public RootController(IMailService mailService, UserManager<ApplicationUser> userManager,
+        public RootController(IOptions<AppSettings> appsettings, IMailService mailService, UserManager<ApplicationUser> userManager,
                               IPostsRepository repo, ICommentsRepository commentsRepository,
                               IHttpContextAccessor httpContextAccessor,
                               IMemoryCache memoryCache,
                               IViewRenderService viewRenderService, ILogger<RootController> logger)
         {
+            _appsettings = appsettings;
             _userManager = userManager;
             _httpContextAccessor = httpContextAccessor;
             _viewRenderService = viewRenderService;
@@ -76,7 +79,7 @@ namespace OneBlog.Controllers
             }
             if (result == null)
             {
-                result = _repo.GetPosts(_pageSize, page);
+                result = _repo.GetPosts(_appsettings.Value.PostPerPage, page);
                 if (result != null)
                 {
                     cached = JsonConvert.SerializeObject(result);

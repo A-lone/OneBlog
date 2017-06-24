@@ -64,7 +64,9 @@ namespace OneBlog.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(_config["OneDb:ConnectionString"]);
+            var aspnetcore_env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            var connectionString = _config[string.Equals(aspnetcore_env, "Development") ? "OneDb:ConnectionString_Test" : "OneDb:ConnectionString"];
+            optionsBuilder.UseSqlServer(connectionString);
             base.OnConfiguring(optionsBuilder);
         }
 

@@ -2020,3 +2020,8 @@ body .text-link {
 .font-tiny p {
     margin: 0px;
 }
+
+.content-title {
+    padding-right: 13px;
+    padding-left: 13px;
+}

@@ -21,7 +21,7 @@
                         <div class="post__tags">
                             @foreach (var tag in Model.Tags)
                             {
-                                <a href="http://www.datiancun.com/Tag/@tag.TagName" target="_blank">@tag.TagName</a>
+                                <a asp-controller="Tag" asp-action="Index" asp-route-tag="@tag.TagName" >@tag.TagName</a>
                             }
                         </div>
                     }
