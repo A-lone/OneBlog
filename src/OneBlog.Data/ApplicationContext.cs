@@ -9,17 +9,12 @@ namespace OneBlog.Data
 {
     public class ApplicationContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationContext(DbContextOptions<ApplicationContext> options)
+        private readonly IDbContextFactory _factory;
+        public ApplicationContext(IDbContextFactory factory, DbContextOptions<ApplicationContext> options)
             : base(options)
         {
+            _factory = factory;
         }
-
-        //private IConfigurationRoot _config;
-
-        //public ApplicationContext(DbContextOptions<ApplicationContext> options, IConfigurationRoot config) : base(options)
-        //{
-        //    _config = config;
-        //}
 
 
         /// <summary>
@@ -68,11 +63,17 @@ namespace OneBlog.Data
             }
         }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            _factory.Configuring(optionsBuilder);
+            base.OnConfiguring(optionsBuilder);
+        }
+
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{
         //    var aspnetcore_env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-        //    var connectionString = _config[string.Equals(aspnetcore_env, "Development") ? "OneDb:ConnectionString_Test" : "OneDb:ConnectionString"];
-        //    optionsBuilder.UseSqlite(connectionString);
+        //    //var connectionString = _config[string.Equals(aspnetcore_env, "Development") ? "OneDb:ConnectionString_Test" : "OneDb:ConnectionString"];
+        //    optionsBuilder.UseSqlServer("Server=.;Database=OneBlog;User ID=sa;Password=abcd1234!");
         //    base.OnConfiguring(optionsBuilder);
         //}
 

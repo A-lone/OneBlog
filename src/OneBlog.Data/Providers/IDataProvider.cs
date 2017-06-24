@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using OneBlog.Configuration;
 
 namespace OneBlog.Data.Providers
@@ -7,7 +8,7 @@ namespace OneBlog.Data.Providers
     {
         DataProvider Provider { get; }
         IServiceCollection RegisterDbContext(IServiceCollection services, string connectionString);
-        ApplicationContext CreateDbContext(string connectionString);
+        void Configuring(DbContextOptionsBuilder optionsBuilder, string connectionString);
     }
 
 

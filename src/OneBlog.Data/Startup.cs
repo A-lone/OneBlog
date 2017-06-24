@@ -27,8 +27,7 @@ namespace OneBlog.Data
         {
             svcs.AddSingleton<IConfigurationRoot>(_config);
             svcs.Configure<DataConfiguration>(_config.GetSection("Data"));
-            svcs.AddEntityFrameworkSqlite().AddDbContext<ApplicationContext>();
-            //svc.AddEntityFrameworkSqlServer().AddDbContext<ApplicationContext>();
+            svcs.AddEntityFramework(_config);
         }
 
         public void Configure(IApplicationBuilder app)

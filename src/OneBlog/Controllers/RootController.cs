@@ -351,7 +351,19 @@ namespace OneBlog.Controllers
             }
             var replyToCommentId = Request.Form["hiddenReplyTo"].ToString();
             var post = _repo.GetPost(model.PostId);
-            var commentDetail = new CommentDetail() { PostId = model.PostId, Author = await GetCurrentUserAsync(), Content = model.Content };
+
+            var user = await GetCurrentUserAsync();
+
+            if (user == null)
+            {
+                user = new ApplicationUser();
+                user.Id = string.Empty;
+                user.UserName = model.UserName;
+                user.DisplayName = model.UserName;
+                user.Email = model.Email;
+            }
+
+            var commentDetail = new CommentDetail() { PostId = model.PostId, Author = user, Content = model.Content };
             Guid parentId;
             if (!string.IsNullOrEmpty(replyToCommentId) && Guid.TryParse(replyToCommentId, out parentId))
             {

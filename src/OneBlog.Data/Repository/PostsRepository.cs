@@ -20,45 +20,42 @@ namespace OneBlog.Data
 {
     public class PostsRepository : BaseRepository, IPostsRepository
     {
-        private readonly IDbContextFactory _contextFactory;
+        private ApplicationContext _ctx;
         private JsonService _jsonService;
         private UserManager<ApplicationUser> _userManager;
 
-        public PostsRepository(IDbContextFactory contextFactory, IConfigurationRoot config,
+        public PostsRepository(ApplicationContext ctx, IConfigurationRoot config,
             JsonService jsonService,
             UserManager<ApplicationUser> userManager
             )
         {
-            _contextFactory = contextFactory;
+            _ctx = ctx;
             _jsonService = jsonService;
             _userManager = userManager;
         }
 
         public Pager<PostItem> Find(int take = 10, int skip = 0, string filter = "", string order = "")
         {
-            var posts = new List<PostItem>();
+            var count = _ctx.Posts.Include(m => m.Author).Include(m => m.Comments).Count();
+            if (take == 0)  //全部显示
+            {
+                take = count;
+            }
+            if (string.IsNullOrEmpty(filter)) filter = "1==1";
+            if (string.IsNullOrEmpty(order)) order = "DateCreated desc";
+
             int currentPage = skip / take + 1;
-            int totalItems = 0;
+            int totalItems = count;
             int itemsPerPage = take;
             int pagesLength = ((int)(totalItems / itemsPerPage)) + ((totalItems % itemsPerPage) > 0 ? 1 : 0);
-            using (var ctx = _contextFactory.Create())
+            var posts = new List<PostItem>();
+
+            var list = _ctx.Posts.Include(m => m.Author).Include(m => m.Comments).OrderByDescending(m => m.DatePublished).Skip(skip).Take(take).ToList();
+
+            foreach (var item in list)
             {
-                var count = ctx.Posts.Include(m => m.Author).Include(m => m.Comments).Count();
-                if (take == 0)  //全部显示
-                {
-                    take = count;
-                }
-                if (string.IsNullOrEmpty(filter)) filter = "1==1";
-                if (string.IsNullOrEmpty(order)) order = "DateCreated desc";
-
-                totalItems = count;
-                var list = ctx.Posts.Include(m => m.Author).Include(m => m.Comments).OrderByDescending(m => m.DatePublished).Skip(skip).Take(take).ToList();
-
-                foreach (var item in list)
-                {
-                    var newItem = _jsonService.GetPost(ctx,item);
-                    posts.Add(newItem);
-                }
+                var newItem = _jsonService.GetPost(item);
+                posts.Add(newItem);
             }
             var postPager = new Pager<PostItem>(posts);
             postPager.CurrentPage = currentPage;
@@ -100,11 +97,8 @@ namespace OneBlog.Data
 
         bool IsUniqueSlug(string slug)
         {
-            using (var ctx = _contextFactory.Create())
-            {
-                return ctx.Posts.Where(p => p.Slug != null && p.Slug.ToLower() == slug.ToLower())
+            return _ctx.Posts.Where(p => p.Slug != null && p.Slug.ToLower() == slug.ToLower())
                 .FirstOrDefault() == null ? true : false;
-            }
         }
         public static string GetStoryUrl(Posts story)
         {
@@ -135,11 +129,8 @@ namespace OneBlog.Data
         {
             try
             {
-                using (var ctx = _contextFactory.Create())
-                {
-                    var item = ctx.Posts.Include(m => m.Author).Include(m => m.Comments).FirstOrDefault(m => m.Id == id);
-                    return _jsonService.GetPostDetail(ctx, item);
-                }
+                var item = _ctx.Posts.Include(m => m.Author).Include(m => m.Comments).FirstOrDefault(m => m.Id == id);
+                return _jsonService.GetPostDetail(item);
             }
             catch (Exception)
             {
@@ -149,18 +140,15 @@ namespace OneBlog.Data
 
         public PostDetail Update(PostDetail detail)
         {
-            using (var ctx = _contextFactory.Create())
+            var post = _ctx.Posts.FirstOrDefault(m => m.Id == detail.Id);
+            if (post == null)
             {
-                var post = ctx.Posts.FirstOrDefault(m => m.Id == detail.Id);
-                if (post == null)
-                {
-                    return null;
-                }
-                UpdatePostDetail(detail, post);
-                ctx.Posts.Update(post);
-                UpdatePostCategories(post, detail.Categories);
-                SaveAll();
+                return null;
             }
+            UpdatePostDetail(detail, post);
+            _ctx.Posts.Update(post);
+            UpdatePostCategories(post, detail.Categories);
+            SaveAll();
             return detail;
 
         }
@@ -168,13 +156,10 @@ namespace OneBlog.Data
         public PostDetail Add(PostDetail detail)
         {
             var post = new Posts();
-            using (var ctx = _contextFactory.Create())
-            {
-                UpdatePostDetail(detail, post);
-                ctx.Posts.Add(post);
-                UpdatePostCategories(post, detail.Categories);
-                SaveAll();
-            }
+            UpdatePostDetail(detail, post);
+            _ctx.Posts.Add(post);
+            UpdatePostCategories(post, detail.Categories);
+            SaveAll();
             detail.Id = post.Id;
             return detail;
         }
@@ -228,10 +213,7 @@ namespace OneBlog.Data
 
             if (true)
             {
-                using (var ctx = _contextFactory.Create())
-                {
-                    user = ctx.Users.FirstOrDefault(m => m.Id == detail.Author.Id);
-                }
+                user = _ctx.Users.FirstOrDefault(m => m.Id == detail.Author.Id);
             }
             else
             {
@@ -280,86 +262,75 @@ namespace OneBlog.Data
             }
             var taglist = tags.Select(m => m.TagName).ToList();
             post.Tags = string.Join(",", taglist.ToArray());
-            using (var ctx = _contextFactory.Create())
+
+
+            var releation = _ctx.TagsInPosts.Where(m => m.PostId == post.Id).ToList();
+            foreach (var item in taglist)
             {
-
-                var releation = ctx.TagsInPosts.Where(m => m.PostId == post.Id).ToList();
-                foreach (var item in taglist)
+                // add if category does not exist
+                var exitTag = _ctx.Tags.FirstOrDefault(m => m.TagName == item);
+                if (exitTag != null)
                 {
-                    // add if category does not exist
-                    var exitTag = ctx.Tags.FirstOrDefault(m => m.TagName == item);
-                    if (exitTag != null)
+                    var releationTag = releation.FirstOrDefault(m => m.TagId == exitTag.Id);
+                    if (releationTag != null)
                     {
-                        var releationTag = releation.FirstOrDefault(m => m.TagId == exitTag.Id);
-                        if (releationTag != null)
-                        {
-                            releation.Remove(releationTag);
-                            continue;
-                        }
-                        ctx.TagsInPosts.Add(new TagsInPosts() { PostId = post.Id, TagId = exitTag.Id });
+                        releation.Remove(releationTag);
+                        continue;
                     }
-                    else
-                    {
-                        var tag = new Tags() { TagName = item };
-                        ctx.Tags.Add(tag);
-                        ctx.TagsInPosts.Add(new TagsInPosts() { PostId = post.Id, TagId = tag.Id });
-                    }
+                    _ctx.TagsInPosts.Add(new TagsInPosts() { PostId = post.Id, TagId = exitTag.Id });
                 }
-
-                foreach (var item in releation)
+                else
                 {
-                    ctx.TagsInPosts.Remove(item);
+                    var tag = new Tags() { TagName = item };
+                    _ctx.Tags.Add(tag);
+                    _ctx.TagsInPosts.Add(new TagsInPosts() { PostId = post.Id, TagId = tag.Id });
                 }
+            }
+
+            foreach (var item in releation)
+            {
+                _ctx.TagsInPosts.Remove(item);
             }
         }
 
         void UpdatePostCategories(Posts post, IList<CategoryItem> categories)
         {
-            using (var ctx = _contextFactory.Create())
+            var releation = _ctx.PostsInCategories.Where(m => m.PostsId == post.Id).ToList();
+            if (categories == null)
             {
-                var releation = ctx.PostsInCategories.Where(m => m.PostsId == post.Id).ToList();
-                if (categories == null)
-                {
-                    return;
-                }
-                foreach (var cat in categories)
-                {
+                return;
+            }
+            foreach (var cat in categories)
+            {
 
-                    // add if category does not exist
-                    var existingCat = ctx.Categories.Where(c => c.Title == cat.Title).FirstOrDefault();
-                    if (existingCat != null)
+                // add if category does not exist
+                var existingCat = _ctx.Categories.Where(c => c.Title == cat.Title).FirstOrDefault();
+                if (existingCat != null)
+                {
+                    var releationCat = releation.FirstOrDefault(m => m.CategoriesId == existingCat.Id);
+                    if (releationCat != null)
                     {
-                        var releationCat = releation.FirstOrDefault(m => m.CategoriesId == existingCat.Id);
-                        if (releationCat != null)
-                        {
-                            releation.Remove(releationCat);
-                            continue;
-                        }
-                        ctx.PostsInCategories.Add(new PostsInCategories() { PostsId = post.Id, CategoriesId = existingCat.Id });
+                        releation.Remove(releationCat);
+                        continue;
                     }
+                    _ctx.PostsInCategories.Add(new PostsInCategories() { PostsId = post.Id, CategoriesId = existingCat.Id });
                 }
+            }
 
-                foreach (var item in releation)
-                {
-                    ctx.PostsInCategories.Remove(item);
-                }
+            foreach (var item in releation)
+            {
+                _ctx.PostsInCategories.Remove(item);
             }
         }
 
         public void AddPost(Posts story)
         {
-            using (var ctx = _contextFactory.Create())
-            {
-                ctx.Posts.Add(story);
-            }
+            _ctx.Posts.Add(story);
         }
 
         public void SaveAll()
         {
-            using (var ctx = _contextFactory.Create())
-            {
-                ctx.SaveChanges();
-            }
+            _ctx.SaveChanges();
         }
 
         public PostsResult GetPosts(int pageSize = 16, int page = 1, Guid? authorId = null)
@@ -370,228 +341,203 @@ namespace OneBlog.Data
             if (page < 1) { page = 1; }
             if (pageSize > 100) { pageSize = 100; }
             List<Posts> posts = null;
-            using (var ctx = _contextFactory.Create())
+
+            if (!authorId.HasValue)
             {
-                if (!authorId.HasValue)
-                {
-                    posts = ctx.Posts.Include(m => m.Author).Include(m => m.Comments)
-                    .Where(s => s.IsPublished)
-                    .OrderByDescending(s => s.DatePublished)
-                    .Skip(pageSize * (page - 1))
-                    .Take(pageSize)
-                    .ToList();
-                    count = ctx.Posts.Where(m => m.IsPublished).Count();
-                }
-                else
-                {
-                    posts = ctx.Posts.Include(m => m.Author).Include(m => m.Comments)
-                     .Where(s => s.IsPublished && (s.Author.Id == authorId.Value.ToString()))
-                     .OrderByDescending(s => s.DatePublished)
-                     .Skip(pageSize * (page - 1))
-                     .Take(pageSize)
-                     .ToList();
-                    count = ctx.Posts.Include(m => m.Author).Where(s => s.IsPublished && (s.Author.Id == authorId.Value.ToString())).Count();
-                }
-
-                var postlist = new List<PostItem>();
-
-                foreach (var item in posts)
-                {
-                    postlist.Add(_jsonService.GetPost(ctx, item));
-                }
-
-                List<PostItem> recommendlist = null;
-
-                if (page == 1)
-                {
-                    var temp = ctx.Posts.Where(m => m.HasRecommendEnabled).OrderByDescending(m => m.DatePublished).Take(3).ToList();
-                    if (temp != null && temp.Count > 0)
-                    {
-                        recommendlist = new List<PostItem>();
-                        foreach (var item in temp)
-                        {
-                            recommendlist.Add(_jsonService.GetPost(ctx, item));
-                        }
-                    }
-                }
-
-                var result = new PostsResult()
-                {
-                    CurrentPage = page,
-                    TotalResults = count,
-                    TotalPages = CalculatePages(count, pageSize),
-                    RecommendPosts = recommendlist,
-                    Posts = postlist,
-                };
-
-                return result;
+                posts = _ctx.Posts.Include(m => m.Author).Include(m => m.Comments)
+                .Where(s => s.IsPublished)
+                .OrderByDescending(s => s.DatePublished)
+                .Skip(pageSize * (page - 1))
+                .Take(pageSize)
+                .ToList();
+                count = _ctx.Posts.Where(m => m.IsPublished).Count();
+            }
+            else
+            {
+                posts = _ctx.Posts.Include(m => m.Author).Include(m => m.Comments)
+                 .Where(s => s.IsPublished && (s.Author.Id == authorId.Value.ToString()))
+                 .OrderByDescending(s => s.DatePublished)
+                 .Skip(pageSize * (page - 1))
+                 .Take(pageSize)
+                 .ToList();
+                count = _ctx.Posts.Include(m => m.Author).Where(s => s.IsPublished && (s.Author.Id == authorId.Value.ToString())).Count();
             }
 
+            var postlist = new List<PostItem>();
+
+            foreach (var item in posts)
+            {
+                postlist.Add(_jsonService.GetPost(item));
+            }
+
+            List<PostItem> recommendlist = null;
+
+            if (page == 1)
+            {
+                var temp = _ctx.Posts.Where(m => m.HasRecommendEnabled).OrderByDescending(m => m.DatePublished).Take(3).ToList();
+                if (temp != null && temp.Count > 0)
+                {
+                    recommendlist = new List<PostItem>();
+                    foreach (var item in temp)
+                    {
+                        recommendlist.Add(_jsonService.GetPost(item));
+                    }
+                }
+            }
+
+            var result = new PostsResult()
+            {
+                CurrentPage = page,
+                TotalResults = count,
+                TotalPages = CalculatePages(count, pageSize),
+                RecommendPosts = recommendlist,
+                Posts = postlist,
+            };
+
+            return result;
         }
 
         public PostsResult GetPostsByTerm(string term, int pageSize, int page)
         {
             var lowerTerm = term.ToLowerInvariant();
-
-            using (var ctx = _contextFactory.Create())
-            {
-                var totalCount = ctx.Posts.Where(s =>
+            var totalCount = _ctx.Posts.Where(s =>
                 s.IsPublished &&
                 (s.Content.ToLowerInvariant().Contains(lowerTerm) ||
                 s.Tags.ToLowerInvariant().Contains(lowerTerm) ||
                 s.Title.ToLowerInvariant().Contains(lowerTerm))
                 ).Count();
 
-                var posts = ctx.Posts.Include(m => m.Author).Include(m => m.Comments)
-                  .Where(s => s.IsPublished && (s.Content.ToLowerInvariant().Contains(lowerTerm) ||
-                           s.Tags.ToLowerInvariant().Contains(lowerTerm) ||
-                           s.Title.ToLowerInvariant().Contains(lowerTerm)))
-                  .OrderByDescending(o => o.DatePublished)
-                  .Skip((page - 1) * pageSize).Take(pageSize);
+            var posts = _ctx.Posts.Include(m => m.Author).Include(m => m.Comments)
+              .Where(s => s.IsPublished && (s.Content.ToLowerInvariant().Contains(lowerTerm) ||
+                       s.Tags.ToLowerInvariant().Contains(lowerTerm) ||
+                       s.Title.ToLowerInvariant().Contains(lowerTerm)))
+              .OrderByDescending(o => o.DatePublished)
+              .Skip((page - 1) * pageSize).Take(pageSize);
 
-                var postlist = new List<PostItem>();
+            var postlist = new List<PostItem>();
 
-                foreach (var item in posts)
-                {
-                    postlist.Add(_jsonService.GetPost(ctx, item));
-                }
-
-
-                var result = new PostsResult()
-                {
-                    CurrentPage = page,
-                    TotalResults = totalCount,
-                    TotalPages = CalculatePages(totalCount, pageSize),
-                    Posts = postlist
-                };
-
-                return result;
+            foreach (var item in posts)
+            {
+                postlist.Add(_jsonService.GetPost(item));
             }
+
+
+            var result = new PostsResult()
+            {
+                CurrentPage = page,
+                TotalResults = totalCount,
+                TotalPages = CalculatePages(totalCount, pageSize),
+                Posts = postlist
+            };
+
+            return result;
 
         }
 
 
         public Posts GetPost(Guid id)
         {
-            using (var ctx = _contextFactory.Create())
-            {
-                var result = ctx.Posts.Include(m => m.Comments).Where(b => b.Id == id).FirstOrDefault();
-                return result;
-            }
+            var result = _ctx.Posts.Include(m => m.Comments).Where(b => b.Id == id).FirstOrDefault();
+            return result;
         }
 
         public Posts GetPost(string slug)
         {
-            using (var ctx = _contextFactory.Create())
-            {
-                var result = ctx.Posts
+            var result = _ctx.Posts
               .Where(s => s.Slug == slug || s.Slug == slug.Replace('_', '-'))
               .FirstOrDefault();
 
-                return result;
-            }
+            return result;
         }
 
         public bool DeletePost(Guid postid)
         {
-            using (var ctx = _contextFactory.Create())
+            var id = postid;
+            var story = _ctx.Posts.Where(w => w.Id == id).FirstOrDefault();
+            if (story != null)
             {
-                var id = postid;
-                var story = ctx.Posts.Where(w => w.Id == id).FirstOrDefault();
-                if (story != null)
-                {
-                    ctx.Posts.Remove(story);
-                    return true;
-                }
-                return false;
+                _ctx.Posts.Remove(story);
+                return true;
             }
+            return false;
         }
 
         public IEnumerable<string> GetCategories()
         {
-            using (var ctx = _contextFactory.Create())
-            {
-                var cats = ctx.Posts
+            var cats = _ctx.Posts
                       .Select(c => c.Tags.Split(','))
                       .ToList();
 
-                var result = new List<string>();
-                foreach (var s in cats) result.AddRange(s);
+            var result = new List<string>();
+            foreach (var s in cats) result.AddRange(s);
 
-                return result.Where(s => !string.IsNullOrWhiteSpace(s)).OrderBy(s => s).Distinct();
-            }
+            return result.Where(s => !string.IsNullOrWhiteSpace(s)).OrderBy(s => s).Distinct();
 
         }
 
         public PostsResult GetPostsByTag(string tag, int pageSize, int page)
         {
             var lowerTag = tag.ToLowerInvariant();
-            using (var ctx = _contextFactory.Create())
-            {
-                var totalCount = ctx.Posts
+            var totalCount = _ctx.Posts
               .Where(s => s.IsPublished && s.Tags.ToLower().Contains(lowerTag)) // Limiting the search for perf
               .ToArray()
               .Where(s => s.Tags.ToLower().Split(',').Contains(lowerTag)).Count();
 
-                var posts = ctx.Posts.Include(m => m.Author).Include(m => m.Comments)
-                    .Where(s => s.IsPublished && s.Tags.ToLower().Contains(lowerTag))
-                    .ToArray()
-                    .Where(s => s.Tags.ToLower().Split(',').Contains(lowerTag))
-                    .OrderByDescending(o => o.DatePublished)
-                    .Skip((page - 1) * pageSize).Take(pageSize);
+            var posts = _ctx.Posts.Include(m => m.Author).Include(m => m.Comments)
+                .Where(s => s.IsPublished && s.Tags.ToLower().Contains(lowerTag))
+                .ToArray()
+                .Where(s => s.Tags.ToLower().Split(',').Contains(lowerTag))
+                .OrderByDescending(o => o.DatePublished)
+                .Skip((page - 1) * pageSize).Take(pageSize);
 
-                var postlist = new List<PostItem>();
+            var postlist = new List<PostItem>();
 
-                foreach (var item in posts)
-                {
-                    postlist.Add(_jsonService.GetPost(ctx, item));
-                }
-
-
-                var result = new PostsResult()
-                {
-                    CurrentPage = page,
-                    TotalResults = totalCount,
-                    TotalPages = CalculatePages(totalCount, pageSize),
-                    Posts = postlist
-                };
-
-                return result;
+            foreach (var item in posts)
+            {
+                postlist.Add(_jsonService.GetPost(item));
             }
+
+
+            var result = new PostsResult()
+            {
+                CurrentPage = page,
+                TotalResults = totalCount,
+                TotalPages = CalculatePages(totalCount, pageSize),
+                Posts = postlist
+            };
+
+            return result;
         }
 
         public PostsResult GetPostsByCategory(Guid categoryId, int pageSize, int page)
         {
-            using (var ctx = _contextFactory.Create())
-            {
-                var list = ctx.PostsInCategories.Include(m => m.Posts).Include(m => m.Posts.Author).Include(m => m.Posts.Comments)
+            var list = _ctx.PostsInCategories.Include(m => m.Posts).Include(m => m.Posts.Author).Include(m => m.Posts.Comments)
                 .Where(m => m.CategoriesId == categoryId).Select(m => m.Posts);
 
-                var totalCount = list.Count();
+            var totalCount = list.Count();
 
-                var posts = list.ToArray().OrderByDescending(o => o.DatePublished).Skip((page - 1) * pageSize).Take(pageSize);
+            var posts = list.ToArray().OrderByDescending(o => o.DatePublished).Skip((page - 1) * pageSize).Take(pageSize);
 
-                var category = ctx.Categories.Where(m => m.Id == categoryId).FirstOrDefault();
+            var category = _ctx.Categories.Where(m => m.Id == categoryId).FirstOrDefault();
 
-                var postlist = new List<PostItem>();
+            var postlist = new List<PostItem>();
 
-                foreach (var item in posts)
-                {
-                    postlist.Add(_jsonService.GetPost(ctx, item));
-                }
-
-
-                var result = new PostsResult()
-                {
-                    CurrentPage = page,
-                    TotalResults = totalCount,
-                    TotalPages = CalculatePages(totalCount, pageSize),
-                    Posts = postlist,
-                    Category = category.Title
-                };
-
-                return result;
+            foreach (var item in posts)
+            {
+                postlist.Add(_jsonService.GetPost(item));
             }
+
+
+            var result = new PostsResult()
+            {
+                CurrentPage = page,
+                TotalResults = totalCount,
+                TotalPages = CalculatePages(totalCount, pageSize),
+                Posts = postlist,
+                Category = category.Title
+            };
+
+            return result;
         }
 
         public string FixContent(string content)
@@ -623,17 +569,14 @@ namespace OneBlog.Data
 
         public long AddPostCount(Guid id)
         {
-            using (var ctx = _contextFactory.Create())
+            var post = _ctx.Posts.FirstOrDefault(m => m.Id == id);
+            if (post != null)
             {
-                var post = ctx.Posts.FirstOrDefault(m => m.Id == id);
-                if (post != null)
-                {
-                    post.Count += 1;
-                    ctx.SaveChanges();
-                    return post.Count;
-                }
-                return 1;
+                post.Count += 1;
+                _ctx.SaveChanges();
+                return post.Count;
             }
+            return 1;
         }
     }
 }

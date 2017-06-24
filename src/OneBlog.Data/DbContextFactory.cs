@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using OneBlog.Configuration;
 using OneBlog.Data.Providers;
 using OneBlog.Helpers;
@@ -20,14 +21,14 @@ namespace OneBlog.Data
             ConnectionString = string.Equals(aspnetcore_env, "Development") ? DataConfiguration.ConnectionString_Debug : DataConfiguration.ConnectionString;
         }
 
-        public ApplicationContext Create()
+        public void Configuring(DbContextOptionsBuilder optionsBuilder)
         {
             var dataProviderConfig = DataConfiguration.Provider.ToString();
             var selectedDataProvider = GetCurrentDataProvider(dataProviderConfig);
-            return selectedDataProvider.CreateDbContext(ConnectionString);
+            selectedDataProvider.Configuring(optionsBuilder, ConnectionString);
         }
 
-        private static IDataProvider GetCurrentDataProvider(string dataProvider)
+        public static IDataProvider GetCurrentDataProvider(string dataProvider)
         {
             var currentAssembly = typeof(DbContextFactory).GetTypeInfo().Assembly;
             var allDataProviders = currentAssembly.GetTypes<IDataProvider>();
@@ -40,6 +41,6 @@ namespace OneBlog.Data
 
     public interface IDbContextFactory
     {
-        ApplicationContext Create();
+        void Configuring(DbContextOptionsBuilder optionsBuilder);
     }
 }

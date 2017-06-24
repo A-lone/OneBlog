@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using OneBlog.Configuration;
 
@@ -10,18 +11,13 @@ namespace OneBlog.Data.Providers
 
         public IServiceCollection RegisterDbContext(IServiceCollection services, string connectionString)
         {
-            services.AddDbContext<ApplicationContext>(options =>
-                options.UseSqlServer(connectionString));
-
+            services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString), ServiceLifetime.Scoped);
             return services;
         }
 
-        public ApplicationContext CreateDbContext(string connectionString)
+        public void Configuring(DbContextOptionsBuilder optionsBuilder, string connectionString)
         {
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationContext>();
             optionsBuilder.UseSqlServer(connectionString);
-
-            return new ApplicationContext(optionsBuilder.Options);
         }
     }
 }

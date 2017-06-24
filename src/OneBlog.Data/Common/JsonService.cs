@@ -15,9 +15,11 @@ namespace OneBlog.Data.Common
     /// </summary>
     public class JsonService
     {
+        private readonly ApplicationContext _ctx;
 
-        public JsonService()
+        public JsonService(ApplicationContext ctx)
         {
+            _ctx = ctx;
         }
 
         /// <summary>
@@ -25,9 +27,9 @@ namespace OneBlog.Data.Common
         /// </summary>
         /// <param name="post">Post</param>
         /// <returns>Json post</returns>
-        public PostItem GetPost(ApplicationContext ctx, Posts post)
+        public PostItem GetPost(Posts post)
         {
-            var categories = ctx.PostsInCategories.Where(m => m.PostsId == post.Id).Select(m => m.Categories).ToList();
+            var categories = _ctx.PostsInCategories.Where(m => m.PostsId == post.Id).Select(m => m.Categories).ToList();
 
             var author = new Author();
             author.Id = post.Author?.Id;
@@ -46,7 +48,7 @@ namespace OneBlog.Data.Common
                 ReadCount = post.Count,
                 DatePublished = post.DatePublished,
                 DateCreated = post.DatePublished.ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture),
-                Categories = GetCategories(ctx, categories),
+                Categories = GetCategories(categories),
                 Tags = GetTags(post.Tags.Split(',')),
                 Comments = GetComments(post),
                 IsPublished = post.IsPublished,
@@ -74,9 +76,9 @@ namespace OneBlog.Data.Common
         /// </summary>
         /// <param name="post">Post</param>
         /// <returns>Json post detailed</returns>
-        public PostDetail GetPostDetail(ApplicationContext ctx, Posts post)
+        public PostDetail GetPostDetail(Posts post)
         {
-            var categories = ctx.PostsInCategories.Where(m => m.PostsId == post.Id).Select(m => m.Categories).ToList();
+            var categories = _ctx.PostsInCategories.Where(m => m.PostsId == post.Id).Select(m => m.Categories).ToList();
 
             var author = new Author();
             author.Id = post.Author?.Id;
@@ -94,7 +96,7 @@ namespace OneBlog.Data.Common
                 Description = post.Description,
                 Content = post.Content,
                 DateCreated = post.DatePublished.ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture),
-                Categories = GetCategories(ctx, categories),
+                Categories = GetCategories(categories),
                 Tags = GetTags(post.Tags.Split(',')),
                 Comments = GetComments(post),
                 HasCommentsEnabled = post.HasCommentsEnabled,
@@ -270,7 +272,7 @@ namespace OneBlog.Data.Common
 
         //#region Private methods
 
-        public List<CategoryItem> GetCategories(ApplicationContext ctx, ICollection<Categories> categories)
+        public List<CategoryItem> GetCategories(ICollection<Categories> categories)
         {
             if (categories == null || categories.Count == 0)
             {
@@ -286,18 +288,18 @@ namespace OneBlog.Data.Common
                 item.Id = coreCategory.Id;
                 item.Title = coreCategory.Title;
                 item.Description = coreCategory.Description;
-                item.Parent = ItemParent(ctx, coreCategory.ParentId);
+                item.Parent = ItemParent(coreCategory.ParentId);
                 categoryList.Add(item);
             }
             return categoryList;
         }
 
-        SelectOption ItemParent(ApplicationContext ctx, Guid? id)
+        SelectOption ItemParent(Guid? id)
         {
             if (id == null || id == Guid.Empty)
                 return null;
 
-            var item = ctx.Categories.Where(c => c.Id == id).FirstOrDefault();
+            var item = _ctx.Categories.Where(c => c.Id == id).FirstOrDefault();
             return new SelectOption { OptionName = item.Title, OptionValue = item.Id.ToString() };
         }
 

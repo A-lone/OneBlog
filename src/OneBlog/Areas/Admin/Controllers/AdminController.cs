@@ -153,7 +153,7 @@ namespace OneBlog.Areas.Admin.Controllers
                     _postsRepository.DeletePost(item.Id);
                 }
             }
-            _postsRepository.SaveAll();
+            //_postsRepository.SaveAll();
             return Ok();
         }
 

@@ -14,11 +14,11 @@ namespace OneBlog.Data
         private Lookups lookups = new Lookups();
 
         private UserManager<ApplicationUser> _userManager;
-        private readonly IDbContextFactory _contextFactory;
+        private ApplicationContext _ctx;
 
-        public LookupsRepository(IDbContextFactory contextFactory, IConfigurationRoot config, UserManager<ApplicationUser> userManager)
+        public LookupsRepository(IConfigurationRoot config, UserManager<ApplicationUser> userManager, ApplicationContext ctx)
         {
-            _contextFactory = contextFactory;
+            _ctx = ctx;
             _userManager = userManager;
         }
 
@@ -121,12 +121,9 @@ namespace OneBlog.Data
         void LoadCategories()
         {
             var cats = new List<SelectOption>();
-            using (var ctx = _contextFactory.Create())
+            foreach (var cat in _ctx.Categories)
             {
-                foreach (var cat in ctx.Categories)
-                {
-                    cats.Add(new SelectOption { OptionName = cat.Title, OptionValue = cat.Id.ToString() });
-                }
+                cats.Add(new SelectOption { OptionName = cat.Title, OptionValue = cat.Id.ToString() });
             }
             lookups.CategoryList = cats;
         }

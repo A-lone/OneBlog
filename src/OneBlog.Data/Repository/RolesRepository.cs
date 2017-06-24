@@ -16,12 +16,12 @@ namespace OneBlog.Data
     public class RolesRepository : IRolesRepository
     {
         private RoleManager<IdentityRole> _roleMgr;
-        private readonly IDbContextFactory _contextFactory;
+        ApplicationContext _context;
 
-        public RolesRepository(IDbContextFactory contextFactory, RoleManager<IdentityRole> roleMgr)
+        public RolesRepository(RoleManager<IdentityRole> roleMgr, ApplicationContext context)
         {
             _roleMgr = roleMgr;
-            _contextFactory = contextFactory;
+            _context = context;
         }
 
         public RoleItem Add(RoleItem role)
@@ -38,25 +38,23 @@ namespace OneBlog.Data
         public IEnumerable<RoleItem> Find(int take = 10, int skip = 0, string filter = "", string order = "")
         {
             var userRoles = new List<RoleItem>();
-            using (var ctx = _contextFactory.Create())
+
+            if (take == 0)
             {
-                if (take == 0)
-                {
-                    take = ctx.Roles.Count();
-                }
+                take = _context.Roles.Count();
+            }
 
-                var roles = ctx.Roles.Skip(skip)
-                         .Take(take)
-                         .ToList();
+            var roles = _context.Roles.Skip(skip)
+                     .Take(take)
+                     .ToList();
 
-                foreach (var m in roles)
+            foreach (var m in roles)
+            {
+                userRoles.Add(new RoleItem
                 {
-                    userRoles.Add(new RoleItem
-                    {
-                        IsChecked = false,
-                        RoleName = m.Name
-                    });
-                }
+                    IsChecked = false,
+                    RoleName = m.Name
+                });
             }
             return userRoles;
         }
@@ -74,15 +72,13 @@ namespace OneBlog.Data
         public IEnumerable<RoleItem> GetUserRoles(string id)
         {
             var roles = new List<Data.Models.RoleItem>();
-            using (var ctx = _contextFactory.Create())
-            {
-                roles.AddRange(ctx.Roles.Include(m => m.Users)
+            roles.AddRange(_context.Roles.Include(m => m.Users)
                 .Select(r => new Data.Models.RoleItem
                 {
                     RoleName = r.Name,
                     IsChecked = r.Users.FirstOrDefault(m => m.UserId == id) != null
                 }));
-            }
+
             roles.Sort((r1, r2) => string.Compare(r1.RoleName, r2.RoleName));
             return roles;
         }

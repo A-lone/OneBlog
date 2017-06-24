@@ -91,16 +91,16 @@ namespace OneBlog
                 svcs.AddTransient<IMailService, MailService>();
             }
 
-            svcs.AddDbContext<ApplicationContext>(ServiceLifetime.Scoped);
+            svcs.AddEntityFramework(_config);
 
-            svcs.AddIdentity<ApplicationUser, IdentityRole>(options =>
-            {
-                options.Password.RequireDigit = false;
-                options.Password.RequiredLength = 6;
-                options.Password.RequireLowercase = false;
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = false;
-            }).AddEntityFrameworkStores<ApplicationContext>();
+            //svcs.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            //{
+            //    options.Password.RequireDigit = false;
+            //    options.Password.RequiredLength = 6;
+            //    options.Password.RequireLowercase = false;
+            //    options.Password.RequireNonAlphanumeric = false;
+            //    options.Password.RequireUppercase = false;
+            //}).AddEntityFrameworkStores<ApplicationContext>();
 
             svcs.AddScoped<IPostsRepository, PostsRepository>();
             svcs.Configure<WebEncoderOptions>(options =>

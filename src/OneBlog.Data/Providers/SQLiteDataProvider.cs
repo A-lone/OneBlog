@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using OneBlog.Configuration;
 
@@ -16,12 +17,9 @@ namespace OneBlog.Data.Providers
             return services;
         }
 
-        public ApplicationContext CreateDbContext(string connectionString)
+        public void Configuring(DbContextOptionsBuilder optionsBuilder, string connectionString)
         {
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationContext>();
             optionsBuilder.UseSqlite(connectionString);
-
-            return new ApplicationContext(optionsBuilder.Options);
         }
     }
 }
