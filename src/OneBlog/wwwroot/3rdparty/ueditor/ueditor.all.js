@@ -23169,7 +23169,7 @@ UE.plugins['catchremoteimage'] = function () {
         var remoteImages = [],
             imgs = domUtils.getElementsByTagName(me.document, "img"),
             test = function (src, urls) {
-                if (src.indexOf('datiancun.com') != -1) {
+                if (src.indexOf('huafenfei.com') != -1) {
                     return true;
                 }
                 if (src.indexOf(location.host) != -1 || /(^\.)|(^\/)/.test(src)) {

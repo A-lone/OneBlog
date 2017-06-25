@@ -37,10 +37,10 @@ namespace OneBlog.Jobs
                 XDocument doc = new XDocument(
     new XElement("urlset",
     allPosts.Posts.Select(x => new XElement("url",
-    new XElement("loc", "http://www.datiancun.com/post/" + x.Id), new XElement("lastmod", x.DatePublished.ToString("yyyy-MM-dd")), new XElement("changefreq", "always"), new XElement("priority", "1"),
+    new XElement("loc", "http://chenrensong.com/post/" + x.Id), new XElement("lastmod", x.DatePublished.ToString("yyyy-MM-dd")), new XElement("changefreq", "always"), new XElement("priority", "1"),
     new XElement("data", new XElement("display", new XElement("title", x.Title), new XElement("content", x.Content),
     new XElement("tag", x.Tags.Select(m => m.TagName)), new XElement("pubTime", x.DatePublished.ToString("yyyy-MM-ddThh:mm:ss")),
-    new XElement("breadCrumb", new XAttribute("title", "大田村"), new XAttribute("url", "http://www.datiancun.com")),
+    new XElement("breadCrumb", new XAttribute("title", "大田村"), new XAttribute("url", "http://chenrensong.com")),
     new XElement("thumbnail", new XAttribute("loc", x.Cover1))))
     )
     )));

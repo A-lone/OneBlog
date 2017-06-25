@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Options;
-using OneBlog.Settings;
+using OneBlog.Configuration;
 using System;
 using System.Collections.Generic;
 

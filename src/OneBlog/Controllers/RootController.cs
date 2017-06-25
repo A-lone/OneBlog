@@ -8,6 +8,7 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using OneBlog.Configuration;
 using OneBlog.Data;
 using OneBlog.Data.Contracts;
 using OneBlog.Data.Models;
@@ -16,7 +17,6 @@ using OneBlog.Models;
 using OneBlog.Models.CommentViewModels;
 using OneBlog.RssSyndication;
 using OneBlog.Services;
-using OneBlog.Settings;
 using System;
 using System.Linq;
 using System.Net;
@@ -279,10 +279,10 @@ namespace OneBlog.Controllers
         {
             var feed = new RssFeed()
             {
-                Title = "大田村",
-                Description = "大田村、UWP、Windows10、WM10、UWP开源项目",
-                Link = new Uri("http://www.datiancun.com/feed"),
-                Copyright = "© 2016-2017 datiancun.com"
+                Title = "陈仁松同学",
+                Description = "stay hungry stay foolish",
+                Link = new Uri("http://www.chenrensong.com/feed"),
+                Copyright = "© 2016-2017 chenrensong.com"
             };
 
             var entries = _repo.GetPosts(16);

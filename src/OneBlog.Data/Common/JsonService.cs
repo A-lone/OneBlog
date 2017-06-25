@@ -55,7 +55,7 @@ namespace OneBlog.Data.Common
             };
             if (!string.IsNullOrEmpty(post.CoverImage))
             {
-                var covers = Newtonsoft.Json.JsonConvert.DeserializeObject<List<string>>(post.CoverImage);
+                var covers = Newtonsoft.Json.JsonConvert.DeserializeObject<List<string>>(post.CoverImage); //TODO
                 if (covers.Count > 0)
                 {
                     postitem.Cover1 = covers[0];

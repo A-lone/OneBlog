@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
@@ -19,7 +18,6 @@ using OneBlog.MetaWeblog;
 using OneBlog.Mvc;
 using OneBlog.Services;
 using OneBlog.Services.DataProviders;
-using OneBlog.Settings;
 using Qiniu.Conf;
 using System;
 using System.Collections.Generic;

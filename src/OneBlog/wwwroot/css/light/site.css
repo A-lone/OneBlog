@@ -1481,7 +1481,7 @@ input[type=text], input[type=tel], input[type=number], input[type=email], textar
     position: relative;
     padding: 19px;
     margin: 0 auto;
-    max-width: 45em;
+    max-width: 60em;
     background: #FFF
 }
 

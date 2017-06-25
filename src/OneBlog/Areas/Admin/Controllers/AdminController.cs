@@ -108,7 +108,7 @@ namespace OneBlog.Areas.Admin.Controllers
         [Route("posts")]
         public Pager<PostItem> Posts(int take = 10, int skip = 0, string filter = "", string order = "")
         {
-            return _postsRepository.Find(take, skip, filter, order);
+            return _postsRepository.Find(take, skip);
         }
 
 

@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using OneBlog.Data;
+using OneBlog.Configuration;
 using OneBlog.Data.Contracts;
-using OneBlog.Settings;
 
 namespace OneBlog.Controllers
 {
