@@ -8,12 +8,13 @@ using System;
 
 namespace OneBlog.Controllers
 {
+
     [Route("category")]
     public class CategoryController : Controller
     {
         private IPostsRepository _postsRepository;
         private IMemoryCache _memoryCache;
-        readonly int _pageSize = 16;
+        readonly int _pageSize = 12;
 
         public CategoryController(IPostsRepository postsRepository, IMemoryCache memoryCache)
         {
@@ -30,6 +31,7 @@ namespace OneBlog.Controllers
         [HttpGet("{id}/{page}")]
         public IActionResult Pager(Guid id, int page)
         {
+          
             var cacheKey = $"Categor_Index_{id.ToString()}_{page}";
             string cached;
             PostsResult result = null;
@@ -53,7 +55,10 @@ namespace OneBlog.Controllers
                     result = _postsRepository.GetPostsByCategory(id, _pageSize, page);
                 }
             }
-            return View("Index", result);
+            ViewBag.ControllerName = "category";
+            ViewBag.Id = id.ToString();
+            ViewBag.Title = $"{result.Category}";
+            return View("_List", result);
         }
     }
 }

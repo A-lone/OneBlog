@@ -33,6 +33,7 @@
     }
 
     $scope.showEditForm = function (id) {
+        console.log('123');
         $scope.vm.SelectedItem = findInArray($scope.items, 'Id', id);
         dataService.getItems("/api/comments/" + id)
         .success(function (data) {

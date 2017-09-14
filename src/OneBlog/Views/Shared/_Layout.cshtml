@@ -1,0 +1,51 @@
+﻿@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@inject RoleManager<IdentityRole> RoleManager
+@inject OneBlog.Helpers.NavigationHelper NavigationHelper
+@inject Microsoft.Extensions.Configuration.IConfigurationRoot config
+@{
+    var CurrentUser = await UserManager.GetUserAsync(User);
+    var TopTags = NavigationHelper.GetTopTags();
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>@ViewBag.Title</title>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="~/dist/oneblog.min.css" asp-append-version="true" rel="stylesheet" />
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+    <section class="section">
+        <section class="section-sidebar">
+            <div class="sidebar-header">
+                <a href="/" class="sidebar-header-logo">
+                    <img class="logo" src="~/images/logo.png">
+                </a>
+                <p>与世界分享你的创作</p>
+                @Html.Partial("_Menu")
+            </div>
+            <div class="sidebar-footer"></div>
+        </section>
+        <section class="section-content" id="content" role="main">
+            @RenderBody()
+        </section>
+        <section class="section-footer">
+            <p><strong><a href="//huafenfei.com">花纷飞</a></strong> &copy; 2017 All Rights Reserved.</p>
+            <p>Published with <strong><a href="https://www.github.com/chenrensong/oneblog" target="_blank" title="OneBlog">OneBlog</a></strong>.<span class="text-red">&hearts;</span></p>
+            <p><a href="http://www.miibeian.gov.cn/" target="_blank">京ICP备14060483号</a>  </p>
+        </section>
+    </section>
+    <environment names="Development">
+        <script src="~/dist/oneblog.min.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Production,Staging">
+        <script src="~/dist/oneblog.min.js" asp-append-version="true"></script>
+    </environment>
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html>

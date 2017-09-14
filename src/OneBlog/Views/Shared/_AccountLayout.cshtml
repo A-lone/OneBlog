@@ -1,18 +1,14 @@
-﻿@inject Microsoft.Extensions.Options.IOptions<AppSettings> AppSettings
-
-@{
-    ViewBag.Title = $"{ViewBag.Title} - {AppSettings.Value.Title}";
+﻿@{
+    ViewBag.Title = $"{ViewBag.Title} - 花纷飞|UWP之家";
 }
-
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="@AppSettings.Value.Title" />
-    <meta name="description" content="@AppSettings.Value.Description" />
+    <meta name="keywords" content="花纷飞、UWP、Windows10、WM10、UWP开源项目" />
+    <meta name="description" content="花纷飞提供手机评测和ROM下载，以及WP10软件，还有WM10游戏，越狱，破解，WP10教程，铃声，壁纸和开发等资源。" />
     <title>@ViewBag.Title</title>
     <environment names="Development">
         <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />

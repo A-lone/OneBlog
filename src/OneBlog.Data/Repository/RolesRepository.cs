@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using OneBlog.Security;
+using System.Reflection;
 
 namespace OneBlog.Data
 {
@@ -16,18 +18,18 @@ namespace OneBlog.Data
     public class RolesRepository : IRolesRepository
     {
         private RoleManager<IdentityRole> _roleMgr;
-        ApplicationContext _context;
+        ApplicationDbContext _context;
 
-        public RolesRepository(RoleManager<IdentityRole> roleMgr, ApplicationContext context)
+        public RolesRepository(RoleManager<IdentityRole> roleMgr, ApplicationDbContext context)
         {
             _roleMgr = roleMgr;
             _context = context;
         }
 
-        public RoleItem Add(RoleItem role)
+        public async Task<RoleItem> Add(RoleItem role)
         {
-            var task = _roleMgr.CreateAsync(new IdentityRole(role.RoleName));
-            var result = task.Result;
+            var result = await _roleMgr.CreateAsync(new IdentityRole(role.RoleName));
+
             if (result.Succeeded)
             {
                 return role;
@@ -59,38 +61,153 @@ namespace OneBlog.Data
             return userRoles;
         }
 
-        public RoleItem FindById(string id)
+        public async Task<RoleItem> FindById(string id)
         {
-            throw new NotImplementedException();
+            var role = await _roleMgr.FindByNameAsync(id);
+            return new RoleItem() { RoleName = role.Name };
         }
 
-        public IEnumerable<Group> GetRoleRights(string role)
+        public async Task<IEnumerable<Group>> GetRoleRights(string name)
         {
-            throw new NotImplementedException();
+            var role = await _roleMgr.FindByNameAsync(name);
+
+            var groups = new List<Group>();
+            // store the category for each Rights.
+            var rightCategories = new Dictionary<Rights, string>();
+            var roleRights = await _roleMgr.GetClaimsAsync(role);
+
+            foreach (FieldInfo fi in typeof(Rights).GetFields(BindingFlags.Static | BindingFlags.GetField | BindingFlags.Public))
+            {
+                var right = (Rights)fi.GetValue(null);
+
+                if (right != Rights.None)
+                {
+                    RightDetailsAttribute rightDetails = null;
+
+                    foreach (Attribute attrib in fi.GetCustomAttributes(true))
+                    {
+                        if (attrib is RightDetailsAttribute)
+                        {
+                            rightDetails = (RightDetailsAttribute)attrib;
+                            break;
+                        }
+                    }
+
+                    var category = rightDetails == null ? RightCategory.General : rightDetails.Category;
+
+                    var group = groups.FirstOrDefault(g => g.Title == category.ToString());
+
+                    var prm = new Permission();
+                    var rt = Right.GetRightByName(right.ToString());
+
+                    prm.Id = right.ToString();
+                    prm.Title = rt.DisplayName;
+                    prm.IsChecked = roleRights.FirstOrDefault(m => m.Value == rt.FlagName) != null;
+
+                    if (group == null)
+                    {
+                        var newGroup = new Group(category.ToString());
+                        newGroup.Permissions.Add(prm);
+                        groups.Add(newGroup);
+                    }
+                    else
+                    {
+                        group.Permissions.Add(prm);
+                    }
+                }
+            }
+
+            return groups;
         }
 
         public IEnumerable<RoleItem> GetUserRoles(string id)
         {
             var roles = new List<Data.Models.RoleItem>();
-            roles.AddRange(_context.Roles.Include(m => m.Users)
+
+            roles.AddRange(_context.Roles
                 .Select(r => new Data.Models.RoleItem
                 {
                     RoleName = r.Name,
-                    IsChecked = r.Users.FirstOrDefault(m => m.UserId == id) != null
+                    IsChecked = _context.UserRoles.FirstOrDefault(m => m.RoleId == r.Id) != null
                 }));
 
             roles.Sort((r1, r2) => string.Compare(r1.RoleName, r2.RoleName));
             return roles;
         }
 
-        public bool Remove(string id)
+        public async Task<bool> Remove(string name)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var role = _roleMgr.FindByNameAsync(name).Result;
+
+                var claims = _roleMgr.GetClaimsAsync(role).Result;
+                foreach (var item in claims)
+                {
+                    await _roleMgr.RemoveClaimAsync(role, item);
+                }
+                await _roleMgr.DeleteAsync(role);
+                //role = _context.Roles.FirstOrDefault(m => m.Id == role.Id);
+                //_context.Roles.Remove(role);
+                //await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return true;
+
         }
 
-        public bool SaveRights(List<Group> rights, string id)
+        public async Task<bool> SaveRights(List<Group> rights, string name)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var role = _roleMgr.FindByNameAsync(name).Result;
+                var claims = _roleMgr.GetClaimsAsync(role).Result;
+                var rightsCollection = new Dictionary<string, bool>();
+
+                foreach (var g in rights)
+                {
+                    foreach (var r in g.Permissions)
+                    {
+                        if (r.IsChecked)
+                        {
+                            rightsCollection.Add(r.Id, r.IsChecked);
+                        }
+                    }
+                }
+
+                foreach (var right in Right.GetAllRights())
+                {
+                    if (right.CurFlag != Rights.None)
+                    {
+                        if (rightsCollection.ContainsKey(right.FlagName))
+                        {
+                            var claim = claims.FirstOrDefault(m => m.Value == right.FlagName);
+                            if (claim == null)
+                            {
+                                await _roleMgr.AddClaimAsync(role, new System.Security.Claims.Claim(right.FlagName, right.FlagName));
+                            }
+                        }
+                        else
+                        {
+                            var claim = claims.FirstOrDefault(m => m.Value == right.FlagName);
+                            if (claim != null)
+                            {
+                                await _roleMgr.RemoveClaimAsync(role, claim);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return true;
         }
+
+
     }
 }

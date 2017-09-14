@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
@@ -22,6 +24,7 @@ using Qiniu.Conf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
 
@@ -47,6 +50,8 @@ namespace OneBlog
         public Startup(IHostingEnvironment env)
         {
             _env = env;
+            //EncodingProvider provider = CodePagesEncodingProvider.Instance;
+            //Encoding.RegisterProvider(provider);
 
             var builder = new ConfigurationBuilder()
               .SetBasePath(env.ContentRootPath)
@@ -54,6 +59,8 @@ namespace OneBlog
               .AddEnvironmentVariables();
 
             _config = builder.Build();
+           
+
         }
 
         public void ConfigureServices(IServiceCollection svcs)
@@ -61,7 +68,6 @@ namespace OneBlog
             svcs.AddTimedJob();
             svcs.AddMvcDI();
             AspNetCoreHelper.ConfigureServices(svcs);
-
             svcs.Configure<AppSettings>(_config.GetSection("AppSettings"));
             svcs.Configure<DataConfiguration>(_config.GetSection("Data"));
 
@@ -89,18 +95,27 @@ namespace OneBlog
                 svcs.AddTransient<IMailService, MailService>();
             }
 
-            svcs.AddEntityFramework(_config);
+            svcs.AddDbContext<ApplicationDbContext>(ServiceLifetime.Scoped);
 
-            //svcs.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            svcs.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 6;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+            }).AddEntityFrameworkStores<ApplicationDbContext>();
+
+
+            //if (_config["OneDb:TestData"] == "True")
             //{
-            //    options.Password.RequireDigit = false;
-            //    options.Password.RequiredLength = 6;
-            //    options.Password.RequireLowercase = false;
-            //    options.Password.RequireNonAlphanumeric = false;
-            //    options.Password.RequireUppercase = false;
-            //}).AddEntityFrameworkStores<ApplicationContext>();
-
+            //    svcs.AddScoped<IPostsRepository, MemoryRepository>();
+            //}
+            //else
+            //{
             svcs.AddScoped<IPostsRepository, PostsRepository>();
+            //}
+
             svcs.Configure<WebEncoderOptions>(options =>
             {
                 options.TextEncoderSettings = new TextEncoderSettings(UnicodeRanges.All);
@@ -111,6 +126,7 @@ namespace OneBlog
                 options.ViewLocationExpanders.Add(new ThemeViewLocationExpander());
             });
 
+            svcs.AddScoped<IDashboardRepository, DashboardRepository>();
             svcs.AddScoped<IStoreRepository, StoreRepository>();
             svcs.AddScoped<IViewRenderService, ViewRenderService>();
             svcs.AddScoped<ICommentsRepository, CommentsRepository>();
@@ -207,17 +223,17 @@ namespace OneBlog
             // Keep track of Active # of users for Vanity Project
             app.UseMiddleware<ActiveUsersMiddleware>();
 
-            app.UseIdentity();
+            app.UseAuthentication();
 
             app.UseMvc();
-            //if (_config["OneDb:TestData"] != "True")
-            //{
-            //    using (var scope = scopeFactory.CreateScope())
-            //    {
-            //        var initializer = scope.ServiceProvider.GetService<ApplicationInitializer>();
-            //        initializer.SeedAsync().Wait();
-            //    }
-            //}
+            if (_config["OneDb:TestData"] != "True")
+            {
+                using (var scope = scopeFactory.CreateScope())
+                {
+                    var initializer = scope.ServiceProvider.GetService<ApplicationInitializer>();
+                    initializer.SeedAsync().Wait();
+                }
+            }
         }
     }
 }

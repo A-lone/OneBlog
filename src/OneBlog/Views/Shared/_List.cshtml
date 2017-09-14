@@ -1,0 +1,9 @@
+﻿@inject OneBlog.Services.DataProviders.CalendarProvider appearances
+@using Microsoft.AspNetCore.Routing
+@model PostsResult
+@{
+    ViewBag.Title = "花纷飞 - 与世界分享你的创作";
+    string active = "active";
+}
+@Html.Partial("_Loop", Model)
+

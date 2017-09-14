@@ -7,7 +7,7 @@ using OneBlog.Data;
 
 namespace OneBlog.Data.Migrations
 {
-    [DbContext(typeof(ApplicationContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     [Migration("20170621032103_inital")]
     partial class inital
     {

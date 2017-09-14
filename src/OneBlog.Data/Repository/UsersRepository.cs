@@ -15,10 +15,10 @@ namespace OneBlog.Data
 
         SignInManager<ApplicationUser> _signInManager;
         UserManager<ApplicationUser> _userManager;
-        ApplicationContext _context;
+        ApplicationDbContext _context;
 
         public UsersRepository(
-            ApplicationContext context,
+            ApplicationDbContext context,
             SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager
             )
         {

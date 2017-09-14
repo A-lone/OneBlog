@@ -1,0 +1,54 @@
+﻿@model OneBlog.Models.CommentViewModels.CommentViewModel
+@inject UserManager<ApplicationUser> UserManager
+@{
+    var CurrentUser = await UserManager.GetUserAsync(User);
+}
+
+@if (CurrentUser == null)
+{
+    <div class="content-post-comments">
+        <div class="btn btn-primary btn-block"><span><a asp-action="Login" asp-controller="Account" asp-route-ReturnUrl="@Context.Request.Path">登录</a> 来参与讨论</span></div>
+    </div>
+
+}
+<section id="isso-thread" class="content-post-comments">
+    <h4>@Model.Comments.Count 条评论</h4>
+
+    @if (CurrentUser != null)
+    {
+        <div class="isso-postbox">
+            <form id="commentForm" role="form">
+                <div class="form-wrapper">
+                    <div class="textarea-wrapper">
+                        <textarea class="textarea placeholder" contenteditable="true" data-val="true" data-val-required="The Content field is required." id="Content" name="Content" placeholder="在此输入评论 (最少3个字符)"></textarea>
+                    </div>
+                    <section class="auth-section">
+                        <p class="input-wrapper"><input data-val="true" type="text" value="@CurrentUser.DisplayName" readonly></p>
+                        <p class="input-wrapper">@Html.TextBoxFor(m => m.Captcha, new { placeholder = "验证码" })</p>
+
+                        <p class="input-wrapper">
+                            <img id="captchaImg" style="max-width:none;" onclick="this.src ='@Url.Action("Captcha", "Root")?t='+ Math.floor(Math.random() * 10000);" src="@Url.Action("Captcha", "Root")" />
+                        </p>
+                        <p class="post-action">
+                            <button id="btnSaveAjax" onclick="One.addComment();return false;" type="submit" class="btn btn-success ladda-button" data-style="expand-left">提交</button>
+                            @*<input id="btnSaveAjax" onclick="One.addComment();return false;" class="ladda-button" data-style="expand-left" type="submit" value="提交">*@
+                        </p>
+                        <input type="hidden" name="hiddenReplyTo" id="hiddenReplyTo" />
+                        @Html.HiddenFor(m => m.PostId)
+                    </section>
+                </div>
+            </form>
+        </div>
+    }
+
+
+    <div id="isso-root">
+        @foreach (var item in Model.Comments)
+        {
+            @Html.Partial("_Comment", item)
+        }
+    </div>
+</section>
+
+
+

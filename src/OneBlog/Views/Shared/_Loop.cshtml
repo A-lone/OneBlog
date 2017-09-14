@@ -1,0 +1,32 @@
+﻿@model PostsResult
+@*@{
+        var category = Model.Categories.FirstOrDefault();
+    }*@
+
+<div class="content-cards">
+    @foreach (var story in Model.Posts)
+            {
+        <article class="content-card">
+            <div class="card">
+                <a asp-controller="Root" asp-action="Post" asp-route-id="@story.Id" class="card-image" style="background-image: url('@story.Cover1');" target="_blank"></a>
+                <header class="card-header">
+                    <div class="card-title">
+                        <h1 class="post-title"><a href="/post/@story.Id">@story.Title</a></h1>
+                    </div>
+                </header>
+                @*<section class="card-body">
+                        <div class="card-body-text">
+                            @story.Content.Substring(0,18)…
+                        </div>
+                    </section>*@
+                <footer class="card-footer">
+                    <time class="post-date" datetime="@story.DatePublished">@story.DatePublished</time>
+                    @*{{tags prefix=" · " limit="1"}}*@
+                    <a class="post-comment-count" href="/post/@story.Id#isso-thread">@story.CommentsCount</a>
+                </footer>
+            </div>
+        </article>
+    }
+</div>
+
+@Html.Partial("_Pager")

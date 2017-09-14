@@ -1,19 +1,56 @@
 {
-  "version": "1.0.0",
-  "name": "wilderblog",
-  "private": true,
-  "dependencies": {},
+  "author": {
+    "email": "showfom@gmail.com",
+    "name": "Showfom Guo",
+    "url": "https://sb.sb/ghost-theme-affinity/"
+  },
+  "contributors": "https://github.com/Showfom/Affinity/graphs/contributors",
+  "demo": "https://ghost.demo.sb/affinity/",
+  "description": "Affinity is a clean, minimal, modern and responsive theme that focus on content for Ghost.",
   "devDependencies": {
-    "concurrently": "^2.0.0",
-    "lite-server": "^2.2.0",
     "gulp": "^3.9.1",
-    "gulp-uglify": "^2.1.0",
-    "gulp-header": "^1.8.8",
+    "gulp-clean-css": "^3.7.0",
     "gulp-concat": "^2.6.1",
-    "gulp-bower-files": "~0.2.7",
-    "gulp-cssmin": "^0.1.7",
-    "gulp-clean-css": "^3.0.3",
-    "gulp-less": "^3.3.0",
-    "gulp-rename": "^1.2.2"
+    "gulp-csscomb": "^3.0.8",
+    "gulp-less": "^3.3.2",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^3.0.0",
+    "gulp-util": "^3.0.8",
+    "less-plugin-autoprefix": "^1.5.1",
+    "through2": "^2.0.3"
+  },
+  "engines": {
+    "ghost": ">=1.0.2 <1.1.0"
+  },
+  "gpm": {
+    "categories": [
+      "Minimal",
+      "Clean",
+      "Responsive",
+      "Modern",
+      "Magzine",
+      "Personal Blogs"
+    ],
+    "type": "theme"
+  },
+  "keywords": [
+    "affinity",
+    "spectre",
+    "showfom",
+    "theme"
+  ],
+  "license": "MIT",
+  "name": "affinity",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Showfom/Affinity.git"
+  },
+  "screenshots": {
+    "desktop": "assets/affinity-desktop.png",
+    "mobile": "assets/affinity-mobile.png"
+  },
+  "version": "1.4.0",
+  "config": {
+    "posts_per_page": 12
   }
 }

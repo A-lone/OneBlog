@@ -100,7 +100,7 @@ namespace OneBlog.Helpers
 
             if (string.IsNullOrEmpty(validateCode)) return null;
 
-            var image = new Bitmap((int)Math.Ceiling((validateCode.Length * 22.5)), 30);
+            var image = new Bitmap((int)Math.Ceiling((validateCode.Length * 22.5)), 44);
             Graphics g = Graphics.FromImage(image);
 
             g.SmoothingMode = SmoothingMode.HighSpeed;

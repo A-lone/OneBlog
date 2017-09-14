@@ -13,8 +13,7 @@ namespace OneBlog.MetaWeblog
 
     public static IServiceCollection AddMetaWeblog<TImplementation>(this IServiceCollection coll) where TImplementation : class, IMetaWeblogProvider
     {
-      return coll.AddScoped<IMetaWeblogProvider, TImplementation>()
-        .AddScoped<MetaWeblogService>();
+      return coll.AddScoped<IMetaWeblogProvider, TImplementation>().AddScoped<MetaWeblogService>();
     }
   }
 }

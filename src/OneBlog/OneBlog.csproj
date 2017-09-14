@@ -1,25 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
-    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <EnableDefaultContentItems>false</EnableDefaultContentItems>
+    <TypeScriptToolsVersion>2.3</TypeScriptToolsVersion>
+   
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageTargetFallback>$(PackageTargetFallback);portable-net45+win8+wp8+wpa81;</PackageTargetFallback>
     <UserSecretsId>d0835e26-e073-43ee-92dc-0a05a3d5b36c</UserSecretsId>
+    <MvcRazorExcludeRefAssembliesFromPublish>false</MvcRazorExcludeRefAssembliesFromPublish>
+    <AssemblyName>OneBlog</AssemblyName>
   </PropertyGroup>
   
   <ItemGroup>
     <Compile Remove="wwwroot\admin\static\css\plugins\**" />
-    <Compile Remove="wwwroot\images\**" />
     <Compile Remove="wwwroot\ueditor\**" />
     <Content Remove="wwwroot\admin\static\css\plugins\**" />
-    <Content Remove="wwwroot\images\**" />
     <Content Remove="wwwroot\ueditor\**" />
     <EmbeddedResource Remove="wwwroot\admin\static\css\plugins\**" />
-    <EmbeddedResource Remove="wwwroot\images\**" />
     <EmbeddedResource Remove="wwwroot\ueditor\**" />
     <None Remove="wwwroot\admin\static\css\plugins\**" />
-    <None Remove="wwwroot\images\**" />
     <None Remove="wwwroot\ueditor\**" />
   </ItemGroup>
   <ItemGroup>
@@ -541,25 +541,11 @@
     <Content Include="wwwroot\admin\static\scss\rtl\_rtl.tables.scss" />
     <Content Include="wwwroot\admin\static\scss\rtl\_rtl.widgets.scss" />
     <Content Include="wwwroot\admin\static\scss\styles.scss" />
-    <Content Include="wwwroot\agreement\index.html" />
-    <Content Include="wwwroot\agreement\PrivacyPolicy.html" />
     <Content Include="wwwroot\css\account.css" />
-    <Content Include="wwwroot\css\light\site.css" />
-    <Content Include="wwwroot\css\light\site.min.css" />
     <Content Include="wwwroot\css\setting.css" />
     <Content Include="wwwroot\css\star-rating.css" />
-    <Content Include="wwwroot\js\account.js" />
-    <Content Include="wwwroot\js\contact.js" />
-    <Content Include="wwwroot\js\light\jquery.ghostHunter.min.js" />
-    <Content Include="wwwroot\js\light\post.js" />
-    <Content Include="wwwroot\js\light\site.js" />
-    <Content Include="wwwroot\js\post.js" />
-    <Content Include="wwwroot\js\setting.js" />
-    <Content Include="wwwroot\js\site.js" />
-    <Content Include="wwwroot\js\textext.js" />
-    <Content Include="wwwroot\privacy.html" />
-    <Content Include="wwwroot\privacyplicy.html" />
-    <Content Include="wwwroot\privacypolicy.html" />
+    <Content Include="wwwroot\common\js\app\comment.js" />
+    <Content Include="wwwroot\sitemap.xml" />
     <Content Include="wwwroot\static\img\blur.svg" />
     <Content Include="wwwroot\static\img\common\actions\action-delete-small-lt.png" />
     <Content Include="wwwroot\static\img\common\actions\action-delete-small.png" />
@@ -853,35 +839,30 @@
     <Content Include="wwwroot\XMLFile.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Update="wwwroot\**\*;Areas\Admin\Views\**\*;config.json;web.config;data\**\*;EmailTemplates\**\*">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\OneBlog.Data\OneBlog.Data.csproj" />
     <ProjectReference Include="..\OneBlog.Helpers\OneBlog.Helpers.csproj" />
     <ProjectReference Include="..\OneBlog.MetaWeblog\OneBlog.MetaWeblog.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="DevZH.Qiniu" Version="6.2.2.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="1.1.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="1.1.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="1.1.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.3" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Formatters.Json" Version="1.1.3" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Formatters.Xml" Version="1.1.3" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="1.1.3" />
-    <PackageReference Include="Microsoft.AspNetCore.ResponseCompression" Version="1.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="1.1.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Session" Version="1.1.2" />
-    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="1.1.2" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.2" />
-    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="1.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.PlatformAbstractions" Version="1.1.0" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="1.1.2" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="1.1.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="1.1.2" />
-    <PackageReference Include="WindowsAzure.Storage" Version="8.1.4" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="1.1.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="1.1.1">
+    <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="2.0.0" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.4.0" />
+    <PackageReference Include="WindowsAzure.Storage" Version="8.4.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.0">
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="1.1.1">
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.0">
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>
   </ItemGroup>
@@ -903,13 +884,14 @@
     <Content Update="wwwroot\3rdparty\ueditor\editor.js">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+    <Content Update="wwwroot\common\js\app\comment.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services" />
   </ItemGroup>
   <ProjectExtensions>
-    <VisualStudio>
-      <UserProperties bower_1json__JSONSchema="" />
-    </VisualStudio>
+    <VisualStudio><UserProperties bower_1json__JSONSchema="" package_1json__JSONSchema="" /></VisualStudio>
   </ProjectExtensions>
 </Project>

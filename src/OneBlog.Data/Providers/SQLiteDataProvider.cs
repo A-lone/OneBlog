@@ -11,7 +11,7 @@ namespace OneBlog.Data.Providers
 
         public IServiceCollection RegisterDbContext(IServiceCollection services, string connectionString)
         {
-            services.AddDbContext<ApplicationContext>(options =>
+            services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlite(connectionString));
 
             return services;

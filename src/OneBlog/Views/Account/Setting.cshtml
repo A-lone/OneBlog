@@ -1,6 +1,6 @@
 ﻿@inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
-@model OneBlog.Models.AccountViewModels.SettingViewModel
+@model One.Models.AccountViewModels.SettingViewModel
 @{
     ViewBag.Title = "账户设置";
     var sexList = new List<SelectListItem>
@@ -29,7 +29,7 @@
                         <div class="user-identity">
                             <span class="user-identity-default">@Model.Signature</span>
                         </div>
-                        <div class="user-tag">大田村村民</div>
+                        <div class="user-tag">花纷飞村民</div>
                     </div>
                     <nav>
                         <ul>

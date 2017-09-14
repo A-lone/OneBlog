@@ -1333,7 +1333,34 @@ namespace OneBlog.Helpers
         }
         #endregion
 
+        private static Regex _identifierForDisplayRgx = new Regex(
+    @"  (?<=[A-Z])(?=[A-Z][a-z])    # UC before me, UC lc after me
+             |  (?<=[^A-Z])(?=[A-Z])        # Not UC before me, UC after me
+             |  (?<=[A-Za-z])(?=[^A-Za-z])  # Letter before me, non letter after me
+            ", RegexOptions.IgnorePatternWhitespace
+);
+        /// <summary>
+        /// Format's an identifier (e.g. variable, enum field value) for display purposes,
+        /// by adding a space before each capital letter.  A value like EditOwnUser becomes
+        /// "Edit Own User".  If multiple capital letters are in identifier, these letters
+        /// will be treated as one word (e.g. XMLEditor becomes "XML Editor", not
+        /// "X M L Editor").
+        /// </summary>
+        /// <param name="fieldName">An identifier ready to be formatted for display.</param>
+        /// <returns>The identifier for display purposes.</returns>
+        /// <remarks>Credit: http://stackoverflow.com/questions/3103730</remarks>
+        public static string FormatIdentifierForDisplay(string fieldName)
+        {
+            StringBuilder sb = new StringBuilder();
 
+            foreach (string part in _identifierForDisplayRgx.Split(fieldName))
+            {
+                if (sb.Length > 0) { sb.Append(" "); }
+                sb.Append(part);
+            }
+
+            return sb.ToString();
+        }
 
         /// <summary>
         /// 从字符串的指定位置截取指定长度的子字符串

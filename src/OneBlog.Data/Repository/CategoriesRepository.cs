@@ -11,9 +11,9 @@ namespace OneBlog.Data
     public class CategoriesRepository : BaseRepository, ICategoriesRepository
     {
 
-        private ApplicationContext _ctx;
+        private ApplicationDbContext _ctx;
 
-        public CategoriesRepository(IConfigurationRoot config, ApplicationContext ctx)
+        public CategoriesRepository(IConfigurationRoot config, ApplicationDbContext ctx)
         {
             _ctx = ctx;
         }

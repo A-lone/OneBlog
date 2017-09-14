@@ -120,8 +120,8 @@
         $("#versionMsg").hide();
         spinOn();
 
-        $scope.loadPackages();
-        $scope.loadNewsFeed();
+    //   $scope.loadPackages();
+    //   $scope.loadNewsFeed();
 
         dataService.getItems('/api/dashboard')
         .success(function (data) {

@@ -20,14 +20,14 @@ namespace OneBlog.Controllers
     public class AccountController : Controller
     {
         private readonly IHostingEnvironment _env;
-        private readonly ApplicationContext _context;
+        private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IMailService _mailService;
         private readonly ILogger _logger;
         private readonly QiniuService _qiniuService;
 
-        public AccountController(ApplicationContext context,
+        public AccountController(ApplicationDbContext context,
             QiniuService qiniuService,
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
@@ -116,6 +116,8 @@ namespace OneBlog.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
+
 
         //
         // GET: /Account/Register
@@ -457,6 +459,7 @@ namespace OneBlog.Controllers
         // GET: /Account/ForgotPassword
         [HttpGet]
         [AllowAnonymous]
+        [Route("forgotPassword")]
         public IActionResult ForgotPassword()
         {
             return View();
@@ -467,6 +470,7 @@ namespace OneBlog.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [Route("forgotPassword")]
         public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
             if (ModelState.IsValid)
@@ -481,7 +485,7 @@ namespace OneBlog.Controllers
                 }
                 else
                 {
-                    return Json(new { errno = 0, errmsg = "" });
+                    return View("ForgotPasswordConfirmation");
                 }
 
                 // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713
@@ -493,25 +497,24 @@ namespace OneBlog.Controllers
                 //return View("ForgotPasswordConfirmation");
             }
             var modelErrors = ModelState.AllErrors();
-            return Json(new { errno = 1, errmsg = "", errorList = modelErrors });
-
-            // If we got this far, something failed, redisplay form
-            //return View(model);
+            return View("ForgotPasswordConfirmation", model);
         }
 
         //
         // GET: /Account/ForgotPasswordConfirmation
-        [HttpGet]
-        [AllowAnonymous]
-        public IActionResult ForgotPasswordConfirmation()
-        {
-            return View();
-        }
+        //[HttpGet]
+        //[AllowAnonymous]
+        //[Route("forgotPasswordConfirmation")]
+        //public IActionResult ForgotPasswordConfirmation()
+        //{
+        //    return View();
+        //}
 
         //
         // GET: /Account/ResetPassword
         [HttpGet]
         [AllowAnonymous]
+        [Route("ResetPassword")]
         public IActionResult ResetPassword(string code = null)
         {
             return code == null ? View("Error") : View();
@@ -522,6 +525,7 @@ namespace OneBlog.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [Route("ResetPassword")]
         public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
         {
             if (!ModelState.IsValid)

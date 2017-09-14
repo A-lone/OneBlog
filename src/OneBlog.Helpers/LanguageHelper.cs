@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Localization;
-using Microsoft.Extensions.Globalization;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 

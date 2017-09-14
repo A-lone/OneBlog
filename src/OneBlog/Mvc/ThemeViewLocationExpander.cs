@@ -53,6 +53,7 @@ namespace OneBlog.Mvc
 
         private IEnumerable<string> ExpandViewLocationsCore(IEnumerable<string> viewLocations, string theme)
         {
+            ///Views/
             foreach (var location in viewLocations)
             {
                 yield return location;

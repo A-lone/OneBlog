@@ -6,9 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using OneBlog.Configuration;
 using OneBlog.Data;
 using OneBlog.Data.Contracts;
 using OneBlog.Data.Models;
@@ -29,6 +27,7 @@ namespace OneBlog.Controllers
     [Route("")]
     public class RootController : Controller
     {
+        readonly int _pageSize = 12;
 
         private IMailService _mailService;
         private IPostsRepository _repo;
@@ -38,16 +37,14 @@ namespace OneBlog.Controllers
         private IViewRenderService _viewRenderService;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly IOptions<AppSettings> _appsettings;
         private ISession _session => _httpContextAccessor.HttpContext.Session;
 
-        public RootController(IOptions<AppSettings> appsettings, IMailService mailService, UserManager<ApplicationUser> userManager,
+        public RootController(IMailService mailService, UserManager<ApplicationUser> userManager,
                               IPostsRepository repo, ICommentsRepository commentsRepository,
                               IHttpContextAccessor httpContextAccessor,
                               IMemoryCache memoryCache,
-                              IViewRenderService viewRenderService, ILogger<RootController> logger)
+                              IViewRenderService viewRenderService, ILogger<RootController> logger, IRolesRepository test)
         {
-            _appsettings = appsettings;
             _userManager = userManager;
             _httpContextAccessor = httpContextAccessor;
             _viewRenderService = viewRenderService;
@@ -56,6 +53,7 @@ namespace OneBlog.Controllers
             _commentsRepository = commentsRepository;
             _memoryCache = memoryCache;
             _logger = logger;
+
         }
 
 
@@ -67,9 +65,10 @@ namespace OneBlog.Controllers
             return Pager(1);
         }
 
-        [HttpGet("page/{page:int?}")]
+        [HttpGet("{page:int?}")]
         public IActionResult Pager(int page)
         {
+            ViewBag.ControllerName = "Root";
             var cacheKey = $"Root_Pager_{page}";
             string cached;
             PostsResult result = null;
@@ -79,14 +78,14 @@ namespace OneBlog.Controllers
             }
             if (result == null)
             {
-                result = _repo.GetPosts(_appsettings.Value.PostPerPage, page);
+                result = _repo.GetPosts(_pageSize, page);
                 if (result != null)
                 {
                     cached = JsonConvert.SerializeObject(result);
                     _memoryCache.Set(cacheKey, cached, new MemoryCacheEntryOptions() { SlidingExpiration = TimeSpan.FromMinutes(5) });
                 }
             }
-            return View("Index", result);
+            return View("_List", result);
         }
 
         [HttpGet("captcha")]
@@ -279,13 +278,13 @@ namespace OneBlog.Controllers
         {
             var feed = new RssFeed()
             {
-                Title = "陈仁松同学",
-                Description = "stay hungry stay foolish",
-                Link = new Uri("http://www.chenrensong.com/feed"),
-                Copyright = "© 2016-2017 chenrensong.com"
+                Title = "花纷飞",
+                Description = "花纷飞、UWP、Windows10、WM10、UWP开源项目",
+                Link = new Uri("http://www.datiancun.com/feed"),
+                Copyright = "© 2016-2017 datiancun.com"
             };
 
-            var entries = _repo.GetPosts(16);
+            var entries = _repo.GetPosts(12);
 
             foreach (var entry in entries.Posts)
             {
@@ -351,19 +350,7 @@ namespace OneBlog.Controllers
             }
             var replyToCommentId = Request.Form["hiddenReplyTo"].ToString();
             var post = _repo.GetPost(model.PostId);
-
-            var user = await GetCurrentUserAsync();
-
-            if (user == null)
-            {
-                user = new ApplicationUser();
-                user.Id = string.Empty;
-                user.UserName = model.UserName;
-                user.DisplayName = model.UserName;
-                user.Email = model.Email;
-            }
-
-            var commentDetail = new CommentDetail() { PostId = model.PostId, Author = user, Content = model.Content };
+            var commentDetail = new CommentDetail() { PostId = model.PostId, Author = await GetCurrentUserAsync(), Content = model.Content };
             Guid parentId;
             if (!string.IsNullOrEmpty(replyToCommentId) && Guid.TryParse(replyToCommentId, out parentId))
             {

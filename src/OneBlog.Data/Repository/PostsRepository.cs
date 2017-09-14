@@ -20,11 +20,11 @@ namespace OneBlog.Data
 {
     public class PostsRepository : BaseRepository, IPostsRepository
     {
-        private ApplicationContext _ctx;
+        private ApplicationDbContext _ctx;
         private JsonService _jsonService;
         private UserManager<ApplicationUser> _userManager;
 
-        public PostsRepository(ApplicationContext ctx, IConfigurationRoot config,
+        public PostsRepository(ApplicationDbContext ctx, IConfigurationRoot config,
             JsonService jsonService,
             UserManager<ApplicationUser> userManager
             )
@@ -464,12 +464,14 @@ namespace OneBlog.Data
         public IEnumerable<string> GetCategories()
         {
             var cats = _ctx.Posts
-                      .Select(c => c.Tags.Split(','))
-                      .ToList();
+                   .Select(c => c.Tags)
+                   .ToList();
 
             var result = new List<string>();
-            foreach (var s in cats) result.AddRange(s);
-
+            foreach (var s in cats)
+            {
+                result.AddRange(s.Split(','));
+            }
             return result.Where(s => !string.IsNullOrWhiteSpace(s)).OrderBy(s => s).Distinct();
 
         }

@@ -9,10 +9,10 @@ namespace OneBlog.Data
 {
     public class ApplicationInitializer
     {
-        private ApplicationContext _ctx;
+        private ApplicationDbContext _ctx;
         private UserManager<ApplicationUser> _userMgr;
         private RoleManager<IdentityRole> _roleMgr;
-        public ApplicationInitializer(ApplicationContext ctx, UserManager<ApplicationUser> userMgr, RoleManager<IdentityRole> roleMgr)
+        public ApplicationInitializer(ApplicationDbContext ctx, UserManager<ApplicationUser> userMgr, RoleManager<IdentityRole> roleMgr)
         {
             _ctx = ctx;
             _userMgr = userMgr;

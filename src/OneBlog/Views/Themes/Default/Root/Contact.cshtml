@@ -1,7 +1,7 @@
 ﻿@{
-    ViewBag.Title = "联系我们 - 大田村";
+    ViewBag.Title = "联系我们 - 花纷飞";
     ViewBag.PageName = "Contact Me";
-    ViewBag.PageBlurb = "Send a Message to 大田村";
+    ViewBag.PageBlurb = "Send a Message to 花纷飞";
 }
 @section Scripts {
     <environment names="Development">
@@ -35,7 +35,7 @@
                 </div>
                 <div class="form-group">
                     <label>Subject</label>
-                    <select v-model="mail.subject" class="form-control c-select  col-lg-11 inline" name="subject" v-validate="'required|not_in:Pick OneBlog...'">
+                    <select v-model="mail.subject" class="form-control c-select  col-lg-11 inline" name="subject" v-validate="'required|not_in:Pick One...'">
                         <option v-for="s in subjects" v-bind:value="s">
                             {{ s }}
                         </option>

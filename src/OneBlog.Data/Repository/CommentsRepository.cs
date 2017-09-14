@@ -16,10 +16,10 @@ namespace OneBlog.Data.Contracts
     public class CommentsRepository : ICommentsRepository
     {
 
-        private ApplicationContext _ctx;
+        private ApplicationDbContext _ctx;
         private JsonService _jsonService;
         private readonly UserManager<ApplicationUser> _userManager;
-        public CommentsRepository(IConfigurationRoot config, ApplicationContext ctx, JsonService jsonService, UserManager<ApplicationUser> userManager)
+        public CommentsRepository(IConfigurationRoot config, ApplicationDbContext ctx, JsonService jsonService, UserManager<ApplicationUser> userManager)
         {
             _ctx = ctx;
             _jsonService = jsonService;
@@ -80,10 +80,8 @@ namespace OneBlog.Data.Contracts
 
         public CommentDetail FindById(Guid id)
         {
-            return (from p in _ctx.Posts
-                    from c in p.Comments
-                    where c.Id == id
-                    select _jsonService.GetCommentDetail(c)).FirstOrDefault();
+            var comment = _ctx.Comments.Include(m => m.Posts).Include(m => m.Author).Where(m => m.Id == id).FirstOrDefault();
+            return _jsonService.GetCommentDetail(comment);
         }
 
         public List<CommentItem> FindByPostId(Guid postId)

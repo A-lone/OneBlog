@@ -10,8 +10,8 @@ namespace OneBlog.Data
 {
     public class StoreRepository : BaseRepository, IStoreRepository
     {
-        private readonly ApplicationContext _context;
-        public StoreRepository(ApplicationContext context)
+        private readonly ApplicationDbContext _context;
+        public StoreRepository(ApplicationDbContext context)
         {
             _context = context;
         }

@@ -25,25 +25,25 @@ namespace OneBlog.Data.Contracts
         /// </summary>
         /// <param name="id">Role name</param>
         /// <returns>User object</returns>
-        Data.Models.RoleItem FindById(string id);
+        Task<Data.Models.RoleItem> FindById(string id);
         /// <summary>
         /// Add new role
         /// </summary>
         /// <param name="role">Blog user</param>
         /// <returns>Saved user</returns>
-        Data.Models.RoleItem Add(Data.Models.RoleItem role);
+        Task<Data.Models.RoleItem> Add(Data.Models.RoleItem role);
         /// <summary>
         /// Delete role
         /// </summary>
         /// <param name="id">User ID</param>
         /// <returns>True on success</returns>
-        bool Remove(string id);
+        Task<bool> Remove(string id);
         /// <summary>
         /// Get role rights
         /// </summary>
         /// <param name="role">Role</param>
         /// <returns>Collection of rights</returns>
-        IEnumerable<Group> GetRoleRights(string role);
+        Task<IEnumerable<Group>> GetRoleRights(string role);
         /// <summary>
         /// Roles for user
         /// </summary>
@@ -56,6 +56,6 @@ namespace OneBlog.Data.Contracts
         /// <param name="rights">Rights</param>
         /// <param name="id">Role id</param>
         /// <returns>True if success</returns>
-        bool SaveRights(List<Data.Models.Group> rights, string id);
+        Task<bool> SaveRights(List<Data.Models.Group> rights, string id);
     }
 }

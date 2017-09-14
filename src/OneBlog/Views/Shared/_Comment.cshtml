@@ -1,0 +1,24 @@
+﻿@model CommentItem
+@{
+    ViewBag.Replies = Model.Comments.Count > 0 ? "display:block;" : "display:none;";
+}
+
+
+<div id="isso-@Model.Id" class="isso-comment">
+    <div class="avatar">
+        <img src="@Model.Author.Avatar" width='48'>
+    </div>
+    <div id="isso-wrapper-@Model.Id" class="text-wrapper">
+        <div role="meta" class="isso-comment-header">
+            <a href="#" rel="nofollow" class="author">@Model.Author.DisplayName</a><span class="spacer">•</span>
+            <a href="#isso-126" class="permalink"><time title="@Model.DateCreated" datetime="@Model.DateCreated">@Model.DateCreated</time></a><span class="note"></span>
+        </div>
+        <div class="text"><p>@Model.Content</p></div>
+        <div class="isso-comment-footer"><a id="reply-@Model.Id"  href="javascript:void(0);" onclick="One.replyToComment('@Model.Id');" class="reply">回复</a></div>
+        <div class="isso-follow-up"></div>
+        @foreach (var item in Model.Comments)
+         {
+            @Html.Partial("_Comment", item)
+        }
+    </div>
+</div>

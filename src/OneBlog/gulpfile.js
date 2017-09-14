@@ -1,66 +1,130 @@
-/// <binding Clean='default' />
-/*
-This file in the main entry point for defining Gulp tasks and using Gulp plugins.
-Click here to learn more. http://go.microsoft.com/fwlink/?LinkId=518007
-*/
-
 var gulp = require('gulp');
-var uglify = require('gulp-uglify');
-var concat = require('gulp-concat');
-var bower = require('gulp-bower-files');
-var cleanCSS = require('gulp-clean-css');
-var rename = require("gulp-rename");
+var gutil = require('gulp-util');
 var less = require('gulp-less');
+var cleancss = require('gulp-clean-css');
+var csscomb = require('gulp-csscomb');
+var concat = require('gulp-concat');
+var rename = require('gulp-rename');
+var uglify = require('gulp-uglify');
+var through = require('through2');
+var LessPluginAutoPrefix = require('less-plugin-autoprefix');
+
+var autoprefix = new LessPluginAutoPrefix({ browsers: ["last 4 versions"] });
 
 var paths = {
-    webroot: "./wwwroot/"
+    webroot: "./wwwroot/",
+    assetsDir:"./wwwroot/dist"
 };
-paths.jqueryjs = paths.webroot + "lib/jquery/dist/jquery.js";
-paths.bootstrapjs = paths.webroot + "lib/bootstrap/dist/js/bootstrap.js";
-paths.sitejs = paths.webroot + "js/site.js";
-paths.accountjs = paths.webroot + "js/account.js";
-paths.postjs = paths.webroot + "js/post.js";
 
-paths.siteless = paths.webroot + "css/site.less";
+function PreserveLicense() { }
+PreserveLicense.prototype = {
+    save: function () {
+        var self = this;
+        return function (file, enc, cb) {
+            if (file.isNull()) {
+                return cb(null, file);
+            }
 
-paths.bootstrapcss = paths.webroot + "lib/bootstrap/dist/css/bootstrap.css";
-paths.fontcss = paths.webroot + "lib/bootstrap/dist/css/font-awesome.css";
-paths.sitecss = paths.webroot + "css/site.css";
-paths.accountcss = paths.webroot + "css/account.css";
+            if (file.isStream()) {
+                return cb(createError(file, 'Streaming not supported', null));
+            }
 
-gulp.task("minify-js", function () {
-    gulp.src([paths.jqueryjs, paths.bootstrapjs, paths.sitejs])
-        .pipe(uglify())
-        .pipe(concat("site.min.js"))
-        .pipe(gulp.dest(paths.webroot + "lib/site/js"));
+            self.licenses = [];
+            String(file.contents).replace(/\s*(\/\*\!.+?\*\/)\s*/g, function (z, license) {
+                self.licenses.push(license);
+            });
 
-    gulp.src([paths.accountjs])
-        .pipe(uglify())
-        .pipe(concat("account.min.js"))
-        .pipe(gulp.dest(paths.webroot + "lib/site/js"));
+            cb(null, file);
+        }
+    },
 
-    gulp.src([paths.postjs])
-        .pipe(uglify())
-        .pipe(concat("post.min.js"))
-        .pipe(gulp.dest(paths.webroot + "lib/site/js"));
+    restore: function () {
+        var self = this;
+        return function (file, enc, cb) {
+            if (file.isNull()) {
+                return cb(null, file);
+            }
+
+            if (file.isStream()) {
+                return cb(createError(file, 'Streaming not supported', null));
+            }
+
+            if (self.licenses.length > 0) {
+                self.licenses.push('');
+            }
+
+            file.contents = new Buffer(self.licenses.join('\n') + String(file.contents));
+
+            cb(null, file);
+        }
+    }
+};
+
+gulp.task('watch', function () {
+    gulp.watch('./ClientApp/**/*.less', ['build', 'minify']);
 });
 
-gulp.task('minify-less', function () {
-    return gulp.src(paths.siteless)
-        .pipe(less())
-        .pipe(cleanCSS({ compatibility: 'ie8' }))
-        .pipe(gulp.dest(paths.webroot + "css"))
+gulp.task('build', function () {
+    gulp.src('./wwwroot/common/less/*.less')
+        .pipe(less({
+            plugins: [autoprefix]
+        }))
+        .pipe(csscomb())
+        .pipe(gulp.dest('./wwwroot/common/css'));
 });
 
-gulp.task('minify-css', function () {
-    gulp.src([paths.sitecss])
-        .pipe(cleanCSS({ compatibility: 'ie8' }))
-        .pipe(concat("site.min.css"))
-        .pipe(gulp.dest(paths.webroot + 'lib/site/css'));
-    gulp.src([paths.accountcss])
-        .pipe(cleanCSS({ compatibility: 'ie8' }))
-        .pipe(concat("account.min.css"))
-        .pipe(gulp.dest(paths.webroot + 'lib/site/css'));
+gulp.task('minify', function () {
+    var cssLicense = new PreserveLicense();
+    gulp.src([
+        './wwwroot/common/css/*.css',
+        './wwwroot/3rdparty/css/sh/*.css',
+        './wwwroot//lib/ladda/dist/ladda-themeless.min.css',
+        './wwwroot/lib/toastr/toastr.css'
+    ])
+        .pipe(concat('oneblog.css'))
+        .pipe(through.obj(cssLicense.save()))
+        .pipe(cleancss())
+        .pipe(through.obj(cssLicense.restore()))
+        .pipe(rename({
+            suffix: '.min'
+        }))
+        .pipe(gulp.dest(paths.assetsDir));
+
+    var jsLicense = new PreserveLicense();
+    var mangleProperties = {
+        regex: /^m_/
+    };
+    var uglify_pipe = uglify({
+        mangle: {
+            properties: mangleProperties
+        },
+        // mangleProperties: mangleProperties
+    }).on('error', function (err) {
+        gutil.log(gutil.colors.red('[Error]'), err.toString());
+        this.emit('end');
+    });
+    gulp.src([
+        './wwwroot/common/js/lib/*.js',
+        './wwwroot/common/js/init.js',
+        './wwwroot/common/js/app/*.js',
+        './wwwroot/3rdparty/js/sh/shCore.js',
+        './wwwroot/3rdparty/js/sh/shBrushCSharp.js',
+        './wwwroot/3rdparty/js/sh/shBrushJScript.js',
+        './wwwroot/3rdparty/js/sh/shBrushXml.js',
+        './wwwroot/3rdparty/js/sh/shBrushCss.js',
+        './wwwroot/3rdparty/js/sh/shBrushSass.js',
+        './wwwroot/lib/toastr/toastr.min.js',
+        './wwwroot/lib/ladda/dist/*.js',
+        './wwwroot/3rdparty/js/syntaxhighlight.js'
+    ])
+        .pipe(concat('oneblog.js'))
+        .pipe(through.obj(jsLicense.save()))
+        .pipe(uglify_pipe)
+        .pipe(through.obj(jsLicense.restore()))
+        .pipe(rename({
+            suffix: '.min'
+        }))
+        .pipe(gulp.dest(paths.assetsDir));
 });
 
-gulp.task('default', ["minify-less", "minify-js", "minify-css"]);
+gulp.task('default', ['build','minify']);

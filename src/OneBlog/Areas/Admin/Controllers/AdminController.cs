@@ -201,7 +201,7 @@ namespace OneBlog.Areas.Admin.Controllers
                 var filename = ContentDispositionHeaderValue
                 .Parse(file.ContentDisposition)
                 .FileName
-                .Trim('"');
+                .Trim();
                 url = await _qiniuService.Upload(file);
             }
             return Ok(url);

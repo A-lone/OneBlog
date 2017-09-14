@@ -11,9 +11,9 @@ namespace OneBlog.Data.Repository
 {
     public class TagsRepository : BaseRepository, ITagsRepository
     {
-        private ApplicationContext _ctx;
+        private ApplicationDbContext _ctx;
 
-        public TagsRepository(IConfigurationRoot config, ApplicationContext ctx)
+        public TagsRepository(IConfigurationRoot config, ApplicationDbContext ctx)
         {
             _ctx = ctx;
         }

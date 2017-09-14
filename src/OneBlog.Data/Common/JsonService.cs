@@ -15,9 +15,9 @@ namespace OneBlog.Data.Common
     /// </summary>
     public class JsonService
     {
-        private readonly ApplicationContext _ctx;
+        private readonly ApplicationDbContext _ctx;
 
-        public JsonService(ApplicationContext ctx)
+        public JsonService(ApplicationDbContext ctx)
         {
             _ctx = ctx;
         }
@@ -234,6 +234,7 @@ namespace OneBlog.Data.Common
             jc.ParentId = c.ParentId;
             jc.PostId = c.Posts.Id;
             jc.Content = c.Content;
+            jc.Title = c.Content.Length < 80 ? c.Content : c.Content.Substring(0, 80) + "...";
             jc.Ip = c.Ip;
             return jc;
         }

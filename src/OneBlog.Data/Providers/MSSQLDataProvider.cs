@@ -11,7 +11,7 @@ namespace OneBlog.Data.Providers
 
         public IServiceCollection RegisterDbContext(IServiceCollection services, string connectionString)
         {
-            services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString), ServiceLifetime.Scoped);
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString), ServiceLifetime.Scoped);
             return services;
         }
 

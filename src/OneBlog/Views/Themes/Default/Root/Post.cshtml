@@ -7,7 +7,7 @@
     var CurrentUser = await UserManager.GetUserAsync(User);
 
 
-    ViewBag.Title = $"{Model.Title} - 大田村|UWP之家";
+    ViewBag.Title = $"{Model.Title} - 花纷飞|UWP之家";
     CategoryItem category = null;
     if (Model.Categories != null && Model.Categories.Count > 0)
     {
@@ -19,185 +19,75 @@
         CommentCount = Model.Comments[1].Length;
     }
 }
-<div class="container">
-    <div class="row">
-        <div class="col-xs-12  col-md-9">
-            <div class="boxed  push-down-30">
-                <div class="meta post-image" style="background-image: url('@Model.Cover1')">
-                    <div class="meta__container">
-                        <div class="row">
-                            <div class="col-xs-12  col-sm-8">
-                                <div class="meta__info">
-                                    @if (category != null)
-                                    {
-                                        <span class="meta__author"><span class="glyphicon glyphicon-folder-close"></span> &nbsp; <a asp-action="index" asp-controller="category" asp-route-id="@category.Id" target="_blank">@category.Title</a></span>
-                                    }
-                                    <span class="meta__date"><span class="glyphicon glyphicon-calendar"></span> &nbsp; @Model.DateCreated</span>
-                                </div>
-                            </div>
-                            <div class="col-xs-12  col-sm-4">
-                                <div class="meta__comments">
-                                    <span class="glyphicon glyphicon-comment"></span> &nbsp;@CommentCount
-                                    <a href="#comment">评论</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12  col-sm-12">
-                                <h4 class="c-single-normal__title">@Model.Title</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="row">
-                    <div class="push-down-30">
-                        <div class="post-content">
-                            @Html.Raw(Model.Content)
-                        </div>
 
-                        @if (Model.Tags.Count > 0)
-                        {
-                            <div class="row">
-                                <div class="col-xs-10  col-xs-offset-1  col-md-10  ">
-                                    <div class="tags">
-                                        <h6>Tags</h6>
-                                        <hr>
-                                        @foreach (var tag in Model.Tags)
-                                        {
-                                            <a asp-controller="Tag" asp-action="Index" class="tags__link" asp-route-tag="@tag.TagName">@tag.TagName</a>
-                                        }
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                    </div>
-                </div>
+<article class="content-post" role="main">
+    <div class="content-post-title">
+        <h1>@Model.Title</h1>
+    </div>
+    <div class="content-post-meta">
+        <time class="post-date" datetime="@Model.DateCreated">@Model.DateCreated</time>
+    </div>
+    <div class="content-post-body">
+        @Html.Raw(Model.Content)
+    </div>
+    <div class="content-post-meta post-meta-tags">
+        @if (Model.Tags.Count > 0)
+        {
+            @foreach (var tag in Model.Tags)
+            {
+                <a asp-controller="Tag" asp-action="Index" class="tags__link" asp-route-tag="@tag.TagName">@tag.TagName</a>
+            }
+        }
+    </div>
+    <div class="content-post-author">
+        <div class="tile">
+            <div class="tile-icon">
+                <figure class="avatar avatar-lg">
+                    <img src="@Model.Author.Avatar" />
+                </figure>
             </div>
-        </div>
-        <div class="col-xs-12  col-md-3">
-            <div class="widget-author  boxed  push-down-20">
-                <div class="widget-author__image-container">
-                    <div class="widget-author__avatar--blurred">
-                        <img src="@Model.Author.Avatar" alt="@Model.Author.DisplayName" width="60" height="60">
-                    </div>
-                    <img class="widget-author__avatar" src="@Model.Author.Avatar" alt="@Model.Author.DisplayName" width="60" height="60">
-                </div>
-                <div class="row">
-                    <div class="col-xs-10  col-xs-offset-1">
-                        @if (string.IsNullOrEmpty(Model.Author.SiteUrl))
-                        {
-                            <h5>@Model.Author.DisplayName</h5>
-                        }
-                        else
-                        {
-                            <h5><a href="@Model.Author.SiteUrl">@Model.Author.DisplayName</a></h5>
-                        }
-                        <p>@Model.Author.Signature</p>
-                    </div>
-                </div>
+            <div class="tile-content">
+                <p class="tile-title"><strong>@Model.Author.DisplayName</strong></p>
             </div>
-            @*<div class="sidebar  boxed  push-down-30">
-                    <div class="row">
-                        <div class="col-xs-10  col-xs-offset-1">
-                            <div class="widget-posts  push-down-30">
-                                <h6>Popular / Recent</h6>
-
-                                <ul class="nav  nav-tabs">
-                                    <li class="active">
-                                        <a href="#recent-posts" data-toggle="tab"> <span class="glyphicon  glyphicon-time"></span> &nbsp;Recent Posts </a>
-                                    </li>
-                                    <li> <a href="#popular-posts" data-toggle="tab"> <span class="glyphicon  glyphicon-flash"></span> &nbsp;Popular Posts </a> </li>
-                                </ul>
-
-                                <div class="tab-content">
-                                    <div class="tab-pane  fade  in  active" id="recent-posts">
-                                        <div class="push-down-15">
-                                            <img src="images/dummy-licensed/blog-image-small.jpg" alt="Posts">
-                                            <h5>
-                                                <a href="single-post.html">This is a showcase of the most recent posts</a>
-                                            </h5>
-                                            <span class="widget-posts__time">19 hours ago</span>
-                                        </div>
-                                        <div class="push-down-15">
-                                            <img src="images/dummy-licensed/blog-image-3-small.jpg" alt="Posts">
-                                            <h5>
-                                                <a href="single-post.html">This is a showcase of the most recent posts</a>
-                                            </h5>
-                                            <span class="widget-posts__time">19 hours ago</span>
-                                        </div>
-                                        <div class="push-down-15">
-                                            <img src="images/dummy-licensed/blog-image-small.jpg" alt="Posts">
-                                            <h5>
-                                                <a href="single-post.html">This is a showcase of the most recent posts</a>
-                                            </h5>
-                                            <span class="widget-posts__time">19 hours ago</span>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane  fade" id="popular-posts">
-                                        <div class="push-down-15">
-                                            <img src="images/dummy-licensed/blog-image-3-small.jpg" alt="Posts">
-                                            <h5>
-                                                <a href="single-post.html">This is a showcase of the most popular posts</a>
-                                            </h5>
-                                            <span class="widget-posts__time">9 hours ago</span>
-                                        </div>
-                                        <div class="push-down-15">
-                                            <img src="images/dummy-licensed/blog-image-small.jpg" alt="Posts">
-                                            <h5>
-                                                <a href="single-post.html">This is a showcase of the most popular posts</a>
-                                            </h5>
-                                            <span class="widget-posts__time">12 hours ago</span>
-                                        </div>
-                                        <div class="push-down-15">
-                                            <img src="images/dummy-licensed/blog-image-3-small.jpg" alt="Posts">
-                                            <h5>
-                                                <a href="single-post.html">This is a showcase of the most popular posts</a>
-                                            </h5>
-                                            <span class="widget-posts__time">19 hours ago</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>*@
         </div>
     </div>
+
+
+
     @await Component.InvokeAsync("Comment", new { id = Model.Id })
-</div>
 
-@section Styles {
-    <link rel="stylesheet" type="text/css" href="~/3rdparty/css/sh/shCore.css" />
-    <link rel="stylesheet" type="text/css" href="~/3rdparty/css/sh/shThemeDefault.css" />
-    <link href="~/lib/ladda/dist/ladda-themeless.min.css" rel="stylesheet">
-    <link href="~/lib/toastr/toastr.css" rel="stylesheet" />
-}
-@section Scripts {
-    <script type="text/javascript" src="~/3rdparty/js/sh/shCore.js"></script>
-    <script type="text/javascript" src="~/3rdparty/js/sh/shBrushCSharp.js"></script>
-    <script type="text/javascript" src="~/3rdparty/js/sh/shBrushJScript.js"></script>
-    <script type="text/javascript" src="~/3rdparty/js/sh/shBrushXml.js"></script>
-    <script type="text/javascript" src="~/3rdparty/js/sh/shBrushCss.js"></script>
-    <script type="text/javascript" src="~/3rdparty/js/sh/shBrushSass.js"></script>
-    <script type="text/javascript" src="~/3rdparty/js/syntaxhighlight.js"></script>
-    <script type="text/javascript" src="~/lib/lazysizes/lazysizes.min.js" async=""></script>
+    @section Styles {
+        @*<link rel="stylesheet" type="text/css" href="~/3rdparty/css/sh/shCore.css" />
+            <link rel="stylesheet" type="text/css" href="~/3rdparty/css/sh/shThemeDefault.css" />
+            <link href="~/lib/ladda/dist/ladda-themeless.min.css" rel="stylesheet">
+            <link href="~/lib/toastr/toastr.css" rel="stylesheet" />*@
+    }
 
-    <script type="text/javascript" src="~/lib/toastr/toastr.min.js"></script>
-    <script type="text/javascript" src="~/lib/ladda/dist/spin.min.js"></script>
-    <script type="text/javascript" src="~/lib/ladda/dist/ladda.min.js"></script>
-    <script type="text/javascript" src="~/lib/ladda/dist/ladda.jquery.min.js"></script>
+    @section Scripts {
+    @*<script type="text/javascript" src="~/3rdparty/js/sh/shCore.js"></script>*@
+        @*<script type="text/javascript" src="~/3rdparty/js/sh/shCore.js"></script>
+            <script type="text/javascript" src="~/3rdparty/js/sh/shBrushCSharp.js"></script>
+            <script type="text/javascript" src="~/3rdparty/js/sh/shBrushJScript.js"></script>
+            <script type="text/javascript" src="~/3rdparty/js/sh/shBrushXml.js"></script>
+            <script type="text/javascript" src="~/3rdparty/js/sh/shBrushCss.js"></script>
+            <script type="text/javascript" src="~/3rdparty/js/sh/shBrushSass.js"></script>
+            <script type="text/javascript" src="~/3rdparty/js/syntaxhighlight.js"></script>
 
-    <environment names="Development">
-        <script type="text/javascript" src="~/js/post.js"></script>
-    </environment>
-    <environment names="Production,Staging">
-        <script type="text/javascript" src="~/lib/site/js/post.min.js"></script>
-    </environment>
+            <script type="text/javascript" src="~/lib/toastr/toastr.min.js"></script>
+            <script type="text/javascript" src="~/lib/ladda/dist/spin.min.js"></script>
+            <script type="text/javascript" src="~/lib/ladda/dist/ladda.min.js"></script>
+            <script type="text/javascript" src="~/lib/ladda/dist/ladda.jquery.min.js"></script>
 
-    <script type="text/javascript">
-        OneBlog.comments.postId = "@Model.Id";
+            <environment names="Development">
+                <script type="text/javascript" src="~/js/comment.js"></script>
+            </environment>*@
+
+        <script type="text/javascript" src="~/lib/lazysizes/lazysizes.min.js" async=""></script>
+
+
+        <script type="text/javascript">
+        One.comments.postId = "@Model.Id";
         SyntaxHighlighter.defaults['toolbar'] = false;
-    </script>
-}
+        </script>
+    }

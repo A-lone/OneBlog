@@ -26,10 +26,10 @@ namespace OneBlog.Areas.Admin.Controllers
             return repository.Find(take, skip, filter, order);
         }
 
-        [HttpGet("{id}")]
-        public IActionResult Get(string id)
+        [HttpGet("get/{id}")]
+        public async Task<IActionResult> Get(string id)
         {
-            var result = repository.FindById(id);
+            var result = await repository.FindById(id);
             if (result == null)
             {
                 return NotFound();
@@ -38,9 +38,9 @@ namespace OneBlog.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody]RoleItem role)
+        public async Task<IActionResult> Post([FromBody]RoleItem role)
         {
-            var result = repository.Add(role);
+            var result = await repository.Add(role);
             if (result == null)
             {
                 return NotFound();
@@ -50,7 +50,7 @@ namespace OneBlog.Areas.Admin.Controllers
         }
 
         [HttpPut]
-        public IActionResult Put([FromBody]List<RoleItem> items)
+        public async Task<IActionResult> Put([FromBody]List<RoleItem> items)
         {
             if (items == null || items.Count == 0)
             {
@@ -59,19 +59,20 @@ namespace OneBlog.Areas.Admin.Controllers
 
             foreach (var item in items)
             {
-                repository.Remove(item.RoleName);
+                await repository.Remove(item.RoleName);
             }
             return Ok();
         }
 
-        public IActionResult Delete(string id)
+        public async Task<IActionResult> Delete(string id)
         {
-            repository.Remove(id);
+            await repository.Remove(id);
             return Ok();
         }
 
         [HttpPut]
-        public IActionResult ProcessChecked([FromBody]List<RoleItem> items)
+        [Route("processchecked/{id?}")]
+        public async Task<IActionResult> ProcessChecked([FromBody]List<RoleItem> items)
         {
             if (items == null || items.Count == 0)
             {
@@ -86,14 +87,14 @@ namespace OneBlog.Areas.Admin.Controllers
                 {
                     if (item.IsChecked)
                     {
-                        repository.Remove(item.RoleName);
+                        await repository.Remove(item.RoleName);
                     }
                 }
             }
             return Ok();
         }
 
-  
+
 
         [HttpGet]
         [Route("getuserroles/{id?}")]
@@ -104,19 +105,20 @@ namespace OneBlog.Areas.Admin.Controllers
         }
 
 
-        //[HttpGet]
-        //public IActionResult GetRights(string id)
-        //{
-        //    var result = repository.GetRoleRights(id);
-        //    return Ok(result);
-        //}
+        [HttpGet]
+        [Route("getrights/{id?}")]
+        public async Task<IActionResult> GetRights(string id)
+        {
+            var result = await repository.GetRoleRights(id);
+            return Ok(result);
+        }
 
-        //[HttpPut]
-        //public IActionResult SaveRights([FromBody]List<Group> rights, string id)
-        //{
-        //    repository.SaveRights(rights, id);
-
-        //    return Ok();
-        //}
+        [HttpPut]
+        [Route("saverights/{id?}")]
+        public async Task<IActionResult> SaveRights([FromBody]List<Group> rights, string id)
+        {
+            await repository.SaveRights(rights, id);
+            return Ok();
+        }
     }
 }
