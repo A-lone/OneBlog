@@ -6,7 +6,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using OneBlog.Configuration;
 using OneBlog.Data;
 using OneBlog.Data.Contracts;
 using OneBlog.Data.Models;
@@ -27,7 +29,6 @@ namespace OneBlog.Controllers
     [Route("")]
     public class RootController : Controller
     {
-        readonly int _pageSize = 12;
 
         private IMailService _mailService;
         private IPostsRepository _repo;
@@ -37,13 +38,16 @@ namespace OneBlog.Controllers
         private IViewRenderService _viewRenderService;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IOptions<AppSettings> _appSettings;
         private ISession _session => _httpContextAccessor.HttpContext.Session;
 
         public RootController(IMailService mailService, UserManager<ApplicationUser> userManager,
                               IPostsRepository repo, ICommentsRepository commentsRepository,
                               IHttpContextAccessor httpContextAccessor,
                               IMemoryCache memoryCache,
-                              IViewRenderService viewRenderService, ILogger<RootController> logger, IRolesRepository test)
+                              IViewRenderService viewRenderService,
+                              IOptions<AppSettings> appSettings,
+                              ILogger<RootController> logger)
         {
             _userManager = userManager;
             _httpContextAccessor = httpContextAccessor;
@@ -52,6 +56,7 @@ namespace OneBlog.Controllers
             _repo = repo;
             _commentsRepository = commentsRepository;
             _memoryCache = memoryCache;
+            _appSettings = appSettings;
             _logger = logger;
 
         }
@@ -78,7 +83,7 @@ namespace OneBlog.Controllers
             }
             if (result == null)
             {
-                result = _repo.GetPosts(_pageSize, page);
+                result = _repo.GetPosts(_appSettings.Value.PostPerPage, page);
                 if (result != null)
                 {
                     cached = JsonConvert.SerializeObject(result);
@@ -278,13 +283,13 @@ namespace OneBlog.Controllers
         {
             var feed = new RssFeed()
             {
-                Title = "花纷飞",
-                Description = "花纷飞、UWP、Windows10、WM10、UWP开源项目",
-                Link = new Uri("http://www.datiancun.com/feed"),
-                Copyright = "© 2016-2017 datiancun.com"
+                Title = _appSettings.Value.Title,
+                Description = _appSettings.Value.Description,
+                Link = new Uri("http://www.huafenfei.com/feed"),
+                Copyright = "© 2016-2017 huafenfei.com"
             };
 
-            var entries = _repo.GetPosts(12);
+            var entries = _repo.GetPosts(_appSettings.Value.PostPerPage);
 
             foreach (var entry in entries.Posts)
             {

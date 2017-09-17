@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
 <manifest xmlns="http://schemas.microsoft.com/wlw/manifest/weblog">
-
   <options>
     <clientType>Metaweblog</clientType>
     <supportsNewCategories>Yes</supportsNewCategories>
@@ -9,7 +8,4 @@
     <supportsFileUpload>Yes</supportsFileUpload>
     <supportsMultipleCategories>Yes</supportsMultipleCategories>
   </options>
-
-
-
 </manifest>

@@ -97,7 +97,7 @@ namespace OneBlog.MetaWeblog
                     dateCreated = story.DatePublished,
                     categories = story.Tags.Split(','),
                     postid = story.Id,
-                    userid = "shawnwildermuth",
+                    userid = "test",
                     wp_slug = story.GetStoryUrl()
                 };
 
@@ -123,8 +123,6 @@ namespace OneBlog.MetaWeblog
             var filenameonly = mediaObject.name.Substring(mediaObject.name.LastIndexOf('/') + 1);
             var ext = Path.GetExtension(filenameonly);
 
-
-
             var target = new IOClient();
 
             var key = GetFileName(ext);
@@ -133,16 +131,6 @@ namespace OneBlog.MetaWeblog
             var bits = Convert.FromBase64String(mediaObject.bits);
 
             objectInfo.url = _qiniuService.Upload(key, bits).Result;
-
-            //return result.key;
-
-            //var url = $"https://wilderminds.blob.core.windows.net/img/{filenameonly}";
-            //var creds = new StorageCredentials(_config["BlobStorage:Account"], _config["BlobStorage:Key"]);
-            //var blob = new CloudBlockBlob(new Uri(url), creds);
-            //blob.UploadFromByteArrayAsync(bits, 0, bits.Length).Wait();
-
-            // Create the response
-
             return objectInfo;
         }
 

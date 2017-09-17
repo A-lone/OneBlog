@@ -1,10 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
 
 namespace OneBlog.MetaWeblog
 {
@@ -15,10 +13,10 @@ namespace OneBlog.MetaWeblog
         private MetaWeblogService _service;
         private string _urlEndpoint;
 
-        public MetaWeblogMiddleware(RequestDelegate next, ILoggerFactory loggerFactory, string urlEndpoint, MetaWeblogService service)
+        public MetaWeblogMiddleware(RequestDelegate next, ILogger<MetaWeblogMiddleware> logger, string urlEndpoint, MetaWeblogService service)
         {
             _next = next;
-            _logger = loggerFactory.CreateLogger<MetaWeblogMiddleware>(); ;
+            _logger = logger;
             _urlEndpoint = urlEndpoint;
             _service = service;
         }
@@ -37,7 +35,7 @@ namespace OneBlog.MetaWeblog
                 var result = _service.Invoke(xml);
                 _logger.LogInformation($"Result XMLRPC: {result}");
 
-         
+
                 //var result = "<methodResponse><params><param><value><array><data><value><struct><member><name>blogid</name><value><string>stw</string></value></member><member><name>url</name><value><string>/</string></value></member><member><name>blogName</name><value><string>Shawn Wildermuth's Rants and Raves</string></value></member></struct></value></data></array></value></param></params></methodResponse>";
                 context.Response.OnStarting((state) =>
                 {

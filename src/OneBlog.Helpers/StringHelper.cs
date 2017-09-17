@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Ganss.XSS;
+using HtmlAgilityPack;
+using Microsoft.AspNetCore.Http.Features;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -7,10 +10,7 @@ using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
-using HtmlAgilityPack;
 using System.Threading.Tasks;
-using Microsoft.Security.Application;
-using Microsoft.AspNetCore.Http.Features;
 
 namespace OneBlog.Helpers
 {
@@ -84,13 +84,6 @@ namespace OneBlog.Helpers
         }
         #endregion
 
-        #region Social Helpers
-        public static string GetGravatarImage(string email, int size)
-        {
-            return IsValidEmail(email) ? string.Format("{0}://gravatar.duoshuo.com/avatar/{1}?s={2}&d=identicon&r=PG", AspNetCoreHelper.HttpContext.Request.Scheme, md5HashString(email), size) : "";
-            //return IsValidEmail(email) ? string.Format("//www.gravatar.com/avatar/{0}?s={1}&d=identicon&r=PG", md5HashString(email), size) : "";
-        }
-        #endregion
 
         #region Validation
 
@@ -855,7 +848,9 @@ namespace OneBlog.Helpers
             // causes problems with line breaks.
             if (useXssSantiser)
             {
-                return SanitizerCompatibleWithForiegnCharacters(Sanitizer.GetSafeHtmlFragment(finishedHtml));
+                var sanitizer = new HtmlSanitizer();
+                var sanitized = sanitizer.Sanitize(finishedHtml);
+                return SanitizerCompatibleWithForiegnCharacters(sanitized);
             }
 
             return finishedHtml;
@@ -924,34 +919,7 @@ namespace OneBlog.Helpers
             return htmlDoc.DocumentNode.WriteContentTo().Trim();
         }
 
-        /// <summary>
-        /// Url Encodes a string using the XSS library
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        public static string UrlEncode(string input)
-        {
-            if (!string.IsNullOrEmpty(input))
-            {
-                return Microsoft.Security.Application.Encoder.UrlEncode(input);
-            }
-            return input;
-        }
-
-        /// <summary>
-        /// Decode a url
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        public static string UrlDecode(string input)
-        {
-            if (!string.IsNullOrEmpty(input))
-            {
-                return WebUtility.UrlDecode(input);
-            }
-            return input;
-        }
-
+  
         /// <summary>
         /// decode a chunk of html or url
         /// </summary>

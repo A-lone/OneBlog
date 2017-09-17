@@ -210,14 +210,17 @@ namespace OneBlog.Data
 
             ApplicationUser user = null;
 
-            if (true)
-            {
-                user = _ctx.Users.FirstOrDefault(m => m.Id == detail.Author.Id);
-            }
-            else
-            {
-                user = GetCurrentUserAsync().Result;
-            }
+            user = _ctx.Users.FirstOrDefault(m => m.Id == detail.Author.Id);
+
+
+            //if (true)
+            //{
+            //    user = _ctx.Users.FirstOrDefault(m => m.Id == detail.Author.Id);
+            //}
+            //else
+            //{
+            //    user = GetCurrentUserAsync().Result;
+            //}
 
             if (user == null)
             {
@@ -513,7 +516,7 @@ namespace OneBlog.Data
         public PostsResult GetPostsByCategory(Guid categoryId, int pageSize, int page)
         {
             var list = _ctx.PostsInCategories.Include(m => m.Posts).Include(m => m.Posts.Author).Include(m => m.Posts.Comments)
-                .Where(m => m.CategoriesId == categoryId).Select(m => m.Posts);
+                .Where(m => m.CategoriesId == categoryId && m.Posts.IsPublished).Select(m => m.Posts);
 
             var totalCount = list.Count();
 

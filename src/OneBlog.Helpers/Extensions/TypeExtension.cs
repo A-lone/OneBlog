@@ -9,13 +9,15 @@ namespace OneBlog.Helpers
 {
     public static class TypeExtension
     {
-   
+
         // FindInterfaces
         // This method will filter the interfaces supported the class
         public static Type[] FindInterfaces(this Type type, TypeFilter filter, Object filterCriteria)
         {
             if (filter == null)
+            {
                 throw new ArgumentNullException("filter");
+            }
             Contract.EndContractBlock();
             Type[] c = type.GetInterfaces();
             int cnt = 0;

@@ -1,13 +1,10 @@
 ﻿@model OneBlog.Data.Models.PostDetail
-@inject OneBlog.Services.AdService ads
 @inject Microsoft.Extensions.Configuration.IConfigurationRoot config
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 @{
     var CurrentUser = await UserManager.GetUserAsync(User);
-
-
-    ViewBag.Title = $"{Model.Title} - 花纷飞|UWP之家";
+    ViewBag.Title = $"{Model.Title} - 花纷飞";
     CategoryItem category = null;
     if (Model.Categories != null && Model.Categories.Count > 0)
     {
@@ -65,7 +62,7 @@
     }
 
     @section Scripts {
-    @*<script type="text/javascript" src="~/3rdparty/js/sh/shCore.js"></script>*@
+        @*<script type="text/javascript" src="~/3rdparty/js/sh/shCore.js"></script>*@
         @*<script type="text/javascript" src="~/3rdparty/js/sh/shCore.js"></script>
             <script type="text/javascript" src="~/3rdparty/js/sh/shBrushCSharp.js"></script>
             <script type="text/javascript" src="~/3rdparty/js/sh/shBrushJScript.js"></script>
@@ -84,8 +81,6 @@
             </environment>*@
 
         <script type="text/javascript" src="~/lib/lazysizes/lazysizes.min.js" async=""></script>
-
-
         <script type="text/javascript">
         One.comments.postId = "@Model.Id";
         SyntaxHighlighter.defaults['toolbar'] = false;

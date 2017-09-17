@@ -14,12 +14,15 @@
   
   <ItemGroup>
     <Compile Remove="wwwroot\admin\static\css\plugins\**" />
+    <Compile Remove="wwwroot\lib\site\**" />
     <Compile Remove="wwwroot\ueditor\**" />
     <Content Remove="wwwroot\admin\static\css\plugins\**" />
     <Content Remove="wwwroot\ueditor\**" />
     <EmbeddedResource Remove="wwwroot\admin\static\css\plugins\**" />
+    <EmbeddedResource Remove="wwwroot\lib\site\**" />
     <EmbeddedResource Remove="wwwroot\ueditor\**" />
     <None Remove="wwwroot\admin\static\css\plugins\**" />
+    <None Remove="wwwroot\lib\site\**" />
     <None Remove="wwwroot\ueditor\**" />
   </ItemGroup>
   <ItemGroup>
@@ -545,8 +548,6 @@
     <Content Include="wwwroot\css\setting.css" />
     <Content Include="wwwroot\css\star-rating.css" />
     <Content Include="wwwroot\common\js\app\comment.js" />
-    <Content Include="wwwroot\sitemap.xml" />
-    <Content Include="wwwroot\static\img\blur.svg" />
     <Content Include="wwwroot\static\img\common\actions\action-delete-small-lt.png" />
     <Content Include="wwwroot\static\img\common\actions\action-delete-small.png" />
     <Content Include="wwwroot\static\img\common\actions\action-edit-small-lt.png" />
@@ -836,7 +837,6 @@
     <Content Include="wwwroot\static\img\concat.png" />
     <Content Include="wwwroot\static\img\NotFound.png" />
     <Content Include="wwwroot\static\img\refresh.png" />
-    <Content Include="wwwroot\XMLFile.xml" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="wwwroot\**\*;Areas\Admin\Views\**\*;config.json;web.config;data\**\*;EmailTemplates\**\*">
@@ -857,7 +857,6 @@
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="2.0.0" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="4.4.0" />
-    <PackageReference Include="WindowsAzure.Storage" Version="8.4.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.0">
       <PrivateAssets>All</PrivateAssets>
@@ -875,9 +874,6 @@
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="1.1.0-preview4-final" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="wwwroot\lib\site\" />
-    <Folder Include="wwwroot\lib\site\" />
-    <Folder Include="wwwroot\lib\site\css\" />
     <Folder Include="wwwroot\static\img\avatar\" />
   </ItemGroup>
   <ItemGroup>
@@ -892,6 +888,6 @@
     <WCFMetadata Include="Connected Services" />
   </ItemGroup>
   <ProjectExtensions>
-    <VisualStudio><UserProperties bower_1json__JSONSchema="" package_1json__JSONSchema="" /></VisualStudio>
+    <VisualStudio><UserProperties bower_1json__JSONSchema="" appsettings_1json__JSONSchema="http://json.schemastore.org/chutzpah" package_1json__JSONSchema="" /></VisualStudio>
   </ProjectExtensions>
 </Project>

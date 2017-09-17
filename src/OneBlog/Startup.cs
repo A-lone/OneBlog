@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
@@ -19,12 +19,9 @@ using OneBlog.Logger;
 using OneBlog.MetaWeblog;
 using OneBlog.Mvc;
 using OneBlog.Services;
-using OneBlog.Services.DataProviders;
 using Qiniu.Conf;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
 
@@ -34,22 +31,11 @@ namespace OneBlog
     {
         private IConfigurationRoot _config;
         private IHostingEnvironment _env;
-        public static readonly IEnumerable<string> MimeTypes = new[]{
-    // General
-    "text/plain",
-    // Static files
-    "text/css",
-    "application/javascript",
-    // MVC
-    "text/html",
-    "application/xml",
-    "text/xml",
-    "application/json",
-    "text/json",};
 
         public Startup(IHostingEnvironment env)
         {
             _env = env;
+            //中文支持
             //EncodingProvider provider = CodePagesEncodingProvider.Instance;
             //Encoding.RegisterProvider(provider);
 
@@ -59,7 +45,7 @@ namespace OneBlog
               .AddEnvironmentVariables();
 
             _config = builder.Build();
-           
+
 
         }
 
@@ -107,15 +93,6 @@ namespace OneBlog
             }).AddEntityFrameworkStores<ApplicationDbContext>();
 
 
-            //if (_config["OneDb:TestData"] == "True")
-            //{
-            //    svcs.AddScoped<IPostsRepository, MemoryRepository>();
-            //}
-            //else
-            //{
-            svcs.AddScoped<IPostsRepository, PostsRepository>();
-            //}
-
             svcs.Configure<WebEncoderOptions>(options =>
             {
                 options.TextEncoderSettings = new TextEncoderSettings(UnicodeRanges.All);
@@ -126,6 +103,7 @@ namespace OneBlog
                 options.ViewLocationExpanders.Add(new ThemeViewLocationExpander());
             });
 
+            svcs.AddScoped<IPostsRepository, PostsRepository>();
             svcs.AddScoped<IDashboardRepository, DashboardRepository>();
             svcs.AddScoped<IStoreRepository, StoreRepository>();
             svcs.AddScoped<IViewRenderService, ViewRenderService>();
@@ -138,30 +116,16 @@ namespace OneBlog
 
             svcs.AddTransient<JsonService>();
             svcs.AddTransient<ApplicationInitializer>();
-            svcs.AddScoped<AdService>();
             svcs.AddScoped<QiniuService>();
             svcs.AddScoped<NavigationHelper>();
-            // Data Providers (non-EF)
-            svcs.AddScoped<CalendarProvider>();
-            svcs.AddScoped<CoursesProvider>();
-            svcs.AddScoped<PublicationsProvider>();
-            svcs.AddScoped<PodcastEpisodesProvider>();
-            svcs.AddScoped<VideosProvider>();
             svcs.AddTransient<ApplicationEnvironment>();
 
             svcs.AddTransient<IDbContextFactory, DbContextFactory>();
             // Supporting Live Writer (MetaWeblogAPI)
             svcs.AddMetaWeblog<WeblogProvider>();
 
-            //svcs.Configure<MvcOptions>(options => {
-            //    options.InputFormatters.OfType<JsonInputFormatter>().First().SupportedMediaTypes.Add(
-            //        new MediaTypeHeaderValue("application/vnd.myget.webhooks.v1+json")
-            //    );
-            //});
-
             // Add Caching Support
             svcs.AddMemoryCache(opt => opt.ExpirationScanFrequency = TimeSpan.FromMinutes(5));
-
             //// Add MVC to the container
             var mvcBuilder = svcs.AddMvc();
             //mvcBuilder.AddJsonOptions(opts => opts.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver());
@@ -173,7 +137,10 @@ namespace OneBlog
             //var mvcCore = svcs.AddMvcCore();
             //mvcCore.AddJsonFormatters(options => options.ContractResolver = new CamelCasePropertyNamesContractResolver());
             // Add Https - renable once Azure Certs work
-            //if (_env.IsProduction()) mvcBuilder.AddMvcOptions(options => options.Filters.Add(new RequireHttpsAttribute()));
+            if (_env.IsProduction())
+            {
+                mvcBuilder.AddMvcOptions(options => options.Filters.Add(new RequireHttpsAttribute()));
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -211,10 +178,8 @@ namespace OneBlog
             //app.UseUrlRewriter();
 
             app.UseStaticFiles();
-
             // Support MetaWeblog API
             app.UseMetaWeblog("/livewriter");
-
 
             Config.ACCESS_KEY = _config["Qiniu:AccessKey"];
             Config.SECRET_KEY = _config["Qiniu:SecretKey"];
