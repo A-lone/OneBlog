@@ -5,10 +5,10 @@
  * 使用百度的UEditor编辑器，如果你都不喜欢可以更换自定义编辑器
  * 支持多种常用数据库，默认使用Microsoft Sql Server。
 
-![demo site](https://cdn.huafenfei.com/oneblog1.png)
-![demo site](https://cdn.huafenfei.com/oneblog2.png)
-![demo site](https://cdn.huafenfei.com/oneblog3.png)
-![demo site](https://cdn.huafenfei.com/oneblog4.png)
+![demo site](http://cdn.huafenfei.com/oneblog1.png)
+![demo site](http://cdn.huafenfei.com/oneblog2.png)
+![demo site](http://cdn.huafenfei.com/oneblog3.png)
+![demo site](http://cdn.huafenfei.com/oneblog4.png)
 
 
 ## Environment
