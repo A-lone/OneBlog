@@ -20,7 +20,7 @@ namespace OneBlog.Areas.Admin.Controllers
 
     //[Area("Admin")]
     //[Route("admin")]
-    [Authorize(Roles ="Administrator")]
+    [Authorize(Roles = "Administrator")]
     [Area("Admin")]
     [Route("admin")]
     public class AdminController : Controller
@@ -153,7 +153,7 @@ namespace OneBlog.Areas.Admin.Controllers
                     _postsRepository.DeletePost(item.Id);
                 }
             }
-            //_postsRepository.SaveAll();
+            _postsRepository.SaveAll();
             return Ok();
         }
 
@@ -205,9 +205,6 @@ namespace OneBlog.Areas.Admin.Controllers
                 url = await _qiniuService.Upload(file);
             }
             return Ok(url);
-
-    
-
         }
 
 

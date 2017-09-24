@@ -1,10 +1,7 @@
-﻿using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+using Newtonsoft.Json.Linq;
+using OneBlog.Configuration;
 
 namespace OneBlog.UEditor
 {
@@ -14,59 +11,16 @@ namespace OneBlog.UEditor
     /// </summary>
     public class ConfigHandler : IHandler
     {
-        private static bool noCache = true;
-        private static string _path;
+        private IOptions<EditorSettings> _editorSettings;
 
-        public ConfigHandler(string path)
+        public ConfigHandler(IOptions<EditorSettings> editorSettings)
         {
-            _path = path;
+            _editorSettings = editorSettings;
         }
 
         public object Process()
         {
-            return ConfigHandler.Items;
+            return _editorSettings.Value;
         }
-
-        private static JObject BuildItems()
-        {
-            var json = File.ReadAllText(_path);
-            return JObject.Parse(json);
-        }
-
-        private static JObject Items
-        {
-            get
-            {
-                if (noCache || _Items == null)
-                {
-                    _Items = BuildItems();
-                }
-                return _Items;
-            }
-        }
-        private static JObject _Items;
-
-
-        public static T GetValue<T>(string key)
-        {
-            return Items[key].Value<T>();
-        }
-
-        public static String[] GetStringList(string key)
-        {
-            return Items[key].Select(x => x.Value<String>()).ToArray();
-        }
-
-        public static String GetString(string key)
-        {
-            return GetValue<String>(key);
-        }
-
-        public static int GetInt(string key)
-        {
-            return GetValue<int>(key);
-        }
-
-
     }
 }

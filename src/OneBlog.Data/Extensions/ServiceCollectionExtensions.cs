@@ -13,11 +13,11 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddEntityFramework(this IServiceCollection services, IConfigurationRoot configuration)
+        public static IServiceCollection AddEntityFramework(this IServiceCollection services, IConfiguration conf)
         {
-            var dataProviderConfig = configuration.GetSection("Data")["Provider"];
+            var dataProviderConfig = conf.GetSection("DataSettings")["Provider"];
             var aspnetcore_env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-            var connectionString = string.Equals(aspnetcore_env, "Development") ? configuration.GetSection("Data")["ConnectionString_Debug"] : configuration.GetSection("Data")["ConnectionString_Debug"];
+            var connectionString = string.Equals(aspnetcore_env, "Development") ? conf.GetSection("Data")["ConnectionString_Debug"] : conf.GetSection("Data")["ConnectionString_Debug"];
             var selectedDataProvider = DbContextFactory.GetCurrentDataProvider(dataProviderConfig);
             selectedDataProvider.RegisterDbContext(services, connectionString);
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>

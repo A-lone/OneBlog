@@ -13,7 +13,7 @@ namespace OneBlog.Data
 
         private ApplicationDbContext _ctx;
 
-        public CategoriesRepository(IConfigurationRoot config, ApplicationDbContext ctx)
+        public CategoriesRepository(ApplicationDbContext ctx)
         {
             _ctx = ctx;
         }

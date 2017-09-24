@@ -2,6 +2,7 @@
 using OneBlog.Helpers;
 using OneBlog.Services;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -97,7 +98,7 @@ namespace OneBlog.UEditor
         /// <summary>
         /// 上传允许的文件格式
         /// </summary>
-        public string[] AllowExtensions { get; set; }
+        public IList<string> AllowExtensions { get; set; }
 
         /// <summary>
         /// 文件是否以 Base64 的形式上传

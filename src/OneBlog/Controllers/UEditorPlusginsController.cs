@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+using OneBlog.Configuration;
 using OneBlog.UEditor;
-using System.IO;
 
 namespace OneBlog.Controllers
 {
@@ -11,13 +12,14 @@ namespace OneBlog.Controllers
     public class UEditorPlusginsController : Controller
     {
 
-        protected string _path;
+        private IOptions<EditorSettings> _editorSettings;
 
-        public UEditorPlusginsController(IHostingEnvironment env)
+
+        public UEditorPlusginsController(IOptions<EditorSettings> editorSettings)
         {
-            var path = "config.json";
-            _path = Path.Combine(env.ContentRootPath, $@"Data{Path.DirectorySeparatorChar}{path}");
+            _editorSettings = editorSettings;
         }
+
 
         [Route("handler")]
         [HttpGet]
@@ -29,15 +31,15 @@ namespace OneBlog.Controllers
             switch (type)
             {
                 case "config":
-                    handler = new ConfigHandler(_path);
+                    handler = new ConfigHandler(_editorSettings);
                     break;
                 case "uploadimage":
                     handler = new UploadHandler(new UploadConfig()
                     {
-                        AllowExtensions = ConfigHandler.GetStringList("imageAllowFiles"),
-                        PathFormat = ConfigHandler.GetString("imagePathFormat"),
-                        SizeLimit = ConfigHandler.GetInt("imageMaxSize"),
-                        UploadFieldName = ConfigHandler.GetString("imageFieldName")
+                        AllowExtensions = _editorSettings.Value.imageAllowFiles,
+                        PathFormat = _editorSettings.Value.imagePathFormat,
+                        SizeLimit = _editorSettings.Value.imageMaxSize,
+                        UploadFieldName = _editorSettings.Value.imageFieldName
                     });
                     break;
                 //case "uploadscrawl":
@@ -86,14 +88,6 @@ namespace OneBlog.Controllers
         }
 
 
-
-        //GET api/TinyMce/UploadImage
-        [Route("UploadImage")]
-        [HttpPost]
-        public string UploadImage()
-        {
-            return null;
-        }
         //var memberService = ServiceFactory.Get<IMembershipService>();
         //var roleService = ServiceFactory.Get<IRoleService>();
         //var localizationService = ServiceFactory.Get<ILocalizationService>();

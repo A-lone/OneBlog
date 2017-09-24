@@ -4,7 +4,7 @@ using System.Text;
 
 namespace OneBlog.Configuration
 {
-    public class DataConfiguration
+    public class DataSettings
     {
         public string ConnectionString { get; set; }
 

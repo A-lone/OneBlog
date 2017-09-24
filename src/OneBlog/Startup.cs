@@ -29,33 +29,30 @@ namespace OneBlog
 {
     public class Startup
     {
-        private IConfigurationRoot _config;
-        private IHostingEnvironment _env;
 
-        public Startup(IHostingEnvironment env)
+        private IHostingEnvironment _env { get; }
+        private IConfiguration _conf { get; }
+
+
+        public Startup(IHostingEnvironment env, IConfiguration conf)
         {
-            _env = env;
             //中文支持
             //EncodingProvider provider = CodePagesEncodingProvider.Instance;
             //Encoding.RegisterProvider(provider);
-
-            var builder = new ConfigurationBuilder()
-              .SetBasePath(env.ContentRootPath)
-              .AddJsonFile("appsettings.json", false, true)
-              .AddEnvironmentVariables();
-
-            _config = builder.Build();
-
-
+            _env = env;
+            _conf = conf;
         }
+
 
         public void ConfigureServices(IServiceCollection svcs)
         {
             svcs.AddTimedJob();
             svcs.AddMvcDI();
             AspNetCoreHelper.ConfigureServices(svcs);
-            svcs.Configure<AppSettings>(_config.GetSection("AppSettings"));
-            svcs.Configure<DataConfiguration>(_config.GetSection("Data"));
+            svcs.Configure<AppSettings>(_conf.GetSection(nameof(AppSettings)));
+            svcs.Configure<DataSettings>(_conf.GetSection(nameof(DataSettings)));
+            svcs.Configure<QiniuSettings>(_conf.GetSection(nameof(QiniuSettings)));
+            svcs.Configure<EditorSettings>(_conf.GetSection(nameof(EditorSettings)));
 
             svcs.AddSession();
             svcs.AddResponseCompression();
@@ -70,7 +67,6 @@ namespace OneBlog
                 options.Providers.Add<GzipCompressionProvider>();
             });
 
-            svcs.AddSingleton(_config);
 
             if (_env.IsDevelopment())
             {
@@ -145,7 +141,6 @@ namespace OneBlog
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app,
-                              IHostingEnvironment env,
                               ILoggerFactory loggerFactory,
                               IMailService mailService,
                               IServiceScopeFactory scopeFactory)
@@ -154,7 +149,7 @@ namespace OneBlog
             app.UseTimedJob();
             app.UseMvcDI();
             app.UseResponseCompression();
-            AspNetCoreHelper.Configure(app, env, loggerFactory);
+            AspNetCoreHelper.Configure(app, _env, loggerFactory);
             app.UseSession();
             // Add the following to the request pipeline only in development environment.
             if (_env.IsDevelopment())
@@ -181,17 +176,14 @@ namespace OneBlog
             // Support MetaWeblog API
             app.UseMetaWeblog("/livewriter");
 
-            Config.ACCESS_KEY = _config["Qiniu:AccessKey"];
-            Config.SECRET_KEY = _config["Qiniu:SecretKey"];
-            Config.UP_HOST = _config["Qiniu:UP_Host"];
-
             // Keep track of Active # of users for Vanity Project
             app.UseMiddleware<ActiveUsersMiddleware>();
 
             app.UseAuthentication();
 
             app.UseMvc();
-            if (_config["OneDb:TestData"] != "True")
+
+            if (_conf["OneDb:TestData"] != "True")
             {
                 using (var scope = scopeFactory.CreateScope())
                 {

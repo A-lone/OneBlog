@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+using OneBlog.Configuration;
 using OneBlog.Helpers;
+using Qiniu.Conf;
 using Qiniu.IO;
 using Qiniu.RS;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -14,14 +14,14 @@ namespace OneBlog.Services
 {
     public class QiniuService
     {
-        private readonly IConfigurationRoot _config;
-        private readonly string _domain;
-        private readonly string _bucket;
-        public QiniuService(IConfigurationRoot config, string domain = null, string bucket = null)
+        private readonly IOptions<QiniuSettings> _qiniuSettings;
+
+        public QiniuService(IOptions<QiniuSettings> qiniuSettings)
         {
-            _config = config;
-            _domain = domain ?? _config["Qiniu:Domain"];
-            _bucket = bucket ?? _config["Qiniu:Bucket"];
+            _qiniuSettings = qiniuSettings;
+            Config.ACCESS_KEY = _qiniuSettings.Value.AccessKey;
+            Config.SECRET_KEY = _qiniuSettings.Value.SecretKey;
+            Config.UP_HOST = _qiniuSettings.Value.UPHost;
         }
 
         public async Task<string> Upload(HttpContent httpContent)
@@ -80,7 +80,6 @@ namespace OneBlog.Services
         }
 
 
-
         public async Task<string> Upload(string key, byte[] buffer)
         {
             using (Stream stream = new MemoryStream(buffer))
@@ -93,8 +92,8 @@ namespace OneBlog.Services
         public async Task<string> Upload(string key, Stream stream)
         {
             var target = new IOClient();
-            var result = await target.PutAsync(new PutPolicy(_bucket).Token(), key, stream, null);
-            var url = string.Format("{0}/{1}", _domain, result.key);
+            var result = await target.PutAsync(new PutPolicy(_qiniuSettings.Value.Bucket).Token(), key, stream, null);
+            var url = string.Format("{0}/{1}", _qiniuSettings.Value.Domain, result.key);
             return url;
         }
 

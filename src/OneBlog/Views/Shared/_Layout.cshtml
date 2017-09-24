@@ -2,7 +2,6 @@
 @inject UserManager<ApplicationUser> UserManager
 @inject RoleManager<IdentityRole> RoleManager
 @inject OneBlog.Helpers.NavigationHelper NavigationHelper
-@inject Microsoft.Extensions.Configuration.IConfigurationRoot config
 @{
     var CurrentUser = await UserManager.GetUserAsync(User);
     var TopTags = NavigationHelper.GetTopTags();

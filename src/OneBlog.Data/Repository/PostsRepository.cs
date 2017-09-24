@@ -24,7 +24,7 @@ namespace OneBlog.Data
         private JsonService _jsonService;
         private UserManager<ApplicationUser> _userManager;
 
-        public PostsRepository(ApplicationDbContext ctx, IConfigurationRoot config,
+        public PostsRepository(ApplicationDbContext ctx,
             JsonService jsonService,
             UserManager<ApplicationUser> userManager
             )

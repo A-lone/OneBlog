@@ -15,10 +15,10 @@ namespace OneBlog.Data
     public class DbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>, IDbContextFactory
     {
 
-        private DataConfiguration DataConfiguration { get; }
+        private DataSettings DataConfiguration { get; }
         private string ConnectionString { get; set; }
 
-        public DbContextFactory(IOptions<DataConfiguration> dataOptions)
+        public DbContextFactory(IOptions<DataSettings> dataOptions)
         {
             DataConfiguration = dataOptions.Value;
             var aspnetcore_env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");

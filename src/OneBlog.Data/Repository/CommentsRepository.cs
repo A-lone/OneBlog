@@ -19,7 +19,7 @@ namespace OneBlog.Data.Contracts
         private ApplicationDbContext _ctx;
         private JsonService _jsonService;
         private readonly UserManager<ApplicationUser> _userManager;
-        public CommentsRepository(IConfigurationRoot config, ApplicationDbContext ctx, JsonService jsonService, UserManager<ApplicationUser> userManager)
+        public CommentsRepository(ApplicationDbContext ctx, JsonService jsonService, UserManager<ApplicationUser> userManager)
         {
             _ctx = ctx;
             _jsonService = jsonService;

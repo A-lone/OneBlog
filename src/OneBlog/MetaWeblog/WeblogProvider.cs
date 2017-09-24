@@ -19,15 +19,13 @@ namespace OneBlog.MetaWeblog
     {
         private IPostsRepository _repo;
         private UserManager<ApplicationUser> _userMgr;
-        private IConfigurationRoot _config;
         private IHostingEnvironment _appEnv;
         private QiniuService _qiniuService;
 
-        public WeblogProvider(UserManager<ApplicationUser> userMgr, IPostsRepository repo, IConfigurationRoot config, IHostingEnvironment appEnv, QiniuService qiniuService)
+        public WeblogProvider(UserManager<ApplicationUser> userMgr, IPostsRepository repo, IHostingEnvironment appEnv, QiniuService qiniuService)
         {
             _repo = repo;
             _userMgr = userMgr;
-            _config = config;
             _appEnv = appEnv;
             _qiniuService = qiniuService;
         }
@@ -160,7 +158,7 @@ namespace OneBlog.MetaWeblog
             {
                 title = s.Title,
                 description = s.Content,
-                categories = s.Tags.Select(m=>m.TagName).ToArray(),
+                categories = s.Tags.Select(m => m.TagName).ToArray(),
                 dateCreated = s.DatePublished,
                 postid = s.Id,
                 permalink = s.Slug,

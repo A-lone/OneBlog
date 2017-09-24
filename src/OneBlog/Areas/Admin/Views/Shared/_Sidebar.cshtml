@@ -3,7 +3,6 @@
 @inject UserManager<ApplicationUser> UserManager
 @inject Microsoft.AspNetCore.Hosting.IHostingEnvironment env
 
-@inject Microsoft.Extensions.Configuration.IConfigurationRoot config
 @{
     var CurrentUser = await UserManager.GetUserAsync(User);
 }

@@ -16,7 +16,7 @@ namespace OneBlog.Data
         private UserManager<ApplicationUser> _userManager;
         private ApplicationDbContext _ctx;
 
-        public LookupsRepository(IConfigurationRoot config, UserManager<ApplicationUser> userManager, ApplicationDbContext ctx)
+        public LookupsRepository(UserManager<ApplicationUser> userManager, ApplicationDbContext ctx)
         {
             _ctx = ctx;
             _userManager = userManager;

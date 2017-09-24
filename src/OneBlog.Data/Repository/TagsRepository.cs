@@ -13,7 +13,7 @@ namespace OneBlog.Data.Repository
     {
         private ApplicationDbContext _ctx;
 
-        public TagsRepository(IConfigurationRoot config, ApplicationDbContext ctx)
+        public TagsRepository(ApplicationDbContext ctx)
         {
             _ctx = ctx;
         }

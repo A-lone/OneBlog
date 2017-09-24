@@ -11,14 +11,14 @@ namespace OneBlog.Services
 {
   public class MailService : IMailService
   {
-    private IConfigurationRoot _config;
+    private IConfiguration _conf;
     private IHostingEnvironment _env;
     private ILogger<MailService> _logger;
 
-    public MailService(IHostingEnvironment env, IConfigurationRoot config, ILogger<MailService> logger)
+    public MailService(IHostingEnvironment env, IConfiguration conf, ILogger<MailService> logger)
     {
       _env = env;
-      _config = config;
+      _conf = conf;
       _logger = logger;
     }
 
@@ -29,18 +29,18 @@ namespace OneBlog.Services
         var path = $"{_env.ContentRootPath}\\EmailTemplates\\{template}";
         var body = File.ReadAllText(path);
 
-        var key = _config["MailService:ApiKey"];
+        var key = _conf["MailService:ApiKey"];
 
         var uri = $"https://api.sendgrid.com/api/mail.send.json";
         var post = new KeyValuePair<string, string>[]
               {
-                new KeyValuePair<string, string>("api_user", _config["MailService:ApiUser"]),
-                new KeyValuePair<string, string>("api_key", _config["MailService:ApiKey"]),
-                new KeyValuePair<string, string>("to", _config["MailService:Receiver"]),
+                new KeyValuePair<string, string>("api_user", _conf["MailService:ApiUser"]),
+                new KeyValuePair<string, string>("api_key", _conf["MailService:ApiKey"]),
+                new KeyValuePair<string, string>("to", _conf["MailService:Receiver"]),
                 new KeyValuePair<string, string>("toname", name),
                 new KeyValuePair<string, string>("subject", $"Wildermuth.com Site Mail"),
                 new KeyValuePair<string, string>("text", string.Format(body, email, name, subject, msg)),
-                new KeyValuePair<string, string>("from", _config["MailService:Receiver"])
+                new KeyValuePair<string, string>("from", _conf["MailService:Receiver"])
               };
 
         var client = new HttpClient();
