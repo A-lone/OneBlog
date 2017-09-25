@@ -1,17 +1,13 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Identity;
+using OneBlog.Data;
+using OneBlog.Data.Contracts;
+using OneBlog.Helpers;
+using OneBlog.Services;
 using Qiniu.IO;
-using Qiniu.RS;
 using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using OneBlog.Data;
-using OneBlog.Helpers;
-using OneBlog.MetaWeblog;
-using OneBlog.Data.Contracts;
-using OneBlog.Services;
 
 namespace OneBlog.MetaWeblog
 {
@@ -19,14 +15,12 @@ namespace OneBlog.MetaWeblog
     {
         private IPostsRepository _repo;
         private UserManager<ApplicationUser> _userMgr;
-        private IHostingEnvironment _appEnv;
         private QiniuService _qiniuService;
 
-        public WeblogProvider(UserManager<ApplicationUser> userMgr, IPostsRepository repo, IHostingEnvironment appEnv, QiniuService qiniuService)
+        public WeblogProvider(UserManager<ApplicationUser> userMgr, IPostsRepository repo, QiniuService qiniuService)
         {
             _repo = repo;
             _userMgr = userMgr;
-            _appEnv = appEnv;
             _qiniuService = qiniuService;
         }
 
@@ -151,8 +145,6 @@ namespace OneBlog.MetaWeblog
         public Post[] GetRecentPosts(string blogid, string username, string password, int numberOfPosts)
         {
             EnsureUser(username, password).Wait();
-
-
 
             return _repo.GetPosts(numberOfPosts).Posts.Select(s => new Post()
             {

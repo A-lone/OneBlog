@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.Extensions.WebEncoders;
 using OneBlog.Configuration;
@@ -130,6 +131,7 @@ namespace OneBlog
                 r.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver();
                 r.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
             });
+
             //var mvcCore = svcs.AddMvcCore();
             //mvcCore.AddJsonFormatters(options => options.ContractResolver = new CamelCasePropertyNamesContractResolver());
             // Add Https - renable once Azure Certs work
@@ -146,7 +148,7 @@ namespace OneBlog
                               IServiceScopeFactory scopeFactory)
         {
 
-            app.UseTimedJob();
+            //app.UseTimedJob();
             app.UseMvcDI();
             app.UseResponseCompression();
             AspNetCoreHelper.Configure(app, _env, loggerFactory);
@@ -175,7 +177,7 @@ namespace OneBlog
             app.UseStaticFiles();
             // Support MetaWeblog API
             app.UseMetaWeblog("/livewriter");
-
+            app.UseMiddleware<OldSysMiddleware>();
             // Keep track of Active # of users for Vanity Project
             app.UseMiddleware<ActiveUsersMiddleware>();
 

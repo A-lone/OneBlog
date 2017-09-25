@@ -1,50 +1,21 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using OneBlog.Data;
+using Microsoft.Net.Http.Headers;
 using OneBlog.Data.Contracts;
 using OneBlog.Data.Models;
-using Microsoft.Net.Http.Headers;
-using Microsoft.AspNetCore.Hosting;
-using System.IO;
 using OneBlog.Services;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using OneBlog.Helpers;
 
 namespace OneBlog.Areas.Admin.Controllers
 {
-
-    //[Area("Admin")]
-    //[Route("admin")]
     [Authorize(Roles = "Administrator")]
     [Area("Admin")]
     [Route("admin")]
     public class AdminController : Controller
     {
-
-        //[HttpPost]
-        //public IActionResult Extensions(string ext, string settingName, FormCollection collection)
-        //{
-        //    //var Settings = ExtensionManager.GetSettings(ext, settingName);
-        //    //foreach (var item in Settings.Parameters)
-        //    //{
-        //    //    item.UpdateScalarValue(collection[item.Name]);
-        //    //}
-        //    //ViewBag.ExtensionName = ext;
-        //    //ViewBag.ErrorMsg = "";
-        //    //ViewBag.InfoMsg = Labels.theValuesSaved;
-        //    return View();
-        //}
-
-        //public IActionResult Extensions(string ext)
-        //{
-        //    ViewBag.ExtensionName = ext;
-        //    return View();
-        //}
 
         private readonly ICategoriesRepository _categoriesRepository;
         private readonly IPostsRepository _postsRepository;

@@ -33,6 +33,7 @@ namespace OneBlog.Data.Common
 
             var author = new Author();
             author.Id = post.Author?.Id;
+            author.Avatar = post.Author?.Avatar;
             author.Signature = post.Author?.Signature;
             author.DisplayName = post.Author?.DisplayName;
             author.Name = post.Author?.UserName;

@@ -229,3 +229,7 @@ node_modules/
 **/PublishProfiles/
 **/PublishScripts/
 typings
+/src/OneBlog/package-lock.json
+/src/OneBlog/wwwroot/common/css/screen.css
+/src/OneBlog/wwwroot/common/css/spectre.css
+/src/OneBlog/wwwroot/common/css/z.app.css

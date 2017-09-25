@@ -1,35 +1,16 @@
-﻿@model PostsResult
-@{
-
-    ViewBag.Title = $"Tag: {ViewContext.RouteData.Values["tag"]}";
-    ViewBag.PageName = "花纷飞";
-    ViewBag.PageBlurb = $"";
+﻿@using Microsoft.Extensions.Options
+@using OneBlog.Configuration
+@model PostsResult
+@inject IOptions<AppSettings> AppSettings
+@{ 
     ViewBag.Tag = ViewContext.RouteData.Values["tag"];
-    ViewBag.PageImage = "/img/logo-square.png";
+    ViewBag.Title = $"{ViewBag.Tag} - {AppSettings.Value.Title}";
     ViewBag.ControllerName = "Tag";
 }
-@if (Model.Posts != null)
-{
-    <div class="container">
-        <div class="search-results">
-            <p>
-            </p><h3>Tag:</h3>&nbsp;
-            <h2>@ViewBag.Tag</h2>
-            <p>
-            </p>
-        </div>
-        <div class="row">
-            @foreach (var story in Model.Posts)
-            {
-                <div class="col-lg-3">
-                    @Html.Partial("_PostBrief", story)
-                </div>
-            }
-            <div class="row">
-                <div class="col-lg-12">
-                    @Html.Partial("_Pager")
-                </div>
-            </div>
-        </div>
-    </div>
-}
+
+<div class="content-title">
+    <h2>@ViewBag.Tag</h2>
+</div>
+
+@Html.Partial("_Loop", Model)
+

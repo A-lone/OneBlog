@@ -24,6 +24,8 @@ namespace OneBlog.Data.Contracts
 
         long AddPostCount(Guid id);
 
+        bool CheckIsOnly(string title, string authorId);
+
         PostDetail FindById(Guid id);
 
         Posts GetPost(string slug);

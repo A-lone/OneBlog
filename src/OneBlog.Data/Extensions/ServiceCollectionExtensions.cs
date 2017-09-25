@@ -17,11 +17,11 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             var dataProviderConfig = conf.GetSection("DataSettings")["Provider"];
             var aspnetcore_env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-            var connectionString = string.Equals(aspnetcore_env, "Development") ? conf.GetSection("Data")["ConnectionString_Debug"] : conf.GetSection("Data")["ConnectionString_Debug"];
+            var connectionString = conf.GetSection("DataSettings")["ConnectionString"];
             var selectedDataProvider = DbContextFactory.GetCurrentDataProvider(dataProviderConfig);
             selectedDataProvider.RegisterDbContext(services, connectionString);
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
-            { 
+            {
                 options.Password.RequireDigit = false;
                 options.Password.RequiredLength = 6;
                 options.Password.RequireLowercase = false;

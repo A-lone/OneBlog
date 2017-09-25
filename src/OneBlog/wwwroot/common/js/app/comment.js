@@ -99,7 +99,7 @@
             } else {
                 // move to nested position
                 var parentComment = $('#isso-' + id);
-                var textWrapper = $('#isso-wrapper-'+id, parentComment);
+                var textWrapper = $('#isso-wrapper-' + id, parentComment);
 
                 //var replies = $('#replies_' + id);
 
@@ -126,14 +126,16 @@
 };
 
 $(document).ready(function () {
-    setTimeout(function () {
-        $.ajax('/postcount', {
-            method: "POST",
-            data: "id=" + One.comments.postId,
-            success: function (data) {
-            }
-        });
-    }, 1000);
+    if (One.comments.postId) {
+        setTimeout(function () {
+            $.ajax('/postcount', {
+                method: "POST",
+                data: "id=" + One.comments.postId,
+                success: function (data) {
+                }
+            });
+        }, 1000);
+    }
 });
 
 

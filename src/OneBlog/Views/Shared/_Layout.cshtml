@@ -1,10 +1,23 @@
-﻿@inject SignInManager<ApplicationUser> SignInManager
+﻿@using Microsoft.Extensions.Options
+@using OneBlog.Configuration
+@inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 @inject RoleManager<IdentityRole> RoleManager
 @inject OneBlog.Helpers.NavigationHelper NavigationHelper
+@inject IOptions<AppSettings> AppSettings
 @{
     var CurrentUser = await UserManager.GetUserAsync(User);
     var TopTags = NavigationHelper.GetTopTags();
+    ViewBag.Title =$"{AppSettings.Value.Title}  - {AppSettings.Value.Description}";
+    var logoUrl = "/images/logo.png";
+    var desc = AppSettings.Value.Description;
+
+    if (ViewBag.UserProfile != null)
+    {
+        logoUrl = ViewBag.UserProfile.PhotoUrl;
+        desc = ViewBag.UserProfile.DisplayName;
+        ViewBag.Title = $"{ViewBag.UserProfile.DisplayName} - {AppSettings.Value.Title}";
+    }
 }
 <!DOCTYPE html>
 <html>
@@ -14,6 +27,7 @@
     <title>@ViewBag.Title</title>
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link href="~/dist/oneblog.min.css" asp-append-version="true" rel="stylesheet" />
     @RenderSection("Styles", required: false)
 </head>
@@ -22,9 +36,11 @@
         <section class="section-sidebar">
             <div class="sidebar-header">
                 <a href="/" class="sidebar-header-logo">
-                    <img class="logo" src="~/images/logo.png">
+                    <figure class="avatar avatar-lg">
+                        <img class="logo" src="@logoUrl">
+                    </figure>
                 </a>
-                <p>与世界分享你的创作</p>
+                <p>@desc</p>
                 @Html.Partial("_Menu")
             </div>
             <div class="sidebar-footer"></div>

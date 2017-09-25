@@ -5,7 +5,6 @@ using Microsoft.Extensions.Options;
 using OneBlog.Configuration;
 using OneBlog.Data.Providers;
 using OneBlog.Helpers;
-using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -21,8 +20,7 @@ namespace OneBlog.Data
         public DbContextFactory(IOptions<DataSettings> dataOptions)
         {
             DataConfiguration = dataOptions.Value;
-            var aspnetcore_env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-            ConnectionString = string.Equals(aspnetcore_env, "Development") ? DataConfiguration.ConnectionString_Debug : DataConfiguration.ConnectionString;
+            ConnectionString = DataConfiguration.ConnectionString;
         }
 
 

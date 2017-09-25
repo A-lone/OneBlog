@@ -1,14 +1,13 @@
 ﻿@model PostsResult
-@*@{
-        var category = Model.Categories.FirstOrDefault();
-    }*@
 
 <div class="content-cards">
     @foreach (var story in Model.Posts)
             {
         <article class="content-card">
             <div class="card">
-                <a asp-controller="Root" asp-action="Post" asp-route-id="@story.Id" class="card-image" style="background-image: url('@story.Cover1');" target="_blank"></a>
+                <a asp-controller="Root" asp-action="Post" asp-route-id="@story.Id" class="card-image" style="background-image: url('@story.Cover1?imageView2/2/w/480/h/260/q/100|imageslim');" target="_blank"></a>
+
+             
                 <header class="card-header">
                     <div class="card-title">
                         <h1 class="post-title"><a href="/post/@story.Id">@story.Title</a></h1>
@@ -20,9 +19,13 @@
                         </div>
                     </section>*@
                 <footer class="card-footer">
-                    <time class="post-date" datetime="@story.DatePublished">@story.DatePublished</time>
+                    <figure class="avatar avatar-xs">
+                        <img class="logo" alt="@story.Author.DisplayName" src="@story.Author.Avatar">
+                    </figure>
+                    <span>@story.Author.DisplayName</span> 
+                    <time class="post-date" datetime="@story.DatePublished">@story.DatePublished.ToString("yyyy-MM-dd")</time>
                     @*{{tags prefix=" · " limit="1"}}*@
-                    <a class="post-comment-count" href="/post/@story.Id#isso-thread">@story.CommentsCount</a>
+                    @*<a class="post-comment-count" href="/post/@story.Id#isso-thread">@story.CommentsCount</a>*@
                 </footer>
             </div>
         </article>

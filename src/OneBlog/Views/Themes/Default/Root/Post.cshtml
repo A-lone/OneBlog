@@ -45,8 +45,10 @@
             </div>
             <div class="tile-content">
                 <p class="tile-title"><strong>@Model.Author.DisplayName</strong></p>
+                <p>阅读 <a asp-controller="Author" asp-action="Index" asp-route-id="@Model.Author.Id">@Model.Author.DisplayName</a> 更多内容.</p>
             </div>
         </div>
+
     </div>
 
 

@@ -79,6 +79,16 @@ namespace OneBlog.Services
             return url;
         }
 
+        public async Task<string> Upload(Uri uri)
+        {
+            Guid guid = Guid.NewGuid();
+            AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+            var result = await asyncHttpClient
+                .UserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36")
+                .Referer(uri.AbsoluteUri).Uri(uri).Get();
+            string fileExtension = "png";
+            return await Upload(guid.ToString() + "." + fileExtension, result.GetBytes());
+        }
 
         public async Task<string> Upload(string key, byte[] buffer)
         {

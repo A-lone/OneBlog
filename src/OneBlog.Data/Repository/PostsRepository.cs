@@ -515,8 +515,10 @@ namespace OneBlog.Data
 
         public PostsResult GetPostsByCategory(Guid categoryId, int pageSize, int page)
         {
-            var list = _ctx.PostsInCategories.Include(m => m.Posts).Include(m => m.Posts.Author).Include(m => m.Posts.Comments)
-                .Where(m => m.CategoriesId == categoryId && m.Posts.IsPublished).Select(m => m.Posts);
+            //var list = _ctx.PostsInCategories.Include(m => m.Posts).Include(m => m.Posts.Author).Include(m => m.Posts.Comments)
+            //    .Where(m => m.CategoriesId == categoryId && m.Posts.IsPublished).Select(m => m.Posts);
+
+            var list = _ctx.Posts.Include(m => m.Author).Include(m => m.PostsInCategories).Where(m => m.PostsInCategories.Any(n => n.CategoriesId == categoryId) && m.IsPublished);
 
             var totalCount = list.Count();
 
@@ -530,7 +532,6 @@ namespace OneBlog.Data
             {
                 postlist.Add(_jsonService.GetPost(item));
             }
-
 
             var result = new PostsResult()
             {
@@ -581,6 +582,11 @@ namespace OneBlog.Data
                 return post.Count;
             }
             return 1;
+        }
+
+        public bool CheckIsOnly(string title, string authorId)
+        {
+            return _ctx.Posts.Include(m => m.Author).FirstOrDefault(m => m.Author.Id == authorId && m.Title == title) != null;
         }
     }
 }

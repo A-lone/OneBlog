@@ -8,8 +8,6 @@ namespace OneBlog.Configuration
     {
         public string ConnectionString { get; set; }
 
-        public string ConnectionString_Debug { get; set; }
-
         public DataProvider Provider { get; set; }
     }
 }

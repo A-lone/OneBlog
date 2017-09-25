@@ -3,7 +3,6 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using OneBlog.Configuration;
-using OneBlog.Data;
 using OneBlog.Data.Contracts;
 using OneBlog.Data.Models;
 using System;
@@ -11,14 +10,18 @@ using System;
 namespace OneBlog.Controllers
 {
 
-    [Route("category")]
-    public class CategoryController : Controller
+    [Route("author")]
+    public class AuthorController : Controller
     {
         private IPostsRepository _postsRepository;
+        private IUsersRepository _usersRepository;
         private IMemoryCache _memoryCache;
-        private IOptions<AppSettings> _appSettings;
-        public CategoryController(IPostsRepository postsRepository, IOptions<AppSettings> appSettings, IMemoryCache memoryCache)
+        readonly IOptions<AppSettings> _appSettings;
+
+        public AuthorController(IPostsRepository postsRepository, IUsersRepository usersRepository,
+            IMemoryCache memoryCache, IOptions<AppSettings> appSettings)
         {
+            _usersRepository = usersRepository;
             _postsRepository = postsRepository;
             _memoryCache = memoryCache;
             _appSettings = appSettings;
@@ -33,13 +36,12 @@ namespace OneBlog.Controllers
         [HttpGet("{id}/{page}")]
         public IActionResult Pager(Guid id, int page)
         {
-
-            var cacheKey = $"Categor_Index_{id.ToString()}_{page}";
+            var cacheKey = $"Author_Index_{id.ToString()}_{page}";
             string cached;
             PostsResult result = null;
             if (!_memoryCache.TryGetValue(cacheKey, out cached))
             {
-                result = _postsRepository.GetPostsByCategory(id, _appSettings.Value.PostPerPage, page);
+                result = _postsRepository.GetPosts(_appSettings.Value.PostPerPage, page, id);
                 if (result != null)
                 {
                     cached = JsonConvert.SerializeObject(result);
@@ -54,10 +56,16 @@ namespace OneBlog.Controllers
                 }
                 catch
                 {
-                    result = _postsRepository.GetPostsByCategory(id, _appSettings.Value.PostPerPage, page);
+                    result = _postsRepository.GetPosts(_appSettings.Value.PostPerPage, page, id);
                 }
             }
-            ViewBag.ControllerName = "category";
+            var userItem = _usersRepository.FindById(id.ToString());
+
+            if (userItem != null && userItem.Profile != null)
+            {
+                ViewBag.UserProfile = userItem.Profile;
+            }
+            ViewBag.ControllerName = "Author";
             ViewBag.Id = id.ToString();
             ViewBag.Title = $"{result.Category}";
             return View("_List", result);

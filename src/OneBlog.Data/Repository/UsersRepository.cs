@@ -101,7 +101,19 @@ namespace OneBlog.Data
 
         public UserItem FindById(string id)
         {
-            throw new NotImplementedException();
+            var user = _userManager.FindByIdAsync(id).Result;
+            if (user != null)
+            {
+                return new UserItem
+                {
+                    IsChecked = false,
+                    UserName = user.UserName,
+                    Email = user.Email,
+                    Profile = GetProfile(user),
+                    Roles = GetRoles(user)
+                };
+            }
+            return null;
         }
 
         public bool Remove(string name)
